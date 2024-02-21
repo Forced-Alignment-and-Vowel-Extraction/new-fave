@@ -8,3 +8,8 @@ from aligned_textgrid import AlignedTextGrid,\
 from pathlib import Path
 
 
+def extract():
+    """_summary_
+    """
+    pass
+

@@ -1,0 +1,278 @@
+---
+title: "`new-fave` Approach"
+date-modified: today
+order: 1
+---
+
+Each vowel measurement from `fasttrackpy` has two possible output formats:
+
+1. The formant tracks (both from the LPC analysis and smoothed)
+2. The smoothing parameters
+
+
+The plan is to use the smoothing parameters in much the same way that original FAVE used the reference values for F1, F2, bandwidth F1 and bandwidth F2.
+
+## Conceptual Demonstration
+
+```{python}
+import IPython
+from fasttrackpy import process_audio_file, \
+    process_directory, \
+    process_audio_textgrid,\
+    process_corpus
+import polars as pl
+import numpy as np
+from pathlib import Path
+```
+
+We can run fasttrackpy on the audio file `ay.wav`
+
+```{python}
+audio_path = Path("assets", "ay.wav")
+IPython.display.Audio(audio_path)
+```
+
+```{python}
+candidates = process_audio_file(
+    path=audio_path, 
+    nstep = 100,
+    min_max_formant=3000,
+    max_max_formant=6000
+    )
+```
+
+From the `candidates` object, we can get a polars dataframe of the discrete cosine parameters for
+
+- All candidates
+- The winner candidate
+
+```{python}
+winner_df = candidates.to_df(
+    which = "winner", 
+    output = "param"
+    )
+winner_df
+```
+
+We can use all of these parameters like a *single* vector describing the vowel measurement.
+
+```{python}
+#| code-fold: true
+#| code-summary: "Widening winner_df"
+winner_df\
+    .select(
+        pl.col("^F\d$")
+    )\
+    .with_row_count()\
+    .melt(
+        id_vars = "row_nr"
+    )\
+    .with_columns(
+        [
+            pl.concat_str([
+                pl.col("variable"),
+                pl.col("row_nr")
+            ],
+            separator = "_")\
+            .alias("param"),
+            pl.lit(1).alias("idx")
+        ]
+    )\
+    .select(
+        "idx",
+        "param", 
+        "value"
+    )\
+    .pivot(
+        index = "idx",
+        columns = "param",
+        values = "value"
+    )
+```
+
+The 0th parameter for each formant is roughly the formant average, with the subsequent parameters capturing its wiggliness.
+
+## The FAVE step
+
+As a demonstration, we'll use the parameters from each candidate of this single vowel *as if* they were the concatenated parameters of many tokens.
+
+```{python}
+#| code-fold: true
+#| code-summary: "Widening candidates"
+all_param = candidates.to_df(
+    which = "all",
+    output = "param"
+)
+candidate_wide = all_param\
+    .select(
+        pl.col("candidate"),
+        pl.col("^F\d$")
+    )\
+    .with_columns(
+       pl.first()\
+        .cum_count()\
+        .alias("row_number")\
+        .over("candidate")\
+        .flatten()
+    )\
+    .melt(
+        id_vars = ["candidate", "row_number"]
+    )\
+    .with_columns(
+        [
+            pl.concat_str([
+                pl.col("variable"),
+                pl.col("row_number")
+            ],
+            separator = "_")\
+            .alias("param")
+        ]
+    )\
+    .select(
+        "candidate",
+        "param",
+        "value"
+    )\
+    .pivot(
+        index = "candidate",
+        columns = "param",
+        values = "value"
+    )
+
+candidate_wide.head(10)
+```
+
+From these parameters, we can calculate means and covariance matrices to caclulate the mahalanobis distance of each candidate from the central tendency.
+
+```{python}
+from scipy.spatial.distance import mahalanobis
+```
+
+```{python}
+#| code-fold: true
+#| code-summary: "Calculcating Mahalanobis Distance"
+param_cov = np.cov(
+    candidate_wide\
+    .select(
+        pl.col("^F.*$"),
+    )
+    .to_numpy()\
+    .T
+)
+
+param_inv_cov = np.linalg.inv(param_cov)
+
+param_means = candidate_wide\
+    .select(
+        pl.col("^F.*$")
+    )\
+    .mean()\
+    .to_numpy()\
+    .flatten()
+
+
+candidate_mahal = candidate_wide\
+    .melt(
+        id_vars = "candidate"
+    )\
+    .group_by(
+        "candidate"
+    )\
+    .agg(
+       pl.col("value")\
+        .flatten()\
+        .map_elements(np.array)\
+        .map_elements(
+            lambda v:
+            mahalanobis(
+                v, 
+                param_means,
+                param_inv_cov
+            )
+        )
+    )\
+    .sort(
+        "value"
+    )
+
+candidate_mahal.head()
+```
+
+In this particular case, the outcome wasn't that great, since we were actually searching for the central-most candidate of this candidate set, wheras the actual version would be comparing a candidate set to the smoothest formant tracks from the first pass.
+
+```{python}
+candidates.winner.spectrogram()
+```
+
+```{python}
+mahal_idx = candidate_mahal.select("candidate").head(1).item()
+candidates.candidates[mahal_idx].spectrogram()
+```
+
+## Things to consider
+
+- Perhaps the mahalanobis search should be limited to just the first two formants?
+- Perhaps there should be a "roughness" cutoff, or the top half of the candidates with the worst mean-squared-error eliminated?
+
+## Other Possibilities
+
+There may be some possibility of a gradient-descent like approach, perhaps just within candidates. 
+
+```{python}
+#| code-fold: true
+candidate_error = candidates.to_df(
+    which = "all"
+) \
+    .group_by(
+        "candidate"
+    )\
+    .agg(
+        pl.col("error").mean(),
+        pl.col("max_formant").mean()
+    )
+
+error_dfs = candidate_error.join(candidate_mahal, on = "candidate")
+```
+```{python}
+from matplotlib import pyplot as plt
+```
+
+```{python}
+#| code-fold: true
+plt.scatter(
+    error_dfs["max_formant"],
+    error_dfs["error"]
+)
+plt.xlabel("max formant")
+plt.ylabel("mse")
+```
+
+This is *roughly* the kind of loss function you'd want to see... but its walls aren't monotonic.
+
+```{python}
+#| code-fold: true
+error_dfs = error_dfs\
+    .sort("max_formant")\
+    .with_columns(
+        error_diff = pl.col("error").diff()
+    )\
+    .with_columns(
+        sign = pl.col("error_diff").sign()
+    )
+
+plt.scatter(
+    error_dfs["max_formant"],
+    error_dfs["error_diff"],
+    c = error_dfs["sign"]
+)
+```
+
+```{python}
+#| code-fold: true
+plt.scatter(
+    error_dfs["max_formant"],
+    error_dfs["value"]
+)
+plt.xlabel("max formant")
+plt.ylabel("mahalanobis")
+```

@@ -23,6 +23,7 @@ website:
         align: left
         contents:
           - index.qmd
+          - auto: dev_plan
           # - usage/getting_started.qmd
           # - usage/all_arguments.qmd
           # - usage/pythonic_use.ipynb
@@ -40,19 +41,21 @@ interlinks:
 format:
   html:
     theme: 
-      light: flatly
-      dark: darkly
-    css: styles.css
+      light: [flatly, styles/light.scss]
+      dark: [darkly, styles/dark.scss]
+    css: styles/styles.css
     toc: true
     toc-depth: 4
 
 quartodoc:
   style: pkgdown
   dir: reference
-  package: fasttrackpy
+  package: new_fave
   sidebar: "reference/_sidebar.yml"
   parser: google
   render_interlinks: false
   sections:
-    contents:
-      - new_fave
+    - title: Extract
+      desc: "Extract"
+      contents: 
+        - extract

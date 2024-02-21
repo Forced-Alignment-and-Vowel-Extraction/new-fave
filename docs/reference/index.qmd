@@ -1,0 +1,9 @@
+# Function reference {.doc .doc-index}
+
+## Extract
+
+Extract
+
+| | |
+| --- | --- |
+| [extract](extract.qmd#new_fave.extract) |  |

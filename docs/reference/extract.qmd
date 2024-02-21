@@ -1,0 +1,17 @@
+# extract { #new_fave.extract }
+
+`extract`
+
+
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [extract](#new_fave.extract.extract) | _summary_ |
+
+### extract { #new_fave.extract.extract }
+
+`extract.extract()`
+
+_summary_
