@@ -11,7 +11,7 @@
 		"ghcr.io/devcontainers-contrib/features/poetry:2": {
 			"version": "latest"
 		}
-	}
+	},
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
@@ -23,7 +23,19 @@
 	// "postCreateCommand": "pip3 install --user -r requirements.txt",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				// Add Jupyter and Python vscode extensions
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-renderers",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"vsls-contrib.codetour",
+				"njpwerner.autodocstring"
+			]
+		}
+	},
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
