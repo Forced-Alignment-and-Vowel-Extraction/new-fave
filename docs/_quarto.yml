@@ -1,0 +1,58 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "new-fave"
+  #favicon: assets/logo_f2.png
+  page-navigation: true
+  navbar:
+    left: 
+      - href: index.qmd
+        text: Home
+      - href: reference/
+        text: Package reference 
+    right:
+      - icon: github
+        href: https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave
+  sidebar:
+      - id: get-started
+        #logo: assets/logo_f2.png
+        title: Get Started
+        style: floating
+        align: left
+        contents:
+          - index.qmd
+          # - usage/getting_started.qmd
+          # - usage/all_arguments.qmd
+          # - usage/pythonic_use.ipynb
+
+metadata-files:
+  - reference/_sidebar.yml
+
+interlinks:
+  sources:
+    numpy:
+      url: https://numpy.org/doc/stable/
+    python:
+      url: https://docs.python.org/3/          
+
+format:
+  html:
+    theme: 
+      light: flatly
+      dark: darkly
+    css: styles.css
+    toc: true
+    toc-depth: 4
+
+quartodoc:
+  style: pkgdown
+  dir: reference
+  package: fasttrackpy
+  sidebar: "reference/_sidebar.yml"
+  parser: google
+  render_interlinks: false
+  sections:
+    contents:
+      - new_fave
