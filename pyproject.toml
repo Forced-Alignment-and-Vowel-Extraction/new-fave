@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "new-fave"
+version = "0.1.0"
+description = "New Vowel Extraction Suite"
+authors = ["JoFrhwld <jofrhwld@gmail.com>"]
+license = "GPLv3"
+readme = "README.md"
+packages = [{include = "new_fave", from="src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.12"
+aligned-textgrid = "^0.6.3"
+fasttrackpy = "^0.3.0"
+numpy = "^1.26.4"
+
+
+[tool.poetry.group.docs.dependencies]
+quartodoc = "^0.7.2"
+ipython = "^8.21.0"
+nbformat = "^5.9.2"
+jupyter = "^1.0.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
