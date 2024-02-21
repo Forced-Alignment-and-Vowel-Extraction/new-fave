@@ -19,4 +19,4 @@ The plan is for new-fave to bring together, under one tool
 
 ### What will new-fave contribute to the *analysis*?
 
-See [New-Fave Approach](00_new-fave-approach.qmd)
+See [New-Fave Approach](new-fave-approach.qmd)
