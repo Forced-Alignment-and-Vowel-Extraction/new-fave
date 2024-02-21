@@ -1,0 +1,5 @@
+.cell:not(.page-full):has(.cell-output){
+    padding: 2%;
+    border-radius: 10px;
+    margin-bottom: 1em;
+ }

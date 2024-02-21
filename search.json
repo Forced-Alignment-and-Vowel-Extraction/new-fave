@@ -1,0 +1,126 @@
+[
+  {
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
+    "section": "",
+    "text": "Extract\n\n\n\nextract",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#extract",
+    "href": "reference/index.html#extract",
+    "title": "Function reference",
+    "section": "",
+    "text": "Extract\n\n\n\nextract",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "dev_plan/new-fave-approach.html",
+    "href": "dev_plan/new-fave-approach.html",
+    "title": "new-fave Approach",
+    "section": "",
+    "text": "Each vowel measurement from fasttrackpy has two possible output formats:\nThe plan is to use the smoothing parameters in much the same way that original FAVE used the reference values for F1, F2, bandwidth F1 and bandwidth F2.",
+    "crumbs": [
+      "Home",
+      "Development Plan",
+      "`new-fave` Approach"
+    ]
+  },
+  {
+    "objectID": "dev_plan/new-fave-approach.html#conceptual-demonstration",
+    "href": "dev_plan/new-fave-approach.html#conceptual-demonstration",
+    "title": "new-fave Approach",
+    "section": "Conceptual Demonstration",
+    "text": "Conceptual Demonstration\n\nimport IPython\nfrom fasttrackpy import process_audio_file, \\\n    process_directory, \\\n    process_audio_textgrid,\\\n    process_corpus\nimport polars as pl\nimport numpy as np\nfrom pathlib import Path\n\nWe can run fasttrackpy on the audio file ay.wav\n\naudio_path = Path(\"assets\", \"ay.wav\")\nIPython.display.Audio(audio_path)\n\n\n                \n                    \n                    Your browser does not support the audio element.\n                \n              \n\n\n\ncandidates = process_audio_file(\n    path=audio_path, \n    nstep = 100,\n    min_max_formant=3000,\n    max_max_formant=6000\n    )\n\nFrom the candidates object, we can get a polars dataframe of the discrete cosine parameters for\n\nAll candidates\nThe winner candidate\n\n\nwinner_df = candidates.to_df(\n    which = \"winner\", \n    output = \"param\"\n    )\nwinner_df\n\n\nshape: (5, 6)\n\n\n\nF1\nF2\nF3\nF4\nerror\nfile_name\n\n\nf64\nf64\nf64\nf64\nf64\nstr\n\n\n\n\n539.09523\n1651.54563\n2492.518487\n3256.181377\n0.005605\n\"ay.wav\"\n\n\n186.625589\n-552.13926\n81.022279\n58.146825\n0.005605\n\"ay.wav\"\n\n\n-91.756107\n119.869283\n79.039307\n107.86501\n0.005605\n\"ay.wav\"\n\n\n-1.143117\n16.252452\n-11.966621\n-74.20322\n0.005605\n\"ay.wav\"\n\n\n12.029282\n-35.325007\n-15.433872\n225.32863\n0.005605\n\"ay.wav\"\n\n\n\n\n\n\nWe can use all of these parameters like a single vector describing the vowel measurement.\n\n\nWidening winner_df\nwinner_df\\\n    .select(\n        pl.col(\"^F\\d$\")\n    )\\\n    .with_row_count()\\\n    .melt(\n        id_vars = \"row_nr\"\n    )\\\n    .with_columns(\n        [\n            pl.concat_str([\n                pl.col(\"variable\"),\n                pl.col(\"row_nr\")\n            ],\n            separator = \"_\")\\\n            .alias(\"param\"),\n            pl.lit(1).alias(\"idx\")\n        ]\n    )\\\n    .select(\n        \"idx\",\n        \"param\", \n        \"value\"\n    )\\\n    .pivot(\n        index = \"idx\",\n        columns = \"param\",\n        values = \"value\"\n    )\n\n\n\nshape: (1, 21)\n\n\n\nidx\nF1_0\nF1_1\nF1_2\nF1_3\nF1_4\nF2_0\nF2_1\nF2_2\nF2_3\nF2_4\nF3_0\nF3_1\nF3_2\nF3_3\nF3_4\nF4_0\nF4_1\nF4_2\nF4_3\nF4_4\n\n\ni32\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\n\n\n\n\n1\n539.09523\n186.625589\n-91.756107\n-1.143117\n12.029282\n1651.54563\n-552.13926\n119.869283\n16.252452\n-35.325007\n2492.518487\n81.022279\n79.039307\n-11.966621\n-15.433872\n3256.181377\n58.146825\n107.86501\n-74.20322\n225.32863\n\n\n\n\n\n\nThe 0th parameter for each formant is roughly the formant average, with the subsequent parameters capturing its wiggliness.",
+    "crumbs": [
+      "Home",
+      "Development Plan",
+      "`new-fave` Approach"
+    ]
+  },
+  {
+    "objectID": "dev_plan/new-fave-approach.html#the-fave-step",
+    "href": "dev_plan/new-fave-approach.html#the-fave-step",
+    "title": "new-fave Approach",
+    "section": "The FAVE step",
+    "text": "The FAVE step\nAs a demonstration, we’ll use the parameters from each candidate of this single vowel as if they were the concatenated parameters of many tokens.\n\n\nWidening candidates\nall_param = candidates.to_df(\n    which = \"all\",\n    output = \"param\"\n)\ncandidate_wide = all_param\\\n    .select(\n        pl.col(\"candidate\"),\n        pl.col(\"^F\\d$\")\n    )\\\n    .with_columns(\n       pl.first()\\\n        .cum_count()\\\n        .alias(\"row_number\")\\\n        .over(\"candidate\")\\\n        .flatten()\n    )\\\n    .melt(\n        id_vars = [\"candidate\", \"row_number\"]\n    )\\\n    .with_columns(\n        [\n            pl.concat_str([\n                pl.col(\"variable\"),\n                pl.col(\"row_number\")\n            ],\n            separator = \"_\")\\\n            .alias(\"param\")\n        ]\n    )\\\n    .select(\n        \"candidate\",\n        \"param\",\n        \"value\"\n    )\\\n    .pivot(\n        index = \"candidate\",\n        columns = \"param\",\n        values = \"value\"\n    )\n\ncandidate_wide.head(10)\n\n\n\nshape: (10, 21)\n\n\n\ncandidate\nF1_0\nF1_1\nF1_2\nF1_3\nF1_4\nF2_0\nF2_1\nF2_2\nF2_3\nF2_4\nF3_0\nF3_1\nF3_2\nF3_3\nF3_4\nF4_0\nF4_1\nF4_2\nF4_3\nF4_4\n\n\ni32\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\nf64\n\n\n\n\n1\n502.77775\n150.312112\n-88.480474\n24.532224\n14.208993\n1305.729888\n-168.945456\n-31.820996\n190.387193\n-243.572838\n1801.39986\n-615.227095\n-13.661375\n134.472366\n-61.894013\n2457.682\n69.755579\n53.71938\n-29.9728\n-1.301615\n\n\n2\n507.380282\n148.749273\n-84.760192\n24.298517\n8.49113\n1360.697598\n-243.120361\n15.98847\n187.457117\n-271.578802\n1816.386339\n-618.467757\n2.857951\n123.449857\n-70.562178\n2461.41668\n78.238212\n55.844676\n-31.392261\n-2.119102\n\n\n3\n510.099176\n158.8074\n-84.631672\n21.637014\n6.878106\n1326.696567\n-172.092172\n-11.737646\n175.180205\n-224.295859\n1842.705576\n-528.593545\n54.228527\n124.895186\n-70.802384\n2474.199478\n83.861343\n63.801884\n-29.104034\n-15.387919\n\n\n4\n512.47991\n161.709516\n-85.07673\n20.306357\n7.227487\n1345.200452\n-177.421677\n-12.739579\n172.286451\n-210.680684\n1878.994032\n-473.409678\n78.506549\n109.250251\n-98.510866\n2475.453987\n82.760449\n62.573132\n-29.221629\n-14.012476\n\n\n5\n517.752824\n164.580346\n-83.964954\n16.758352\n2.83004\n1370.195806\n-212.826085\n2.955771\n173.107526\n-232.821651\n1910.556479\n-433.801687\n100.725751\n84.551815\n-136.052198\n2480.716733\n87.57385\n64.406756\n-31.387129\n-18.175793\n\n\n6\n517.202953\n169.851347\n-82.940326\n12.689065\n0.516521\n1362.820999\n-191.337591\n0.081001\n158.743614\n-205.208321\n1970.764308\n-326.45131\n128.720157\n26.728758\n-188.722615\n2484.615346\n90.304482\n65.544689\n-32.792817\n-20.42035\n\n\n7\n520.772738\n172.463945\n-81.220448\n7.416068\n-4.530241\n1387.218435\n-221.927489\n9.260226\n148.483358\n-210.270511\n2016.174658\n-267.552984\n150.140744\n-11.672038\n-243.569395\n2485.537395\n89.570658\n63.550739\n-34.072867\n-20.653619\n\n\n8\n523.212305\n176.489164\n-83.906518\n6.57713\n-2.022803\n1389.531579\n-207.492729\n-6.879661\n150.199976\n-189.881377\n2051.29719\n-215.212311\n149.678612\n-39.500438\n-260.084927\n2487.312853\n87.417942\n63.825651\n-32.722107\n-18.773997\n\n\n9\n531.241119\n177.341901\n-94.755289\n2.376072\n6.548657\n1422.046059\n-230.070746\n-28.60187\n144.786954\n-169.432597\n2095.238242\n-176.983983\n130.394371\n-66.08891\n-243.822951\n2490.923279\n90.053619\n62.443083\n-34.962302\n-18.333213\n\n\n10\n530.801207\n178.526624\n-92.232357\n1.219054\n2.595888\n1422.703222\n-238.737068\n-11.100193\n142.24401\n-188.531477\n2106.350736\n-143.365011\n163.422203\n-83.228029\n-268.474447\n2491.094774\n89.736583\n66.064985\n-32.596599\n-17.360636\n\n\n\n\n\n\nFrom these parameters, we can calculate means and covariance matrices to caclulate the mahalanobis distance of each candidate from the central tendency.\n\nfrom scipy.spatial.distance import mahalanobis\n\n\n\nCalculcating Mahalanobis Distance\nparam_cov = np.cov(\n    candidate_wide\\\n    .select(\n        pl.col(\"^F.*$\"),\n    )\n    .to_numpy()\\\n    .T\n)\n\nparam_inv_cov = np.linalg.inv(param_cov)\n\nparam_means = candidate_wide\\\n    .select(\n        pl.col(\"^F.*$\")\n    )\\\n    .mean()\\\n    .to_numpy()\\\n    .flatten()\n\n\ncandidate_mahal = candidate_wide\\\n    .melt(\n        id_vars = \"candidate\"\n    )\\\n    .group_by(\n        \"candidate\"\n    )\\\n    .agg(\n       pl.col(\"value\")\\\n        .flatten()\\\n        .map_elements(np.array)\\\n        .map_elements(\n            lambda v:\n            mahalanobis(\n                v, \n                param_means,\n                param_inv_cov\n            )\n        )\n    )\\\n    .sort(\n        \"value\"\n    )\n\ncandidate_mahal.head()\n\n\n\nshape: (5, 2)\n\n\n\ncandidate\nvalue\n\n\ni32\nf64\n\n\n\n\n45\n1.875518\n\n\n46\n1.977782\n\n\n42\n1.98827\n\n\n53\n2.08868\n\n\n43\n2.115386\n\n\n\n\n\n\nIn this particular case, the outcome wasn’t that great, since we were actually searching for the central-most candidate of this candidate set, wheras the actual version would be comparing a candidate set to the smoothest formant tracks from the first pass.\n\ncandidates.winner.spectrogram()\n\n\n\n\n\n\n\n\n\nmahal_idx = candidate_mahal.select(\"candidate\").head(1).item()\ncandidates.candidates[mahal_idx].spectrogram()",
+    "crumbs": [
+      "Home",
+      "Development Plan",
+      "`new-fave` Approach"
+    ]
+  },
+  {
+    "objectID": "dev_plan/new-fave-approach.html#things-to-consider",
+    "href": "dev_plan/new-fave-approach.html#things-to-consider",
+    "title": "new-fave Approach",
+    "section": "Things to consider",
+    "text": "Things to consider\n\nPerhaps the mahalanobis search should be limited to just the first two formants?\nPerhaps there should be a “roughness” cutoff, or the top half of the candidates with the worst mean-squared-error eliminated?",
+    "crumbs": [
+      "Home",
+      "Development Plan",
+      "`new-fave` Approach"
+    ]
+  },
+  {
+    "objectID": "dev_plan/new-fave-approach.html#other-possibilities",
+    "href": "dev_plan/new-fave-approach.html#other-possibilities",
+    "title": "new-fave Approach",
+    "section": "Other Possibilities",
+    "text": "Other Possibilities\nThere may be some possibility of a gradient-descent like approach, perhaps just within candidates.\n\n\nCode\ncandidate_error = candidates.to_df(\n    which = \"all\"\n) \\\n    .group_by(\n        \"candidate\"\n    )\\\n    .agg(\n        pl.col(\"error\").mean(),\n        pl.col(\"max_formant\").mean()\n    )\n\nerror_dfs = candidate_error.join(candidate_mahal, on = \"candidate\")\n\n\n\nfrom matplotlib import pyplot as plt\n\n\n\nCode\nplt.scatter(\n    error_dfs[\"max_formant\"],\n    error_dfs[\"error\"]\n)\nplt.xlabel(\"max formant\")\nplt.ylabel(\"mse\")\n\n\nText(0, 0.5, 'mse')\n\n\n\n\n\n\n\n\n\nThis is roughly the kind of loss function you’d want to see… but its walls aren’t monotonic.\n\n\nCode\nerror_dfs = error_dfs\\\n    .sort(\"max_formant\")\\\n    .with_columns(\n        error_diff = pl.col(\"error\").diff()\n    )\\\n    .with_columns(\n        sign = pl.col(\"error_diff\").sign()\n    )\n\nplt.scatter(\n    error_dfs[\"max_formant\"],\n    error_dfs[\"error_diff\"],\n    c = error_dfs[\"sign\"]\n)\n\n\n\n\n\n\n\n\n\n\n\nCode\nplt.scatter(\n    error_dfs[\"max_formant\"],\n    error_dfs[\"value\"]\n)\nplt.xlabel(\"max formant\")\nplt.ylabel(\"mahalanobis\")\n\n\nText(0, 0.5, 'mahalanobis')",
+    "crumbs": [
+      "Home",
+      "Development Plan",
+      "`new-fave` Approach"
+    ]
+  },
+  {
+    "objectID": "dev_plan/index.html",
+    "href": "dev_plan/index.html",
+    "title": "Development Plan",
+    "section": "",
+    "text": "The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.\n\n\n\nThe plan is for new-fave to bring together, under one tool\n\nfave-recodeing of input data, allowing for dialect, language, or research question specific recoding of alignment output\nCustomizable point measurement heuristics\nEnriched data output enabled by its opinionated approach to data input. (e.g. fave-syllabify)\n\n\n\n\nSee New-Fave Approach",
+    "crumbs": [
+      "Home",
+      "Development Plan"
+    ]
+  },
+  {
+    "objectID": "dev_plan/index.html#what-is-favey-about-this",
+    "href": "dev_plan/index.html#what-is-favey-about-this",
+    "title": "Development Plan",
+    "section": "",
+    "text": "The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.\n\n\n\nThe plan is for new-fave to bring together, under one tool\n\nfave-recodeing of input data, allowing for dialect, language, or research question specific recoding of alignment output\nCustomizable point measurement heuristics\nEnriched data output enabled by its opinionated approach to data input. (e.g. fave-syllabify)\n\n\n\n\nSee New-Fave Approach",
+    "crumbs": [
+      "Home",
+      "Development Plan"
+    ]
+  },
+  {
+    "objectID": "reference/extract.html",
+    "href": "reference/extract.html",
+    "title": "extract",
+    "section": "",
+    "text": "extract\n\n\n\n\n\nName\nDescription\n\n\n\n\nextract\nsummary\n\n\n\n\n\nextract.extract()\nsummary",
+    "crumbs": [
+      "Extract",
+      "extract"
+    ]
+  },
+  {
+    "objectID": "reference/extract.html#functions",
+    "href": "reference/extract.html#functions",
+    "title": "extract",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nextract\nsummary\n\n\n\n\n\nextract.extract()\nsummary",
+    "crumbs": [
+      "Extract",
+      "extract"
+    ]
+  }
+]
