@@ -36,4 +36,6 @@ jobs:
               uses: quarto-dev/quarto-actions/setup@v2
             - name: Render and publush to gh-pages
               run:
+                git config --global user.email "quarto-github-actions-publish@example.com"
+                git config --global user.name "Quarto GHA Workflow Runner"
                 poetry run quarto publish gh-pages docs --no-browser
