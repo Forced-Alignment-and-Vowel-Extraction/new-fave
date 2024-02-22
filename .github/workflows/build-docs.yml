@@ -35,7 +35,7 @@ jobs:
             - name: Setup quarto
               uses: quarto-dev/quarto-actions/setup@v2
             - name: activate venv
-              run: source .venv/bin/activate
+              run: poetry shell
             - name: Render and publush to gh-pages
               uses: quarto-dev/quarto-actions/publish@v2
               with: 
