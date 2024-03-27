@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.550">
+<meta name="generator" content="quarto-1.4.552">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 22, 2024</p>
+      <p class="date-modified">March 27, 2024</p>
     </div>
   </div>
     
@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The plan is to use the smoothing parameters in much the same way that original FAVE used the reference values for F1, F2, bandwidth F1 and bandwidth F2.</p>
 <section id="conceptual-demonstration" class="level2">
 <h2 class="anchored" data-anchor-id="conceptual-demonstration">Conceptual Demonstration</h2>
-<div id="1c6e4d15" class="cell" data-execution_count="1">
+<div id="3c12f49e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasttrackpy <span class="im">import</span> process_audio_file, <span class="op">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    process_directory, <span class="op">\</span></span>
@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can run fasttrackpy on the audio file <code>ay.wav</code></p>
-<div id="3e71c0f6" class="cell" data-execution_count="2">
+<div id="069dce6f" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>audio_path <span class="op">=</span> Path(<span class="st">"assets"</span>, <span class="st">"ay.wav"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>IPython.display.Audio(audio_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -266,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               
 </div>
 </div>
-<div id="41ca54bf" class="cell" data-execution_count="3">
+<div id="2cc3fac3" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>candidates <span class="op">=</span> process_audio_file(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    path<span class="op">=</span>audio_path, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    nstep <span class="op">=</span> <span class="dv">100</span>,</span>
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>All candidates</li>
 <li>The winner candidate</li>
 </ul>
-<div id="29f37139" class="cell" data-execution_count="4">
+<div id="50f977db" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>winner_df <span class="op">=</span> candidates.to_df(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    which <span class="op">=</span> <span class="st">"winner"</span>, </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> <span class="st">"param"</span></span>
@@ -316,43 +316,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>539.09523</td>
-<td>1651.54563</td>
-<td>2492.518487</td>
-<td>3256.181377</td>
-<td>0.005605</td>
+<td>543.719318</td>
+<td>1648.995798</td>
+<td>2460.113393</td>
+<td>3263.261512</td>
+<td>0.026419</td>
 <td>"ay.wav"</td>
 </tr>
 <tr class="even">
-<td>186.625589</td>
-<td>-552.13926</td>
-<td>81.022279</td>
-<td>58.146825</td>
-<td>0.005605</td>
+<td>166.338746</td>
+<td>-551.8309</td>
+<td>34.624759</td>
+<td>-234.015676</td>
+<td>0.026419</td>
 <td>"ay.wav"</td>
 </tr>
 <tr class="odd">
-<td>-91.756107</td>
-<td>119.869283</td>
-<td>79.039307</td>
-<td>107.86501</td>
-<td>0.005605</td>
+<td>-94.634745</td>
+<td>111.380402</td>
+<td>49.117843</td>
+<td>-93.450775</td>
+<td>0.026419</td>
 <td>"ay.wav"</td>
 </tr>
 <tr class="even">
-<td>-1.143117</td>
-<td>16.252452</td>
-<td>-11.966621</td>
-<td>-74.20322</td>
-<td>0.005605</td>
+<td>-15.09858</td>
+<td>12.663267</td>
+<td>-24.569898</td>
+<td>-229.305305</td>
+<td>0.026419</td>
 <td>"ay.wav"</td>
 </tr>
 <tr class="odd">
-<td>12.029282</td>
-<td>-35.325007</td>
-<td>-15.433872</td>
-<td>225.32863</td>
-<td>0.005605</td>
+<td>28.328895</td>
+<td>-26.586388</td>
+<td>5.377181</td>
+<td>227.96503</td>
+<td>0.026419</td>
 <td>"ay.wav"</td>
 </tr>
 </tbody>
@@ -362,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can use all of these parameters like a <em>single</em> vector describing the vowel measurement.</p>
-<div id="a626f605" class="cell" data-execution_count="5">
+<div id="fb5a7da9" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Widening winner_df</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>winner_df<span class="op">\</span></span>
@@ -457,26 +457,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>539.09523</td>
-<td>186.625589</td>
-<td>-91.756107</td>
-<td>-1.143117</td>
-<td>12.029282</td>
-<td>1651.54563</td>
-<td>-552.13926</td>
-<td>119.869283</td>
-<td>16.252452</td>
-<td>-35.325007</td>
-<td>2492.518487</td>
-<td>81.022279</td>
-<td>79.039307</td>
-<td>-11.966621</td>
-<td>-15.433872</td>
-<td>3256.181377</td>
-<td>58.146825</td>
-<td>107.86501</td>
-<td>-74.20322</td>
-<td>225.32863</td>
+<td>543.719318</td>
+<td>166.338746</td>
+<td>-94.634745</td>
+<td>-15.09858</td>
+<td>28.328895</td>
+<td>1648.995798</td>
+<td>-551.8309</td>
+<td>111.380402</td>
+<td>12.663267</td>
+<td>-26.586388</td>
+<td>2460.113393</td>
+<td>34.624759</td>
+<td>49.117843</td>
+<td>-24.569898</td>
+<td>5.377181</td>
+<td>3263.261512</td>
+<td>-234.015676</td>
+<td>-93.450775</td>
+<td>-229.305305</td>
+<td>227.96503</td>
 </tr>
 </tbody>
 </table>
@@ -489,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-fave-step" class="level2">
 <h2 class="anchored" data-anchor-id="the-fave-step">The FAVE step</h2>
 <p>As a demonstration, we’ll use the parameters from each candidate of this single vowel <em>as if</em> they were the concatenated parameters of many tokens.</p>
-<div id="cf4a5eab" class="cell" data-execution_count="6">
+<div id="4a078843" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Widening candidates</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>all_param <span class="op">=</span> candidates.to_df(</span>
@@ -596,233 +596,233 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>502.77775</td>
-<td>150.312112</td>
-<td>-88.480474</td>
-<td>24.532224</td>
-<td>14.208993</td>
-<td>1305.729888</td>
-<td>-168.945456</td>
-<td>-31.820996</td>
-<td>190.387193</td>
-<td>-243.572838</td>
-<td>1801.39986</td>
-<td>-615.227095</td>
-<td>-13.661375</td>
-<td>134.472366</td>
-<td>-61.894013</td>
-<td>2457.682</td>
-<td>69.755579</td>
-<td>53.71938</td>
-<td>-29.9728</td>
-<td>-1.301615</td>
+<td>411.335104</td>
+<td>108.807541</td>
+<td>-102.036096</td>
+<td>-52.689006</td>
+<td>-25.430442</td>
+<td>783.986401</td>
+<td>198.205354</td>
+<td>-138.877187</td>
+<td>-102.000196</td>
+<td>73.494964</td>
+<td>1488.618269</td>
+<td>-193.049408</td>
+<td>-51.989343</td>
+<td>79.57853</td>
+<td>-4.763601</td>
+<td>1989.115833</td>
+<td>-203.601313</td>
+<td>95.822211</td>
+<td>35.665854</td>
+<td>28.387325</td>
 </tr>
 <tr class="even">
 <td>2</td>
-<td>507.380282</td>
-<td>148.749273</td>
-<td>-84.760192</td>
-<td>24.298517</td>
-<td>8.49113</td>
-<td>1360.697598</td>
-<td>-243.120361</td>
-<td>15.98847</td>
-<td>187.457117</td>
-<td>-271.578802</td>
-<td>1816.386339</td>
-<td>-618.467757</td>
-<td>2.857951</td>
-<td>123.449857</td>
-<td>-70.562178</td>
-<td>2461.41668</td>
-<td>78.238212</td>
-<td>55.844676</td>
-<td>-31.392261</td>
-<td>-2.119102</td>
+<td>429.48413</td>
+<td>136.489588</td>
+<td>-77.329589</td>
+<td>-32.453246</td>
+<td>-19.683157</td>
+<td>817.272539</td>
+<td>233.431206</td>
+<td>-105.974785</td>
+<td>-75.521639</td>
+<td>84.792808</td>
+<td>1507.828685</td>
+<td>-170.774711</td>
+<td>-20.899267</td>
+<td>87.297997</td>
+<td>0.874288</td>
+<td>2047.827676</td>
+<td>-119.536892</td>
+<td>125.976036</td>
+<td>45.429666</td>
+<td>39.163431</td>
 </tr>
 <tr class="odd">
 <td>3</td>
-<td>510.099176</td>
-<td>158.8074</td>
-<td>-84.631672</td>
-<td>21.637014</td>
-<td>6.878106</td>
-<td>1326.696567</td>
-<td>-172.092172</td>
-<td>-11.737646</td>
-<td>175.180205</td>
-<td>-224.295859</td>
-<td>1842.705576</td>
-<td>-528.593545</td>
-<td>54.228527</td>
-<td>124.895186</td>
-<td>-70.802384</td>
-<td>2474.199478</td>
-<td>83.861343</td>
-<td>63.801884</td>
-<td>-29.104034</td>
-<td>-15.387919</td>
+<td>444.165099</td>
+<td>156.685253</td>
+<td>-68.149797</td>
+<td>-19.184595</td>
+<td>13.005725</td>
+<td>855.027925</td>
+<td>257.016431</td>
+<td>-95.357076</td>
+<td>-65.852872</td>
+<td>100.541967</td>
+<td>1534.882715</td>
+<td>-170.165738</td>
+<td>-3.097089</td>
+<td>91.15517</td>
+<td>-0.872657</td>
+<td>2108.839063</td>
+<td>-65.823412</td>
+<td>109.600672</td>
+<td>29.18736</td>
+<td>55.365782</td>
 </tr>
 <tr class="even">
 <td>4</td>
-<td>512.47991</td>
-<td>161.709516</td>
-<td>-85.07673</td>
-<td>20.306357</td>
-<td>7.227487</td>
-<td>1345.200452</td>
-<td>-177.421677</td>
-<td>-12.739579</td>
-<td>172.286451</td>
-<td>-210.680684</td>
-<td>1878.994032</td>
-<td>-473.409678</td>
-<td>78.506549</td>
-<td>109.250251</td>
-<td>-98.510866</td>
-<td>2475.453987</td>
-<td>82.760449</td>
-<td>62.573132</td>
-<td>-29.221629</td>
-<td>-14.012476</td>
+<td>452.357105</td>
+<td>158.30363</td>
+<td>-66.906984</td>
+<td>-5.01387</td>
+<td>24.562925</td>
+<td>888.114834</td>
+<td>256.869706</td>
+<td>-94.437507</td>
+<td>-27.080022</td>
+<td>72.96863</td>
+<td>1555.024677</td>
+<td>-180.721052</td>
+<td>10.271007</td>
+<td>101.208047</td>
+<td>-14.866143</td>
+<td>2142.452221</td>
+<td>-40.099808</td>
+<td>115.361435</td>
+<td>42.188659</td>
+<td>45.770364</td>
 </tr>
 <tr class="odd">
 <td>5</td>
-<td>517.752824</td>
-<td>164.580346</td>
-<td>-83.964954</td>
-<td>16.758352</td>
-<td>2.83004</td>
-<td>1370.195806</td>
-<td>-212.826085</td>
-<td>2.955771</td>
-<td>173.107526</td>
-<td>-232.821651</td>
-<td>1910.556479</td>
-<td>-433.801687</td>
-<td>100.725751</td>
-<td>84.551815</td>
-<td>-136.052198</td>
-<td>2480.716733</td>
-<td>87.57385</td>
-<td>64.406756</td>
-<td>-31.387129</td>
-<td>-18.175793</td>
+<td>476.961738</td>
+<td>190.256353</td>
+<td>-58.04869</td>
+<td>0.315637</td>
+<td>19.199771</td>
+<td>927.518399</td>
+<td>252.303627</td>
+<td>-98.909283</td>
+<td>16.138222</td>
+<td>80.325508</td>
+<td>1579.107135</td>
+<td>-166.086558</td>
+<td>19.17018</td>
+<td>112.869772</td>
+<td>-22.738818</td>
+<td>2192.387336</td>
+<td>5.752127</td>
+<td>115.131124</td>
+<td>61.554801</td>
+<td>72.501953</td>
 </tr>
 <tr class="even">
 <td>6</td>
-<td>517.202953</td>
-<td>169.851347</td>
-<td>-82.940326</td>
-<td>12.689065</td>
-<td>0.516521</td>
-<td>1362.820999</td>
-<td>-191.337591</td>
-<td>0.081001</td>
-<td>158.743614</td>
-<td>-205.208321</td>
-<td>1970.764308</td>
-<td>-326.45131</td>
-<td>128.720157</td>
-<td>26.728758</td>
-<td>-188.722615</td>
-<td>2484.615346</td>
-<td>90.304482</td>
-<td>65.544689</td>
-<td>-32.792817</td>
-<td>-20.42035</td>
+<td>484.791847</td>
+<td>187.910398</td>
+<td>-57.704296</td>
+<td>10.886179</td>
+<td>22.726125</td>
+<td>956.184344</td>
+<td>214.214239</td>
+<td>-82.409025</td>
+<td>56.390907</td>
+<td>59.0058</td>
+<td>1597.356957</td>
+<td>-195.937751</td>
+<td>40.255011</td>
+<td>118.086198</td>
+<td>-34.45321</td>
+<td>2200.732854</td>
+<td>2.434181</td>
+<td>144.815491</td>
+<td>110.501014</td>
+<td>81.387384</td>
 </tr>
 <tr class="odd">
 <td>7</td>
-<td>520.772738</td>
-<td>172.463945</td>
-<td>-81.220448</td>
-<td>7.416068</td>
-<td>-4.530241</td>
-<td>1387.218435</td>
-<td>-221.927489</td>
-<td>9.260226</td>
-<td>148.483358</td>
-<td>-210.270511</td>
-<td>2016.174658</td>
-<td>-267.552984</td>
-<td>150.140744</td>
-<td>-11.672038</td>
-<td>-243.569395</td>
-<td>2485.537395</td>
-<td>89.570658</td>
-<td>63.550739</td>
-<td>-34.072867</td>
-<td>-20.653619</td>
+<td>495.036613</td>
+<td>193.349551</td>
+<td>-69.951948</td>
+<td>10.774951</td>
+<td>16.751092</td>
+<td>987.534393</td>
+<td>214.913872</td>
+<td>-107.595259</td>
+<td>79.787332</td>
+<td>15.732351</td>
+<td>1604.040272</td>
+<td>-200.172403</td>
+<td>31.606391</td>
+<td>120.481457</td>
+<td>-49.494178</td>
+<td>2235.731721</td>
+<td>24.121842</td>
+<td>121.358158</td>
+<td>103.39044</td>
+<td>80.487263</td>
 </tr>
 <tr class="even">
 <td>8</td>
-<td>523.212305</td>
-<td>176.489164</td>
-<td>-83.906518</td>
-<td>6.57713</td>
-<td>-2.022803</td>
-<td>1389.531579</td>
-<td>-207.492729</td>
-<td>-6.879661</td>
-<td>150.199976</td>
-<td>-189.881377</td>
-<td>2051.29719</td>
-<td>-215.212311</td>
-<td>149.678612</td>
-<td>-39.500438</td>
-<td>-260.084927</td>
-<td>2487.312853</td>
-<td>87.417942</td>
-<td>63.825651</td>
-<td>-32.722107</td>
-<td>-18.773997</td>
+<td>505.683475</td>
+<td>182.303045</td>
+<td>-73.760086</td>
+<td>14.58709</td>
+<td>19.690183</td>
+<td>1034.505326</td>
+<td>169.858442</td>
+<td>-89.494138</td>
+<td>69.177636</td>
+<td>4.062592</td>
+<td>1618.081158</td>
+<td>-234.396471</td>
+<td>50.928053</td>
+<td>106.48603</td>
+<td>-48.678448</td>
+<td>2266.314438</td>
+<td>35.21776</td>
+<td>117.828152</td>
+<td>92.994988</td>
+<td>78.844444</td>
 </tr>
 <tr class="odd">
 <td>9</td>
-<td>531.241119</td>
-<td>177.341901</td>
-<td>-94.755289</td>
-<td>2.376072</td>
-<td>6.548657</td>
-<td>1422.046059</td>
-<td>-230.070746</td>
-<td>-28.60187</td>
-<td>144.786954</td>
-<td>-169.432597</td>
-<td>2095.238242</td>
-<td>-176.983983</td>
-<td>130.394371</td>
-<td>-66.08891</td>
-<td>-243.822951</td>
-<td>2490.923279</td>
-<td>90.053619</td>
-<td>62.443083</td>
-<td>-34.962302</td>
-<td>-18.333213</td>
+<td>499.951318</td>
+<td>182.999354</td>
+<td>-60.56169</td>
+<td>17.138942</td>
+<td>4.546051</td>
+<td>1039.623508</td>
+<td>190.562471</td>
+<td>-88.527935</td>
+<td>57.876446</td>
+<td>-20.929407</td>
+<td>1628.877756</td>
+<td>-238.979421</td>
+<td>52.885694</td>
+<td>91.89496</td>
+<td>-62.117938</td>
+<td>2297.68883</td>
+<td>75.266141</td>
+<td>112.795521</td>
+<td>52.782001</td>
+<td>28.298095</td>
 </tr>
 <tr class="even">
 <td>10</td>
-<td>530.801207</td>
-<td>178.526624</td>
-<td>-92.232357</td>
-<td>1.219054</td>
-<td>2.595888</td>
-<td>1422.703222</td>
-<td>-238.737068</td>
-<td>-11.100193</td>
-<td>142.24401</td>
-<td>-188.531477</td>
-<td>2106.350736</td>
-<td>-143.365011</td>
-<td>163.422203</td>
-<td>-83.228029</td>
-<td>-268.474447</td>
-<td>2491.094774</td>
-<td>89.736583</td>
-<td>66.064985</td>
-<td>-32.596599</td>
-<td>-17.360636</td>
+<td>510.927491</td>
+<td>183.141922</td>
+<td>-77.440759</td>
+<td>12.17978</td>
+<td>19.64912</td>
+<td>1081.140063</td>
+<td>190.358285</td>
+<td>-106.550933</td>
+<td>29.734574</td>
+<td>-19.963351</td>
+<td>1650.922389</td>
+<td>-250.762001</td>
+<td>56.052692</td>
+<td>68.602429</td>
+<td>-60.370176</td>
+<td>2348.493902</td>
+<td>118.082061</td>
+<td>85.903483</td>
+<td>-3.35318</td>
+<td>-6.707655</td>
 </tr>
 </tbody>
 </table>
@@ -831,10 +831,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>From these parameters, we can calculate means and covariance matrices to caclulate the mahalanobis distance of each candidate from the central tendency.</p>
-<div id="d78ca366" class="cell" data-execution_count="7">
+<div id="9990f436" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> mahalanobis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a9b4b9d2" class="cell" data-execution_count="8">
+<div id="3d994e98" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Calculcating Mahalanobis Distance</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>param_cov <span class="op">=</span> np.cov(</span>
@@ -906,24 +906,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td>78</td>
+<td>2.974149</td>
+</tr>
+<tr class="even">
 <td>45</td>
-<td>1.875518</td>
-</tr>
-<tr class="even">
-<td>46</td>
-<td>1.977782</td>
+<td>2.982252</td>
 </tr>
 <tr class="odd">
-<td>42</td>
-<td>1.98827</td>
+<td>14</td>
+<td>3.002779</td>
 </tr>
 <tr class="even">
-<td>53</td>
-<td>2.08868</td>
+<td>44</td>
+<td>3.103581</td>
 </tr>
 <tr class="odd">
-<td>43</td>
-<td>2.115386</td>
+<td>38</td>
+<td>3.177676</td>
 </tr>
 </tbody>
 </table>
@@ -932,7 +932,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>In this particular case, the outcome wasn’t that great, since we were actually searching for the central-most candidate of this candidate set, wheras the actual version would be comparing a candidate set to the smoothest formant tracks from the first pass.</p>
-<div id="edd5ed48" class="cell" data-execution_count="9">
+<div id="1c402aae" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>candidates.winner.spectrogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -942,7 +942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="7d273d87" class="cell" data-execution_count="10">
+<div id="dbb0ac8b" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mahal_idx <span class="op">=</span> candidate_mahal.select(<span class="st">"candidate"</span>).head(<span class="dv">1</span>).item()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>candidates.candidates[mahal_idx].spectrogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -964,7 +964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="other-possibilities" class="level2">
 <h2 class="anchored" data-anchor-id="other-possibilities">Other Possibilities</h2>
 <p>There may be some possibility of a gradient-descent like approach, perhaps just within candidates.</p>
-<div id="9a882b21" class="cell" data-execution_count="11">
+<div id="29862baa" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>candidate_error <span class="op">=</span> candidates.to_df(</span>
@@ -981,10 +981,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>error_dfs <span class="op">=</span> candidate_error.join(candidate_mahal, on <span class="op">=</span> <span class="st">"candidate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="5241234c" class="cell" data-execution_count="12">
+<div id="65cf11eb" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="d87ddafb" class="cell" data-execution_count="13">
+<div id="06ed6d59" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
@@ -1000,13 +1000,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="new-fave-approach_files/figure-html/cell-14-output-2.png" width="589" height="429" class="figure-img"></p>
+<p><img src="new-fave-approach_files/figure-html/cell-14-output-2.png" width="597" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>This is <em>roughly</em> the kind of loss function you’d want to see… but its walls aren’t monotonic.</p>
-<div id="6e068565" class="cell" data-execution_count="14">
+<div id="2824d2b1" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>error_dfs <span class="op">=</span> error_dfs<span class="op">\</span></span>
@@ -1027,12 +1027,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="new-fave-approach_files/figure-html/cell-15-output-1.png" width="590" height="411" class="figure-img"></p>
+<p><img src="new-fave-approach_files/figure-html/cell-15-output-1.png" width="590" height="415" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="f8b98e41" class="cell" data-execution_count="15">
+<div id="c285464e" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
@@ -1048,7 +1048,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="new-fave-approach_files/figure-html/cell-16-output-2.png" width="585" height="432" class="figure-img"></p>
+<p><img src="new-fave-approach_files/figure-html/cell-16-output-2.png" width="576" height="429" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1281,6 +1281,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/Forced-Alignment-and-Vowel-Extraction\.github\.io\/new-fave\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -1315,7 +1333,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
