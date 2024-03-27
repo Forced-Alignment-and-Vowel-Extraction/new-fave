@@ -737,14 +737,14 @@ devel = ["colorama", "json-spec", "jsonschema", "pylint", "pytest", "pytest-benc
 
 [[package]]
 name = "fasttrackpy"
-version = "0.3.2"
+version = "0.4.1"
 description = "A python implementation of FastTrack"
 category = "main"
 optional = false
-python-versions = ">=3.10,<3.12"
+python-versions = "<3.12,>=3.10"
 files = [
-    {file = "fasttrackpy-0.3.2-py3-none-any.whl", hash = "sha256:f8b8052a98f6cc4e02da9beb5a2073bb40e725deea69494e833ee09fed3db775"},
-    {file = "fasttrackpy-0.3.2.tar.gz", hash = "sha256:0a4b544c81183434e7d30dbcc576bb3cdacebefe4c3d1bf2921c115cf5b453ba"},
+    {file = "fasttrackpy-0.4.1-py3-none-any.whl", hash = "sha256:4f53445e57bc5bf3c9a5a293abe25a3ead7a8c132c81586f924f389356bd469d"},
+    {file = "fasttrackpy-0.4.1.tar.gz", hash = "sha256:7ed2ce0c9deb2f8e985db7c5a6c3a6a1fd74a511de09f8595f2929ae00ff8c72"},
 ]
 
 [package.dependencies]
@@ -3532,4 +3532,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "75bd8758338f9c381688581f242752ed77008cd66e1f106f47c7e3b720b2bccd"
+content-hash = "029756606578419aa1b7e0f5e20f1d2ea1b980041d930fcd38bdfa230da77788"
