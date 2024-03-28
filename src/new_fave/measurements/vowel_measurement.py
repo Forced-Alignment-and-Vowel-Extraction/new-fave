@@ -3,6 +3,8 @@ from aligned_textgrid import AlignedTextGrid
 from collections import defaultdict
 import numpy as np
 
+import scipy.stats as stats
+
 import warnings
 
 class VowelClassCollection(defaultdict):
@@ -52,6 +54,16 @@ class VowelClass():
         return first_param
     
     @property
+    def winners_maximum_formant(self):
+        max_formants = np.array([[
+            x.maximum_formant
+            for x in self.winners
+        ]])
+
+        return max_formants
+
+    
+    @property
     def params_means(self):
         winner_mean =  self.winner_params.mean(axis = 1)
         winner_mean = winner_mean[:, np.newaxis]
@@ -71,6 +83,21 @@ class VowelClass():
             params_icov = np.linalg.inv(self.params_covs)
         return params_icov
     
+
+    @property
+    def maximum_formant_means(self):
+        return self.winners_maximum_formant.mean()
+    
+    @property
+    def maximum_formant_cov(self):
+        cov = np.cov(self.winners_maximum_formant).reshape(1,1)
+        return cov
+    
+    @property
+    def max_formant_icov(self):
+        icov = np.linalg.inv(self.maximum_formant_cov)
+        return icov
+    
 class VowelMeasurement():
     def __init__(
             self, 
@@ -79,6 +106,7 @@ class VowelMeasurement():
         self.track = track
         self.label = track.label
         self.candidates = track.candidates
+        self.n_formants = track.n_formants
         self._winner = track.winner
 
     @property
@@ -110,6 +138,22 @@ class VowelMeasurement():
         return first_param
     
     @property
+    def cand_max_formants(self):
+        return np.array([[
+            c.maximum_formant
+            for c in self.candidates
+        ]])
+    
+    @property
+    def cand_errors(self):
+         with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            return np.array([
+                c.smooth_error
+                for c in self.candidates
+            ])
+
+    @property
     def cand_mahals(self):
         inv_covmat = self.vowel_class.params_icov
         x_mu = self.cand_params - self.vowel_class.params_means
@@ -117,6 +161,36 @@ class VowelMeasurement():
         mahal = np.dot(left, x_mu)
         return mahal.diagonal()
     
+    @property
+    def cand_mahal_log_prob(self):
+        log_prob = stats.chi2.logsf(
+            self.cand_mahals,
+            df = self.n_formants
+        )
+        return log_prob
 
+    
+    @property 
+    def max_formant_mahal(self):
+        inv_covmat = self.vowel_class.max_formant_icov
+        x_mu = self.cand_max_formants - \
+            self.vowel_class.maximum_formant_means
+        left = np.dot(x_mu.T, inv_covmat)
+        mahal = np.dot(left, x_mu)
+        return mahal.diagonal()
+    
+    @property
+    def max_formant_log_prob(self):
+        log_prob = stats.chi2.logsf(
+            self.max_formant_mahal,
+            df = 1
+        )
+        return log_prob
 
-
+    @property
+    def error_log_prob(self):
+        err_ecdf = stats.ecdf(self.cand_errors)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            err_log_prob = np.log(err_ecdf.sf.evaluate(self.cand_errors))
+        return err_log_prob
