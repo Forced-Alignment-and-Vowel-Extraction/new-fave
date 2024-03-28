@@ -23,6 +23,7 @@ jupyter = "^1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.2"
+matplotlib = "^3.8.3"
 
 [build-system]
 requires = ["poetry-core"]
