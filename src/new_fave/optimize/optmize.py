@@ -16,16 +16,19 @@ def optimize_one_measure(
         vowel_measurement: VowelMeasurement
     ):
     
-    if np.any(~np.isfinite(vowel_measurement.cand_mahal_log_prob)):
-        return vowel_measurement.error_log_prob.argmax()     
+    cand_mahal_log_prob = vowel_measurement.cand_mahal_log_prob
+    max_formant_log_prob = vowel_measurement.max_formant_log_prob
+
+    if np.any(~np.isfinite(cand_mahal_log_prob)):
+        cand_mahal_log_prob = np.zeros(shape = cand_mahal_log_prob.shape[0])
         
     
-    if np.any(~np.isfinite(vowel_measurement.max_formant_log_prob)):
-        return vowel_measurement.error_log_prob.argmax()     
-        
+    if np.any(~np.isfinite(max_formant_log_prob)):
+        max_formant_log_prob = np.zeros(shape=max_formant_log_prob.shape[0])        
     
     joint_prob = vowel_measurement.cand_mahal_log_prob +\
-                    vowel_measurement.max_formant_log_prob +\
-                    vowel_measurement.error_log_prob
+                    vowel_measurement.error_log_prob +\
+                    vowel_measurement.max_formant_log_prob
+                    
     
     return joint_prob.argmax()
