@@ -7,11 +7,18 @@ import scipy.stats as stats
 
 import warnings
 
+def blank():
+    return VowelClass()
+
+def blank_list():
+    return []
+
 class VowelClassCollection(defaultdict):
     def __init__(self, track_list:list, param_optim = 3):
-        super().__init__(lambda : VowelClass())
+
+        super().__init__(blank)
         self.param_optim = param_optim
-        self.tracks_dict = defaultdict(lambda: [])
+        self.tracks_dict = defaultdict(blank_list)
         self._make_tracks_dict(track_list)
         self._dictify()
         self._vowel_system()
@@ -119,14 +126,14 @@ class VowelClass():
     @property
     def params_means(self):
         N = len(self.tracks)
-        winner_mean =  self.winner_param_norm.reshape(-1, N).mean(axis = 1)
+        winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
         winner_mean = winner_mean[:, np.newaxis]
         return winner_mean
     
     @property
     def params_covs(self):
         N = len(self.tracks)
-        square_param = self.winner_param_norm.reshape(-1, N)
+        square_param = self.winner_params.reshape(-1, N)
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             param_cov = np.cov(square_param)
@@ -242,7 +249,7 @@ class VowelMeasurement():
     @property
     def cand_mahals(self):
         N = len(self.candidates)
-        square_params = self.cand_param_norm.reshape(-1, N)
+        square_params = self.cand_params.reshape(-1, N)
         inv_covmat = self.vowel_class.params_icov
         x_mu = square_params - self.vowel_class.params_means
         left = np.dot(x_mu.T, inv_covmat)

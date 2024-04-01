@@ -13,6 +13,7 @@ aligned-textgrid = "^0.6.3"
 fasttrackpy = "^0.4.0"
 numpy = "^1.26.4"
 polars = "<0.20"
+tqdm = "^4.66.2"
 
 
 [tool.poetry.group.docs.dependencies]
@@ -25,6 +26,7 @@ jupyter = "^1.0.0"
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.2"
 matplotlib = "^3.8.3"
+dill = "^0.3.8"
 
 [build-system]
 requires = ["poetry-core"]
