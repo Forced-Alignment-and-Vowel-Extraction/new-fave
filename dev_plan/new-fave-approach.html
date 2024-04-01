@@ -224,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">March 29, 2024</p>
+      <p class="date-modified">April 1, 2024</p>
     </div>
   </div>
     
@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The plan is to use the smoothing parameters in much the same way that original FAVE used the reference values for F1, F2, bandwidth F1 and bandwidth F2.</p>
 <section id="conceptual-demonstration" class="level2">
 <h2 class="anchored" data-anchor-id="conceptual-demonstration">Conceptual Demonstration</h2>
-<div id="71c9c858" class="cell" data-execution_count="1">
+<div id="ba913876" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasttrackpy <span class="im">import</span> process_audio_file, <span class="op">\</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    process_directory, <span class="op">\</span></span>
@@ -254,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can run fasttrackpy on the audio file <code>ay.wav</code></p>
-<div id="857633b7" class="cell" data-execution_count="2">
+<div id="d01c0f15" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>audio_path <span class="op">=</span> Path(<span class="st">"assets"</span>, <span class="st">"ay.wav"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>IPython.display.Audio(audio_path)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -266,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
               
 </div>
 </div>
-<div id="75782c1a" class="cell" data-execution_count="3">
+<div id="0c72f4b7" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>candidates <span class="op">=</span> process_audio_file(</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    path<span class="op">=</span>audio_path, </span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    nstep <span class="op">=</span> <span class="dv">100</span>,</span>
@@ -279,7 +279,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>All candidates</li>
 <li>The winner candidate</li>
 </ul>
-<div id="4b4b2587" class="cell" data-execution_count="4">
+<div id="f5638289" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>winner_df <span class="op">=</span> candidates.to_df(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    which <span class="op">=</span> <span class="st">"winner"</span>, </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    output <span class="op">=</span> <span class="st">"param"</span></span>
@@ -362,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can use all of these parameters like a <em>single</em> vector describing the vowel measurement.</p>
-<div id="f0c9cfd3" class="cell" data-execution_count="5">
+<div id="9e9d019a" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Widening winner_df</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>winner_df<span class="op">\</span></span>
@@ -489,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-fave-step" class="level2">
 <h2 class="anchored" data-anchor-id="the-fave-step">The FAVE step</h2>
 <p>As a demonstration, we’ll use the parameters from each candidate of this single vowel <em>as if</em> they were the concatenated parameters of many tokens.</p>
-<div id="6c8c75ce" class="cell" data-execution_count="6">
+<div id="9c24a78b" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Widening candidates</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>all_param <span class="op">=</span> candidates.to_df(</span>
@@ -831,10 +831,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>From these parameters, we can calculate means and covariance matrices to caclulate the mahalanobis distance of each candidate from the central tendency.</p>
-<div id="49e135c1" class="cell" data-execution_count="7">
+<div id="b5fbc9b4" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.spatial.distance <span class="im">import</span> mahalanobis</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="7629d9db" class="cell" data-execution_count="8">
+<div id="f9558914" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Calculcating Mahalanobis Distance</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>param_cov <span class="op">=</span> np.cov(</span>
@@ -932,7 +932,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>In this particular case, the outcome wasn’t that great, since we were actually searching for the central-most candidate of this candidate set, wheras the actual version would be comparing a candidate set to the smoothest formant tracks from the first pass.</p>
-<div id="5bbceddf" class="cell" data-execution_count="9">
+<div id="52aa82ef" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>candidates.winner.spectrogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -942,7 +942,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="a7e21dcb" class="cell" data-execution_count="10">
+<div id="f074d8c0" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mahal_idx <span class="op">=</span> candidate_mahal.select(<span class="st">"candidate"</span>).head(<span class="dv">1</span>).item()</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>candidates.candidates[mahal_idx].spectrogram()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -964,7 +964,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="other-possibilities" class="level2">
 <h2 class="anchored" data-anchor-id="other-possibilities">Other Possibilities</h2>
 <p>There may be some possibility of a gradient-descent like approach, perhaps just within candidates.</p>
-<div id="f60b4922" class="cell" data-execution_count="11">
+<div id="cd995b95" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>candidate_error <span class="op">=</span> candidates.to_df(</span>
@@ -981,10 +981,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>error_dfs <span class="op">=</span> candidate_error.join(candidate_mahal, on <span class="op">=</span> <span class="st">"candidate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="28be0ff3" class="cell" data-execution_count="12">
+<div id="ac425db3" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a7390b99" class="cell" data-execution_count="13">
+<div id="16190801" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
@@ -1006,7 +1006,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This is <em>roughly</em> the kind of loss function you’d want to see… but its walls aren’t monotonic.</p>
-<div id="840f67cb" class="cell" data-execution_count="14">
+<div id="cdd6137a" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>error_dfs <span class="op">=</span> error_dfs<span class="op">\</span></span>
@@ -1032,7 +1032,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="2c078133" class="cell" data-execution_count="15">
+<div id="d323430e" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
