@@ -14,6 +14,9 @@ fasttrackpy = "^0.4.0"
 numpy = "^1.26.4"
 polars = "<0.20"
 tqdm = "^4.66.2"
+fave-recode = "^0.3.0"
+click = "^8.1.7"
+cloup = "^3.0.5"
 
 
 [tool.poetry.group.docs.dependencies]

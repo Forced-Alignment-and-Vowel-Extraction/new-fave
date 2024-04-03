@@ -2,14 +2,14 @@
 
 [[package]]
 name = "aligned-textgrid"
-version = "0.6.3"
+version = "0.6.4"
 description = "Classes for defining sequential information from TextGrids"
 category = "main"
 optional = false
 python-versions = ">=3.10,<4.0"
 files = [
-    {file = "aligned_textgrid-0.6.3-py3-none-any.whl", hash = "sha256:882ab8969ee9900fabb95bc4ad643fc2ce811073038dce6035efc5771c17dbce"},
-    {file = "aligned_textgrid-0.6.3.tar.gz", hash = "sha256:8fffb61eeb2bbc745d5725b2e1ae9d4a4e3b243149a688b3344ed849fb7dcdf1"},
+    {file = "aligned_textgrid-0.6.4-py3-none-any.whl", hash = "sha256:682d10e7e4e38cef0a79d934750d9b29037c5017164be58bc233653216df7765"},
+    {file = "aligned_textgrid-0.6.4.tar.gz", hash = "sha256:e9bedff904f7f54b5d1c271423955f0194438851c2d37c67d6a3847279116ab3"},
 ]
 
 [package.dependencies]
@@ -268,6 +268,18 @@ webencodings = "*"
 css = ["tinycss2 (>=1.1.0,<1.3)"]
 
 [[package]]
+name = "cerberus"
+version = "1.3.5"
+description = "Lightweight, extensible schema and data validation tool for Pythondictionaries."
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "Cerberus-1.3.5-py3-none-any.whl", hash = "sha256:7649a5815024d18eb7c6aa5e7a95355c649a53aacfc9b050e9d0bf6bfa2af372"},
+    {file = "Cerberus-1.3.5.tar.gz", hash = "sha256:81011e10266ef71b6ec6d50e60171258a5b134d69f8fb387d16e4936d0d47642"},
+]
+
+[[package]]
 name = "certifi"
 version = "2024.2.2"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -461,14 +473,14 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
 name = "cloup"
-version = "3.0.4"
+version = "3.0.5"
 description = "Adds features to Click: option groups, constraints, subcommand sections and help themes."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cloup-3.0.4-py2.py3-none-any.whl", hash = "sha256:57604639a754a501ce4168faeb629e2ca523942e0ae4e180d832a953cf87ea84"},
-    {file = "cloup-3.0.4.tar.gz", hash = "sha256:658111e2f49b8256a822dac5fa0205bf64109fdefc435f39923490a32b13ec09"},
+    {file = "cloup-3.0.5-py2.py3-none-any.whl", hash = "sha256:bf122036066584eb0db113561167c29969cc015972b7b7ee03158d9bc7de87f8"},
+    {file = "cloup-3.0.5.tar.gz", hash = "sha256:c92b261c7bb7e13004930f3fb4b3edad8de2d1f12994dcddbe05bc21990443c5"},
 ]
 
 [package.dependencies]
@@ -779,6 +791,25 @@ python-magic-bin = {version = ">=0.4.14,<0.5.0", markers = "sys_platform == \"wi
 pyyaml = ">=6.0.1,<7.0.0"
 scipy = {version = ">=1.11.3,<2.0.0", markers = "python_version >= \"3.10\" and python_version < \"3.12\""}
 tqdm = ">=4.66.1,<5.0.0"
+
+[[package]]
+name = "fave-recode"
+version = "0.3.0"
+description = "A package for recoding Praat TextGrids"
+category = "main"
+optional = false
+python-versions = "<4.0,>=3.10"
+files = [
+    {file = "fave_recode-0.3.0-py3-none-any.whl", hash = "sha256:68479afe1c736775fc7731741c4adb2f4e0345fc7b1462a5b612fa89162592f5"},
+    {file = "fave_recode-0.3.0.tar.gz", hash = "sha256:357c2b0d93c815116d57d7f5ace2969d8925d826f8ef5f0b90f4a8d1f0831742"},
+]
+
+[package.dependencies]
+aligned-textgrid = ">=0.6.4,<0.7.0"
+cerberus = ">=1.3.5,<2.0.0"
+click = ">=8.1.7,<9.0.0"
+cloup = ">=3.0.2,<4.0.0"
+pyyaml = ">=6.0,<7.0"
 
 [[package]]
 name = "fonttools"
@@ -3548,4 +3579,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "25ff88f4c4a4ddc6ccf003250affd04cf3ab8e51a9850056f52d1d88537a68b5"
+content-hash = "be383730ea6645ba3ee5e02a78e07f7b899fc03ddb0bfed2a95793dfe2ea8459"
