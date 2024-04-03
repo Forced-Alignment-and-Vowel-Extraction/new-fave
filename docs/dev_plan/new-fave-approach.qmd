@@ -13,7 +13,7 @@ hybrid fave-like and fasttrack-like formant track optimization.
 ## key imports
 from fasttrackpy import process_corpus
 from new_fave.measurements.vowel_measurement import VowelClassCollection, VowelMeasurement, VowelClass
-from new_fave.optimize.optmize import optimize_vowel_measures, optimize_one_measure
+from new_fave.optimize.optimize import optimize_vowel_measures, optimize_one_measure
 
 ## support
 import matplotlib.pyplot as plt
