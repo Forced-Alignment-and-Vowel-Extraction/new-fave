@@ -12,6 +12,9 @@ from fave_recode.fave_recode import run_recode, \
 from fave_recode.labelset_parser import LabelSetParser
 from fave_recode.rule_classes import RuleSet
 
+from fave_measurement_point.formants import FormantArray
+from fave_measurement_point.heuristic import Heuristic
+
 from new_fave.measurements.vowel_measurement import VowelMeasurement,\
     VowelClassCollection, \
     VowelClass

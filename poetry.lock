@@ -793,6 +793,22 @@ scipy = {version = ">=1.11.3,<2.0.0", markers = "python_version >= \"3.10\" and 
 tqdm = ">=4.66.1,<5.0.0"
 
 [[package]]
+name = "fave-measurement-point"
+version = "0.1.1"
+description = "A library for defining and evaluating formant measurement point heuristics."
+category = "main"
+optional = false
+python-versions = "<4.0,>=3.10"
+files = [
+    {file = "fave_measurement_point-0.1.1-py3-none-any.whl", hash = "sha256:09fa5433785f68c86a0ed765628095496a883ed1e386960e6d33044e39b27f52"},
+    {file = "fave_measurement_point-0.1.1.tar.gz", hash = "sha256:b93b16dcb9dba6dd7badcdf692d8fbb59a10b807b8c695832aea170b32707089"},
+]
+
+[package.dependencies]
+nptyping = ">=2.5.0,<3.0.0"
+numpy = ">=1.26.4,<2.0.0"
+
+[[package]]
 name = "fave-recode"
 version = "0.3.0"
 description = "A package for recoding Praat TextGrids"
@@ -1955,6 +1971,28 @@ jupyter-server = ">=1.8,<3"
 
 [package.extras]
 test = ["pytest", "pytest-console-scripts", "pytest-jupyter", "pytest-tornasync"]
+
+[[package]]
+name = "nptyping"
+version = "2.5.0"
+description = "Type hints for NumPy."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "nptyping-2.5.0-py3-none-any.whl", hash = "sha256:764e51836faae33a7ae2e928af574cfb701355647accadcc89f2ad793630b7c8"},
+    {file = "nptyping-2.5.0.tar.gz", hash = "sha256:e3d35b53af967e6fb407c3016ff9abae954d3a0568f7cc13a461084224e8e20a"},
+]
+
+[package.dependencies]
+numpy = {version = ">=1.20.0,<2.0.0", markers = "python_version >= \"3.8\""}
+
+[package.extras]
+build = ["invoke (>=1.6.0)", "pip-tools (>=6.5.0)"]
+complete = ["pandas", "pandas-stubs-fork"]
+dev = ["autoflake", "beartype (<0.10.0)", "beartype (>=0.10.0)", "black", "codecov (>=2.1.0)", "coverage", "feedparser", "invoke (>=1.6.0)", "isort", "mypy", "pandas", "pandas-stubs-fork", "pip-tools (>=6.5.0)", "pylint", "pyright", "setuptools", "typeguard", "wheel"]
+pandas = ["pandas", "pandas-stubs-fork"]
+qa = ["autoflake", "beartype (<0.10.0)", "beartype (>=0.10.0)", "black", "codecov (>=2.1.0)", "coverage", "feedparser", "isort", "mypy", "pylint", "pyright", "setuptools", "typeguard", "wheel"]
 
 [[package]]
 name = "numpy"
@@ -3579,4 +3617,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "be383730ea6645ba3ee5e02a78e07f7b899fc03ddb0bfed2a95793dfe2ea8459"
+content-hash = "56ea217a64331a98ff67e5228ea1ca9fcde02e8b23fcc2f4f168641a372560c0"
