@@ -1,7 +1,11 @@
 from fasttrackpy import CandidateTracks, OneTrack
 from aligned_textgrid import AlignedTextGrid
+from fave_measurement_point.heuristic import Heuristic
+from fave_measurement_point.formants import FormantArray
 from collections import defaultdict
 import numpy as np
+
+import polars as pl
 
 import scipy.stats as stats
 
@@ -41,22 +45,86 @@ class VowelClassCollection(defaultdict):
     def _vowel_system(self):
         for v in self.tracks_dict:
             self[v].vowel_system = self
+    
+    @property
+    def winners(self):
+        return [
+            x
+            for vc in self.values()
+            for x in vc.winners
+        ]
 
     @property
-    def vspace_params(self):
-        return np.concatenate([
-            self[v].winner_params
-            for v in self
-        ],
-        axis=2)
+    def winner_params(self):
+        params = np.array(
+            [
+                x.parameters[:, 0:self.param_optim]
+                for x in self.winners
+            ]
+        ).T
+
+        return params
     
     @property
-    def vspace_param_mean(self):
-        return self.vspace_params.mean(axis = (1,2))
+    def winners_maximum_formant(self):
+        max_formants = np.array([[
+            x.maximum_formant
+            for x in self.winners
+        ]])
+
+        return max_formants
+
     
     @property
-    def vspace_param_std(self):
-        return self.vspace_params.std(axis = (1,2))
+    def params_means(self):
+        N = len(self.winners)
+        winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        return winner_mean
+    
+    @property
+    def params_covs(self):
+        N = len(self.winners)
+        square_param = self.winner_params.reshape(-1, N)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            param_cov = np.cov(square_param)
+        return param_cov
+    
+    @property
+    def params_icov(self):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                params_icov = np.linalg.inv(self.params_covs)
+                return params_icov
+            except:
+                params_icov = np.array([
+                    [np.nan] * self.params_covs.size
+                ]).reshape(
+                    self.params_covs.shape[0],
+                    self.params_covs.shape[1]
+                )
+                return params_icov
+
+    @property
+    def maximum_formant_means(self):
+        return self.winners_maximum_formant.mean()
+    
+    @property
+    def maximum_formant_cov(self):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")        
+            cov = np.cov(self.winners_maximum_formant).reshape(1,1)
+        return cov
+    
+    @property
+    def max_formant_icov(self):
+        try:
+            icov = np.linalg.inv(self.maximum_formant_cov)
+            return icov
+        except:
+            return np.array([[np.nan]])    
 
 class VowelClass():
     def __init__(
@@ -96,23 +164,6 @@ class VowelClass():
 
         return params
     
-    @property
-    def winner_param_norm(self):
-        winner_params = self.winner_params
-        centers = self.vowel_system.vspace_param_mean[
-            :, 
-            np.newaxis, 
-            np.newaxis
-            ]
-        scales = self.vowel_system.vspace_param_std[
-            :, 
-            np.newaxis, 
-            np.newaxis
-            ]        
-        
-        normed_params = (winner_params - centers)/scales
-        return normed_params
-
     @property
     def winners_maximum_formant(self):
         max_formants = np.array([[
@@ -178,14 +229,24 @@ class VowelClass():
 class VowelMeasurement():
     def __init__(
             self, 
-            track: CandidateTracks
+            track: CandidateTracks,
+            heuristic: Heuristic = Heuristic()
         ):
         self.track = track
         self.label = track.label
         self.candidates = track.candidates
         self.n_formants = track.n_formants
         self._winner = track.winner
+        self.heuristic = heuristic
 
+    @property
+    def formant_array(self):
+        return FormantArray(
+            self.winner.smoothed_formants, 
+            self.winner.time_domain,
+            offset = self.track.window_length
+        )
+    
     @property
     def vowel_class(self):
         if self._vclass:
@@ -213,23 +274,7 @@ class VowelMeasurement():
         ).T
 
         return params
-    
-    @property
-    def cand_param_norm(self):
-        params = self.cand_params
-        centers = self.vowel_class.vowel_system.vspace_param_mean[
-            :, 
-            np.newaxis, 
-            np.newaxis
-            ]
-        scales = self.vowel_class.vowel_system.vspace_param_std[
-            :, 
-            np.newaxis, 
-            np.newaxis
-            ]
-        param_norm = (params - centers)/scales
-        return param_norm
-      
+
     @property
     def cand_max_formants(self):
         return np.array([[
@@ -251,14 +296,18 @@ class VowelMeasurement():
         N = len(self.candidates)
         square_params = self.cand_params.reshape(-1, N)
         inv_covmat = self.vowel_class.params_icov
-        x_mu = square_params - self.vowel_class.params_means
+        param_means = self.vowel_class.params_means
+        if np.any(~np.isfinite(inv_covmat)):
+            inv_covmat = self.vowel_class.vowel_system.params_icov
+            param_means = self.vowel_class.vowel_system.params_means
+        x_mu = square_params - param_means
         left = np.dot(x_mu.T, inv_covmat)
         mahal = np.dot(left, x_mu)
         return mahal.diagonal()
     
     @property
     def cand_mahal_log_prob(self):
-        winner_shape = self.cand_param_norm.shape
+        winner_shape = self.cand_params.shape
         df = winner_shape[0] * winner_shape[1]
         log_prob = stats.chi2.logsf(
             self.cand_mahals,
@@ -270,8 +319,11 @@ class VowelMeasurement():
     @property 
     def max_formant_mahal(self):
         inv_covmat = self.vowel_class.max_formant_icov
-        x_mu = self.cand_max_formants - \
-            self.vowel_class.maximum_formant_means
+        maximum_formant_means = self.vowel_class.maximum_formant_means
+        if np.any(~np.isfinite(inv_covmat)):
+            inv_covmat = self.vowel_class.vowel_system.max_formant_icov
+            maximum_formant_means = self.vowel_class.vowel_system.maximum_formant_means
+        x_mu = self.cand_max_formants - maximum_formant_means
         left = np.dot(x_mu.T, inv_covmat)
         mahal = np.dot(left, x_mu)
         return mahal.diagonal()
@@ -291,3 +343,75 @@ class VowelMeasurement():
             warnings.simplefilter("ignore")
             err_log_prob = np.log(err_ecdf.sf.evaluate(self.cand_errors))
         return err_log_prob
+    
+    @property
+    def point_measure(self):
+        winner_slice =  self.heuristic.apply_heuristic(
+            self.label,
+            formants=self.formant_array
+        )
+
+        point_dict = {
+            f"F{i+1}": winner_slice.formants[i]
+            for i in range(winner_slice.formants.size)
+        }
+        point_dict["time"] = winner_slice.time
+        point_dict["rel_time"] = winner_slice.rel_time
+        point_dict["prop_time"] = winner_slice.prop_time
+        point_dict["id"] = self.winner.id
+        point_dict["label"] = self.winner.label
+        point_dict["file_name"] = self.winner.file_name
+        point_dict["group"] = self.winner.group
+
+        return pl.DataFrame(point_dict)
+    
+    @property
+    def vm_context(self):
+        id = self.winner.id
+        word = self.winner.interval.within.label
+        pre_word = self.winner.interval.within.prev.label
+        fol_word = self.winner.interval.within.fol.label
+        pre_seg = self.winner.interval.prev.label
+        fol_seg = self.winner.interval.fol.label
+        abs_pre_seg = self.winner.interval.get_tierwise(-1).label
+        abs_fol_seg = self.winner.interval.get_tierwise(1).label
+        stress = ""
+        if hasattr(self.track.interval, "stress"):
+            stress = self.track.interval.stress
+
+        context = "internal"
+        if pre_seg == "#" and fol_seg != "#":
+            context = "initial"
+        if pre_seg != "#" and fol_seg == "#":
+            context = "final"
+        if pre_seg == "#" and fol_seg == "#":
+            context = "coextensive"
+
+        df = pl.DataFrame({
+            "id": id,
+            "word": word,
+            "stress": stress,
+            "pre_word": pre_word,
+            "fol_word": fol_word,
+            "pre_seg": pre_seg,
+            "fol_seg": fol_seg,
+            "abs_pre_seg": abs_pre_seg,
+            "abs_fol_seg": abs_fol_seg,
+            "context": context
+        })
+
+        return df
+    
+    def to_tracks_df(self):
+        df = self.winner.to_df()
+
+        df = df.join(self.vm_context, on = "id")
+
+        return df
+    
+    def to_point_df(self):
+        df = self.point_measure
+
+        df = df.join(self.vm_context, on = "id")
+
+        return(df)

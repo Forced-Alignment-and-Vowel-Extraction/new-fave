@@ -26,9 +26,9 @@ def optimize_one_measure(
     if np.any(~np.isfinite(max_formant_log_prob)):
         max_formant_log_prob = np.zeros(shape=max_formant_log_prob.shape[0])        
     
-    joint_prob = vowel_measurement.cand_mahal_log_prob +\
+    joint_prob = cand_mahal_log_prob +\
                     vowel_measurement.error_log_prob +\
-                    vowel_measurement.max_formant_log_prob
+                    max_formant_log_prob
                     
     
     return joint_prob.argmax()
