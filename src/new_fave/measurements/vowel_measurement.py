@@ -125,6 +125,20 @@ class VowelClassCollection(defaultdict):
             return icov
         except:
             return np.array([[np.nan]])    
+                
+    def to_tracks_df(self):
+        df = pl.concat(
+            [x.to_tracks_df() for x in self.values()]
+        )
+
+        return df
+    
+    def to_point_df(self):
+        df = pl.concat(
+            [x.to_point_df() for x in self.values()]
+        )
+
+        return df
 
 class VowelClass():
     def __init__(
@@ -224,6 +238,19 @@ class VowelClass():
             return icov
         except:
             return np.array([[np.nan]])
+        
+    def to_tracks_df(self):
+        df = pl.concat(
+            [x.to_tracks_df() for x in self.tracks]
+        )
+        return df
+    
+    def to_point_df(self):
+        df = pl.concat(
+            [x.to_point_df() for x in self.tracks]
+        )
+
+        return df
     
     
 class VowelMeasurement():

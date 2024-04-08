@@ -25,6 +25,12 @@ from new_fave.utils.textgrid import get_textgrid, \
     get_tier_group, \
     get_top_tier
 
+from new_fave.utils.local_resources import recodes,\
+    parsers, \
+    measurements
+
+from new_fave.speaker.speaker import Speaker
+
 from pathlib import Path
 import click
 import cloup
