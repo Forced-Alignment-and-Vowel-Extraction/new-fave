@@ -1,5 +1,7 @@
 from importlib.resources import files
 
+fave_fasttrack = str(files("new_fave").joinpath("resources", "fasttrack_config.yml"))
+
 fave_cmu2phila = str(files("new_fave").joinpath("resources", "cmu2phila.yml"))
 fave_cmu2labov = str(files("new_fave").joinpath("resources", "cmu2labov.yml"))
 
@@ -20,3 +22,6 @@ measurements = {
     "fave": fave_measurement
 }
 
+fasttrack_config = {
+    "default": fave_fasttrack
+}
