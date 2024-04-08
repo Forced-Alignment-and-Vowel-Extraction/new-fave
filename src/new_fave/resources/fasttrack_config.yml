@@ -1,0 +1,16 @@
+entry_classes: 
+  - Word
+  - Phone
+target_tier: "Phone"
+target_labels: "[AEIOU]"
+min_duration: 0.05
+min_max_formant: 4000
+max_max_formant: 7300
+n_formants: 3
+nstep: 20
+window_length: 0.025
+time_step: 0.002
+time_step: 0.002
+smoother_args:
+  method: dct_smooth_regression
+  order: 5
