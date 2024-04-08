@@ -37,3 +37,6 @@ pyarrow = "^15.0.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+fave_extract = 'new_fave.extract:fave_extract'
