@@ -243,6 +243,7 @@ class VowelClass():
         df = pl.concat(
             [x.to_tracks_df() for x in self.tracks]
         )
+
         return df
     
     def to_point_df(self):
@@ -431,6 +432,13 @@ class VowelMeasurement():
     
     def to_tracks_df(self):
         df = self.winner.to_df()
+        df = df.with_columns(
+            speaker_num = (
+                pl.col("id")
+                .str.extract("^(\d+)-")
+                .str.to_integer() + 1
+            )
+        )
 
         df = df.join(self.vm_context, on = "id")
 
@@ -438,6 +446,13 @@ class VowelMeasurement():
     
     def to_point_df(self):
         df = self.point_measure
+        df = df.with_columns(
+            speaker_num = (
+                pl.col("id")
+                .str.extract("^(\d+)-")
+                .str.to_integer() + 1
+            )
+        )
 
         df = df.join(self.vm_context, on = "id")
 
