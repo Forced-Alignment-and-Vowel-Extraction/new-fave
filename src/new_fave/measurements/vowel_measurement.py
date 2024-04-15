@@ -8,6 +8,7 @@ import numpy as np
 import polars as pl
 
 import scipy.stats as stats
+from scipy.fft import idst
 
 import warnings
 
@@ -16,6 +17,20 @@ def blank():
 
 def blank_list():
     return []
+
+def first_deriv(coefs, size = 100):
+    hatu = coefs.copy()
+    for i in range(hatu.size):
+        hatu[i]=-(i)*hatu[i]
+    hatu[:-1]=hatu[1:]
+    hatu[-1]=0
+    dotu=idst(hatu, n = size, type=2)
+    return dotu.tolist()
+
+def mat_ecdf(x):
+    func = stats.ecdf(x)
+    log_prob = np.log(func.sf.evaluate(x))
+    return log_prob
 
 class VowelClassCollection(defaultdict):
     def __init__(self, track_list:list, param_optim = 3):
@@ -371,6 +386,26 @@ class VowelMeasurement():
             warnings.simplefilter("ignore")
             err_log_prob = np.log(err_ecdf.sf.evaluate(self.cand_errors))
         return err_log_prob
+    
+    @property
+    def rates(self):
+        N = self.formant_array.time.size
+        rates =  np.apply_along_axis(
+            first_deriv, 
+            arr = self.cand_params, 
+            axis = 0, 
+            **{"size": N}
+        )[:,0:2]
+        return rates
+    
+    @property
+    def rate_log_prob(self):
+        rates = self.rates
+        max_rate = (rates**2).max(axis = 0)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            log_prob = np.apply_along_axis(mat_ecdf, arr = max_rate, axis=1).sum(axis = 0)
+        return log_prob
     
     @property
     def point_measure(self):

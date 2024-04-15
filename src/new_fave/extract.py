@@ -44,6 +44,7 @@ import inspect
 @cloup.argument(
     "corpus_path",
     help="Path to a corpus",
+    nargs = -1,
     type = click.Path(
         exists=True,
         dir_okay=True,
@@ -103,10 +104,11 @@ def fave_extract(
         if x in fast_track_args
     }
 
-    vms = process_corpus(
-        corpus_path=corpus_path,
-        **corpus_args
-    )
+    vms = [process_corpus(
+        corpus_path=corpus,
+        **corpus_args)
+        for corpus in corpus_path
+    ]
 
     click.echo(f"{len(vms)}")
 

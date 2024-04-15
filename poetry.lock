@@ -808,14 +808,14 @@ devel = ["colorama", "json-spec", "jsonschema", "pylint", "pytest", "pytest-benc
 
 [[package]]
 name = "fasttrackpy"
-version = "0.4.2"
+version = "0.4.3"
 description = "A python implementation of FastTrack"
 category = "main"
 optional = false
 python-versions = "<3.12,>=3.10"
 files = [
-    {file = "fasttrackpy-0.4.2-py3-none-any.whl", hash = "sha256:9f36f82e9dbf30c70ca844ca024c804864b90790fe2ee41f754893e42fb6de54"},
-    {file = "fasttrackpy-0.4.2.tar.gz", hash = "sha256:8ff11e24dd2ebd5b3b348751736e5221dbee2a88b18a8110c60a87e37490338a"},
+    {file = "fasttrackpy-0.4.3-py3-none-any.whl", hash = "sha256:b4fb9996b3c322c350ea84a14ca97946bae5e7d73a6aee0ba05940e4b6decccf"},
+    {file = "fasttrackpy-0.4.3.tar.gz", hash = "sha256:fd0d0179151f43ae5d1e928ee25dc790695a21fa82052201320a33ad694443b4"},
 ]
 
 [package.dependencies]
@@ -4010,6 +4010,17 @@ files = [
 ]
 
 [[package]]
+name = "xlsx2csv"
+version = "0.8.2"
+description = "xlsx to csv converter"
+category = "main"
+optional = false
+python-versions = "*"
+files = [
+    {file = "xlsx2csv-0.8.2.tar.gz", hash = "sha256:cdd272c82f8b32f1cee76aeaef87b2ee3549661fddf90f7ecf2310967a16fc84"},
+]
+
+[[package]]
 name = "xyzservices"
 version = "2024.4.0"
 description = "Source of XYZ tiles providers"
@@ -4040,4 +4051,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.11,<3.12"
-content-hash = "83f7e92562eb82d24150830e1056db7a7f232c6a18de504cb31ccd668c8d5c1d"
+content-hash = "6a9841463b62c229ce183ecda7958e44bf0e311fc9adbbe70e9a62384f043432"
