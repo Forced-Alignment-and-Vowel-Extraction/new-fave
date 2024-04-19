@@ -41,6 +41,7 @@ class VowelClassCollection(defaultdict):
         self._make_tracks_dict(track_list)
         self._dictify()
         self._vowel_system()
+        self._kernel = None
         
 
     def __setitem__(self, __key, __value) -> None:
@@ -79,6 +80,25 @@ class VowelClassCollection(defaultdict):
         ).T
 
         return params
+    
+    @property
+    def winner_formants(self):
+        formants = np.hstack(
+            [
+                x.formants
+                for x in self.winners
+            ]
+        )
+
+        return formants
+    
+    @property
+    def kernel(self):
+        if not self._kernel:
+            kernel = stats.gaussian_kde(self.winner_formants,bw_method=2)
+            return kernel
+        
+        return self._kernel
     
     @property
     def winners_maximum_formant(self):
@@ -306,6 +326,7 @@ class VowelMeasurement():
     @winner.setter
     def winner(self, idx):
         self._winner = self.candidates[idx]
+        self.vowel_class.vowel_system._kernel = None
 
     @property
     def cand_params(self):
@@ -407,6 +428,16 @@ class VowelMeasurement():
             log_prob = np.apply_along_axis(mat_ecdf, arr = max_rate, axis=1).sum(axis = 0)
         return log_prob
     
+    @property
+    def cand_log_kde(self):
+        kernel = self.vowel_class.vowel_system.kernel
+        log_kde = np.array([
+            (kernel.logpdf(cand.formants)/cand.formants.shape[0]).sum()
+            for cand in self.candidates
+        ])
+        
+        return log_kde - log_kde.max()
+
     @property
     def point_measure(self):
         winner_slice =  self.heuristic.apply_heuristic(
