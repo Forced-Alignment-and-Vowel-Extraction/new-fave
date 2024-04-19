@@ -4,6 +4,31 @@ from new_fave.measurements.vowel_measurement import VowelMeasurement, \
 import numpy as np
 from tqdm import tqdm
 
+def run_optimize(
+        vowel_system: VowelClassCollection,
+        optim_params = ["cand_mahal", "rate", "max_formant", "kde"],
+        max_iter = 10
+    ):
+    current_formants = vowel_system.winner_formants
+    msqe = [np.inf]
+    for i in range(max_iter):
+        optimize_vowel_measures(
+            vowel_system.vowel_measurements,
+            optim_params=optim_params
+            )
+        new_formants = vowel_system.winner_formants
+        new_msqe = np.sqrt(((current_formants - new_formants)**2).mean())
+        print(new_msqe)
+        if new_msqe > msqe[-1]:
+            return
+        
+        current_formants = new_formants
+        msqe.append(new_msqe)
+    
+    return
+
+
+
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params = ["cand_mahal", "rate", "max_formant", "kde"]
