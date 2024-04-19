@@ -68,6 +68,14 @@ class VowelClassCollection(defaultdict):
             for vc in self.values()
             for x in vc.winners
         ]
+    
+    @property
+    def vowel_measurements(self):
+        return [
+            x  
+            for vc in self.values()
+            for x in vc.tracks
+        ]
 
     @property
     def winner_params(self):
@@ -471,14 +479,14 @@ class VowelMeasurement():
     @property
     def cand_log_kde(self):
         kernel = self.vowel_class.vowel_system.kernel
-        formants = [cand.formants
+        formants = [cand.formants.mean(axis = 1)
                          for cand in self.candidates]
         log_kde = Parallel(n_jobs=NCPU)(
             delayed(kernel.logpdf)(formant) for formant in formants
         )
 
         log_kde_sum = np.array([
-            kde.sum()/kde.shape[0]
+            kde.sum()
             for kde in log_kde
         ])
         
@@ -497,6 +505,7 @@ class VowelMeasurement():
             for i in range(winner_slice.formants.size)
         }
         point_dict["max_formant"] = self.winner.maximum_formant
+        point_dict["smooth_error"] = self.winner.smooth_error
         point_dict["time"] = winner_slice.time
         point_dict["rel_time"] = winner_slice.rel_time
         point_dict["prop_time"] = winner_slice.prop_time
