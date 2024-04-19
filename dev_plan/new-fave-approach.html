@@ -234,7 +234,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">April 15, 2024</p>
+      <p class="date-modified">April 19, 2024</p>
     </div>
   </div>
     
@@ -246,7 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <p>Currently, I have a few classes and functions written up to allow for a hybrid fave-like and fasttrack-like formant track optimization.</p>
-<div id="514d38a5" class="cell" data-execution_count="1">
+<div id="2fa3551f" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">## key imports</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fasttrackpy <span class="im">import</span> process_corpus</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> new_fave.measurements.vowel_measurement <span class="im">import</span> VowelClassCollection, VowelMeasurement, VowelClass</span>
@@ -262,7 +262,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-fasttrack-step" class="level2">
 <h2 class="anchored" data-anchor-id="the-fasttrack-step">The fasttrack step</h2>
 <p>The first step will be to use fasttrack to process all of the vowels in a corpus.</p>
-<div id="dfee9114" class="cell" data-execution_count="2">
+<div id="5157e30c" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>corpus_path <span class="op">=</span> Path(<span class="st">"assets"</span>, <span class="st">"corpus"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">list</span>(corpus_path.glob(<span class="st">"*"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="2">
@@ -271,7 +271,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>I’ll optimize for 3 formants, with 100 steps between 4800 and 7300 max formant.</p>
-<div id="1f518a1d" class="cell" data-execution_count="3">
+<div id="464126b6" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>candidates <span class="op">=</span> process_corpus(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    corpus_path,</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    entry_classes<span class="op">=</span>[<span class="st">"Word"</span>, <span class="st">"Phone"</span>],</span>
@@ -282,13 +282,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Quickly, let’s look at our formants.</p>
-<div id="69fd2d19" class="cell" data-execution_count="4">
+<div id="7c53d3c0" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>first_pass <span class="op">=</span> pl.concat([</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    track.winner.to_df() <span class="cf">for</span> track <span class="kw">in</span> candidates</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Normalizing time.</p>
-<div id="6eb33b7c" class="cell" data-execution_count="5">
+<div id="d43e2d03" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>time normalizing</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>first_pass <span class="op">=</span> (</span>
@@ -303,7 +303,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <p>Here are the smoothed F1 and F2 tracks.</p>
-<div id="8c049a68" class="cell" data-execution_count="6">
+<div id="17cc6a19" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
@@ -322,7 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cdb277ae" class="cell" data-execution_count="7">
+<div id="2b59c804" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
@@ -342,7 +342,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>And in F1xF2 space</p>
-<div id="6917899f" class="cell" data-execution_count="8">
+<div id="ee3bf3eb" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
@@ -362,7 +362,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>I’ll grab the outliers based on a visual inspection. (F1 &gt; 800 or F2 &gt; 2500).</p>
-<div id="b9b41023" class="cell" data-execution_count="9">
+<div id="7f97ddd6" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>outliers <span class="op">=</span> (</span>
@@ -384,7 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>outliers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_2144/1712949402.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.
+<pre><code>/tmp/ipykernel_2091/1712949402.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.
   .count()</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="9">
@@ -412,9 +412,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
-<td>"0-0-44-0"</td>
-<td>"AA1"</td>
-<td>18</td>
+<td>"0-0-73-1"</td>
+<td>"OW1"</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>"0-0-161-0"</td>
+<td>"AO1"</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>"0-0-314-1"</td>
+<td>"AO1"</td>
+<td>83</td>
 </tr>
 <tr class="even">
 <td>"0-0-371-0"</td>
@@ -422,19 +432,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>19</td>
 </tr>
 <tr class="odd">
-<td>"0-0-161-0"</td>
-<td>"AO1"</td>
-<td>3</td>
-</tr>
-<tr class="even">
-<td>"0-0-314-1"</td>
-<td>"AO1"</td>
-<td>83</td>
-</tr>
-<tr class="odd">
-<td>"0-0-73-1"</td>
-<td>"OW1"</td>
-<td>14</td>
+<td>"0-0-44-0"</td>
+<td>"AA1"</td>
+<td>18</td>
 </tr>
 </tbody>
 </table>
@@ -456,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    plt.title(track.label <span class="op">+</span><span class="st">" "</span> <span class="op">+</span>track.<span class="bu">id</span>)</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="5522b4c9" class="cell quarto-layout-panel" data-layout-ncol="3" data-execution_count="10">
+<div id="6abc6ad8" class="cell quarto-layout-panel" data-layout-ncol="3" data-execution_count="10">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
 <p><img src="new-fave-approach_files/figure-html/cell-11-output-1.png" width="304" height="228"></p>
@@ -482,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-the-new-fave-classes" class="level2">
 <h2 class="anchored" data-anchor-id="using-the-new-fave-classes">Using the new-fave classes</h2>
 <p>The new-fave classes create vowel measurements, and vowel <em>classes</em> based on the labels in the candidate tracks. The final product will have a fave-recode step in here, but meanwhile I’ll adjust the labels manually.</p>
-<div id="77dc98ba" class="cell" data-execution_count="11">
+<div id="8fdbe96c" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> track <span class="kw">in</span> candidates:</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># schwa</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> track.label <span class="op">==</span> <span class="st">"AH0"</span>:</span>
@@ -492,12 +492,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        track.label <span class="op">=</span> re.sub(<span class="vs">r"\d"</span>, <span class="st">""</span>, track.label)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>These two steps are necessary to relate each vowel measurement to its vowel class. More on <code>param_optim</code> later.</p>
-<div id="4c120401" class="cell" data-execution_count="12">
+<div id="df1acb94" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>v_meases <span class="op">=</span> [VowelMeasurement(track) <span class="cf">for</span> track <span class="kw">in</span> candidates]</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>v_classes <span class="op">=</span> VowelClassCollection(v_meases, param_optim<span class="op">=</span><span class="dv">5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The first vowel measurement is an <code>AY</code>, and the “winning” formant tracks in its vowel class are available.</p>
-<div id="2ed7ba43" class="cell" data-execution_count="13">
+<div id="430024ad" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(v_meases[<span class="dv">0</span>].label)</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>v_meases[<span class="dv">0</span>].vowel_class.winners</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -538,7 +538,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="the-shape-and-value-of-the-formant-tracks" class="level3">
 <h3 class="anchored" data-anchor-id="the-shape-and-value-of-the-formant-tracks">The shape and value of the formant tracks</h3>
 <p>The shape and value of a single formant track is captured by the discrete cosine coefficients returned by fasttrackpy.</p>
-<div id="966bb112" class="cell" data-execution_count="15">
+<div id="296f4388" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>v_meases[<span class="dv">0</span>].winner.parameters</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>array([[ 323.29098563,   33.32668842,    2.29322637,    3.45116252,
@@ -551,7 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We could use the distribution of values across these parameters for FAVE-like optimization, e.g., to get the mahalanobis distance of each possible track’s DCT coefficients from the vowel class average. The question is, how <em>many</em> of the DCT coefficients should we use?</p>
 <p>In some sense, the first DCT coefficient is the most important, placing F1, F2 and F3 in a general position in formant space.</p>
-<div id="fecd601c" class="cell" data-execution_count="16">
+<div id="86b62b74" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_params(</span>
@@ -576,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plot_params(v_meases[<span class="dv">0</span>], up_to <span class="op">=</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="cd21d04a" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="17">
+<div id="72ca938e" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="17">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="new-fave-approach_files/figure-html/cell-18-output-1.png" width="435" height="283"></p>
@@ -585,7 +585,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>However, we probably also want the <em>typical</em> formant shape and value to also incorporate some dynamics.</p>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plot_params(v_meases[<span class="dv">0</span>], up_to <span class="op">=</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="b8ef69f9" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="18">
+<div id="df9e996b" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="18">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="new-fave-approach_files/figure-html/cell-19-output-1.png" width="435" height="283"></p>
@@ -593,7 +593,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plot_params(v_meases[<span class="dv">0</span>], up_to <span class="op">=</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div id="aff1a4fd" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="19">
+<div id="f40aa257" class="cell quarto-layout-panel" data-layout-ncol="2" data-execution_count="19">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img src="new-fave-approach_files/figure-html/cell-20-output-1.png" width="435" height="283"></p>
@@ -604,11 +604,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="implementation" class="level4">
 <h4 class="anchored" data-anchor-id="implementation">Implementation</h4>
 <p>The way it’s currently implemented, I have to specify how many formant tracks I’m optimizing over when I create the VowelClassCollection object.</p>
-<div id="e9185051" class="cell" data-execution_count="20">
+<div id="f9a1d49e" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>v_classes <span class="op">=</span> VowelClassCollection(v_meases, param_optim<span class="op">=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>I can then get the mahalanobis distance from each candidate to the vowel class.</p>
-<div id="5eda9c9f" class="cell" data-execution_count="21">
+<div id="747f1add" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_mahals</span>
@@ -622,7 +622,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>I’ve also implemented conversion of the mahalanobis distance to log-probabilities based on the chi-squared distribution.</p>
-<div id="e9d77bb0" class="cell" data-execution_count="22">
+<div id="3e37ae33" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_mahal_log_prob</span>
@@ -640,7 +640,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="typical-max-formants" class="level3">
 <h3 class="anchored" data-anchor-id="typical-max-formants">Typical Max Formants</h3>
 <p>Each vowel class will also have a typical max formant distribution.</p>
-<div id="4355e1d4" class="cell" data-execution_count="23">
+<div id="8fafd5c6" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>plt.hist(</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    v_classes[<span class="st">"AY"</span>].winners_maximum_formant[<span class="dv">0</span>],</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    bins <span class="op">=</span> <span class="dv">10</span></span>
@@ -655,7 +655,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>We can also get a 1-dimensional mahalanobis distance from each candidate track to the typical maximum formant.</p>
-<div id="35b4dbe3" class="cell" data-execution_count="24">
+<div id="4356616c" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].max_formant_mahal</span>
@@ -669,7 +669,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This also has a log-probabilty definition.</p>
-<div id="edba7896" class="cell" data-execution_count="25">
+<div id="6e045b22" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].max_formant_log_prob</span>
@@ -686,7 +686,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="interim-synthesis" class="level3">
 <h3 class="anchored" data-anchor-id="interim-synthesis">Interim synthesis</h3>
 <p>With these two log-probabilities, one way we could decide to choose a new optimal winner would be to take the argmax of the sum.</p>
-<div id="37137132" class="cell" data-execution_count="26">
+<div id="f3359be1" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_mahal_log_prob <span class="op">+</span></span>
@@ -700,7 +700,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="80ceebd0" class="cell" data-execution_count="27">
+<div id="56b7b2d2" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>( </span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_mahal_log_prob <span class="op">+</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].max_formant_log_prob</span>
@@ -714,7 +714,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="smoother-error" class="level3">
 <h3 class="anchored" data-anchor-id="smoother-error">Smoother error</h3>
 <p>Each candidate formant track also has a mean squared error value associated.</p>
-<div id="788488f9" class="cell" data-execution_count="28">
+<div id="7361845d" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_errors</span>
@@ -728,7 +728,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>I wasn’t sure how to associate these error terms to a probability distribution in order to convert them to a log-probability, so instead I calculated an empirical density function across the errors, and got the log probability from that.</p>
-<div id="2f4af6bb" class="cell" data-execution_count="29">
+<div id="fc7122ef" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].error_log_prob</span>
@@ -744,7 +744,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="final-joint-probability" class="level3">
 <h3 class="anchored" data-anchor-id="final-joint-probability">Final Joint Probability</h3>
-<div id="4128d6bd" class="cell" data-execution_count="30">
+<div id="b97d7c5e" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>],</span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_mahal_log_prob <span class="op">+</span></span>
@@ -759,34 +759,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="f24af3c3" class="cell" data-execution_count="31">
+<div id="26b56d1a" class="cell" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>new_winner <span class="op">=</span> ( </span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].cand_mahal_log_prob <span class="op">+</span></span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].max_formant_log_prob <span class="op">+</span></span>
 <span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    v_meases[<span class="dv">0</span>].error_log_prob</span>
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>).argmax()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e1d961d5" class="cell" data-execution_count="32">
+<div id="fd65b574" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>orig_winner <span class="op">=</span> v_meases[<span class="dv">0</span>].track.winner_idx</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a06f9ed3" class="cell" data-execution_count="33">
+<div id="cb745ee6" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>][orig_winner]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>5507.070707070707</code></pre>
 </div>
 </div>
-<div id="5c1ee4df" class="cell" data-execution_count="34">
+<div id="32c96773" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>v_meases[<span class="dv">0</span>].cand_max_formants[<span class="dv">0</span>][new_winner]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>5582.828282828283</code></pre>
 </div>
 </div>
 <p>This difference in maximum formant doesn’t ahve a huge effect on the resulting data.</p>
-<div id="bbe9f5f7" class="cell" data-execution_count="35">
+<div id="8daad506" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>orig_df <span class="op">=</span> v_meases[<span class="dv">0</span>].candidates[orig_winner].to_df()</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>new_df <span class="op">=</span> v_meases[<span class="dv">0</span>].candidates[orig_winner].to_df()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="820d97fa" class="cell" data-execution_count="36">
+<div id="09f3e323" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>orig_df[<span class="st">"F2"</span>],</span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>orig_df[<span class="st">"F1"</span>],</span>
@@ -821,7 +821,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>How many max-formant increments should we use?</li>
 </ul>
 <p>Here, I’ll optimize for 10 steps</p>
-<div id="97cdfd84" class="cell" data-execution_count="37">
+<div id="864ec3b9" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>formant_optim <span class="op">=</span> np.array([vm.winner.maximum_formant <span class="cf">for</span> vm <span class="kw">in</span> v_meases])</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    optimize_vowel_measures(v_meases)</span>
@@ -829,7 +829,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    formant_optim <span class="op">=</span> np.vstack([formant_optim, new_max])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This plot shows how any single track was updated over optimization steps.</p>
-<div id="6f0a2e2d" class="cell" data-execution_count="38">
+<div id="cf8627d2" class="cell" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>plt.plot(</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">range</span>(<span class="dv">11</span>),</span>
 <span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    formant_optim</span>
@@ -843,13 +843,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="4d028755" class="cell" data-execution_count="39">
+<div id="361d0ccf" class="cell" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>new_df <span class="op">=</span> pl.concat([</span>
 <span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>    vm.winner.to_df()</span>
 <span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> vm <span class="kw">in</span> v_meases</span>
 <span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="dbe9d778" class="cell" data-execution_count="40">
+<div id="812ca166" class="cell" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>new_df[<span class="st">"F2_s"</span>],</span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>new_df[<span class="st">"F1_s"</span>],</span>
@@ -860,12 +860,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="new-fave-approach_files/figure-html/cell-41-output-1.png" width="445" height="283" class="figure-img"></p>
+<p><img src="new-fave-approach_files/figure-html/cell-41-output-1.png" width="462" height="283" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<div id="d6ea819b" class="cell" data-execution_count="41">
+<div id="4cbfa873" class="cell" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>new_outliers <span class="op">=</span> (</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    new_df</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    .<span class="bu">filter</span>(</span>
@@ -884,7 +884,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>new_outliers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/tmp/ipykernel_2144/1290466927.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.
+<pre><code>/tmp/ipykernel_2091/1290466927.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.
   .count()</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="41">
@@ -896,7 +896,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   white-space: pre-wrap;
 }
 </style>
-<small>shape: (3, 3)</small>
+<small>shape: (0, 3)</small>
 <table class="dataframe table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
@@ -911,21 +911,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td>"0-0-44-0"</td>
-<td>"AA1"</td>
-<td>8</td>
-</tr>
-<tr class="even">
-<td>"0-0-73-1"</td>
-<td>"OW1"</td>
-<td>10</td>
-</tr>
-<tr class="odd">
-<td>"0-0-85-1"</td>
-<td>"AY1"</td>
-<td>23</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -945,21 +930,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    plt.title(track.label <span class="op">+</span><span class="st">" "</span> <span class="op">+</span>track.winner.<span class="bu">id</span>)</span>
 <span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div id="090e55cb" class="cell quarto-layout-panel" data-layout-ncol="3" data-execution_count="42">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img src="new-fave-approach_files/figure-html/cell-43-output-1.png" width="304" height="228"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img src="new-fave-approach_files/figure-html/cell-43-output-2.png" width="304" height="228"></p>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
-<p><img src="new-fave-approach_files/figure-html/cell-43-output-3.png" width="304" height="228"></p>
-</div>
-</div>
+<div id="1047b49d" class="cell quarto-layout-panel" data-layout-ncol="3" data-execution_count="42">
+
 </div>
 <p>These remaining outliers look like just fundamentally hard cases.</p>
-<div id="bb23f3f7" class="cell" data-execution_count="43">
+<div id="0129b736" class="cell" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>plt.scatter(</span>
 <span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>new_df[<span class="st">"F2_s"</span>],</span>
 <span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span>new_df[<span class="st">"F1_s"</span>],</span>
@@ -975,7 +950,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="new-fave-approach_files/figure-html/cell-44-output-1.png" width="445" height="265" class="figure-img"></p>
+<p><img src="new-fave-approach_files/figure-html/cell-44-output-1.png" width="462" height="263" class="figure-img"></p>
 </figure>
 </div>
 </div>

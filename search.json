@@ -1,24 +1,22 @@
 [
   {
-    "objectID": "reference/extract.html",
-    "href": "reference/extract.html",
-    "title": "extract",
+    "objectID": "reference/index.html",
+    "href": "reference/index.html",
+    "title": "Function reference",
     "section": "",
-    "text": "extract\n\n\n\n\n\nName\nDescription\n\n\n\n\nfave_extract\nsummary\n\n\n\n\n\nextract.fave_extract(corpus_path, fasttrack_config, labelset_parser, recode_rules, measurement_points, **kwargs)\nsummary",
+    "text": "Extract\n\n\n\nextract",
     "crumbs": [
-      "Extract",
-      "extract"
+      "Function reference"
     ]
   },
   {
-    "objectID": "reference/extract.html#functions",
-    "href": "reference/extract.html#functions",
-    "title": "extract",
+    "objectID": "reference/index.html#extract",
+    "href": "reference/index.html#extract",
+    "title": "Function reference",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nfave_extract\nsummary\n\n\n\n\n\nextract.fave_extract(corpus_path, fasttrack_config, labelset_parser, recode_rules, measurement_points, **kwargs)\nsummary",
+    "text": "Extract\n\n\n\nextract",
     "crumbs": [
-      "Extract",
-      "extract"
+      "Function reference"
     ]
   },
   {
@@ -60,7 +58,7 @@
     "href": "dev_plan/new-fave-approach.html#the-fasttrack-step",
     "title": "new-fave Approach",
     "section": "The fasttrack step",
-    "text": "The fasttrack step\nThe first step will be to use fasttrack to process all of the vowels in a corpus.\n\ncorpus_path = Path(\"assets\", \"corpus\")\nlist(corpus_path.glob(\"*\"))\n\n[PosixPath('assets/corpus/josef-fruehwald_speaker.TextGrid'),\n PosixPath('assets/corpus/josef-fruehwald_speaker.wav')]\n\n\nI’ll optimize for 3 formants, with 100 steps between 4800 and 7300 max formant.\n\ncandidates = process_corpus(\n    corpus_path,\n    entry_classes=[\"Word\", \"Phone\"],\n    min_max_formant=4800,\n    max_max_formant=7300,\n    n_formants=3,\n    nstep=100\n)\n\nQuickly, let’s look at our formants.\n\nfirst_pass = pl.concat([\n    track.winner.to_df() for track in candidates\n    ])\n\nNormalizing time.\n\n\ntime normalizing\nfirst_pass = (\n    first_pass\n    .with_columns(\n        (pl.col(\"time\")/(\n            pl.col(\"time\").max() + pl.col(\"time\").min()\n            )\n        ).over(\"id\").alias(\"prop_time\")\n    )\n)\n\n\nHere are the smoothed F1 and F2 tracks.\n\n\nCode\nplt.scatter(\n    first_pass[\"prop_time\"],\n    first_pass[\"F1_s\"],\n    s = 1\n)\nplt.title(\"Smoothed F1\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nCode\nplt.scatter(\n    first_pass[\"prop_time\"],\n    first_pass[\"F2_s\"],\n    s = 1\n)\nplt.title(\"Smoothed F2\")\nplt.show()\n\n\n\n\n\n\n\n\n\nAnd in F1xF2 space\n\n\nCode\nplt.scatter(\n    -first_pass[\"F2_s\"],\n    -first_pass[\"F1_s\"],\n    s = 1\n)\nplt.title(\"F1xF2 space\")\nplt.show()\n\n\n\n\n\n\n\n\n\nI’ll grab the outliers based on a visual inspection. (F1 &gt; 800 or F2 &gt; 2500).\n\n\nCode\noutliers = (\n    first_pass\n    .filter(\n        (\n            (pl.col(\"label\").str.contains(\"1\"))\n            &\n            (\n                (pl.col(\"F1\") &gt; 900 ) |\n                (pl.col(\"F2\") &gt; 2500)\n            )\n        )\n    )\n    .group_by([\"id\", \"label\"])\n    .count()\n)\n\noutliers\n\n\n/tmp/ipykernel_2144/1712949402.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.\n  .count()\n\n\n\n\nshape: (5, 3)\n\n\n\nid\nlabel\ncount\n\n\nstr\nstr\nu32\n\n\n\n\n\"0-0-44-0\"\n\"AA1\"\n18\n\n\n\"0-0-371-0\"\n\"AO1\"\n19\n\n\n\"0-0-161-0\"\n\"AO1\"\n3\n\n\n\"0-0-314-1\"\n\"AO1\"\n83\n\n\n\"0-0-73-1\"\n\"OW1\"\n14\n\n\n\n\n\n\n\nAnd I’ll look at their spectrograms\n\nCode\noutlier_tracks = [\n    track\n    for track in candidates\n    if track.id in outliers[\"id\"]\n]\n\nfor track in outlier_tracks:\n    track.winner.spectrogram(figsize = (3,2))\n    plt.title(track.label +\" \" +track.id)\n    plt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome vowels may be lost causes, looking like instances of alignment errors. But the others may be salvageable, and seem to be due to their F1 and F2 being very close.",
+    "text": "The fasttrack step\nThe first step will be to use fasttrack to process all of the vowels in a corpus.\n\ncorpus_path = Path(\"assets\", \"corpus\")\nlist(corpus_path.glob(\"*\"))\n\n[PosixPath('assets/corpus/josef-fruehwald_speaker.TextGrid'),\n PosixPath('assets/corpus/josef-fruehwald_speaker.wav')]\n\n\nI’ll optimize for 3 formants, with 100 steps between 4800 and 7300 max formant.\n\ncandidates = process_corpus(\n    corpus_path,\n    entry_classes=[\"Word\", \"Phone\"],\n    min_max_formant=4800,\n    max_max_formant=7300,\n    n_formants=3,\n    nstep=100\n)\n\nQuickly, let’s look at our formants.\n\nfirst_pass = pl.concat([\n    track.winner.to_df() for track in candidates\n    ])\n\nNormalizing time.\n\n\ntime normalizing\nfirst_pass = (\n    first_pass\n    .with_columns(\n        (pl.col(\"time\")/(\n            pl.col(\"time\").max() + pl.col(\"time\").min()\n            )\n        ).over(\"id\").alias(\"prop_time\")\n    )\n)\n\n\nHere are the smoothed F1 and F2 tracks.\n\n\nCode\nplt.scatter(\n    first_pass[\"prop_time\"],\n    first_pass[\"F1_s\"],\n    s = 1\n)\nplt.title(\"Smoothed F1\")\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\nCode\nplt.scatter(\n    first_pass[\"prop_time\"],\n    first_pass[\"F2_s\"],\n    s = 1\n)\nplt.title(\"Smoothed F2\")\nplt.show()\n\n\n\n\n\n\n\n\n\nAnd in F1xF2 space\n\n\nCode\nplt.scatter(\n    -first_pass[\"F2_s\"],\n    -first_pass[\"F1_s\"],\n    s = 1\n)\nplt.title(\"F1xF2 space\")\nplt.show()\n\n\n\n\n\n\n\n\n\nI’ll grab the outliers based on a visual inspection. (F1 &gt; 800 or F2 &gt; 2500).\n\n\nCode\noutliers = (\n    first_pass\n    .filter(\n        (\n            (pl.col(\"label\").str.contains(\"1\"))\n            &\n            (\n                (pl.col(\"F1\") &gt; 900 ) |\n                (pl.col(\"F2\") &gt; 2500)\n            )\n        )\n    )\n    .group_by([\"id\", \"label\"])\n    .count()\n)\n\noutliers\n\n\n/tmp/ipykernel_2091/1712949402.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.\n  .count()\n\n\n\n\nshape: (5, 3)\n\n\n\nid\nlabel\ncount\n\n\nstr\nstr\nu32\n\n\n\n\n\"0-0-73-1\"\n\"OW1\"\n14\n\n\n\"0-0-161-0\"\n\"AO1\"\n3\n\n\n\"0-0-314-1\"\n\"AO1\"\n83\n\n\n\"0-0-371-0\"\n\"AO1\"\n19\n\n\n\"0-0-44-0\"\n\"AA1\"\n18\n\n\n\n\n\n\n\nAnd I’ll look at their spectrograms\n\nCode\noutlier_tracks = [\n    track\n    for track in candidates\n    if track.id in outliers[\"id\"]\n]\n\nfor track in outlier_tracks:\n    track.winner.spectrogram(figsize = (3,2))\n    plt.title(track.label +\" \" +track.id)\n    plt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSome vowels may be lost causes, looking like instances of alignment errors. But the others may be salvageable, and seem to be due to their F1 and F2 being very close.",
     "crumbs": [
       "Home",
       "Development Plan",
@@ -96,7 +94,7 @@
     "href": "dev_plan/new-fave-approach.html#optimizing",
     "title": "new-fave Approach",
     "section": "Optimizing",
-    "text": "Optimizing\nOpen questions are:\n\nAre all three metrics important, or functional, for the kind of error reduction we want?\nHow many optimizing steps should we take?\nHow many max-formant increments should we use?\n\nHere, I’ll optimize for 10 steps\n\nformant_optim = np.array([vm.winner.maximum_formant for vm in v_meases])\nfor i in range(10):\n    optimize_vowel_measures(v_meases)\n    new_max = np.array([vm.winner.maximum_formant for vm in v_meases])\n    formant_optim = np.vstack([formant_optim, new_max])\n\nThis plot shows how any single track was updated over optimization steps.\n\nplt.plot(\n    range(11),\n    formant_optim\n)\nplt.show()\n\n\n\n\n\n\n\n\n\nnew_df = pl.concat([\n    vm.winner.to_df()\n    for vm in v_meases\n])\n\n\nplt.scatter(\n    -new_df[\"F2_s\"],\n    -new_df[\"F1_s\"],\n    s = 1\n)\nplt.title(\"F1xF2 space\")\nplt.show()\n\n\n\n\n\n\n\n\n\nnew_outliers = (\n    new_df\n    .filter(\n        (\n            (pl.col(\"label\").str.contains(\"1\"))\n            &\n            (\n                (pl.col(\"F1_s\") &gt; 900 ) |\n                (pl.col(\"F2_s\") &gt; 2500)\n            )\n        )\n    )\n    .group_by([\"id\", \"label\"])\n    .count()\n)\n\nnew_outliers\n\n/tmp/ipykernel_2144/1290466927.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.\n  .count()\n\n\n\n\nshape: (3, 3)\n\n\n\nid\nlabel\ncount\n\n\nstr\nstr\nu32\n\n\n\n\n\"0-0-44-0\"\n\"AA1\"\n8\n\n\n\"0-0-73-1\"\n\"OW1\"\n10\n\n\n\"0-0-85-1\"\n\"AY1\"\n23\n\n\n\n\n\n\n\n\nCode\nnew_outlier_tracks = [\n    vm\n    for vm in v_meases\n    if vm.winner.id in new_outliers[\"id\"]\n]\n\nfor track in new_outlier_tracks:\n    track.winner.spectrogram(figsize = (3,2))\n    plt.title(track.label +\" \" +track.winner.id)\n    plt.show()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThese remaining outliers look like just fundamentally hard cases.\n\nplt.scatter(\n    -new_df[\"F2_s\"],\n    -new_df[\"F1_s\"],\n    color = \"grey\"\n)\n\nfor track in v_classes[\"AY\"].tracks:\n    df = track.winner.to_df()\n    plt.plot(\n        -df[\"F2_s\"],\n        -df[\"F1_s\"]\n    )",
+    "text": "Optimizing\nOpen questions are:\n\nAre all three metrics important, or functional, for the kind of error reduction we want?\nHow many optimizing steps should we take?\nHow many max-formant increments should we use?\n\nHere, I’ll optimize for 10 steps\n\nformant_optim = np.array([vm.winner.maximum_formant for vm in v_meases])\nfor i in range(10):\n    optimize_vowel_measures(v_meases)\n    new_max = np.array([vm.winner.maximum_formant for vm in v_meases])\n    formant_optim = np.vstack([formant_optim, new_max])\n\nThis plot shows how any single track was updated over optimization steps.\n\nplt.plot(\n    range(11),\n    formant_optim\n)\nplt.show()\n\n\n\n\n\n\n\n\n\nnew_df = pl.concat([\n    vm.winner.to_df()\n    for vm in v_meases\n])\n\n\nplt.scatter(\n    -new_df[\"F2_s\"],\n    -new_df[\"F1_s\"],\n    s = 1\n)\nplt.title(\"F1xF2 space\")\nplt.show()\n\n\n\n\n\n\n\n\n\nnew_outliers = (\n    new_df\n    .filter(\n        (\n            (pl.col(\"label\").str.contains(\"1\"))\n            &\n            (\n                (pl.col(\"F1_s\") &gt; 900 ) |\n                (pl.col(\"F2_s\") &gt; 2500)\n            )\n        )\n    )\n    .group_by([\"id\", \"label\"])\n    .count()\n)\n\nnew_outliers\n\n/tmp/ipykernel_2091/1290466927.py:14: DeprecationWarning: `count` is deprecated. It has been renamed to `len`.\n  .count()\n\n\n\n\nshape: (0, 3)\n\n\n\nid\nlabel\ncount\n\n\nstr\nstr\nu32\n\n\n\n\n\n\n\n\n\n\nCode\nnew_outlier_tracks = [\n    vm\n    for vm in v_meases\n    if vm.winner.id in new_outliers[\"id\"]\n]\n\nfor track in new_outlier_tracks:\n    track.winner.spectrogram(figsize = (3,2))\n    plt.title(track.label +\" \" +track.winner.id)\n    plt.show()\n\n\n\n\nThese remaining outliers look like just fundamentally hard cases.\n\nplt.scatter(\n    -new_df[\"F2_s\"],\n    -new_df[\"F1_s\"],\n    color = \"grey\"\n)\n\nfor track in v_classes[\"AY\"].tracks:\n    df = track.winner.to_df()\n    plt.plot(\n        -df[\"F2_s\"],\n        -df[\"F1_s\"]\n    )",
     "crumbs": [
       "Home",
       "Development Plan",
@@ -104,23 +102,25 @@
     ]
   },
   {
-    "objectID": "reference/index.html",
-    "href": "reference/index.html",
-    "title": "Function reference",
+    "objectID": "reference/extract.html",
+    "href": "reference/extract.html",
+    "title": "extract",
     "section": "",
-    "text": "Extract\n\n\n\nextract",
+    "text": "extract\n\n\n\n\n\nName\nDescription\n\n\n\n\nfave_extract\nsummary\n\n\n\n\n\nextract.fave_extract(corpus_path, fasttrack_config, labelset_parser, recode_rules, measurement_points, **kwargs)\nsummary",
     "crumbs": [
-      "Function reference"
+      "Extract",
+      "extract"
     ]
   },
   {
-    "objectID": "reference/index.html#extract",
-    "href": "reference/index.html#extract",
-    "title": "Function reference",
+    "objectID": "reference/extract.html#functions",
+    "href": "reference/extract.html#functions",
+    "title": "extract",
     "section": "",
-    "text": "Extract\n\n\n\nextract",
+    "text": "Name\nDescription\n\n\n\n\nfave_extract\nsummary\n\n\n\n\n\nextract.fave_extract(corpus_path, fasttrack_config, labelset_parser, recode_rules, measurement_points, **kwargs)\nsummary",
     "crumbs": [
-      "Function reference"
+      "Extract",
+      "extract"
     ]
   }
 ]
