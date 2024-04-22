@@ -423,14 +423,8 @@ class VowelMeasurement():
     
     @property 
     def max_formant_mahal(self):
-        inv_covmat = self.vowel_class.max_formant_icov
-        maximum_formant_means = self.vowel_class.maximum_formant_means
-        if np.any(~np.isfinite(inv_covmat)):
-            inv_covmat = self.vowel_class.vowel_system.max_formant_icov
-            maximum_formant_means = self.vowel_class.vowel_system.maximum_formant_means
-        elif len(self.vowel_class.tracks) < 5:
-            inv_covmat = self.vowel_class.vowel_system.max_formant_icov
-            maximum_formant_means = self.vowel_class.vowel_system.maximum_formant_means
+        inv_covmat = self.vowel_class.vowel_system.max_formant_icov
+        maximum_formant_means = self.vowel_class.vowel_system.maximum_formant_means
         x_mu = self.cand_max_formants - maximum_formant_means
         left = np.dot(x_mu.T, inv_covmat)
         mahal = np.dot(left, x_mu)
@@ -442,7 +436,7 @@ class VowelMeasurement():
             self.max_formant_mahal,
             df = 1
         )
-        return log_prob
+        return log_prob * 0.5
 
     @property
     def error_log_prob(self):
