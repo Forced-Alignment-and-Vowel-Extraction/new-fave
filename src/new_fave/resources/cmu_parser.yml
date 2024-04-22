@@ -26,3 +26,22 @@ properties:
             relation: contains
             set: "0"
         return: "0"
+  
+  - name: "coloring"
+    updates: "LR"
+    default: ""
+    rules:
+      - rule: "R"
+        conditions: 
+          - attribute: fol.label
+            relation: in
+            set: 
+              - R
+              - AXR
+        return: "R"
+      - rule: "L"
+        conditions:
+          - attribute: fol.label
+            relation: "=="
+            set: L
+        return: L

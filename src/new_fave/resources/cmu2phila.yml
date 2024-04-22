@@ -40,7 +40,7 @@
     - attribute: inword.label
       relation: rematches
       set: "ARRY$"
-  return: ae
+  return: ae{LR}
 
 # tense lexical exceptions
 - rule: aeh-lex
@@ -272,7 +272,7 @@
         - COUGHS
         - COUGHED
         - COUGHING
-  return: oh
+  return: oh{LR}
 
 # o-fix
 - rule: o-fix
@@ -310,7 +310,7 @@
         - ORANGE
         - HORRIBLE
         - MAJORITY
-  return: o
+  return: o{LR}
 
 # iw
 - rule: iw-1
@@ -339,14 +339,14 @@
     - attribute: inword.label
       relation: rematches
       set: "[TDNLS]U"
-  return: iw
+  return: iw{LR}
 
 - rule: schwa
   conditions:
     - attribute: label
       relation: ==
       set: AH0
-  return: "@"
+  return: "@{LR}"
 
 - rule: eyf
   conditions: 
@@ -376,18 +376,18 @@
       set: "#"
   return: owF
 
-- rule: owl
-  conditions:
-    - attribute: label
-      relation: contains
-      set: OW
-    - attribute: fol.label
-      relation: contains
-      set: L
-    - attribute: fol.fol.label
-      relation: reunmatches
-      set: "[AEIOUaeiou@]"
-  return: owL
+# - rule: owl
+#   conditions:
+#     - attribute: label
+#       relation: contains
+#       set: OW
+#     - attribute: fol.label
+#       relation: contains
+#       set: L
+#     - attribute: fol.fol.label
+#       relation: reunmatches
+#       set: "[AEIOUaeiou@]"
+#   return: owL
 
 - rule: ay0
   conditions:
@@ -455,7 +455,7 @@
         - NIRVANA
         - KARATE
         - AH
-  return: ah
+  return: ah{LR}
 
 - rule: Tuw
   conditions:
@@ -476,20 +476,20 @@
         - S
         - T 
         - Z
-  return: Tuw
+  return: Tuw{LR}
 
-- rule: uwl
-  conditions:
-    - attribute: label
-      relation: contains
-      set: UW
-    - attribute: fol.label
-      relation: contains
-      set: L
-    - attribute: fol.fol.label
-      relation: reunmatches
-      set: "[AEIOUaeiou@]"
-  return: uwl
+# - rule: uwl
+#   conditions:
+#     - attribute: label
+#       relation: contains
+#       set: UW
+#     - attribute: fol.label
+#       relation: contains
+#       set: L
+#     - attribute: fol.fol.label
+#       relation: reunmatches
+#       set: "[AEIOUaeiou@]"
+#   return: uwl
 
 - rule: iyr
   conditions:
@@ -569,13 +569,13 @@
     - attribute: label
       relation: contains
       set: AA
-  return: o
+  return: o{LR}
 - rule: ae
   conditions: 
     - attribute: label
       relation: contains
       set: AE
-  return: ae
+  return: ae{LR}
 - rule: wedge
   conditions:
     - attribute: label
@@ -583,31 +583,31 @@
       set:
         - AH1
         - AH2
-  return: uh
+  return: uh{LR}
 - rule: oh
   conditions:
     - attribute: label
       relation: contains
       set: AO
-  return: oh
+  return: oh{LR}
 - rule: aw
   conditions:
     - attribute: label
       relation: contains
       set: AW
-  return: aw
+  return: aw{LR}
 - rule: ay
   conditions:
     - attribute: label
       relation: contains
       set: AY
-  return: ay
+  return: ay{LR}
 - rule: e
   conditions:
     - attribute: label
       relation: contains
       set: "EH"
-  return: e
+  return: e{LR}
 - rule: "*hr"
   conditions:
     - attribute: label
@@ -619,40 +619,40 @@
     - attribute: label
       relation: contains
       set: EY
-  return: ey
+  return: ey{LR}
 - rule: i
   conditions:
     - attribute: label
       relation: contains
       set: IH
-  return: i
+  return: i{LR}
 - rule: iy
   conditions:
     - attribute: label
       relation: contains
       set: IY
-  return: iy
+  return: iy{LR}
 - rule: ow
   conditions:
     - attribute: label
       relation: contains
       set: OW
-  return: ow
+  return: ow{LR}
 - rule: oy
   conditions: 
     - attribute: label
       relation: contains
       set: OY
-  return: oy
+  return: oy{LR}
 - rule: u
   conditions: 
     - attribute: label
       relation: contains
       set: UH
-  return: u
+  return: u{LR}
 - rule: uw
   conditions:
     - attribute: label
       relation: contains
       set: UW
-  return: uw
+  return: uw{LR}
