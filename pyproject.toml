@@ -10,7 +10,7 @@ packages = [{include = "new_fave", from="src"}]
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
 aligned-textgrid = "^0.6.3"
-fasttrackpy = "^0.4.3"
+fasttrackpy = "^0.4.4"
 numpy = "^1.26.4"
 tqdm = "^4.66.2"
 fave-recode = "^0.3.0"
