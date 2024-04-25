@@ -590,7 +590,13 @@ class VowelMeasurement():
 
         return df
     
-    def to_tracks_df(self):
+    def to_tracks_df(self) -> pl.DataFrame:
+        """Return a DataFrame of the formant tracks
+
+        Returns:
+            (pl.DataFrame): 
+                A dataframe with formant track data.
+        """
         df = self.winner.to_df()
         df = df.with_columns(
             speaker_num = (
@@ -603,8 +609,35 @@ class VowelMeasurement():
         df = df.join(self.vm_context, on = "id")
 
         return df
-    
-    def to_point_df(self):
+
+    def to_param_df(self) -> pl.DataFrame:
+        """Return DataFrame of formant DCT parameters.
+
+        Returns:
+            (pl.DataFrame):
+                A DataFrame of formant DCT parameters
+        """
+        df = self.winner.to_df(output='param')
+        df = df.with_columns(
+            speaker_num = (
+                pl.col("id")
+                .str.extract("^(\d+)-")
+                .str.to_integer() + 1
+            )
+        )
+        
+        df = df.join(self.vm_context, on = "id")
+        
+        return df
+
+
+    def to_point_df(self) -> pl.DataFrame:
+        """Return a DataFrame of point measurements
+
+        Returns:
+            (pl.DataFrame): 
+                A DataFrame of vowel point measures.
+        """
         df = self.point_measure
         df = df.with_columns(
             speaker_num = (
