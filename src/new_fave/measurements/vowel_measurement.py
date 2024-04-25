@@ -58,6 +58,13 @@ class SpeakerCollection(defaultdict):
         )
         return df
 
+    def to_param_df(self):
+        df = pl.concat(
+            [x.to_param_df() for x in self.values()]
+        )
+        return df
+
+
     def to_point_df(self):
         df = pl.concat(
             [x.to_point_df() for x in self.values()]
@@ -220,13 +227,38 @@ class VowelClassCollection(defaultdict):
             return np.array([[np.nan]])    
                 
     def to_tracks_df(self):
+        """Return a DataFrame of the formant tracks
+
+        Returns:
+            (pl.DataFrame): 
+                A dataframe with formant track data.
+        """        
         df = pl.concat(
             [x.to_tracks_df() for x in self.values()]
         )
 
         return df
     
+    def to_param_df(self):
+        """Return DataFrame of formant DCT parameters.
+
+        Returns:
+            (pl.DataFrame):
+                A DataFrame of formant DCT parameters
+        """        
+        df = pl.concat(
+            [x.to_param_df() for x in self.values()]
+        )
+
+        return df    
+    
     def to_point_df(self):
+        """Return a DataFrame of point measurements
+
+        Returns:
+            (pl.DataFrame): 
+                A DataFrame of vowel point measures.
+        """                
         df = pl.concat(
             [x.to_point_df() for x in self.values()]
         )
@@ -342,14 +374,39 @@ class VowelClass():
         except:
             return np.array([[np.nan]])
         
-    def to_tracks_df(self):
+    def to_tracks_df(self) -> pl.DataFrame:
+        """Return a DataFrame of the formant tracks
+
+        Returns:
+            (pl.DataFrame): 
+                A dataframe with formant track data.
+        """
         df = pl.concat(
             [x.to_tracks_df() for x in self.tracks]
         )
 
         return df
     
-    def to_point_df(self):
+    def to_param_df(self) -> pl.DataFrame:
+        """Return DataFrame of formant DCT parameters.
+
+        Returns:
+            (pl.DataFrame):
+                A DataFrame of formant DCT parameters
+        """
+        df = pl.concat(
+            [x.to_param_df() for x in self.tracks]
+        )
+
+        return df
+    
+    def to_point_df(self) -> pl.DataFrame:
+        """Return a DataFrame of point measurements
+
+        Returns:
+            (pl.DataFrame): 
+                A DataFrame of vowel point measures.
+        """        
         df = pl.concat(
             [x.to_point_df() for x in self.tracks]
         )
@@ -558,6 +615,7 @@ class VowelMeasurement():
     def vm_context(self):
         id = self.winner.id
         word = self.winner.interval.within.label
+        dur = self.winner.interval.end - self.winner.interval.start
         pre_word = self.winner.interval.within.prev.label
         fol_word = self.winner.interval.within.fol.label
         pre_seg = self.winner.interval.prev.label
@@ -580,6 +638,7 @@ class VowelMeasurement():
             "id": id,
             "word": word,
             "stress": stress,
+            "dur": dur,
             "pre_word": pre_word,
             "fol_word": fol_word,
             "pre_seg": pre_seg,
