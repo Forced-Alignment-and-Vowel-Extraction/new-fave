@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 def run_optimize(
         vowel_system: VowelClassCollection,
-        optim_params = ["cand_mahal", "rate", "max_formant", "kde"],
+        optim_params = ["cand_mahal", "rate", "max_formant"],
         max_iter = 10
     ):
     current_formants = vowel_system.winner_formants
@@ -32,7 +32,7 @@ def run_optimize(
 
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
-        optim_params = ["cand_mahal", "rate", "max_formant", "kde"]
+        optim_params = ["cand_mahal", "rate", "max_formant"]
     ):
     #new_winners = Parallel(n_jobs=5)(optimize_one_measure(vm) for vm in vowel_measurements)
     new_winners = [optimize_one_measure(vm, optim_params=optim_params) for vm in tqdm(vowel_measurements)]
@@ -41,20 +41,16 @@ def optimize_vowel_measures(
 
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params = ["cand_mahal", "max_formant", "rate", "kde"]
+         optim_params = ["cand_mahal", "max_formant", "rate"]
     ):
    
     prob_dict = dict()
 
     if "cand_mahal" in optim_params:
         prob_dict["cand_mahal"] = vowel_measurement.cand_mahal_log_prob
-        if np.any(~np.isfinite(prob_dict["cand_mahal"])):
-            prob_dict["cand_mahal"] = np.zeros(shape = prob_dict["cand_mahal"].shape[0])
 
     if "max_formant" in optim_params:
         prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob
-        if np.any(~np.isfinite(prob_dict["max_formant"])):
-            prob_dict["max_formant"] = np.zeros(shape=prob_dict["max_formant"].shape[0])
 
     if "kde" in optim_params:
         prob_dict["kde"] =  vowel_measurement.cand_log_kde
