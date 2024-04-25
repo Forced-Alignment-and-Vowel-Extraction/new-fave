@@ -31,9 +31,8 @@ def first_deriv(coefs, size = 100):
     return dotu.tolist()
 
 class SpeakerCollection(defaultdict):
-    def __init__(self, track_list:list, param_optim = 3):
+    def __init__(self, track_list:list):
         self.speakers_dict = defaultdict(blank_list)
-        self.param_optim = param_optim
         self._make_tracks_dict(track_list)
         self._dictify()
     
@@ -48,8 +47,7 @@ class SpeakerCollection(defaultdict):
     def _dictify(self):
         for fs in self.speakers_dict:
             self[fs] = VowelClassCollection(
-                self.speakers_dict[fs],
-                self.param_optim
+                self.speakers_dict[fs]
             )
     
     def to_tracks_df(self):
@@ -73,10 +71,9 @@ class SpeakerCollection(defaultdict):
 
 
 class VowelClassCollection(defaultdict):
-    def __init__(self, track_list:list, param_optim = 3):
+    def __init__(self, track_list:list):
 
         super().__init__(blank)
-        self.param_optim = param_optim
         self.tracks_dict = defaultdict(blank_list)
         self._make_tracks_dict(track_list)
         self._dictify()
@@ -95,8 +92,8 @@ class VowelClassCollection(defaultdict):
         for v in self.tracks_dict:
             self[v] = VowelClass(
                 v, 
-                self.tracks_dict[v], 
-                param_optim=self.param_optim)
+                self.tracks_dict[v]
+            )
 
     def _vowel_system(self):
         for v in self.tracks_dict:
@@ -122,7 +119,7 @@ class VowelClassCollection(defaultdict):
     def winner_params(self):
         params = np.array(
             [
-                x.parameters[:, 0:self.param_optim]
+                x.parameters
                 for x in self.winners
             ]
         ).T
@@ -269,13 +266,11 @@ class VowelClass():
     def __init__(
             self,
             label: str,
-            tracks: list,
-            param_optim = 3
+            tracks: list
         ):
         self.label = label
         self.tracks = tracks
         self._winners = [x.winner for x in self.tracks]
-        self.param_optim = param_optim
         for t in self.tracks:
             t.vowel_class = self
 
@@ -296,7 +291,7 @@ class VowelClass():
     def winner_params(self):
         params = np.array(
             [
-                x.parameters[:, 0:self.param_optim]
+                x.parameters
                 for x in self.winners
             ]
         ).T
@@ -466,7 +461,7 @@ class VowelMeasurement():
     def cand_params(self):
         params = np.array(
             [
-                x.parameters[:, 0:self.vowel_class.param_optim]
+                x.parameters
                 for x in self.candidates
             ]
         ).T
