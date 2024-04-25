@@ -436,11 +436,8 @@ class VowelMeasurement():
     def cand_mahals(self):
         N = len(self.candidates)
         square_params = self.cand_params.reshape(-1, N)
-        inv_covmat = self.vowel_class.params_icov
-        param_means = self.vowel_class.params_means
-        # if np.any(~np.isfinite(inv_covmat)):
-        #     inv_covmat = self.vowel_class.vowel_system.params_icov
-        #     param_means = self.vowel_class.vowel_system.params_means
+        inv_covmat = self.vowel_class.vowel_system.params_icov
+        param_means = self.vowel_class.vowel_system.params_means
         x_mu = square_params - param_means
         left = np.dot(x_mu.T, inv_covmat)
         mahal = np.dot(left, x_mu)
