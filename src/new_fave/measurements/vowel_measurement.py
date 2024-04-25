@@ -569,7 +569,7 @@ class VowelMeasurement():
             warnings.simplefilter("ignore")
             log_prob =  np.log(prob).sum(axis = 0)
 
-        return log_prob - log_prob.max()
+            return log_prob - log_prob.max()
     
     @property
     def cand_log_kde(self):
