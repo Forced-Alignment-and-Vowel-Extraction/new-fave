@@ -451,7 +451,7 @@ class VowelMeasurement():
             self.cand_mahals,
             df = df
         )
-        if np.any(~np.isfinite(log_prob)):
+        if np.isfinite(log_prob).mean() < 0.5:
             log_prob = np.zeros(shape = log_prob.shape)
         return log_prob
 
@@ -471,6 +471,10 @@ class VowelMeasurement():
             self.max_formant_mahal,
             df = 1
         )
+
+        if np.isfinite(log_prob).mean() < 0.5:
+            log_prob = np.zeros(shape = log_prob.shape)
+
         return log_prob * 0.5
 
     @property
