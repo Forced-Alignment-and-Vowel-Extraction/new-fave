@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 def run_optimize(
         vowel_system: VowelClassCollection,
-        optim_params = ["cand_mahal", "rate", "max_formant"],
+        optim_params = ["cand_mahal", "max_formant"],
         max_iter = 10
     ):
     current_formants = vowel_system.winner_formants
@@ -32,7 +32,7 @@ def run_optimize(
 
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
-        optim_params = ["cand_mahal", "rate", "max_formant"]
+        optim_params = ["cand_mahal", "max_formant"]
     ):
     #new_winners = Parallel(n_jobs=5)(optimize_one_measure(vm) for vm in vowel_measurements)
     new_winners = [optimize_one_measure(vm, optim_params=optim_params) for vm in tqdm(vowel_measurements)]
@@ -41,7 +41,7 @@ def optimize_vowel_measures(
 
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params = ["cand_mahal", "max_formant", "rate"]
+         optim_params = ["cand_mahal", "max_formant"]
     ):
    
     prob_dict = dict()
