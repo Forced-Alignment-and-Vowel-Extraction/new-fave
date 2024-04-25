@@ -30,6 +30,40 @@ def first_deriv(coefs, size = 100):
     dotu=idst(hatu, n = size, type=2)
     return dotu.tolist()
 
+class SpeakerCollection(defaultdict):
+    def __init__(self, track_list:list, param_optim = 3):
+        self.speakers_dict = defaultdict(blank_list)
+        self.param_optim = param_optim
+        self._make_tracks_dict(track_list)
+        self._dictify()
+    
+    def __setitem__(self, __key, __value) -> None:
+        super().__setitem__(__key, __value)
+
+    def _make_tracks_dict(self, track_list):
+        for v in track_list:
+            file_speaker = (v.file_name, v.group)
+            self.speakers_dict[file_speaker].append(v)
+        
+    def _dictify(self):
+        for fs in self.speakers_dict:
+            self[fs] = VowelClassCollection(
+                self.speakers_dict[fs],
+                self.param_optim
+            )
+    
+    def to_tracks_df(self):
+        df = pl.concat(
+            [x.to_tracks_df() for x in self.values()]
+        )
+        return df
+
+    def to_point_df(self):
+        df = pl.concat(
+            [x.to_point_df() for x in self.values()]
+        )
+        return df
+
 
 class VowelClassCollection(defaultdict):
     def __init__(self, track_list:list, param_optim = 3):
@@ -335,6 +369,10 @@ class VowelMeasurement():
         self.n_formants = track.n_formants
         self._winner = track.winner
         self.heuristic = heuristic
+        self.interval = track.interval
+        self.group = track.group
+        self.id = track.id
+        self.file_name = track.file_name
 
     @property
     def formant_array(self):
