@@ -8,7 +8,7 @@ from typing import Literal
 import polars as pl
 
 import scipy.stats as stats
-from scipy.fft import idst
+from scipy.fft import idst, idct
 from joblib import Parallel, delayed, cpu_count
 
 NCPU = cpu_count()
@@ -91,9 +91,22 @@ class VowelClassCollection(defaultdict):
         self._vowel_system()
         self._kernel = None
         self._ecdf = None
+        self._params_means = None
+        self._params_icov = None
+        self._maximum_formant_means = None
+        self._max_formant_icov = None
+
 
     def __setitem__(self, __key, __value) -> None:
         super().__setitem__(__key, __value)
+
+    def _reset_winners(self):
+        self._kernel = None
+        self._ecdf = None
+        self._params_means = None
+        self._params_icov = None
+        self._maximum_formant_means = None
+        self._max_formant_icov = None        
 
     def _make_tracks_dict(self, track_list):
         for v in track_list:
@@ -149,6 +162,17 @@ class VowelClassCollection(defaultdict):
         return formants
     
     @property
+    def winner_expanded_formants(self):
+        formants = np.hstack(
+            [
+                x.expanded_formants[:, :, x.winner_index]
+                for x in self.vowel_measurements
+            ]
+        )
+
+        return formants
+    
+    @property
     def winners_max_rates(self):
         rates = np.hstack([vc.winners_max_rates for vc in self.values()])
         return rates
@@ -185,9 +209,12 @@ class VowelClassCollection(defaultdict):
     
     @property
     def params_means(self):
+        if self._params_means is not None:
+            return self._params_means
         N = len(self.winners)
         winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
         winner_mean = winner_mean[:, np.newaxis]
+        self._params_means = winner_mean
         return winner_mean
     
     @property
@@ -201,10 +228,13 @@ class VowelClassCollection(defaultdict):
     
     @property
     def params_icov(self):
+        if self._params_icov is not None:
+            return self._params_icov
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             try:
                 params_icov = np.linalg.inv(self.params_covs)
+                self._params_icov = params_icov
                 return params_icov
             except:
                 params_icov = np.array([
@@ -213,10 +243,14 @@ class VowelClassCollection(defaultdict):
                     self.params_covs.shape[0],
                     self.params_covs.shape[1]
                 )
+                self._params_icov = params_icov
                 return params_icov
 
     @property
     def maximum_formant_means(self):
+        if self._maximum_formant_means is not None:
+            return self._maximum_formant_means
+        self._maximum_formant_means = self.winners_maximum_formant.mean()
         return self.winners_maximum_formant.mean()
     
     @property
@@ -228,10 +262,15 @@ class VowelClassCollection(defaultdict):
     
     @property
     def max_formant_icov(self):
+        if self._max_formant_icov is not None:
+            return self._max_formant_icov
+        
         try:
             icov = np.linalg.inv(self.maximum_formant_cov)
+            self._max_formant_icov = icov
             return icov
         except:
+            self._max_formant_icov = np.array([[np.nan]])
             return np.array([[np.nan]])    
                 
     def to_tracks_df(self):
@@ -442,6 +481,7 @@ class VowelMeasurement():
         self.group = track.group
         self.id = track.id
         self.file_name = track.file_name
+        self._expanded_formants = None
 
     @property
     def formant_array(self):
@@ -467,12 +507,24 @@ class VowelMeasurement():
     @winner.setter
     def winner(self, idx):
         self._winner = self.candidates[idx]
-        self.vowel_class.vowel_system._kernel = None
-        self.vowel_class.vowel_system._ecdf = None
+        self.vowel_class.vowel_system._reset_winners()
     
     @property
     def winner_index(self):
         return self.candidates.index(self.winner)
+
+    @property
+    def expanded_formants(self):
+        if self._expanded_formants is not None:
+            return self._expanded_formants
+        
+        self._expanded_formants = np.apply_along_axis(
+            lambda x: idct(x.T, n = 20, orthogonalize=True, norm = "forward"),
+            0,
+            self.cand_params
+        )
+        return self._expanded_formants
+        
 
     @property
     def cand_params(self):
@@ -548,10 +600,15 @@ class VowelMeasurement():
 
     @property
     def error_log_prob(self):
-        err_ecdf = stats.ecdf(self.cand_errors)
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            err_log_prob = np.log(err_ecdf.sf.evaluate(self.cand_errors))
+            err_norm = self.cand_errors - np.nanmin(self.cand_errors)
+            err_surv = 1 - (err_norm/np.nanmax(err_norm))
+            err_log_prob = np.log(err_surv)
+        # err_ecdf = stats.ecdf(self.cand_errors)
+        # with warnings.catch_warnings():
+        #     warnings.simplefilter("ignore")
+        #     err_log_prob = np.log(err_ecdf.sf.evaluate(self.cand_errors))
         return err_log_prob
     
     @property
