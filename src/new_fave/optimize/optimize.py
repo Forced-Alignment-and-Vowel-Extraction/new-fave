@@ -9,16 +9,16 @@ def run_optimize(
         optim_params = ["cand_mahal", "max_formant"],
         max_iter = 10
     ):
-    current_formants = vowel_system.winner_formants
+    current_formants = vowel_system.winner_expanded_formants
     msqe = [np.inf]
     for i in range(max_iter):
         optimize_vowel_measures(
             vowel_system.vowel_measurements,
             optim_params=optim_params
             )
-        new_formants = vowel_system.winner_formants
+        new_formants = vowel_system.winner_expanded_formants
         new_msqe = np.sqrt(((current_formants - new_formants)**2).mean())
-        
+
         if msqe[-1]/new_msqe <= 1.1:
             return
         
