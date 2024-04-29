@@ -4,7 +4,7 @@ from fave_measurement_point.heuristic import Heuristic
 from fave_measurement_point.formants import FormantArray
 from collections import defaultdict
 import numpy as np
-
+from typing import Literal
 import polars as pl
 
 import scipy.stats as stats
@@ -56,9 +56,20 @@ class SpeakerCollection(defaultdict):
         )
         return df
 
-    def to_param_df(self):
+    def to_param_df(
+            self, 
+            output:Literal['param', 'log_param'] = "log_param"
+        ) -> pl.DataFrame:
+        """_summary_
+
+        Args:
+            output (Literal[&#39;param&#39;, &#39;log_param&#39;], optional): _description_. Defaults to "log_param".
+
+        Returns:
+            pl.DataFrame: _description_
+        """
         df = pl.concat(
-            [x.to_param_df() for x in self.values()]
+            [x.to_param_df(output = output) for x in self.values()]
         )
         return df
 
@@ -236,7 +247,10 @@ class VowelClassCollection(defaultdict):
 
         return df
     
-    def to_param_df(self):
+    def to_param_df(
+            self, 
+            output:Literal["param", "log_param"] = "log_param"
+        ) -> pl.DataFrame:
         """Return DataFrame of formant DCT parameters.
 
         Returns:
@@ -244,7 +258,7 @@ class VowelClassCollection(defaultdict):
                 A DataFrame of formant DCT parameters
         """        
         df = pl.concat(
-            [x.to_param_df() for x in self.values()]
+            [x.to_param_df(output = output) for x in self.values()]
         )
 
         return df    
@@ -382,7 +396,10 @@ class VowelClass():
 
         return df
     
-    def to_param_df(self) -> pl.DataFrame:
+    def to_param_df(
+            self, 
+            output:Literal["param", "log_param"] = "log_param"
+        ) -> pl.DataFrame:
         """Return DataFrame of formant DCT parameters.
 
         Returns:
@@ -390,7 +407,7 @@ class VowelClass():
                 A DataFrame of formant DCT parameters
         """
         df = pl.concat(
-            [x.to_param_df() for x in self.tracks]
+            [x.to_param_df(output=output) for x in self.tracks]
         )
 
         return df
@@ -665,14 +682,17 @@ class VowelMeasurement():
 
         return df
 
-    def to_param_df(self) -> pl.DataFrame:
+    def to_param_df(
+            self, 
+            output:Literal["param", "log_param"] = "log_param"
+        ) -> pl.DataFrame:
         """Return DataFrame of formant DCT parameters.
 
         Returns:
             (pl.DataFrame):
                 A DataFrame of formant DCT parameters
         """
-        df = self.winner.to_df(output='param')
+        df = self.winner.to_df(output=output)
         df = df.with_columns(
             speaker_num = (
                 pl.col("id")
