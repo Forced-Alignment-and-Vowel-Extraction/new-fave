@@ -422,6 +422,21 @@ class VowelClass():
         )
 
         return df
+
+    def to_tracks_df(
+            self
+        ) -> pl.DataFrame:
+        """Return DataFrame of formanttracks.
+
+        Returns:
+            (pl.DataFrame):
+                A DataFrame of formant tracks
+        """
+        df = pl.concat(
+            [x.to_tracks_df() for x in self.tracks]
+        )
+
+        return df    
     
     def to_point_df(self) -> pl.DataFrame:
         """Return a DataFrame of point measurements
@@ -732,6 +747,7 @@ class VowelMeasurement():
         """
         df = self.winner.to_df(output=output)
         df = df.with_columns(
+            max_formant = self.winner.maximum_formant,
             speaker_num = (
                 pl.col("id")
                 .str.extract("^(\d+)-")
