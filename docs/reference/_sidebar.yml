@@ -5,5 +5,11 @@ website:
     - contents:
       - reference/extract.qmd
       section: Extract
+    - contents:
+      - reference/optimize.optimize.qmd
+      section: Optimization
+    - contents:
+      - reference/measurements.vowel_measurement.qmd
+      section: Vowel Measurements
     id: reference
   - id: dummy-sidebar

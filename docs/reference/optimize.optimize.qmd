@@ -1,0 +1,46 @@
+# optimize.optimize { #new_fave.optimize.optimize }
+
+`optimize.optimize`
+
+
+
+## Functions
+
+| Name | Description |
+| --- | --- |
+| [optimize_one_measure](#new_fave.optimize.optimize.optimize_one_measure) | This function optimizes a given vowel measurement based on the  |
+| [optimize_vowel_measures](#new_fave.optimize.optimize.optimize_vowel_measures) | Optimize a list of VowelMeasurements. |
+
+### optimize_one_measure { #new_fave.optimize.optimize.optimize_one_measure }
+
+`optimize.optimize.optimize_one_measure(vowel_measurement, optim_params=['cand_mahal', 'max_formant'])`
+
+This function optimizes a given vowel measurement based on the 
+specified optimization parameters. The optimization parameters 
+can include 'cand_mahal' and 'max_formant'.
+
+#### Parameters
+
+| Name                | Type                                                                           | Description                                                                    | Default                         |
+|---------------------|--------------------------------------------------------------------------------|--------------------------------------------------------------------------------|---------------------------------|
+| `vowel_measurement` | [VowelMeasurement](`new_fave.measurements.vowel_measurement.VowelMeasurement`) | The VowelMeasurement to optimize                                               | _required_                      |
+| `optim_params`      | [list](`list`)\[[Literal](`typing.Literal`)\['cand_mahal', 'max_formant'\]\]   | The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"]. | `['cand_mahal', 'max_formant']` |
+
+#### Returns
+
+| Type         | Description                         |
+|--------------|-------------------------------------|
+| [int](`int`) | The index of the winning candidate. |
+
+### optimize_vowel_measures { #new_fave.optimize.optimize.optimize_vowel_measures }
+
+`optimize.optimize.optimize_vowel_measures(vowel_measurements, optim_params=['cand_mahal', 'max_formant'])`
+
+Optimize a list of VowelMeasurements.
+
+#### Parameters
+
+| Name                 | Type                                                                                             | Description                                                                    | Default                         |
+|----------------------|--------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------|---------------------------------|
+| `vowel_measurements` | [list](`list`)\[[VowelMeasurement](`new_fave.measurements.vowel_measurement.VowelMeasurement`)\] | The list of vowel measurements to optimize                                     | _required_                      |
+| `optim_params`       | [list](`list`)\[[Literal](`typing.Literal`)\['cand_mahal', 'max_formant'\]\]                     | The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"]. | `['cand_mahal', 'max_formant']` |

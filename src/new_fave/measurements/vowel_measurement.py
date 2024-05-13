@@ -31,7 +31,16 @@ def first_deriv(coefs, size = 100):
     return dotu.tolist()
 
 class SpeakerCollection(defaultdict):
-    def __init__(self, track_list:list):
+    """
+    A class to represent the vowel system of all 
+    speakers in a TextGrid. It is a subclass of `defaultdict`,
+    and can be keyed by the `(file_name, group_name)` tuple.
+
+    Args:
+        track_list (list[CandidateTracks]):
+            A list of `fasttrackpy.CandidateTrack`s.
+    """
+    def __init__(self, track_list:list[CandidateTracks]):
         self.speakers_dict = defaultdict(blank_list)
         self._make_tracks_dict(track_list)
         self._dictify()
@@ -50,7 +59,14 @@ class SpeakerCollection(defaultdict):
                 self.speakers_dict[fs]
             )
     
-    def to_tracks_df(self):
+    def to_tracks_df(self)->pl.DataFrame:
+        """
+        This will return a data frame of formant 
+        tracks for all speakers.
+
+        Returns:
+            (pl.DataFrame): A dataframe of formant tracks for all speakers.
+        """
         df = pl.concat(
             [x.to_tracks_df() for x in self.values()]
         )
@@ -60,13 +76,18 @@ class SpeakerCollection(defaultdict):
             self, 
             output:Literal['param', 'log_param'] = "log_param"
         ) -> pl.DataFrame:
-        """_summary_
+        """
+        This will return a dataframe of the DCT parameters for all speakers.
+        If `output` is passed `param`, it will be the DCT parameters in the
+        original Hz. If passed `log_param`, it will be the DCT parameters
+        over log(Hz).
 
         Args:
-            output (Literal[&#39;param&#39;, &#39;log_param&#39;], optional): _description_. Defaults to "log_param".
+            output (Literal['param', 'log_param'], optional): 
+                Which set of DCT parameters to return. Defaults to "log_param".
 
         Returns:
-            pl.DataFrame: _description_
+            (pl.DataFrame): A DataFrame of DCT parameters for all speakers.
         """
         df = pl.concat(
             [x.to_param_df(output = output) for x in self.values()]
@@ -74,7 +95,14 @@ class SpeakerCollection(defaultdict):
         return df
 
 
-    def to_point_df(self):
+    def to_point_df(self) -> pl.DataFrame:
+        """
+        This will return a DataFrame of point measurements
+        for all speakers
+        Returns:
+            (pl.DataFrame): A DataFrame of vowel point measurements.
+        """
+
         df = pl.concat(
             [x.to_point_df() for x in self.values()]
         )
@@ -82,7 +110,51 @@ class SpeakerCollection(defaultdict):
 
 
 class VowelClassCollection(defaultdict):
-    def __init__(self, track_list:list):
+    """
+    A class for an entire vowel system. It is a subclass
+    of `defaultdict`, so it can be keyed by vowel class 
+    label
+
+    Args:
+        track_list (list[CandidateTracks):
+            A list of `fasttrackpy.CandidateTrack`s.
+
+    Attributes:
+        maximum_formant_cov (np.array): 
+            The covariance matrix for the winners maximum formant
+            across the entire vowel system
+        maximum_formant_means (np.array): 
+            The mean maximum formant for the winners
+            across the entire vowel system
+        max_formant_icov (np.array): 
+            The inverse covariance matrix for the winners maximum formant
+            across the entire vowel system
+        params_covs (np.array): 
+            The covariance matrix for the winners' DCT
+            parameters.
+        params_icov (np.array): 
+            The inverse covariance matrix for the winners' 
+            DCT parameters.
+        params_means (np.array): 
+            An `np.array` for the winners' DCT parameters
+            in the entire vowel system.
+        vowel_measurements (list[VowelMeasurement]): 
+            A list of all vowel measurements in the 
+            vowel system
+        winner_formants (np.array): 
+            An `np.array` for the formants 
+            for the winners in the entire vowel system.
+        winner_params (np.array): 
+            An `np.array` of DCT parameters for
+            the winners in entire vowel system.
+        winners (list[fasttrackpy.OneTrack]): 
+            The winning `fasttrackpy.OneTrack` for 
+            the entire vowel system
+        winners_maximum_formant (np.array): 
+            An `np.array` of the maximum formants
+            for the winners in the entire vowel system           
+    """
+    def __init__(self, track_list:list[CandidateTracks]):
 
         super().__init__(blank)
         self.tracks_dict = defaultdict(blank_list)
@@ -279,6 +351,27 @@ class VowelClassCollection(defaultdict):
         return df
 
 class VowelClass():
+    """A class used to represent a vowel class.
+
+    Args:
+        label (str):
+            The vowel class label
+        tracks (list): 
+            A list of VowelMeasurements
+    Attributes:
+        label (str): 
+            label of the vowel class
+        tracks (list): 
+           A list of `VowelMeasurement`s
+        vowel_system (VowelClassCollection):
+            A the containing vowel system
+        winners: 
+            A list of winner OneTracks from
+            the vowel class
+        winner_params:
+            An `np.array` of winner DCT parameters
+            from the vowel class.
+    """
     def __init__(
             self,
             label: str,
@@ -348,73 +441,73 @@ class VowelMeasurement():
     """ A class used to represent a vowel measurment.
 
     Args:
-        track (CandidateTracks): 
+        track (fasttrackpy.CandidateTracks): 
             A fasttrackpy.CandidateTrracks object
         heuristic (Heuristic, optional): 
             A point measurement Heuristic to use. 
             Defaults to Heuristic().
     
     Attributes: 
-        track : CandidateTracks
+        track (CandidateTracks):
             an object of CandidateTracks class
-        candidates : list
+        candidates (list):
             list of candidates for the track
-        heuristic : Heuristic, optional
+        heuristic (Heuristic, optional):
             an object of Heuristic class (default is Heuristic())
-        vowel_class: VowelClass
+        vowel_class (VowelClass):
             The containing VowelClass object
 
-        formant_array: FormantArray
+        formant_array (FormantArray): 
             A FormantArray object            
 
-        file_name : str
+        file_name (str):
             name of the file of the track
-        group : str
+        group (str):
             TierGroup of the track
-        id : str
+        id (str):
             id of the track
-        interval : object
+        interval (object):
             interval of the track
-        label : str
+        label (str):
             label of the track
-        n_formants : int
+        n_formants (int):
             number of formants in the track
 
 
         winner: fasttrackpy.OneTrack
             The winning formant track
-        winner_index: int
+        winner_index (int):
             The index of the winning formant track
 
-        error_log_prob: np.array
+        error_log_prob (np.array):
             A conversion of the log-mean-squared-error to a 
             log-probabilities, based on an empirical cumulative
             density function.
-        cand_errors: np.array
+        cand_errors (np.array):
             A numpy array of the log-mean-squared-errors
             for each candidate track.
-        cand_mahals: np.array
+        cand_mahals (np.array):
             The mahalanobis distance across DCT parameters
             for each candidate from the vowel system 
             distribution.
-        cand_mahal_log_prob: np.array
+        cand_mahal_log_prob (np.array):
             A conversion of `cand_mahals` to log-probabilies.
-        cand_max_formants: np.array
+        cand_max_formants (np.array):
             A numpy array of the maximum formants for
             this VowelMeasurement
-        cand_params: np.array
+        cand_params (np.array):
             A numpy array of the candidate track 
             DCT parameters.                
-        max_formant_log_prob: np.array
+        max_formant_log_prob (np.array):
             A conversion of `max_formant_mahal` to log-probabilities.            
-        max_formant_mahal: np.array
+        max_formant_mahal (np.array):
             The mahalanobis distance of each
             maximum formant to the speaker's entire
             distribution.
 
-        point_measure: polars.DataFrame
+        point_measure (pl.DataFrame):
             A polars dataframe of the point measurement for this vowel.
-        vm_context: polars.DataFrame
+        vm_context (pl.DataFrame):
             A polars dataframe of contextual information for the vowel measurement.
     """
     def __init__(

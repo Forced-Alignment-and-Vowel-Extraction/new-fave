@@ -31,12 +31,7 @@ website:
 metadata-files:
   - reference/_sidebar.yml
 
-interlinks:
-  sources:
-    numpy:
-      url: https://numpy.org/doc/stable/
-    python:
-      url: https://docs.python.org/3/          
+
 
 format:
   html:
@@ -47,15 +42,35 @@ format:
     toc: true
     toc-depth: 4
 
+filters:
+  - interlinks
+
+interlinks:
+  sources:
+    numpy:
+      url: https://numpy.org/doc/stable/
+    python:
+      url: https://docs.python.org/3/
+    # fasttrackpy:
+    #   url: https://fasttrackiverse.github.io/fasttrackpy/
+
 quartodoc:
   style: pkgdown
   dir: reference
   package: new_fave
   sidebar: "reference/_sidebar.yml"
   parser: google
-  render_interlinks: false
+  render_interlinks: true
   sections:
     - title: Extract
       desc: "Extract"
       contents: 
         - extract
+    - title: Optimization
+      desc: Functions for optimizing formant measurements
+      contents:
+        - optimize.optimize
+    - title: Vowel Measurements
+      desc: Vowel Measurements
+      contents: 
+        - measurements.vowel_measurement

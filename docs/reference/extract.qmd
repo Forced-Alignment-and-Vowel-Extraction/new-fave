@@ -8,10 +8,10 @@
 
 | Name | Description |
 | --- | --- |
-| [extract](#new_fave.extract.extract) | _summary_ |
+| [fave_extract](#new_fave.extract.fave_extract) | _summary_ |
 
-### extract { #new_fave.extract.extract }
+### fave_extract { #new_fave.extract.fave_extract }
 
-`extract.extract()`
+`extract.fave_extract(corpus_path, fasttrack_config, labelset_parser, recode_rules, measurement_points, **kwargs)`
 
 _summary_

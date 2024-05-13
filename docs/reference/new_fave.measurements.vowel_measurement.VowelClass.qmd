@@ -1,0 +1,57 @@
+# VowelClass { #new_fave.measurements.vowel_measurement.VowelClass }
+
+`measurements.vowel_measurement.VowelClass(self, label, tracks)`
+
+A class used to represent a vowel class.
+
+## Parameters
+
+| Name     | Type           | Description                 | Default    |
+|----------|----------------|-----------------------------|------------|
+| `label`  | [str](`str`)   | The vowel class label       | _required_ |
+| `tracks` | [list](`list`) | A list of VowelMeasurements | _required_ |
+
+Attributes:
+    label (str): 
+        label of the vowel class
+    tracks (list): 
+       A list of `VowelMeasurement`s
+    vowel_system (VowelClassCollection):
+        A the containing vowel system
+    winners: 
+        A list of winner OneTracks from
+        the vowel class
+    winner_params:
+        An `np.array` of winner DCT parameters
+        from the vowel class.
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [to_param_df](#new_fave.measurements.vowel_measurement.VowelClass.to_param_df) | Return DataFrame of formant DCT parameters. |
+| [to_point_df](#new_fave.measurements.vowel_measurement.VowelClass.to_point_df) | Return a DataFrame of point measurements |
+
+### to_param_df { #new_fave.measurements.vowel_measurement.VowelClass.to_param_df }
+
+`measurements.vowel_measurement.VowelClass.to_param_df(output='log_param')`
+
+Return DataFrame of formant DCT parameters.
+
+#### Returns
+
+| Type                                           | Description                           |
+|------------------------------------------------|---------------------------------------|
+| [pl](`polars`).[DataFrame](`polars.DataFrame`) | A DataFrame of formant DCT parameters |
+
+### to_point_df { #new_fave.measurements.vowel_measurement.VowelClass.to_point_df }
+
+`measurements.vowel_measurement.VowelClass.to_point_df()`
+
+Return a DataFrame of point measurements
+
+#### Returns
+
+| Type                                           | Description                          |
+|------------------------------------------------|--------------------------------------|
+| [pl](`polars`).[DataFrame](`polars.DataFrame`) | A DataFrame of vowel point measures. |

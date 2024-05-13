@@ -31,7 +31,10 @@ jobs:
             - name: Install project
               run: poetry install --with docs --no-interaction
             - name: Run quartodoc build
-              run: poetry run quartodoc build --config docs/_quarto.yml
+              run: |
+                poetry run quartodoc build --config docs/_quarto.yml
+                cd docs
+                poetry run quartodoc interlinks
             - name: Setup quarto
               uses: quarto-dev/quarto-actions/setup@v2
             - name: Render and publush to gh-pages

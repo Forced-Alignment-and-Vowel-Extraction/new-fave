@@ -1,0 +1,84 @@
+# VowelMeasurement { #new_fave.measurements.vowel_measurement.VowelMeasurement }
+
+`measurements.vowel_measurement.VowelMeasurement(self, track, heuristic=Heuristic())`
+
+A class used to represent a vowel measurment.
+
+## Parameters
+
+| Name        | Type                                                                          | Description                                                     | Default       |
+|-------------|-------------------------------------------------------------------------------|-----------------------------------------------------------------|---------------|
+| `track`     | [fasttrackpy](`fasttrackpy`).[CandidateTracks](`fasttrackpy.CandidateTracks`) | A fasttrackpy.CandidateTrracks object                           | _required_    |
+| `heuristic` | [Heuristic](`fave_measurement_point.heuristic.Heuristic`)                     | A point measurement Heuristic to use.  Defaults to Heuristic(). | `Heuristic()` |
+
+## Attributes
+
+| Name                 | Type                                                               | Description                                                                                                            |
+|----------------------|--------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------|
+| track                | [CandidateTracks](`fasttrackpy.CandidateTracks`)                   | an object of CandidateTracks class                                                                                     |
+| candidates           | [list](`list`)                                                     | list of candidates for the track                                                                                       |
+| heuristic            | [Heuristic](`fave_measurement_point.heuristic.Heuristic`)          | an object of Heuristic class (default is Heuristic())                                                                  |
+| vowel_class          | [VowelClass](`new_fave.measurements.vowel_measurement.VowelClass`) | The containing VowelClass object                                                                                       |
+| formant_array        | [FormantArray](`fave_measurement_point.formants.FormantArray`)     | A FormantArray object                                                                                                  |
+| file_name            | [str](`str`)                                                       | name of the file of the track                                                                                          |
+| group                | [str](`str`)                                                       | TierGroup of the track                                                                                                 |
+| id                   | [str](`str`)                                                       | id of the track                                                                                                        |
+| interval             | [object](`object`)                                                 | interval of the track                                                                                                  |
+| label                | [str](`str`)                                                       | label of the track                                                                                                     |
+| n_formants           | [int](`int`)                                                       | number of formants in the track                                                                                        |
+| winner               |                                                                    | fasttrackpy.OneTrack The winning formant track                                                                         |
+| winner_index         | [int](`int`)                                                       | The index of the winning formant track                                                                                 |
+| error_log_prob       | [np](`numpy`).[array](`numpy.array`)                               | A conversion of the log-mean-squared-error to a  log-probabilities, based on an empirical cumulative density function. |
+| cand_errors          | [np](`numpy`).[array](`numpy.array`)                               | A numpy array of the log-mean-squared-errors for each candidate track.                                                 |
+| cand_mahals          | [np](`numpy`).[array](`numpy.array`)                               | The mahalanobis distance across DCT parameters for each candidate from the vowel system  distribution.                 |
+| cand_mahal_log_prob  | [np](`numpy`).[array](`numpy.array`)                               | A conversion of `cand_mahals` to log-probabilies.                                                                      |
+| cand_max_formants    | [np](`numpy`).[array](`numpy.array`)                               | A numpy array of the maximum formants for this VowelMeasurement                                                        |
+| cand_params          | [np](`numpy`).[array](`numpy.array`)                               | A numpy array of the candidate track  DCT parameters.                                                                  |
+| max_formant_log_prob | [np](`numpy`).[array](`numpy.array`)                               | A conversion of `max_formant_mahal` to log-probabilities.                                                              |
+| max_formant_mahal    | [np](`numpy`).[array](`numpy.array`)                               | The mahalanobis distance of each maximum formant to the speaker's entire distribution.                                 |
+| point_measure        | [pl](`polars`).[DataFrame](`polars.DataFrame`)                     | A polars dataframe of the point measurement for this vowel.                                                            |
+| vm_context           | [pl](`polars`).[DataFrame](`polars.DataFrame`)                     | A polars dataframe of contextual information for the vowel measurement.                                                |
+
+## Methods
+
+| Name | Description |
+| --- | --- |
+| [to_param_df](#new_fave.measurements.vowel_measurement.VowelMeasurement.to_param_df) | Return DataFrame of formant DCT parameters. |
+| [to_point_df](#new_fave.measurements.vowel_measurement.VowelMeasurement.to_point_df) | Return a DataFrame of point measurements |
+| [to_tracks_df](#new_fave.measurements.vowel_measurement.VowelMeasurement.to_tracks_df) | Return a DataFrame of the formant tracks |
+
+### to_param_df { #new_fave.measurements.vowel_measurement.VowelMeasurement.to_param_df }
+
+`measurements.vowel_measurement.VowelMeasurement.to_param_df(output='log_param')`
+
+Return DataFrame of formant DCT parameters.
+
+#### Returns
+
+| Type                                           | Description                           |
+|------------------------------------------------|---------------------------------------|
+| [pl](`polars`).[DataFrame](`polars.DataFrame`) | A DataFrame of formant DCT parameters |
+
+### to_point_df { #new_fave.measurements.vowel_measurement.VowelMeasurement.to_point_df }
+
+`measurements.vowel_measurement.VowelMeasurement.to_point_df()`
+
+Return a DataFrame of point measurements
+
+#### Returns
+
+| Type                                           | Description                          |
+|------------------------------------------------|--------------------------------------|
+| [pl](`polars`).[DataFrame](`polars.DataFrame`) | A DataFrame of vowel point measures. |
+
+### to_tracks_df { #new_fave.measurements.vowel_measurement.VowelMeasurement.to_tracks_df }
+
+`measurements.vowel_measurement.VowelMeasurement.to_tracks_df()`
+
+Return a DataFrame of the formant tracks
+
+#### Returns
+
+| Type                                           | Description                          |
+|------------------------------------------------|--------------------------------------|
+| [pl](`polars`).[DataFrame](`polars.DataFrame`) | A dataframe with formant track data. |

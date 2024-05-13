@@ -7,3 +7,19 @@ Extract
 | | |
 | --- | --- |
 | [extract](extract.qmd#new_fave.extract) |  |
+
+## Optimization
+
+Functions for optimizing formant measurements
+
+| | |
+| --- | --- |
+| [optimize.optimize](optimize.optimize.qmd#new_fave.optimize.optimize) |  |
+
+## Vowel Measurements
+
+Vowel Measurements
+
+| | |
+| --- | --- |
+| [measurements.vowel_measurement](measurements.vowel_measurement.qmd#new_fave.measurements.vowel_measurement) |  |
