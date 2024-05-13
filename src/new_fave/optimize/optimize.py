@@ -33,7 +33,6 @@ def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params = ["cand_mahal", "max_formant"]
     ):
-    #new_winners = Parallel(n_jobs=5)(optimize_one_measure(vm) for vm in vowel_measurements)
     new_winners = [optimize_one_measure(vm, optim_params=optim_params) for vm in tqdm(vowel_measurements)]
     for vm, idx in zip(vowel_measurements, new_winners):
         vm.winner = idx
@@ -50,12 +49,6 @@ def optimize_one_measure(
 
     if "max_formant" in optim_params:
         prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob
-
-    if "kde" in optim_params:
-        prob_dict["kde"] =  vowel_measurement.cand_log_kde
-    
-    if "rate" in optim_params:
-        prob_dict["rate"] = vowel_measurement.rate_log_prob
         
     joint_prob = vowel_measurement.error_log_prob 
     for dim in optim_params:

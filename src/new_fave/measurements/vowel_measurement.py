@@ -89,7 +89,6 @@ class VowelClassCollection(defaultdict):
         self._make_tracks_dict(track_list)
         self._dictify()
         self._vowel_system()
-        self._kernel = None
         self._ecdf = None
         self._params_means = None
         self._params_icov = None
@@ -101,7 +100,6 @@ class VowelClassCollection(defaultdict):
         super().__setitem__(__key, __value)
 
     def _reset_winners(self):
-        self._kernel = None
         self._ecdf = None
         self._params_means = None
         self._params_icov = None
@@ -171,32 +169,7 @@ class VowelClassCollection(defaultdict):
         )
 
         return formants
-    
-    @property
-    def winners_max_rates(self):
-        rates = np.hstack([vc.winners_max_rates for vc in self.values()])
-        return rates
-    
-    @property
-    def rate_ecdfs(self):
-        if not self._ecdf:
-            ecdfs = [ 
-                stats.ecdf(self.winners_max_rates[i,:])
-                for i in range(self.winners_max_rates.shape[0])
-            ]
-            self._ecdf = ecdfs
-
-        return self._ecdf
-
-    
-    @property
-    def kernel(self):
-        if not self._kernel:
-            kernel = stats.gaussian_kde(self.winner_formants,bw_method=2)
-            return kernel
         
-        return self._kernel
-    
     @property
     def winners_maximum_formant(self):
         max_formants = np.array([[
@@ -350,90 +323,6 @@ class VowelClass():
         ).T
 
         return params
-    
-    @property
-    def winners_maximum_formant(self):
-        max_formants = np.array([[
-            x.maximum_formant
-            for x in self.winners
-        ]])
-
-        return max_formants
-
-    @property
-    def winners_max_rates(self):
-        rates = [cand.rates[:, :, cand.winner_index] for cand in self.tracks]
-        max_rate = np.array([
-            (rate**2).max(axis = 0) 
-            for rate in rates
-        ]).T
-
-        return max_rate
-
-
-    @property
-    def params_means(self):
-        N = len(self.tracks)
-        winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
-        winner_mean = winner_mean[:, np.newaxis]
-        return winner_mean
-    
-    @property
-    def params_covs(self):
-        N = len(self.tracks)
-        square_param = self.winner_params.reshape(-1, N)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            param_cov = np.cov(square_param)
-        return param_cov
-    
-    @property
-    def params_icov(self):
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            try:
-                params_icov = np.linalg.inv(self.params_covs)
-                return params_icov
-            except:
-                params_icov = np.array([
-                    [np.nan] * self.params_covs.size
-                ]).reshape(
-                    self.params_covs.shape[0],
-                    self.params_covs.shape[1]
-                )
-                return params_icov
-
-    @property
-    def maximum_formant_means(self):
-        return self.winners_maximum_formant.mean()
-    
-    @property
-    def maximum_formant_cov(self):
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")        
-            cov = np.cov(self.winners_maximum_formant).reshape(1,1)
-        return cov
-    
-    @property
-    def max_formant_icov(self):
-        try:
-            icov = np.linalg.inv(self.maximum_formant_cov)
-            return icov
-        except:
-            return np.array([[np.nan]])
-        
-    def to_tracks_df(self) -> pl.DataFrame:
-        """Return a DataFrame of the formant tracks
-
-        Returns:
-            (pl.DataFrame): 
-                A dataframe with formant track data.
-        """
-        df = pl.concat(
-            [x.to_tracks_df() for x in self.tracks]
-        )
-
-        return df
     
     def to_param_df(
             self, 
@@ -605,57 +494,7 @@ class VowelMeasurement():
             err_norm = self.cand_errors - np.nanmin(self.cand_errors)
             err_surv = 1 - (err_norm/np.nanmax(err_norm))
             err_log_prob = np.log(err_surv)
-        # err_ecdf = stats.ecdf(self.cand_errors)
-        # with warnings.catch_warnings():
-        #     warnings.simplefilter("ignore")
-        #     err_log_prob = np.log(err_ecdf.sf.evaluate(self.cand_errors))
         return err_log_prob
-    
-    @property
-    def rates(self):
-        N = self.formant_array.time.size
-        rates =  np.apply_along_axis(
-            first_deriv, 
-            arr = self.cand_params, 
-            axis = 0, 
-            **{"size": N}
-        )[:,0:2]
-        return rates
-    
-    @property
-    def rate_log_prob(self):
-        rates = self.rates
-        max_rate = (rates**2).max(axis = 0)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            prob = np.array([
-                self.vowel_class.vowel_system.rate_ecdfs[i].sf.evaluate(
-                    max_rate[i,:]
-                )
-                for i in range(2)
-            ])
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            log_prob =  np.log(prob).sum(axis = 0)
-
-            return log_prob - log_prob.max()
-    
-    @property
-    def cand_log_kde(self):
-        kernel = self.vowel_class.vowel_system.kernel
-        formants = [cand.formants.mean(axis = 1)
-                         for cand in self.candidates]
-        log_kde = Parallel(n_jobs=NCPU)(
-            delayed(kernel.logpdf)(formant) for formant in formants
-        )
-
-        log_kde_sum = np.array([
-            kde.sum()
-            for kde in log_kde
-        ])
-        
-
-        return (log_kde_sum - log_kde_sum.max())*2
 
     @property
     def point_measure(self):
@@ -761,7 +600,6 @@ class VowelMeasurement():
         df = df.join(self.vm_context, on = "id")
         
         return df
-
 
     def to_point_df(self) -> pl.DataFrame:
         """Return a DataFrame of point measurements
