@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [ $default-branch, "main", "dev", "feature/**" ]
 
+defaults:
+  run:
+    shell: bash
 jobs:
   lint-and-test:
     strategy:
@@ -43,4 +46,5 @@ jobs:
       run: poetry install --with test --no-interaction --no-root
     - name: Test with pytest
       run: |
-        poetry run pytest
+        source $VENV
+        pytest --versio
