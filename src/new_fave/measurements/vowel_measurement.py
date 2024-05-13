@@ -159,16 +159,6 @@ class VowelClassCollection(defaultdict):
 
         return formants
     
-    @property
-    def winner_expanded_formants(self):
-        formants = np.hstack(
-            [
-                x.expanded_formants[:, :, x.winner_index]
-                for x in self.vowel_measurements
-            ]
-        )
-
-        return formants
         
     @property
     def winners_maximum_formant(self):
@@ -355,6 +345,78 @@ class VowelClass():
     
     
 class VowelMeasurement():
+    """ A class used to represent a vowel measurment.
+
+    Args:
+        track (CandidateTracks): 
+            A fasttrackpy.CandidateTrracks object
+        heuristic (Heuristic, optional): 
+            A point measurement Heuristic to use. 
+            Defaults to Heuristic().
+    
+    Attributes: 
+        track : CandidateTracks
+            an object of CandidateTracks class
+        candidates : list
+            list of candidates for the track
+        heuristic : Heuristic, optional
+            an object of Heuristic class (default is Heuristic())
+        vowel_class: VowelClass
+            The containing VowelClass object
+
+        formant_array: FormantArray
+            A FormantArray object            
+
+        file_name : str
+            name of the file of the track
+        group : str
+            TierGroup of the track
+        id : str
+            id of the track
+        interval : object
+            interval of the track
+        label : str
+            label of the track
+        n_formants : int
+            number of formants in the track
+
+
+        winner: fasttrackpy.OneTrack
+            The winning formant track
+        winner_index: int
+            The index of the winning formant track
+
+        error_log_prob: np.array
+            A conversion of the log-mean-squared-error to a 
+            log-probabilities, based on an empirical cumulative
+            density function.
+        cand_errors: np.array
+            A numpy array of the log-mean-squared-errors
+            for each candidate track.
+        cand_mahals: np.array
+            The mahalanobis distance across DCT parameters
+            for each candidate from the vowel system 
+            distribution.
+        cand_mahal_log_prob: np.array
+            A conversion of `cand_mahals` to log-probabilies.
+        cand_max_formants: np.array
+            A numpy array of the maximum formants for
+            this VowelMeasurement
+        cand_params: np.array
+            A numpy array of the candidate track 
+            DCT parameters.                
+        max_formant_log_prob: np.array
+            A conversion of `max_formant_mahal` to log-probabilities.            
+        max_formant_mahal: np.array
+            The mahalanobis distance of each
+            maximum formant to the speaker's entire
+            distribution.
+
+        point_measure: polars.DataFrame
+            A polars dataframe of the point measurement for this vowel.
+        vm_context: polars.DataFrame
+            A polars dataframe of contextual information for the vowel measurement.
+    """
     def __init__(
             self, 
             track: CandidateTracks,
@@ -370,7 +432,6 @@ class VowelMeasurement():
         self.group = track.group
         self.id = track.id
         self.file_name = track.file_name
-        self._expanded_formants = None
 
     @property
     def formant_array(self):
@@ -401,18 +462,6 @@ class VowelMeasurement():
     @property
     def winner_index(self):
         return self.candidates.index(self.winner)
-
-    @property
-    def expanded_formants(self):
-        if self._expanded_formants is not None:
-            return self._expanded_formants
-        
-        self._expanded_formants = np.apply_along_axis(
-            lambda x: idct(x.T, n = 20, orthogonalize=True, norm = "forward"),
-            0,
-            self.cand_params
-        )
-        return self._expanded_formants
         
 
     @property

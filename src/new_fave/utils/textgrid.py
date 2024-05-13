@@ -22,25 +22,27 @@ def get_top_tier(interval: SequenceInterval) -> SequenceTier:
     return interval.within
 
 def get_tier_group(interval: SequenceInterval)->TierGroup:
-    """_summary_
+    """Given a SequenceInterval, returns the TierGroup
+    it is within.
 
     Args:
-        interval (SequenceInterval): _description_
+        interval (SequenceInterval): A SequenceInterval
 
     Returns:
-        TierGroup: _description_
+        (TierGroup): The containing TierGroup
     """
     top_tier = get_top_tier(interval)
     return top_tier.within
 
 def get_textgrid(interval: SequenceInterval)->AlignedTextGrid:
-    """_summary_
+    """Given a SequenceInterval, return the containing
+    AlignedTextGrid object
 
     Args:
-        interval (SequenceInterval): _description_
+        interval (SequenceInterval): A SequenceInterval
 
     Returns:
-        AlignedTextGrid: _description_
+        (AlignedTextGrid): The containing AlignedTextGrid
     """
     tier_group = get_tier_group(interval)
     return tier_group.within

@@ -3,6 +3,7 @@ from new_fave.measurements.vowel_measurement import VowelMeasurement, \
     VowelClassCollection
 import numpy as np
 from tqdm import tqdm
+from typing import Literal
 
 def run_optimize(
         vowel_system: VowelClassCollection,
@@ -31,17 +32,39 @@ def run_optimize(
 
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
-        optim_params = ["cand_mahal", "max_formant"]
+        optim_params: list[Literal["cand_mahal", "max_formant"]] = ["cand_mahal", "max_formant"]
     ):
+    """
+    Optimize a list of VowelMeasurements.
+
+    Args:
+        vowel_measurements (list[VowelMeasurement]): 
+            The list of vowel measurements to optimize
+        optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
+            The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
+    """
     new_winners = [optimize_one_measure(vm, optim_params=optim_params) for vm in tqdm(vowel_measurements)]
     for vm, idx in zip(vowel_measurements, new_winners):
         vm.winner = idx
 
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params = ["cand_mahal", "max_formant"]
-    ):
-   
+         optim_params: list[Literal["cand_mahal", "max_formant"]] = ["cand_mahal", "max_formant"]
+    )->int:
+    """
+    This function optimizes a given vowel measurement based on the 
+    specified optimization parameters. The optimization parameters 
+    can include 'cand_mahal' and 'max_formant'.
+
+    Args:
+        vowel_measurement (VowelMeasurement): 
+            The VowelMeasurement to optimize
+        optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
+            The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
+
+    Returns:
+        (int): The index of the winning candidate.
+    """
     prob_dict = dict()
 
     if "cand_mahal" in optim_params:
