@@ -21,14 +21,14 @@ def blank():
 def blank_list():
     return []
 
-def first_deriv(coefs, size = 100):
-    hatu = coefs.copy()
-    for i in range(hatu.size):
-        hatu[i]=-(i)*hatu[i]
-    hatu[:-1]=hatu[1:]
-    hatu[-1]=0
-    dotu=idst(hatu, n = size, type=2)
-    return dotu.tolist()
+# def first_deriv(coefs, size = 100):
+#     hatu = coefs.copy()
+#     for i in range(hatu.size):
+#         hatu[i]=-(i)*hatu[i]
+#     hatu[:-1]=hatu[1:]
+#     hatu[-1]=0
+#     dotu=idst(hatu, n = size, type=2)
+#     return dotu.tolist()
 
 class SpeakerCollection(defaultdict):
     """
@@ -161,7 +161,6 @@ class VowelClassCollection(defaultdict):
         self._make_tracks_dict(track_list)
         self._dictify()
         self._vowel_system()
-        self._ecdf = None
         self._params_means = None
         self._params_icov = None
         self._maximum_formant_means = None
@@ -172,7 +171,6 @@ class VowelClassCollection(defaultdict):
         super().__setitem__(__key, __value)
 
     def _reset_winners(self):
-        self._ecdf = None
         self._params_means = None
         self._params_icov = None
         self._maximum_formant_means = None
