@@ -229,6 +229,16 @@ class VowelClassCollection(defaultdict):
 
         return formants
     
+    @property
+    def winner_expanded_formants(self):
+        formants = np.hstack(
+            [
+                x.expanded_formants[:, :, x.winner_index]
+                for x in self.vowel_measurements
+            ]
+        )
+
+        return formants
         
     @property
     def winners_maximum_formant(self):
