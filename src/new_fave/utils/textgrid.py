@@ -3,7 +3,6 @@ from aligned_textgrid import AlignedTextGrid, \
     SequenceInterval
 from aligned_textgrid.sequences.tiers import TierGroup
 from fasttrackpy import CandidateTracks
-from new_fave.measurements.vowel_measurement import VowelMeasurement
 
 def get_top_tier(interval: SequenceInterval) -> SequenceTier:
     """Given a sequence interval, return the top-level tier
@@ -48,7 +47,7 @@ def get_textgrid(interval: SequenceInterval)->AlignedTextGrid:
     return tier_group.within
 
 def get_all_textgrid(
-        candidates: list[CandidateTracks] | list[VowelMeasurement]
+        candidates: list[CandidateTracks],
     ) -> list[AlignedTextGrid]:
     """Get all unique textgrids
 
