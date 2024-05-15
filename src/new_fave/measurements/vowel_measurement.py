@@ -2,6 +2,7 @@ from fasttrackpy import CandidateTracks, OneTrack
 from aligned_textgrid import AlignedTextGrid
 from fave_measurement_point.heuristic import Heuristic
 from fave_measurement_point.formants import FormantArray
+from new_fave.utils.textgrid import get_textgrid
 from collections import defaultdict
 import numpy as np
 from typing import Literal
@@ -167,6 +168,8 @@ class VowelClassCollection(defaultdict):
         self._params_icov = None
         self._maximum_formant_means = None
         self._max_formant_icov = None
+        self._textgrid = None
+        self._file_name = None
 
 
     def __setitem__(self, __key, __value) -> None:
@@ -176,7 +179,7 @@ class VowelClassCollection(defaultdict):
         self._params_means = None
         self._params_icov = None
         self._maximum_formant_means = None
-        self._max_formant_icov = None        
+        self._max_formant_icov = None
 
     def _make_tracks_dict(self, track_list):
         for v in track_list:
@@ -208,6 +211,22 @@ class VowelClassCollection(defaultdict):
             for vc in self.values()
             for x in vc.tracks
         ]
+    
+    @property
+    def textgrid(self):
+        if self._textgrid:
+            return self._textgrid
+        
+        self._textgrid = get_textgrid(self.vowel_measurements[0].interval)
+        return self._textgrid
+    
+    @property
+    def file_name(self):
+        if self._file_name:
+            return self._file_name
+        
+        self._file_name = self.vowel_measurements[0].winner.file_name
+        return self._file_name
 
     @property
     def winner_params(self):
@@ -558,6 +577,7 @@ class VowelMeasurement(Sequence):
         self.group = track.group
         self.id = track.id
         self.file_name = track.file_name
+        self._expanded_formants = None
 
     def __getitem__(self,i):
         return self.candidates[i]
@@ -590,10 +610,23 @@ class VowelMeasurement(Sequence):
     def winner(self, idx):
         self._winner = self.candidates[idx]
         self.vowel_class.vowel_system._reset_winners()
+        self._expanded_formants = None
     
     @property
     def winner_index(self):
         return self.candidates.index(self.winner)
+    
+    @property
+    def expanded_formants(self):
+        if self._expanded_formants is not None:
+            return self._expanded_formants
+
+        self._expanded_formants = np.apply_along_axis(
+            lambda x: idct(x.T, n = 20, orthogonalize=True, norm = "forward"),
+            0,
+            self.cand_params
+        )
+        return self._expanded_formants    
         
 
     @property
