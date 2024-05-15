@@ -1,5 +1,5 @@
 from aligned_textgrid import AlignedTextGrid, Word, Phone
-from fasttrackpy import CandidateTracks, process_corpus
+from fasttrackpy import CandidateTracks, OneTrack, process_corpus
 from pathlib import Path
 from functools import reduce
 
@@ -43,19 +43,32 @@ def test_sepeakers_size():
     assert len(keys) == total_groups
 
 def test_class_nesting():
+    """
+    This is the intended nesting of classes
+    and default iteration behavior
+    """
+    
+    # SpeakerCollection(defaultdict)
     speaker_keys = [s for s in speakers]
     for speaker in speaker_keys:
         vowel_space = speakers[speaker]
         assert isinstance(vowel_space, VowelClassCollection)
 
-        vcs = [vc for vc in vowel_space]
-        for vc in vcs:
+        # VowelClassCollection(defaultdict)
+        vc_keys = [vc for vc in vowel_space]
+        for vc in vc_keys:
             vowel_class = vowel_space[vc]
             assert isinstance(vowel_class, VowelClass)
 
-            meases = [m for m in vowel_class.tracks]
+            # class VowelClass(Sequence)
+            meases = [m for m in vowel_class]
             for m in meases:
                 assert isinstance(m, VowelMeasurement)
+
+                # class VowelMeasurement(Sequence)
+                tracks = [t for t in m]
+                for t in tracks:
+                    assert isinstance(t, OneTrack)
 
 def test_winner_reset():
     """
