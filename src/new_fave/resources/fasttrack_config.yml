@@ -11,6 +11,6 @@ nstep: 20
 window_length: 0.025
 time_step: 0.002
 time_step: 0.002
-smoother_args:
+smoother:
   method: dct_smooth_regression
   order: 5
