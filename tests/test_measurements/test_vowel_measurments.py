@@ -78,6 +78,27 @@ def test_winner_reset():
 
     assert ~np.isclose(initial_mean, new_mean)
 
+## Vowel Class
+
+def test_vowel_class_setting():
+    """
+    Every vm inside a vowel class should have
+    that vowel class object set
+    """
+
+    all_vcs = [
+        vc 
+        for vsp in speakers.values() 
+        for vc in vsp.values()
+    ]
+
+    for vc in all_vcs:
+        for vm in vc:
+            assert vm.vowel_class is vc
+
+
+
+## Vowel Measurement
 def test_probs():
     """
     Test that the length of log probs
@@ -93,7 +114,27 @@ def test_probs():
         assert error_log_prob.size == NSTEP
 
 
+## output tests
+def test_vm_context():
+    vm0 = vms[0]
 
+    df = vm0.vm_context
+    cols =  ["id",
+            "word",
+            "stress",
+            "dur",
+            "pre_word",
+            "fol_word",
+            "pre_seg",
+            "fol_seg",
+            "abs_pre_seg",
+            "abs_fol_seg",
+            "context"]
+    for c in cols:
+        assert c in df.columns
+
+    for c in df.columns:
+        assert c in cols
 
 def test_track_df():
     df = speakers.to_tracks_df()
@@ -145,7 +186,6 @@ def test_param_df():
     total_groups = reduce(lambda a, b: a+b, n_groups)
 
     assert agg.shape[1] == total_groups    
-
 
 
 def test_point_df():

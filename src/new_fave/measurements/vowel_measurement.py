@@ -11,6 +11,8 @@ import scipy.stats as stats
 from scipy.fft import idst, idct
 from joblib import Parallel, delayed, cpu_count
 
+from collections.abc import Sequence
+
 NCPU = cpu_count()
 
 import warnings
@@ -358,7 +360,7 @@ class VowelClassCollection(defaultdict):
 
         return df
 
-class VowelClass():
+class VowelClass(Sequence):
     """A class used to represent a vowel class.
 
     Args:
@@ -385,12 +387,19 @@ class VowelClass():
             label: str,
             tracks: list
         ):
+        super().__init__()
         self.label = label
         self.tracks = tracks
         self._winners = [x.winner for x in self.tracks]
         for t in self.tracks:
             t.vowel_class = self
 
+    def __getitem__(self, i):
+        return self.tracks[i]
+    
+    def __len__(self):
+        return len(self.tracks)
+    
     @property
     def vowel_system(self):
         return self._vowel_system
@@ -629,7 +638,6 @@ class VowelMeasurement():
         if np.isfinite(log_prob).mean() < 0.5:
             log_prob = np.zeros(shape = log_prob.shape)
         return log_prob
-
     
     @property 
     def max_formant_mahal(self):
