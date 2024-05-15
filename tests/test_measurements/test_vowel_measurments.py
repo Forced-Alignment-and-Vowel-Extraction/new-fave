@@ -109,7 +109,40 @@ def test_vowel_class_setting():
         for vm in vc:
             assert vm.vowel_class is vc
 
+def test_winner_getting():
+    """
+    Test that the right number of winners are gotten
+    """
+    all_vcs = [
+        vc 
+        for vsp in speakers.values() 
+        for vc in vsp.values()
+    ]
 
+    for vc in all_vcs:
+        all_tracks = [t for t in vc]
+        all_winners = [t.winner for t in all_tracks]
+        winners = vc.winners
+
+        winner_gotten = [w in all_winners for w in winners]
+        assert all(winner_gotten)
+
+def test_winner_param():
+    """
+    test that the winner params are the 
+    right size
+    """
+    all_vcs = [
+        vc 
+        for vsp in speakers.values() 
+        for vc in vsp.values()
+    ]
+
+    for vc in all_vcs:
+        params = vc.winner_params
+        expected_shape = (5, NFORMANT, len(vc))
+        for s1, s2 in zip(params.shape, expected_shape):
+            assert s1 == s2
 
 ## Vowel Measurement
 def test_probs():
