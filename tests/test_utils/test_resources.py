@@ -1,6 +1,6 @@
 from new_fave.utils.local_resources import recodes, \
     parsers, \
-    measurements, \
+    heuristics, \
     fasttrack_config
 
 from fave_recode.labelset_parser import LabelSetParser
@@ -43,7 +43,7 @@ def test_paths():
 
     heuristic_paths = [
         Path(p) 
-        for p in measurements.values()
+        for p in heuristics.values()
     ]
 
     for p in heuristic_paths:

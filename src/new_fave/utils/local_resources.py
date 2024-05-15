@@ -18,7 +18,7 @@ parsers = {
     "cmu_parser": cmu_parser
 }
 
-measurements = {
+heuristics = {
     "fave": fave_measurement
 }
 
