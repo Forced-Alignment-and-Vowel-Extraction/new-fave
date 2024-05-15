@@ -469,7 +469,7 @@ class VowelClass(Sequence):
         return df
     
     
-class VowelMeasurement():
+class VowelMeasurement(Sequence):
     """ A class used to represent a vowel measurment.
 
     Args:
@@ -547,6 +547,7 @@ class VowelMeasurement():
             track: CandidateTracks,
             heuristic: Heuristic = Heuristic()
         ):
+        super().__init__()
         self.track = track
         self.label = track.label
         self.candidates = track.candidates
@@ -557,6 +558,12 @@ class VowelMeasurement():
         self.group = track.group
         self.id = track.id
         self.file_name = track.file_name
+
+    def __getitem__(self,i):
+        return self.candidates[i]
+    
+    def __len__(self):
+        return len(self.candidates)
 
     @property
     def formant_array(self):
