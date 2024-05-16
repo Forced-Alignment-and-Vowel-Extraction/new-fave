@@ -64,21 +64,44 @@ quartodoc:
   parser: google
   render_interlinks: true
   sections:
-    - title: Extract
-      desc: "Extract"
+    - title: Processing Patterns
+      desc: Different patterns for processing data
       contents: 
-        - extract
+        - fave_audio_textgrid
+        - fave_corpus
+        - fave_subcorpora
     - title: Optimization
       desc: Functions for optimizing formant measurements
       contents:
         - optimize.optimize
     - title: Vowel Measurements
       desc: Vowel Measurements
+      options:
+        dynamic: true
       contents: 
-        - VowelMeasurement
-        - VowelClass
-        - VowelClassCollection
-        - SpeakerCollection
-    - title: Writiers
+        - name: VowelMeasurement
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+
+        - name: VowelClass
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+
+        - name: VowelClassCollection
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+
+        - name: SpeakerCollection
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+    - title: Writers
       contents:
-        - patterns.writers
+        - write_data
