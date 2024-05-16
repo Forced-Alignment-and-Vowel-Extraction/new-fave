@@ -103,7 +103,7 @@
     "href": "reference/index.html",
     "title": "Function reference",
     "section": "",
-    "text": "Different patterns for processing data\n\n\n\nfave_audio_textgrid\nProcess a single audio/textgrid pair.\n\n\nfave_corpus\nProcess a corpus directory.\n\n\nfave_subcorpora\nProcess a multiple subcorpora\n\n\n\n\n\n\nFunctions for optimizing formant measurements\n\n\n\noptimize.optimize\n\n\n\n\n\n\n\nVowel Measurements\n\n\n\nVowelMeasurement\nA class used to represent a vowel measurement.\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system.\n\n\nSpeakerCollection\nA class to represent the vowel system of all\n\n\n\n\n\n\n\n\n\nwrite_data\nSave data.",
+    "text": "Different patterns for processing data\n\n\n\nfave_audio_textgrid\nProcess a single audio/textgrid pair.\n\n\nfave_corpus\nProcess a corpus directory.\n\n\nfave_subcorpora\nProcess a multiple subcorpora\n\n\n\n\n\n\n\n\n\nwrite_data\nSave data.\n\n\n\n\n\n\nFunctions for optimizing formant measurements\n\n\n\noptimize.optimize\n\n\n\n\n\n\n\nVowel Measurements\n\n\n\nVowelMeasurement\nA class used to represent a vowel measurement.\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system.\n\n\nSpeakerCollection\nA class to represent the vowel system of all",
     "crumbs": [
       "Function reference"
     ]
@@ -114,6 +114,16 @@
     "title": "Function reference",
     "section": "",
     "text": "Different patterns for processing data\n\n\n\nfave_audio_textgrid\nProcess a single audio/textgrid pair.\n\n\nfave_corpus\nProcess a corpus directory.\n\n\nfave_subcorpora\nProcess a multiple subcorpora",
+    "crumbs": [
+      "Function reference"
+    ]
+  },
+  {
+    "objectID": "reference/index.html#writers",
+    "href": "reference/index.html#writers",
+    "title": "Function reference",
+    "section": "",
+    "text": "write_data\nSave data.",
     "crumbs": [
       "Function reference"
     ]
@@ -134,16 +144,6 @@
     "title": "Function reference",
     "section": "",
     "text": "Vowel Measurements\n\n\n\nVowelMeasurement\nA class used to represent a vowel measurement.\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system.\n\n\nSpeakerCollection\nA class to represent the vowel system of all",
-    "crumbs": [
-      "Function reference"
-    ]
-  },
-  {
-    "objectID": "reference/index.html#writers",
-    "href": "reference/index.html#writers",
-    "title": "Function reference",
-    "section": "",
-    "text": "write_data\nSave data.",
     "crumbs": [
       "Function reference"
     ]
