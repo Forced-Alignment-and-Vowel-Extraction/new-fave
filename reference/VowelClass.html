@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../reference/optimize.optimize.html" rel="prev">
+<link href="../reference/VowelClassCollection.html" rel="next">
+<link href="../reference/VowelMeasurement.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/measurements.vowel_measurement.html">Vowel Measurements</a></li><li class="breadcrumb-item"><a href="../reference/measurements.vowel_measurement.html">measurements.vowel_measurement</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/VowelMeasurement.html">Vowel Measurements</a></li><li class="breadcrumb-item"><a href="../reference/VowelClass.html">VowelClass</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -181,8 +216,43 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/measurements.vowel_measurement.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">measurements.vowel_measurement</span></a>
+  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelMeasurement</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/VowelClass.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">VowelClass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/VowelClassCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelClassCollection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/SpeakerCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SpeakerCollection</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Writiers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/patterns.writers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">patterns.writers</span></a>
   </div>
 </li>
       </ul>
@@ -197,33 +267,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#new_fave.measurements.vowel_measurement" id="toc-new_fave.measurements.vowel_measurement" class="nav-link active" data-scroll-target="#new_fave.measurements.vowel_measurement">measurements.vowel_measurement</a>
+  <li><a href="#new_fave.VowelClass" id="toc-new_fave.VowelClass" class="nav-link active" data-scroll-target="#new_fave.VowelClass">VowelClass</a>
   <ul>
-  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a>
-  <ul class="collapse">
-  <li><a href="#new_fave.measurements.vowel_measurement.SpeakerCollection" id="toc-new_fave.measurements.vowel_measurement.SpeakerCollection" class="nav-link" data-scroll-target="#new_fave.measurements.vowel_measurement.SpeakerCollection">SpeakerCollection</a>
-  <ul class="collapse">
+  <li><a href="#intended-usage" id="toc-intended-usage" class="nav-link" data-scroll-target="#intended-usage">Intended Usage</a></li>
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
-  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a></li>
-  </ul></li>
-  <li><a href="#new_fave.measurements.vowel_measurement.VowelClass" id="toc-new_fave.measurements.vowel_measurement.VowelClass" class="nav-link" data-scroll-target="#new_fave.measurements.vowel_measurement.VowelClass">VowelClass</a>
-  <ul class="collapse">
-  <li><a href="#parameters-2" id="toc-parameters-2" class="nav-link" data-scroll-target="#parameters-2">Parameters</a></li>
-  <li><a href="#methods-1" id="toc-methods-1" class="nav-link" data-scroll-target="#methods-1">Methods</a></li>
-  </ul></li>
-  <li><a href="#new_fave.measurements.vowel_measurement.VowelClassCollection" id="toc-new_fave.measurements.vowel_measurement.VowelClassCollection" class="nav-link" data-scroll-target="#new_fave.measurements.vowel_measurement.VowelClassCollection">VowelClassCollection</a>
-  <ul class="collapse">
-  <li><a href="#parameters-3" id="toc-parameters-3" class="nav-link" data-scroll-target="#parameters-3">Parameters</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
-  <li><a href="#methods-2" id="toc-methods-2" class="nav-link" data-scroll-target="#methods-2">Methods</a></li>
-  </ul></li>
-  <li><a href="#new_fave.measurements.vowel_measurement.VowelMeasurement" id="toc-new_fave.measurements.vowel_measurement.VowelMeasurement" class="nav-link" data-scroll-target="#new_fave.measurements.vowel_measurement.VowelMeasurement">VowelMeasurement</a>
-  <ul class="collapse">
-  <li><a href="#parameters-4" id="toc-parameters-4" class="nav-link" data-scroll-target="#parameters-4">Parameters</a></li>
-  <li><a href="#attributes-1" id="toc-attributes-1" class="nav-link" data-scroll-target="#attributes-1">Attributes</a></li>
-  <li><a href="#methods-3" id="toc-methods-3" class="nav-link" data-scroll-target="#methods-3">Methods</a></li>
-  </ul></li>
-  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -234,172 +282,18 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="new_fave.measurements.vowel_measurement" class="level1">
-<h1>measurements.vowel_measurement</h1>
-<p><code>measurements.vowel_measurement</code></p>
-<section id="classes" class="level2">
-<h2 class="anchored" data-anchor-id="classes">Classes</h2>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.SpeakerCollection">SpeakerCollection</a></td>
-<td>A class to represent the vowel system of all</td>
-</tr>
-<tr class="even">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClass">VowelClass</a></td>
-<td>A class used to represent a vowel class.</td>
-</tr>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClassCollection">VowelClassCollection</a></td>
-<td>A class for an entire vowel system. It is a subclass</td>
-</tr>
-<tr class="even">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelMeasurement">VowelMeasurement</a></td>
-<td>A class used to represent a vowel measurment.</td>
-</tr>
-</tbody>
-</table>
-<section id="new_fave.measurements.vowel_measurement.SpeakerCollection" class="level3">
-<h3 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.SpeakerCollection">SpeakerCollection</h3>
-<p><code>measurements.vowel_measurement.SpeakerCollection(self, track_list)</code></p>
-<p>A class to represent the vowel system of all speakers in a TextGrid. It is a subclass of <code>defaultdict</code>, and can be keyed by the <code>(file_name, group_name)</code> tuple.</p>
-<section id="parameters" class="level4">
-<h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>track_list</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<code>CandidateTracks</code>]</td>
-<td>A list of <code>fasttrackpy.CandidateTrack</code>s.</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods" class="level4">
-<h4 class="anchored" data-anchor-id="methods">Methods</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.SpeakerCollection.to_param_df">to_param_df</a></td>
-<td>This will return a dataframe of the DCT parameters for all speakers.</td>
-</tr>
-<tr class="even">
-<td><a href="#new_fave.measurements.vowel_measurement.SpeakerCollection.to_point_df">to_point_df</a></td>
-<td>This will return a DataFrame of point measurements</td>
-</tr>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.SpeakerCollection.to_tracks_df">to_tracks_df</a></td>
-<td>This will return a data frame of formant</td>
-</tr>
-</tbody>
-</table>
-<section id="new_fave.measurements.vowel_measurement.SpeakerCollection.to_param_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.SpeakerCollection.to_param_df">to_param_df</h5>
-<p><code>measurements.vowel_measurement.SpeakerCollection.to_param_df(output='log_param')</code></p>
-<p>This will return a dataframe of the DCT parameters for all speakers. If <code>output</code> is passed <code>param</code>, it will be the DCT parameters in the original Hz. If passed <code>log_param</code>, it will be the DCT parameters over log(Hz).</p>
-<section id="parameters-1" class="level6">
-<h6 class="anchored" data-anchor-id="parameters-1">Parameters</h6>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>output</code></td>
-<td><a href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a>[‘param’, ‘log_param’]</td>
-<td>Which set of DCT parameters to return. Defaults to “log_param”.</td>
-<td><code>'log_param'</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="returns" class="level6">
-<h6 class="anchored" data-anchor-id="returns">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 49%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of DCT parameters for all speakers.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.SpeakerCollection.to_point_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.SpeakerCollection.to_point_df">to_point_df</h5>
-<p><code>measurements.vowel_measurement.SpeakerCollection.to_point_df()</code></p>
-<p>This will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.</p>
-</section>
-<section id="new_fave.measurements.vowel_measurement.SpeakerCollection.to_tracks_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.SpeakerCollection.to_tracks_df">to_tracks_df</h5>
-<p><code>measurements.vowel_measurement.SpeakerCollection.to_tracks_df()</code></p>
-<p>This will return a data frame of formant tracks for all speakers.</p>
-<section id="returns-1" class="level6">
-<h6 class="anchored" data-anchor-id="returns-1">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 49%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A dataframe of formant tracks for all speakers.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelClass" class="level3">
-<h3 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClass">VowelClass</h3>
-<p><code>measurements.vowel_measurement.VowelClass(self, label, tracks)</code></p>
+<section id="new_fave.VowelClass" class="level1">
+<h1>VowelClass</h1>
+<p><code>VowelClass(label, tracks)</code></p>
 <p>A class used to represent a vowel class.</p>
-<section id="parameters-2" class="level4">
-<h4 class="anchored" data-anchor-id="parameters-2">Parameters</h4>
+<section id="intended-usage" class="level2">
+<h2 class="anchored" data-anchor-id="intended-usage">Intended Usage</h2>
+<p><code>VowelClass</code> subclasses <a href="https://docs.python.org/3/library/collections.abc.html#collections.abc.Sequence"><code>collections.abc.Sequence</code></a>, so it is indexable. While it can be created on its own, it is best to leave this up to either <a href="../reference/VowelClassCollection.html#new_fave.VowelClassCollection"><code>VowelClassCollection</code></a> or <a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection"><code>SpeakerCollection</code></a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vowel_measurements <span class="op">=</span> [VowelMeasurement(t) <span class="cf">for</span> t <span class="kw">in</span> fasttrack_tracks]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vowel_class <span class="op">=</span> VowelClass(<span class="st">"ay"</span>, vowel_measurements)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="table">
 <thead>
 <tr class="header">
@@ -418,151 +312,15 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><code>tracks</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="../reference/VowelMeasurement.html#new_fave.VowelMeasurement">VowelMeasurement</a>]</td>
 <td>A list of VowelMeasurements</td>
 <td><em>required</em></td>
 </tr>
 </tbody>
 </table>
-<p>Attributes: label (str): label of the vowel class tracks (list): A list of <code>VowelMeasurement</code>s vowel_system (VowelClassCollection): A the containing vowel system winners: A list of winner OneTracks from the vowel class winner_params: An <code>np.array</code> of winner DCT parameters from the vowel class.</p>
 </section>
-<section id="methods-1" class="level4">
-<h4 class="anchored" data-anchor-id="methods-1">Methods</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClass.to_param_df">to_param_df</a></td>
-<td>Return DataFrame of formant DCT parameters.</td>
-</tr>
-<tr class="even">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClass.to_point_df">to_point_df</a></td>
-<td>Return a DataFrame of point measurements</td>
-</tr>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClass.to_tracks_df">to_tracks_df</a></td>
-<td>Return DataFrame of formanttracks.</td>
-</tr>
-</tbody>
-</table>
-<section id="new_fave.measurements.vowel_measurement.VowelClass.to_param_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClass.to_param_df">to_param_df</h5>
-<p><code>measurements.vowel_measurement.VowelClass.to_param_df(output='log_param')</code></p>
-<p>Return DataFrame of formant DCT parameters.</p>
-<section id="returns-2" class="level6">
-<h6 class="anchored" data-anchor-id="returns-2">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of formant DCT parameters</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelClass.to_point_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClass.to_point_df">to_point_df</h5>
-<p><code>measurements.vowel_measurement.VowelClass.to_point_df()</code></p>
-<p>Return a DataFrame of point measurements</p>
-<section id="returns-3" class="level6">
-<h6 class="anchored" data-anchor-id="returns-3">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of vowel point measures.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelClass.to_tracks_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClass.to_tracks_df">to_tracks_df</h5>
-<p><code>measurements.vowel_measurement.VowelClass.to_tracks_df()</code></p>
-<p>Return DataFrame of formanttracks.</p>
-<section id="returns-4" class="level6">
-<h6 class="anchored" data-anchor-id="returns-4">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 60%">
-<col style="width: 39%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of formant tracks</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelClassCollection" class="level3">
-<h3 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClassCollection">VowelClassCollection</h3>
-<p><code>measurements.vowel_measurement.VowelClassCollection(self, track_list)</code></p>
-<p>A class for an entire vowel system. It is a subclass of <code>defaultdict</code>, so it can be keyed by vowel class label</p>
-<section id="parameters-3" class="level4">
-<h4 class="anchored" data-anchor-id="parameters-3">Parameters</h4>
-<table class="table">
-<colgroup>
-<col style="width: 15%">
-<col style="width: 25%">
-<col style="width: 46%">
-<col style="width: 13%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>track_list</code></td>
-<td>list[CandidateTracks</td>
-<td>A list of <code>fasttrackpy.CandidateTrack</code>s.</td>
-<td><em>required</em></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="attributes" class="level4">
-<h4 class="anchored" data-anchor-id="attributes">Attributes</h4>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="table">
 <thead>
 <tr class="header">
@@ -573,439 +331,34 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>maximum_formant_cov</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The covariance matrix for the winners maximum formant across the entire vowel system</td>
+<td>label</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>label of the vowel class</td>
 </tr>
 <tr class="even">
-<td>maximum_formant_means</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The mean maximum formant for the winners across the entire vowel system</td>
+<td>tracks</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></td>
+<td>A list of <code>VowelMeasurement</code>s</td>
 </tr>
 <tr class="odd">
-<td>max_formant_icov</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The inverse covariance matrix for the winners maximum formant across the entire vowel system</td>
+<td>vowel_system</td>
+<td><a href="../reference/VowelClassCollection.html#new_fave.VowelClassCollection">VowelClassCollection</a></td>
+<td>A the containing vowel system</td>
 </tr>
 <tr class="even">
-<td>params_covs</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The covariance matrix for the winners’ DCT parameters.</td>
-</tr>
-<tr class="odd">
-<td>params_icov</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The inverse covariance matrix for the winners’ DCT parameters.</td>
-</tr>
-<tr class="even">
-<td>params_means</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>An <code>np.array</code> for the winners’ DCT parameters in the entire vowel system.</td>
-</tr>
-<tr class="odd">
-<td>vowel_measurements</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="../reference/measurements.vowel_measurement.html#new_fave.measurements.vowel_measurement.VowelMeasurement">VowelMeasurement</a>]</td>
-<td>A list of all vowel measurements in the vowel system</td>
-</tr>
-<tr class="even">
-<td>winner_formants</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>An <code>np.array</code> for the formants for the winners in the entire vowel system.</td>
+<td>winners</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<code>OneTrack</code>]</td>
+<td>A list of winner OneTracks from the vowel class</td>
 </tr>
 <tr class="odd">
 <td>winner_params</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>An <code>np.array</code> of DCT parameters for the winners in entire vowel system.</td>
-</tr>
-<tr class="even">
-<td>winners</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<code>fasttrackpy</code>.<code>OneTrack</code>]</td>
-<td>The winning <code>fasttrackpy.OneTrack</code> for the entire vowel system</td>
-</tr>
-<tr class="odd">
-<td>winners_maximum_formant</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>An <code>np.array</code> of the maximum formants for the winners in the entire vowel system</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods-2" class="level4">
-<h4 class="anchored" data-anchor-id="methods-2">Methods</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClassCollection.to_param_df">to_param_df</a></td>
-<td>Return DataFrame of formant DCT parameters.</td>
-</tr>
-<tr class="even">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClassCollection.to_point_df">to_point_df</a></td>
-<td>Return a DataFrame of point measurements</td>
-</tr>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelClassCollection.to_tracks_df">to_tracks_df</a></td>
-<td>Return a DataFrame of the formant tracks</td>
-</tr>
-</tbody>
-</table>
-<section id="new_fave.measurements.vowel_measurement.VowelClassCollection.to_param_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClassCollection.to_param_df">to_param_df</h5>
-<p><code>measurements.vowel_measurement.VowelClassCollection.to_param_df(output='log_param')</code></p>
-<p>Return DataFrame of formant DCT parameters.</p>
-<section id="returns-5" class="level6">
-<h6 class="anchored" data-anchor-id="returns-5">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of formant DCT parameters</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelClassCollection.to_point_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClassCollection.to_point_df">to_point_df</h5>
-<p><code>measurements.vowel_measurement.VowelClassCollection.to_point_df()</code></p>
-<p>Return a DataFrame of point measurements</p>
-<section id="returns-6" class="level6">
-<h6 class="anchored" data-anchor-id="returns-6">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of vowel point measures.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelClassCollection.to_tracks_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelClassCollection.to_tracks_df">to_tracks_df</h5>
-<p><code>measurements.vowel_measurement.VowelClassCollection.to_tracks_df()</code></p>
-<p>Return a DataFrame of the formant tracks</p>
-<section id="returns-7" class="level6">
-<h6 class="anchored" data-anchor-id="returns-7">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A dataframe with formant track data.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelMeasurement" class="level3">
-<h3 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelMeasurement">VowelMeasurement</h3>
-<p><code>measurements.vowel_measurement.VowelMeasurement(self, track, heuristic=Heuristic())</code></p>
-<p>A class used to represent a vowel measurment.</p>
-<section id="parameters-4" class="level4">
-<h4 class="anchored" data-anchor-id="parameters-4">Parameters</h4>
-<table class="table">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 45%">
-<col style="width: 37%">
-<col style="width: 8%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>track</code></td>
-<td><code>fasttrackpy</code>.<code>CandidateTracks</code></td>
-<td>A fasttrackpy.CandidateTrracks object</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>heuristic</code></td>
-<td><code>Heuristic</code></td>
-<td>A point measurement Heuristic to use. Defaults to Heuristic().</td>
-<td><code>Heuristic()</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="attributes-1" class="level4">
-<h4 class="anchored" data-anchor-id="attributes-1">Attributes</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>track</td>
-<td><code>CandidateTracks</code></td>
-<td>an object of CandidateTracks class</td>
-</tr>
-<tr class="even">
-<td>candidates</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></td>
-<td>list of candidates for the track</td>
-</tr>
-<tr class="odd">
-<td>heuristic</td>
-<td><code>Heuristic</code></td>
-<td>an object of Heuristic class (default is Heuristic())</td>
-</tr>
-<tr class="even">
-<td>vowel_class</td>
-<td><a href="../reference/measurements.vowel_measurement.html#new_fave.measurements.vowel_measurement.VowelClass">VowelClass</a></td>
-<td>The containing VowelClass object</td>
-</tr>
-<tr class="odd">
-<td>formant_array</td>
-<td><code>FormantArray</code></td>
-<td>A FormantArray object</td>
-</tr>
-<tr class="even">
-<td>file_name</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>name of the file of the track</td>
-</tr>
-<tr class="odd">
-<td>group</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>TierGroup of the track</td>
-</tr>
-<tr class="even">
-<td>id</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>id of the track</td>
-</tr>
-<tr class="odd">
-<td>interval</td>
-<td><a href="https://docs.python.org/3/library/functions.html#object">object</a></td>
-<td>interval of the track</td>
-</tr>
-<tr class="even">
-<td>label</td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>label of the track</td>
-</tr>
-<tr class="odd">
-<td>n_formants</td>
-<td><a href="https://docs.python.org/3/library/functions.html#int">int</a></td>
-<td>number of formants in the track</td>
-</tr>
-<tr class="even">
-<td>winner</td>
-<td></td>
-<td>fasttrackpy.OneTrack The winning formant track</td>
-</tr>
-<tr class="odd">
-<td>winner_index</td>
-<td><a href="https://docs.python.org/3/library/functions.html#int">int</a></td>
-<td>The index of the winning formant track</td>
-</tr>
-<tr class="even">
-<td>error_log_prob</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>A conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.</td>
-</tr>
-<tr class="odd">
-<td>cand_errors</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>A numpy array of the log-mean-squared-errors for each candidate track.</td>
-</tr>
-<tr class="even">
-<td>cand_mahals</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.</td>
-</tr>
-<tr class="odd">
-<td>cand_mahal_log_prob</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>A conversion of <code>cand_mahals</code> to log-probabilies.</td>
-</tr>
-<tr class="even">
-<td>cand_max_formants</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>A numpy array of the maximum formants for this VowelMeasurement</td>
-</tr>
-<tr class="odd">
-<td>cand_params</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>A numpy array of the candidate track DCT parameters.</td>
-</tr>
-<tr class="even">
-<td>max_formant_log_prob</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>A conversion of <code>max_formant_mahal</code> to log-probabilities.</td>
-</tr>
-<tr class="odd">
-<td>max_formant_mahal</td>
-<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
-<td>The mahalanobis distance of each maximum formant to the speaker’s entire distribution.</td>
-</tr>
-<tr class="even">
-<td>point_measure</td>
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A polars dataframe of the point measurement for this vowel.</td>
-</tr>
-<tr class="odd">
-<td>vm_context</td>
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A polars dataframe of contextual information for the vowel measurement.</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="methods-3" class="level4">
-<h4 class="anchored" data-anchor-id="methods-3">Methods</h4>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelMeasurement.to_param_df">to_param_df</a></td>
-<td>Return DataFrame of formant DCT parameters.</td>
-</tr>
-<tr class="even">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelMeasurement.to_point_df">to_point_df</a></td>
-<td>Return a DataFrame of point measurements</td>
-</tr>
-<tr class="odd">
-<td><a href="#new_fave.measurements.vowel_measurement.VowelMeasurement.to_tracks_df">to_tracks_df</a></td>
-<td>Return a DataFrame of the formant tracks</td>
-</tr>
-</tbody>
-</table>
-<section id="new_fave.measurements.vowel_measurement.VowelMeasurement.to_param_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelMeasurement.to_param_df">to_param_df</h5>
-<p><code>measurements.vowel_measurement.VowelMeasurement.to_param_df(output='log_param')</code></p>
-<p>Return DataFrame of formant DCT parameters.</p>
-<section id="returns-8" class="level6">
-<h6 class="anchored" data-anchor-id="returns-8">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of formant DCT parameters</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelMeasurement.to_point_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelMeasurement.to_point_df">to_point_df</h5>
-<p><code>measurements.vowel_measurement.VowelMeasurement.to_point_df()</code></p>
-<p>Return a DataFrame of point measurements</p>
-<section id="returns-9" class="level6">
-<h6 class="anchored" data-anchor-id="returns-9">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A DataFrame of vowel point measures.</td>
-</tr>
-</tbody>
-</table>
-</section>
-</section>
-<section id="new_fave.measurements.vowel_measurement.VowelMeasurement.to_tracks_df" class="level5">
-<h5 class="anchored" data-anchor-id="new_fave.measurements.vowel_measurement.VowelMeasurement.to_tracks_df">to_tracks_df</h5>
-<p><code>measurements.vowel_measurement.VowelMeasurement.to_tracks_df()</code></p>
-<p>Return a DataFrame of the formant tracks</p>
-<section id="returns-10" class="level6">
-<h6 class="anchored" data-anchor-id="returns-10">Returns</h6>
-<table class="table">
-<colgroup>
-<col style="width: 55%">
-<col style="width: 44%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>pl</code>.<code>DataFrame</code></td>
-<td>A dataframe with formant track data.</td>
+<td>An <code>np.array</code> of winner DCT parameters from the vowel class.</td>
 </tr>
 </tbody>
 </table>
 
 
-</section>
-</section>
-</section>
-</section>
 </section>
 </section>
 
@@ -1565,11 +918,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../reference/optimize.optimize.html" class="pagination-link" aria-label="optimize.optimize">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">optimize.optimize</span>
+      <a href="../reference/VowelMeasurement.html" class="pagination-link" aria-label="VowelMeasurement">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">VowelMeasurement</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../reference/VowelClassCollection.html" class="pagination-link" aria-label="VowelClassCollection">
+        <span class="nav-page-text">VowelClassCollection</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

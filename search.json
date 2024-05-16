@@ -22,28 +22,6 @@
     ]
   },
   {
-    "objectID": "reference/measurements.vowel_measurement.html",
-    "href": "reference/measurements.vowel_measurement.html",
-    "title": "measurements.vowel_measurement",
-    "section": "",
-    "text": "measurements.vowel_measurement\n\n\n\n\n\nName\nDescription\n\n\n\n\nSpeakerCollection\nA class to represent the vowel system of all\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system. It is a subclass\n\n\nVowelMeasurement\nA class used to represent a vowel measurment.\n\n\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection(self, track_list)\nA class to represent the vowel system of all speakers in a TextGrid. It is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[CandidateTracks]\nA list of fasttrackpy.CandidateTracks.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nThis will return a dataframe of the DCT parameters for all speakers.\n\n\nto_point_df\nThis will return a DataFrame of point measurements\n\n\nto_tracks_df\nThis will return a data frame of formant\n\n\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection.to_param_df(output='log_param')\nThis will return a dataframe of the DCT parameters for all speakers. If output is passed param, it will be the DCT parameters in the original Hz. If passed log_param, it will be the DCT parameters over log(Hz).\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\noutput\nLiteral[‘param’, ‘log_param’]\nWhich set of DCT parameters to return. Defaults to “log_param”.\n'log_param'\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of DCT parameters for all speakers.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection.to_point_df()\nThis will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection.to_tracks_df()\nThis will return a data frame of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass(self, label, tracks)\nA class used to represent a vowel class.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\nrequired\n\n\ntracks\nlist\nA list of VowelMeasurements\nrequired\n\n\n\nAttributes: label (str): label of the vowel class tracks (list): A list of VowelMeasurements vowel_system (VowelClassCollection): A the containing vowel system winners: A list of winner OneTracks from the vowel class winner_params: An np.array of winner DCT parameters from the vowel class.\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks\n\n\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection(self, track_list)\nA class for an entire vowel system. It is a subclass of defaultdict, so it can be keyed by vowel class label\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[CandidateTracks\nA list of fasttrackpy.CandidateTracks.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmaximum_formant_cov\nnp.array\nThe covariance matrix for the winners maximum formant across the entire vowel system\n\n\nmaximum_formant_means\nnp.array\nThe mean maximum formant for the winners across the entire vowel system\n\n\nmax_formant_icov\nnp.array\nThe inverse covariance matrix for the winners maximum formant across the entire vowel system\n\n\nparams_covs\nnp.array\nThe covariance matrix for the winners’ DCT parameters.\n\n\nparams_icov\nnp.array\nThe inverse covariance matrix for the winners’ DCT parameters.\n\n\nparams_means\nnp.array\nAn np.array for the winners’ DCT parameters in the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of all vowel measurements in the vowel system\n\n\nwinner_formants\nnp.array\nAn np.array for the formants for the winners in the entire vowel system.\n\n\nwinner_params\nnp.array\nAn np.array of DCT parameters for the winners in entire vowel system.\n\n\nwinners\nlist[fasttrackpy.OneTrack]\nThe winning fasttrackpy.OneTrack for the entire vowel system\n\n\nwinners_maximum_formant\nnp.array\nAn np.array of the maximum formants for the winners in the entire vowel system\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurment.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nCandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\nobject\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\nwinner\n\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\nerror_log_prob\nnp.array\nA conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.\n\n\ncand_errors\nnp.array\nA numpy array of the log-mean-squared-errors for each candidate track.\n\n\ncand_mahals\nnp.array\nThe mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.\n\n\ncand_mahal_log_prob\nnp.array\nA conversion of cand_mahals to log-probabilies.\n\n\ncand_max_formants\nnp.array\nA numpy array of the maximum formants for this VowelMeasurement\n\n\ncand_params\nnp.array\nA numpy array of the candidate track DCT parameters.\n\n\nmax_formant_log_prob\nnp.array\nA conversion of max_formant_mahal to log-probabilities.\n\n\nmax_formant_mahal\nnp.array\nThe mahalanobis distance of each maximum formant to the speaker’s entire distribution.\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "measurements.vowel_measurement"
-    ]
-  },
-  {
-    "objectID": "reference/measurements.vowel_measurement.html#classes",
-    "href": "reference/measurements.vowel_measurement.html#classes",
-    "title": "measurements.vowel_measurement",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nSpeakerCollection\nA class to represent the vowel system of all\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system. It is a subclass\n\n\nVowelMeasurement\nA class used to represent a vowel measurment.\n\n\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection(self, track_list)\nA class to represent the vowel system of all speakers in a TextGrid. It is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[CandidateTracks]\nA list of fasttrackpy.CandidateTracks.\nrequired\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nThis will return a dataframe of the DCT parameters for all speakers.\n\n\nto_point_df\nThis will return a DataFrame of point measurements\n\n\nto_tracks_df\nThis will return a data frame of formant\n\n\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection.to_param_df(output='log_param')\nThis will return a dataframe of the DCT parameters for all speakers. If output is passed param, it will be the DCT parameters in the original Hz. If passed log_param, it will be the DCT parameters over log(Hz).\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\noutput\nLiteral[‘param’, ‘log_param’]\nWhich set of DCT parameters to return. Defaults to “log_param”.\n'log_param'\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of DCT parameters for all speakers.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection.to_point_df()\nThis will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.\n\n\n\nmeasurements.vowel_measurement.SpeakerCollection.to_tracks_df()\nThis will return a data frame of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass(self, label, tracks)\nA class used to represent a vowel class.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\nrequired\n\n\ntracks\nlist\nA list of VowelMeasurements\nrequired\n\n\n\nAttributes: label (str): label of the vowel class tracks (list): A list of VowelMeasurements vowel_system (VowelClassCollection): A the containing vowel system winners: A list of winner OneTracks from the vowel class winner_params: An np.array of winner DCT parameters from the vowel class.\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks\n\n\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection(self, track_list)\nA class for an entire vowel system. It is a subclass of defaultdict, so it can be keyed by vowel class label\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[CandidateTracks\nA list of fasttrackpy.CandidateTracks.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmaximum_formant_cov\nnp.array\nThe covariance matrix for the winners maximum formant across the entire vowel system\n\n\nmaximum_formant_means\nnp.array\nThe mean maximum formant for the winners across the entire vowel system\n\n\nmax_formant_icov\nnp.array\nThe inverse covariance matrix for the winners maximum formant across the entire vowel system\n\n\nparams_covs\nnp.array\nThe covariance matrix for the winners’ DCT parameters.\n\n\nparams_icov\nnp.array\nThe inverse covariance matrix for the winners’ DCT parameters.\n\n\nparams_means\nnp.array\nAn np.array for the winners’ DCT parameters in the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of all vowel measurements in the vowel system\n\n\nwinner_formants\nnp.array\nAn np.array for the formants for the winners in the entire vowel system.\n\n\nwinner_params\nnp.array\nAn np.array of DCT parameters for the winners in entire vowel system.\n\n\nwinners\nlist[fasttrackpy.OneTrack]\nThe winning fasttrackpy.OneTrack for the entire vowel system\n\n\nwinners_maximum_formant\nnp.array\nAn np.array of the maximum formants for the winners in the entire vowel system\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurment.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nCandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\nobject\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\nwinner\n\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\nerror_log_prob\nnp.array\nA conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.\n\n\ncand_errors\nnp.array\nA numpy array of the log-mean-squared-errors for each candidate track.\n\n\ncand_mahals\nnp.array\nThe mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.\n\n\ncand_mahal_log_prob\nnp.array\nA conversion of cand_mahals to log-probabilies.\n\n\ncand_max_formants\nnp.array\nA numpy array of the maximum formants for this VowelMeasurement\n\n\ncand_params\nnp.array\nA numpy array of the candidate track DCT parameters.\n\n\nmax_formant_log_prob\nnp.array\nA conversion of max_formant_mahal to log-probabilities.\n\n\nmax_formant_mahal\nnp.array\nThe mahalanobis distance of each maximum formant to the speaker’s entire distribution.\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "measurements.vowel_measurement"
-    ]
-  },
-  {
     "objectID": "reference/optimize.optimize.html",
     "href": "reference/optimize.optimize.html",
     "title": "optimize.optimize",
@@ -88,32 +66,154 @@
     ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClass.html",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClass.html",
+    "objectID": "reference/VowelClass.html",
+    "href": "reference/VowelClass.html",
     "title": "VowelClass",
     "section": "",
-    "text": "measurements.vowel_measurement.VowelClass(self, label, tracks)\nA class used to represent a vowel class.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\nrequired\n\n\ntracks\nlist\nA list of VowelMeasurements\nrequired\n\n\n\nAttributes: label (str): label of the vowel class tracks (list): A list of VowelMeasurements vowel_system (VowelClassCollection): A the containing vowel system winners: A list of winner OneTracks from the vowel class winner_params: An np.array of winner DCT parameters from the vowel class.\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures."
+    "text": "VowelClass(label, tracks)\nA class used to represent a vowel class.\n\n\nVowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\nrequired\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nA the containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_params\nnp.array\nAn np.array of winner DCT parameters from the vowel class.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClass"
+    ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClass.html#parameters",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClass.html#parameters",
+    "objectID": "reference/VowelClass.html#intended-usage",
+    "href": "reference/VowelClass.html#intended-usage",
     "title": "VowelClass",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\nrequired\n\n\ntracks\nlist\nA list of VowelMeasurements\nrequired\n\n\n\nAttributes: label (str): label of the vowel class tracks (list): A list of VowelMeasurements vowel_system (VowelClassCollection): A the containing vowel system winners: A list of winner OneTracks from the vowel class winner_params: An np.array of winner DCT parameters from the vowel class."
+    "text": "VowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClass"
+    ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClass.html#methods",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClass.html#methods",
+    "objectID": "reference/VowelClass.html#parameters",
+    "href": "reference/VowelClass.html#parameters",
     "title": "VowelClass",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures."
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\nrequired\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClass"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClass.html#attributes",
+    "href": "reference/VowelClass.html#attributes",
+    "title": "VowelClass",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nA the containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_params\nnp.array\nAn np.array of winner DCT parameters from the vowel class.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClass"
+    ]
+  },
+  {
+    "objectID": "reference/patterns.writers.html",
+    "href": "reference/patterns.writers.html",
+    "title": "patterns.writers",
+    "section": "",
+    "text": "patterns.writers\n\n\n\n\n\nName\nDescription\n\n\n\n\nwrite_data\nSave data.\n\n\nwrite_df\nWrite the data frame, with the given appdendix.\n\n\n\n\n\npatterns.writers.write_data(vowel_spaces, destination=Path('.'), which='all', separate=False)\nSave data.\n\n\nThere are multiple data output types, including\n\ntracks: Vowel formant tracks\npoints: Point measurements\nparam: DCT parameters on Hz\nlog_param: DCT parameters on log(Hz)\ntextgrid: The recoded textgrid\n\nBy default, they will all be saved.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_spaces\nSpeakerCollection\nAn entire SpeakerCollection\nrequired\n\n\ndestination\nstr | Path\nDestination directory. Defaults to Path(\".\").\nPath('.')\n\n\nwhich\nLiteral[‘all’] | list[Literal[‘tracks’, ‘points’, ‘param’, ‘log_param’, ‘textgrid’]]\nWhich data to save. The values are described above. Defaults to “all”.\n'all'\n\n\nseparate\nbool\nWhether or not to write separate .csvs for each individual speaker. Defaults to False.\nFalse\n\n\n\n\n\n\n\npatterns.writers.write_df(df, destination, appendix, separate=False)\nWrite the data frame, with the given appdendix.\n\n\nThis is not intended to be used on its own. Rather it is a convenience function for write_data.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf\npl.DataFrame\nA polars dataframe.\nrequired\n\n\ndestination\nPath\nThe destination directory\nrequired\n\n\nappendix\nstr\nAppendix to add\nrequired\n\n\nseparate\nbool\nSplit data by filename and group. Defaults to False.\nFalse",
+    "crumbs": [
+      "Writiers",
+      "patterns.writers"
+    ]
+  },
+  {
+    "objectID": "reference/patterns.writers.html#functions",
+    "href": "reference/patterns.writers.html#functions",
+    "title": "patterns.writers",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nwrite_data\nSave data.\n\n\nwrite_df\nWrite the data frame, with the given appdendix.\n\n\n\n\n\npatterns.writers.write_data(vowel_spaces, destination=Path('.'), which='all', separate=False)\nSave data.\n\n\nThere are multiple data output types, including\n\ntracks: Vowel formant tracks\npoints: Point measurements\nparam: DCT parameters on Hz\nlog_param: DCT parameters on log(Hz)\ntextgrid: The recoded textgrid\n\nBy default, they will all be saved.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_spaces\nSpeakerCollection\nAn entire SpeakerCollection\nrequired\n\n\ndestination\nstr | Path\nDestination directory. Defaults to Path(\".\").\nPath('.')\n\n\nwhich\nLiteral[‘all’] | list[Literal[‘tracks’, ‘points’, ‘param’, ‘log_param’, ‘textgrid’]]\nWhich data to save. The values are described above. Defaults to “all”.\n'all'\n\n\nseparate\nbool\nWhether or not to write separate .csvs for each individual speaker. Defaults to False.\nFalse\n\n\n\n\n\n\n\npatterns.writers.write_df(df, destination, appendix, separate=False)\nWrite the data frame, with the given appdendix.\n\n\nThis is not intended to be used on its own. Rather it is a convenience function for write_data.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ndf\npl.DataFrame\nA polars dataframe.\nrequired\n\n\ndestination\nPath\nThe destination directory\nrequired\n\n\nappendix\nstr\nAppendix to add\nrequired\n\n\nseparate\nbool\nSplit data by filename and group. Defaults to False.\nFalse",
+    "crumbs": [
+      "Writiers",
+      "patterns.writers"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html",
+    "href": "reference/SpeakerCollection.html",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "SpeakerCollection(self, track_list)\nA class to represent the vowel system of all speakers in a TextGrid.\n\n\nIt is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nrequired",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html#intended-usage",
+    "href": "reference/SpeakerCollection.html#intended-usage",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "It is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html#parameters",
+    "href": "reference/SpeakerCollection.html#parameters",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nrequired",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html",
+    "href": "reference/VowelClassCollection.html",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "VowelClassCollection(self, track_list)\nA class for an entire vowel system.\n\n\nIt is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmaximum_formant_cov\nnp.array\nThe covariance matrix for the winners maximum formant across the entire vowel system\n\n\nmaximum_formant_means\nnp.array\nThe mean maximum formant for the winners across the entire vowel system\n\n\nmax_formant_icov\nnp.array\nThe inverse covariance matrix for the winners maximum formant across the entire vowel system\n\n\nparams_covs\nnp.array\nThe covariance matrix for the winners’ DCT parameters.\n\n\nparams_icov\nnp.array\nThe inverse covariance matrix for the winners’ DCT parameters.\n\n\nparams_means\nnp.array\nAn np.array for the winners’ DCT parameters in the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of all vowel measurements in the vowel system\n\n\nwinner_formants\nnp.array\nAn np.array for the formants for the winners in the entire vowel system.\n\n\nwinner_params\nnp.array\nAn np.array of DCT parameters for the winners in entire vowel system.\n\n\nwinners\nlist[fasttrackpy.OneTrack]\nThe winning fasttrackpy.OneTrack for the entire vowel system\n\n\nwinners_maximum_formant\nnp.array\nAn np.array of the maximum formants for the winners in the entire vowel system",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#intended-usage",
+    "href": "reference/VowelClassCollection.html#intended-usage",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "It is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#parameters",
+    "href": "reference/VowelClassCollection.html#parameters",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nrequired",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#attributes",
+    "href": "reference/VowelClassCollection.html#attributes",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nmaximum_formant_cov\nnp.array\nThe covariance matrix for the winners maximum formant across the entire vowel system\n\n\nmaximum_formant_means\nnp.array\nThe mean maximum formant for the winners across the entire vowel system\n\n\nmax_formant_icov\nnp.array\nThe inverse covariance matrix for the winners maximum formant across the entire vowel system\n\n\nparams_covs\nnp.array\nThe covariance matrix for the winners’ DCT parameters.\n\n\nparams_icov\nnp.array\nThe inverse covariance matrix for the winners’ DCT parameters.\n\n\nparams_means\nnp.array\nAn np.array for the winners’ DCT parameters in the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of all vowel measurements in the vowel system\n\n\nwinner_formants\nnp.array\nAn np.array for the formants for the winners in the entire vowel system.\n\n\nwinner_params\nnp.array\nAn np.array of DCT parameters for the winners in entire vowel system.\n\n\nwinners\nlist[fasttrackpy.OneTrack]\nThe winning fasttrackpy.OneTrack for the entire vowel system\n\n\nwinners_maximum_formant\nnp.array\nAn np.array of the maximum formants for the winners in the entire vowel system",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
   },
   {
     "objectID": "reference/index.html",
     "href": "reference/index.html",
     "title": "Function reference",
     "section": "",
-    "text": "Extract\n\n\n\nextract\n\n\n\n\n\n\n\nFunctions for optimizing formant measurements\n\n\n\noptimize.optimize\n\n\n\n\n\n\n\nVowel Measurements\n\n\n\nmeasurements.vowel_measurement",
+    "text": "Extract\n\n\n\nextract\n\n\n\n\n\n\n\nFunctions for optimizing formant measurements\n\n\n\noptimize.optimize\n\n\n\n\n\n\n\nVowel Measurements\n\n\n\nVowelMeasurement\nA class used to represent a vowel measurement.\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system.\n\n\nSpeakerCollection\nA class to represent the vowel system of all\n\n\n\n\n\n\n\n\n\npatterns.writers",
     "crumbs": [
       "Function reference"
     ]
@@ -143,66 +243,64 @@
     "href": "reference/index.html#vowel-measurements",
     "title": "Function reference",
     "section": "",
-    "text": "Vowel Measurements\n\n\n\nmeasurements.vowel_measurement",
+    "text": "Vowel Measurements\n\n\n\nVowelMeasurement\nA class used to represent a vowel measurement.\n\n\nVowelClass\nA class used to represent a vowel class.\n\n\nVowelClassCollection\nA class for an entire vowel system.\n\n\nSpeakerCollection\nA class to represent the vowel system of all",
     "crumbs": [
       "Function reference"
     ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html",
-    "title": "VowelClassCollection",
+    "objectID": "reference/index.html#writiers",
+    "href": "reference/index.html#writiers",
+    "title": "Function reference",
     "section": "",
-    "text": "measurements.vowel_measurement.VowelClassCollection(self, track_list)\nA class for an entire vowel system. It is a subclass of defaultdict, so it can be keyed by vowel class label\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[CandidateTracks\nA list of fasttrackpy.CandidateTracks.\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nmaximum_formant_cov\nnp.array\nThe covariance matrix for the winners maximum formant across the entire vowel system\n\n\nmaximum_formant_means\nnp.array\nThe mean maximum formant for the winners across the entire vowel system\n\n\nmax_formant_icov\nnp.array\nThe inverse covariance matrix for the winners maximum formant across the entire vowel system\n\n\nparams_covs\nnp.array\nThe covariance matrix for the winners’ DCT parameters.\n\n\nparams_icov\nnp.array\nThe inverse covariance matrix for the winners’ DCT parameters.\n\n\nparams_means\nnp.array\nAn np.array for the winners’ DCT parameters in the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of all vowel measurements in the vowel system\n\n\nwinner_formants\nnp.array\nAn np.array for the formants for the winners in the entire vowel system.\n\n\nwinner_params\nnp.array\nAn np.array of DCT parameters for the winners in entire vowel system.\n\n\nwinners\nlist[fasttrackpy.OneTrack]\nThe winning fasttrackpy.OneTrack for the entire vowel system\n\n\nwinners_maximum_formant\nnp.array\nAn np.array of the maximum formants for the winners in the entire vowel system\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data."
+    "text": "patterns.writers",
+    "crumbs": [
+      "Function reference"
+    ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html#parameters",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html#parameters",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[CandidateTracks\nA list of fasttrackpy.CandidateTracks.\nrequired"
-  },
-  {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html#attributes",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html#attributes",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\nmaximum_formant_cov\nnp.array\nThe covariance matrix for the winners maximum formant across the entire vowel system\n\n\nmaximum_formant_means\nnp.array\nThe mean maximum formant for the winners across the entire vowel system\n\n\nmax_formant_icov\nnp.array\nThe inverse covariance matrix for the winners maximum formant across the entire vowel system\n\n\nparams_covs\nnp.array\nThe covariance matrix for the winners’ DCT parameters.\n\n\nparams_icov\nnp.array\nThe inverse covariance matrix for the winners’ DCT parameters.\n\n\nparams_means\nnp.array\nAn np.array for the winners’ DCT parameters in the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of all vowel measurements in the vowel system\n\n\nwinner_formants\nnp.array\nAn np.array for the formants for the winners in the entire vowel system.\n\n\nwinner_params\nnp.array\nAn np.array of DCT parameters for the winners in entire vowel system.\n\n\nwinners\nlist[fasttrackpy.OneTrack]\nThe winning fasttrackpy.OneTrack for the entire vowel system\n\n\nwinners_maximum_formant\nnp.array\nAn np.array of the maximum formants for the winners in the entire vowel system"
-  },
-  {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html#methods",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelClassCollection.html#methods",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data."
-  },
-  {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html",
+    "objectID": "reference/VowelMeasurement.html",
+    "href": "reference/VowelMeasurement.html",
     "title": "VowelMeasurement",
     "section": "",
-    "text": "measurements.vowel_measurement.VowelMeasurement(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurment.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nCandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\nobject\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\nwinner\n\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\nerror_log_prob\nnp.array\nA conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.\n\n\ncand_errors\nnp.array\nA numpy array of the log-mean-squared-errors for each candidate track.\n\n\ncand_mahals\nnp.array\nThe mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.\n\n\ncand_mahal_log_prob\nnp.array\nA conversion of cand_mahals to log-probabilies.\n\n\ncand_max_formants\nnp.array\nA numpy array of the maximum formants for this VowelMeasurement\n\n\ncand_params\nnp.array\nA numpy array of the candidate track DCT parameters.\n\n\nmax_formant_log_prob\nnp.array\nA conversion of max_formant_mahal to log-probabilities.\n\n\nmax_formant_mahal\nnp.array\nThe mahalanobis distance of each maximum formant to the speaker’s entire distribution.\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data."
+    "text": "VowelMeasurement(track, heuristic=field(default=Heuristic()))\nA class used to represent a vowel measurement.\n\n\nCertain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nfield(default=Heuristic())\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nCandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\nwinner\n\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\nerror_log_prob\nnp.array\nA conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.\n\n\ncand_errors\nnp.array\nA numpy array of the log-mean-squared-errors for each candidate track.\n\n\ncand_mahals\nnp.array\nThe mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.\n\n\ncand_mahal_log_prob\nnp.array\nA conversion of cand_mahals to log-probabilies.\n\n\ncand_max_formants\nnp.array\nA numpy array of the maximum formants for this VowelMeasurement\n\n\ncand_params\nnp.array\nA numpy array of the candidate track DCT parameters.\n\n\nmax_formant_log_prob\nnp.array\nA conversion of max_formant_mahal to log-probabilities.\n\n\nmax_formant_mahal\nnp.array\nThe mahalanobis distance of each maximum formant to the speaker’s entire distribution.\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html#parameters",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html#parameters",
+    "objectID": "reference/VowelMeasurement.html#intended-usage",
+    "href": "reference/VowelMeasurement.html#intended-usage",
     "title": "VowelMeasurement",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()"
+    "text": "Certain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html#attributes",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html#attributes",
+    "objectID": "reference/VowelMeasurement.html#parameters",
+    "href": "reference/VowelMeasurement.html#parameters",
     "title": "VowelMeasurement",
     "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\ntrack\nCandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\nobject\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\nwinner\n\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\nerror_log_prob\nnp.array\nA conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.\n\n\ncand_errors\nnp.array\nA numpy array of the log-mean-squared-errors for each candidate track.\n\n\ncand_mahals\nnp.array\nThe mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.\n\n\ncand_mahal_log_prob\nnp.array\nA conversion of cand_mahals to log-probabilies.\n\n\ncand_max_formants\nnp.array\nA numpy array of the maximum formants for this VowelMeasurement\n\n\ncand_params\nnp.array\nA numpy array of the candidate track DCT parameters.\n\n\nmax_formant_log_prob\nnp.array\nA conversion of max_formant_mahal to log-probabilities.\n\n\nmax_formant_mahal\nnp.array\nThe mahalanobis distance of each maximum formant to the speaker’s entire distribution.\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement."
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nfield(default=Heuristic())",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
   },
   {
-    "objectID": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html#methods",
-    "href": "reference/new_fave.measurements.vowel_measurement.VowelMeasurement.html#methods",
+    "objectID": "reference/VowelMeasurement.html#attributes",
+    "href": "reference/VowelMeasurement.html#attributes",
     "title": "VowelMeasurement",
     "section": "",
-    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nmeasurements.vowel_measurement.VowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data."
+    "text": "Name\nType\nDescription\n\n\n\n\ntrack\nCandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\nwinner\n\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\nerror_log_prob\nnp.array\nA conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.\n\n\ncand_errors\nnp.array\nA numpy array of the log-mean-squared-errors for each candidate track.\n\n\ncand_mahals\nnp.array\nThe mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.\n\n\ncand_mahal_log_prob\nnp.array\nA conversion of cand_mahals to log-probabilies.\n\n\ncand_max_formants\nnp.array\nA numpy array of the maximum formants for this VowelMeasurement\n\n\ncand_params\nnp.array\nA numpy array of the candidate track DCT parameters.\n\n\nmax_formant_log_prob\nnp.array\nA conversion of max_formant_mahal to log-probabilities.\n\n\nmax_formant_mahal\nnp.array\nThe mahalanobis distance of each maximum formant to the speaker’s entire distribution.\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
   },
   {
     "objectID": "dev_plan/new-fave-approach.html",

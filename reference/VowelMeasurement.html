@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../reference/extract.html" rel="next">
+<link href="../reference/VowelClass.html" rel="next">
+<link href="../reference/optimize.optimize.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -118,7 +153,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/index.html">Function reference</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/VowelMeasurement.html">Vowel Measurements</a></li><li class="breadcrumb-item"><a href="../reference/VowelMeasurement.html">VowelMeasurement</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -132,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Function reference</span></a>
   </div>
 </li>
@@ -181,7 +216,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">VowelMeasurement</span></a>
   </div>
 </li>
@@ -232,12 +267,11 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#function-reference" id="toc-function-reference" class="nav-link active" data-scroll-target="#function-reference">Function reference</a>
+  <li><a href="#new_fave.VowelMeasurement" id="toc-new_fave.VowelMeasurement" class="nav-link active" data-scroll-target="#new_fave.VowelMeasurement">VowelMeasurement</a>
   <ul>
-  <li><a href="#extract" id="toc-extract" class="nav-link" data-scroll-target="#extract">Extract</a></li>
-  <li><a href="#optimization" id="toc-optimization" class="nav-link" data-scroll-target="#optimization">Optimization</a></li>
-  <li><a href="#vowel-measurements" id="toc-vowel-measurements" class="nav-link" data-scroll-target="#vowel-measurements">Vowel Measurements</a></li>
-  <li><a href="#writiers" id="toc-writiers" class="nav-link" data-scroll-target="#writiers">Writiers</a></li>
+  <li><a href="#intended-usage" id="toc-intended-usage" class="nav-link" data-scroll-target="#intended-usage">Intended Usage</a></li>
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -248,63 +282,174 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="function-reference" class="level1 doc doc-index">
-<h1 class="doc doc-index">Function reference</h1>
-<section id="extract" class="level2">
-<h2 class="anchored" data-anchor-id="extract">Extract</h2>
-<p>Extract</p>
-<table class="table">
-<tbody>
-<tr class="odd">
-<td><a href="../reference/extract.html#new_fave.extract">extract</a></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<section id="new_fave.VowelMeasurement" class="level1">
+<h1>VowelMeasurement</h1>
+<p><code>VowelMeasurement(track, heuristic=field(default=Heuristic()))</code></p>
+<p>A class used to represent a vowel measurement.</p>
+<section id="intended-usage" class="level2">
+<h2 class="anchored" data-anchor-id="intended-usage">Intended Usage</h2>
+<p>Certain properties of a <code>VowelMeasurement</code> instance are set by its membership within a <a href="../reference/VowelClass.html#new_fave.VowelClass"><code>VowelClass</code></a> and that <a href="../reference/VowelClass.html#new_fave.VowelClass"><code>VowelClass</code></a>’s membership in a <a href="../reference/VowelClassCollection.html#new_fave.VowelClassCollection"><code>VowelClassCollection</code></a>. These memberships are best managed by passing a list of <code>VowelMeasurement</code>s to <a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection"><code>SpeakerCollection</code></a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vowel_measurements <span class="op">=</span> [VowelMeasurement(t) <span class="cf">for</span> t <span class="kw">in</span> fasttrack_tracks]</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>speakers <span class="op">=</span> SpeakerCollection(vowel_measurements)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="optimization" class="level2">
-<h2 class="anchored" data-anchor-id="optimization">Optimization</h2>
-<p>Functions for optimizing formant measurements</p>
+<section id="parameters" class="level2">
+<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
 <table class="table">
-<tbody>
-<tr class="odd">
-<td><a href="../reference/optimize.optimize.html#new_fave.optimize.optimize">optimize.optimize</a></td>
-<td></td>
+<colgroup>
+<col style="width: 6%">
+<col style="width: 42%">
+<col style="width: 34%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
 </tr>
-</tbody>
-</table>
-</section>
-<section id="vowel-measurements" class="level2">
-<h2 class="anchored" data-anchor-id="vowel-measurements">Vowel Measurements</h2>
-<p>Vowel Measurements</p>
-<table class="table">
+</thead>
 <tbody>
 <tr class="odd">
-<td><a href="../reference/VowelMeasurement.html#new_fave.VowelMeasurement">VowelMeasurement</a></td>
-<td>A class used to represent a vowel measurement.</td>
+<td><code>track</code></td>
+<td><code>fasttrackpy</code>.<code>CandidateTracks</code></td>
+<td>A fasttrackpy.CandidateTrracks object</td>
+<td><em>required</em></td>
 </tr>
 <tr class="even">
+<td><code>heuristic</code></td>
+<td><code>Heuristic</code></td>
+<td>A point measurement Heuristic to use. Defaults to Heuristic().</td>
+<td><code>field(default=Heuristic())</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>track</td>
+<td><code>CandidateTracks</code></td>
+<td>an object of CandidateTracks class</td>
+</tr>
+<tr class="even">
+<td>candidates</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></td>
+<td>list of candidates for the track</td>
+</tr>
+<tr class="odd">
+<td>heuristic</td>
+<td><code>Heuristic</code></td>
+<td>an object of Heuristic class (default is Heuristic())</td>
+</tr>
+<tr class="even">
+<td>vowel_class</td>
 <td><a href="../reference/VowelClass.html#new_fave.VowelClass">VowelClass</a></td>
-<td>A class used to represent a vowel class.</td>
+<td>The containing VowelClass object</td>
 </tr>
 <tr class="odd">
-<td><a href="../reference/VowelClassCollection.html#new_fave.VowelClassCollection">VowelClassCollection</a></td>
-<td>A class for an entire vowel system.</td>
+<td>formant_array</td>
+<td><code>FormantArray</code></td>
+<td>A FormantArray object</td>
 </tr>
 <tr class="even">
-<td><a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection">SpeakerCollection</a></td>
-<td>A class to represent the vowel system of all</td>
+<td>file_name</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>name of the file of the track</td>
 </tr>
-</tbody>
-</table>
-</section>
-<section id="writiers" class="level2">
-<h2 class="anchored" data-anchor-id="writiers">Writiers</h2>
-<table class="table">
-<tbody>
 <tr class="odd">
-<td><a href="../reference/patterns.writers.html#new_fave.patterns.writers">patterns.writers</a></td>
+<td>group</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>TierGroup of the track</td>
+</tr>
+<tr class="even">
+<td>id</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>id of the track</td>
+</tr>
+<tr class="odd">
+<td>interval</td>
+<td><code>aligned_textgrid</code>.<code>SequenceInterval</code></td>
+<td>interval of the track</td>
+</tr>
+<tr class="even">
+<td>label</td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
+<td>label of the track</td>
+</tr>
+<tr class="odd">
+<td>n_formants</td>
+<td><a href="https://docs.python.org/3/library/functions.html#int">int</a></td>
+<td>number of formants in the track</td>
+</tr>
+<tr class="even">
+<td>winner</td>
 <td></td>
+<td>fasttrackpy.OneTrack The winning formant track</td>
+</tr>
+<tr class="odd">
+<td>winner_index</td>
+<td><a href="https://docs.python.org/3/library/functions.html#int">int</a></td>
+<td>The index of the winning formant track</td>
+</tr>
+<tr class="even">
+<td>error_log_prob</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>A conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.</td>
+</tr>
+<tr class="odd">
+<td>cand_errors</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>A numpy array of the log-mean-squared-errors for each candidate track.</td>
+</tr>
+<tr class="even">
+<td>cand_mahals</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>The mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.</td>
+</tr>
+<tr class="odd">
+<td>cand_mahal_log_prob</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>A conversion of <code>cand_mahals</code> to log-probabilies.</td>
+</tr>
+<tr class="even">
+<td>cand_max_formants</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>A numpy array of the maximum formants for this VowelMeasurement</td>
+</tr>
+<tr class="odd">
+<td>cand_params</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>A numpy array of the candidate track DCT parameters.</td>
+</tr>
+<tr class="even">
+<td>max_formant_log_prob</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>A conversion of <code>max_formant_mahal</code> to log-probabilities.</td>
+</tr>
+<tr class="odd">
+<td>max_formant_mahal</td>
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
+<td>The mahalanobis distance of each maximum formant to the speaker’s entire distribution.</td>
+</tr>
+<tr class="even">
+<td>point_measure</td>
+<td><code>pl</code>.<code>DataFrame</code></td>
+<td>A polars dataframe of the point measurement for this vowel.</td>
+</tr>
+<tr class="odd">
+<td>vm_context</td>
+<td><code>pl</code>.<code>DataFrame</code></td>
+<td>A polars dataframe of contextual information for the vowel measurement.</td>
 </tr>
 </tbody>
 </table>
@@ -869,10 +1014,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../reference/optimize.optimize.html" class="pagination-link" aria-label="optimize.optimize">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">optimize.optimize</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../reference/extract.html" class="pagination-link" aria-label="extract">
-        <span class="nav-page-text">extract</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reference/VowelClass.html" class="pagination-link" aria-label="VowelClass">
+        <span class="nav-page-text">VowelClass</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
