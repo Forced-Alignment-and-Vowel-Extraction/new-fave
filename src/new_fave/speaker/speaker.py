@@ -53,7 +53,7 @@ def oldfave2speaker(path: Path) -> pl.DataFrame:
         df
         .with_columns(
             file_name = pl.lit(path.stem),
-            speaker_num = pl.col("tiernum").str.parse_int()
+            speaker_num = pl.col("tiernum").str.to_integer()
         )
     )
     return df
@@ -69,8 +69,13 @@ class Speaker():
         self.df = None
         if type(arg) is str:
             arg = Path(arg)
-        if isinstance(arg, dict) or isinstance(arg, list):
+        if isinstance(arg, dict):
             self.df = pl.DataFrame(arg)
+        if isinstance(arg, list) and not isinstance(arg[0], self.__class__):
+            self.df = pl.DataFrame(arg)
+        if isinstance(arg, list) and isinstance(arg[0], self.__class__):
+            all_df = [s.df for s in arg]
+            self.df = pl.concat(all_df, how = "diagonal")
         if isinstance(arg, pl.DataFrame):
             self.df = arg
         if isinstance(arg, Path):
@@ -116,4 +121,3 @@ class Speaker():
         extension = path.suffix
         reader = read_method[extension]
         return reader(path)
-    
