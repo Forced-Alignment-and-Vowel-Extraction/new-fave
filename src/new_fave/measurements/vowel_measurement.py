@@ -405,7 +405,8 @@ class VowelMeasurement(Sequence):
                 pl.col("id")
                 .str.extract("^(\d+)-")
                 .str.to_integer() + 1
-            )
+            ),
+            point_heuristic = pl.lit(self.heuristic.heuristic)
         )
 
         df = df.join(self.vm_context, on = "id")
