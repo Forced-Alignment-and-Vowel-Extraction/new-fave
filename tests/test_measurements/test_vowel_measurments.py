@@ -11,7 +11,10 @@ from new_fave.measurements.vowel_measurement import SpeakerCollection, \
     VowelClass, \
     VowelMeasurement
 
+from new_fave.speaker.speaker import Speaker
+
 corpus_path = Path("tests", "test_data", "corpus")
+speaker_demo= Speaker(corpus_path.joinpath("speakers.csv"))
 
 NSTEP = 10
 NFORMANT = 3
@@ -34,6 +37,7 @@ atgs = [
 
 vms = [VowelMeasurement(t) for t in candidates]
 speakers = SpeakerCollection(vms)
+speakers.speaker = speaker_demo
 
 def test_sepeakers_size():
     keys = speakers.keys()
@@ -243,7 +247,8 @@ def test_point_df():
                  'rel_time', 'prop_time', 'id', 'label', 'file_name',
                  'group', 'speaker_num', 'word', 'stress',
                  'dur', 'pre_word', 'fol_word', 'pre_seg',
-                 'fol_seg', 'abs_pre_seg', 'abs_fol_seg', 'context'
+                 'fol_seg', 'abs_pre_seg', 'abs_fol_seg', 'context',
+                 'gender'
                  ]
     
     for name in col_names:
