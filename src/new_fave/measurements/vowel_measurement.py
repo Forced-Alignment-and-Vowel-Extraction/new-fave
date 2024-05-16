@@ -3,6 +3,7 @@ from aligned_textgrid import AlignedTextGrid, SequenceInterval
 from fave_measurement_point.heuristic import Heuristic
 from fave_measurement_point.formants import FormantArray
 from new_fave.utils.textgrid import get_textgrid
+from new_fave.speaker.speaker import Speaker
 from collections import defaultdict
 import numpy as np
 from typing import Literal
@@ -837,6 +838,7 @@ class SpeakerCollection(defaultdict):
         self.speakers_dict = defaultdict(blank_list)
         self._make_tracks_dict(track_list)
         self._dictify()
+        self._speaker = None
     
     def __setitem__(self, __key, __value) -> None:
         super().__setitem__(__key, __value)
@@ -851,6 +853,14 @@ class SpeakerCollection(defaultdict):
             self[fs] = VowelClassCollection(
                 self.speakers_dict[fs]
             )
+
+    @property 
+    def speaker(self):
+        return self._speaker
+
+    @speaker.setter
+    def speaker(self, speaker:Speaker):
+        self._speaker = speaker
     
     def to_tracks_df(self)->pl.DataFrame:
         """
@@ -863,6 +873,21 @@ class SpeakerCollection(defaultdict):
         df = pl.concat(
             [x.to_tracks_df() for x in self.values()]
         )
+        
+        joinable = False
+        if self.speaker:
+            joinable = all([
+                x in self.speaker.df.columns
+                for x in ["file_name", "speaker_num"]
+            ])
+        
+        if joinable:
+            df = df.join(
+                self.speaker.df, 
+                on = ["file_name", "speaker_num"],
+                how = "left"
+            )
+
         return df
 
     def to_param_df(
@@ -885,8 +910,21 @@ class SpeakerCollection(defaultdict):
         df = pl.concat(
             [x.to_param_df(output = output) for x in self.values()]
         )
-        return df
+        joinable = False
+        if self.speaker:
+            joinable = all([
+                x in self.speaker.df.columns
+                for x in ["file_name", "speaker_num"]
+            ])
+        
+        if joinable:
+            df = df.join(
+                self.speaker.df, 
+                on = ["file_name", "speaker_num"],
+                how = "left"
+            )
 
+        return df
 
     def to_point_df(self) -> pl.DataFrame:
         """
@@ -899,4 +937,19 @@ class SpeakerCollection(defaultdict):
         df = pl.concat(
             [x.to_point_df() for x in self.values()]
         )
-        return df
+
+        joinable = False
+        if self.speaker:
+            joinable = all([
+                x in self.speaker.df.columns
+                for x in ["file_name", "speaker_num"]
+            ])
+        
+        if joinable:
+            df = df.join(
+                self.speaker.df, 
+                on = ["file_name", "speaker_num"],
+                how = "left"
+            )
+
+        return df        
