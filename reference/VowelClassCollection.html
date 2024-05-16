@@ -174,7 +174,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
- <span class="menu-text">Extract</span></a>
+ <span class="menu-text">Processing Patterns</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -182,8 +182,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/extract.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">extract</span></a>
+  <a href="../reference/fave_audio_textgrid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_audio_textgrid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_corpus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_subcorpora</span></a>
   </div>
 </li>
       </ul>
@@ -243,7 +255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
- <span class="menu-text">Writiers</span></a>
+ <span class="menu-text">Writers</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -251,8 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/patterns.writers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">patterns.writers</span></a>
+  <a href="../reference/write_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">write_data</span></a>
   </div>
 </li>
       </ul>
@@ -272,6 +284,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#intended-usage" id="toc-intended-usage" class="nav-link" data-scroll-target="#intended-usage">Intended Usage</a></li>
   <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
+  <ul class="collapse">
+  <li><a href="#new_fave.VowelClassCollection.to_tracks_df" id="toc-new_fave.VowelClassCollection.to_tracks_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</a>
+  <ul class="collapse">
+  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
+  </ul></li>
+  <li><a href="#new_fave.VowelClassCollection.to_param_df" id="toc-new_fave.VowelClassCollection.to_param_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_param_df">to_param_df</a>
+  <ul class="collapse">
+  <li><a href="#returns-1" id="toc-returns-1" class="nav-link" data-scroll-target="#returns-1">Returns</a></li>
+  </ul></li>
+  <li><a href="#new_fave.VowelClassCollection.to_point_df" id="toc-new_fave.VowelClassCollection.to_point_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_point_df">to_point_df</a>
+  <ul class="collapse">
+  <li><a href="#returns-2" id="toc-returns-2" class="nav-link" data-scroll-target="#returns-2">Returns</a></li>
+  </ul></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
@@ -381,8 +408,111 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
+</section>
+<section id="methods" class="level2">
+<h2 class="anchored" data-anchor-id="methods">Methods</h2>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</a></td>
+<td>Return a DataFrame of the formant tracks</td>
+</tr>
+<tr class="even">
+<td><a href="#new_fave.VowelClassCollection.to_param_df">to_param_df</a></td>
+<td>Return DataFrame of formant DCT parameters.</td>
+</tr>
+<tr class="odd">
+<td><a href="#new_fave.VowelClassCollection.to_point_df">to_point_df</a></td>
+<td>Return a DataFrame of point measurements</td>
+</tr>
+</tbody>
+</table>
+<section id="new_fave.VowelClassCollection.to_tracks_df" class="level3">
+<h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</h3>
+<p><code>VowelClassCollection.to_tracks_df()</code></p>
+<p>Return a DataFrame of the formant tracks</p>
+<section id="returns" class="level4">
+<h4 class="anchored" data-anchor-id="returns">Returns</h4>
+<table class="table">
+<colgroup>
+<col style="width: 55%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pl</code>.<code>DataFrame</code></td>
+<td>A dataframe with formant track data.</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="new_fave.VowelClassCollection.to_param_df" class="level3">
+<h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.to_param_df">to_param_df</h3>
+<p><code>VowelClassCollection.to_param_df(output='log_param')</code></p>
+<p>Return DataFrame of formant DCT parameters.</p>
+<section id="returns-1" class="level4">
+<h4 class="anchored" data-anchor-id="returns-1">Returns</h4>
+<table class="table">
+<colgroup>
+<col style="width: 55%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pl</code>.<code>DataFrame</code></td>
+<td>A DataFrame of formant DCT parameters</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="new_fave.VowelClassCollection.to_point_df" class="level3">
+<h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.to_point_df">to_point_df</h3>
+<p><code>VowelClassCollection.to_point_df()</code></p>
+<p>Return a DataFrame of point measurements</p>
+<section id="returns-2" class="level4">
+<h4 class="anchored" data-anchor-id="returns-2">Returns</h4>
+<table class="table">
+<colgroup>
+<col style="width: 55%">
+<col style="width: 44%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pl</code>.<code>DataFrame</code></td>
+<td>A DataFrame of vowel point measures.</td>
+</tr>
+</tbody>
+</table>
 
 
+</section>
+</section>
 </section>
 </section>
 
