@@ -17,7 +17,8 @@ from new_fave.utils.local_resources import recodes, \
     fasttrack_config,\
     generic_resolver
 from new_fave.utils.fasttrack_config import read_fasttrack
-
+from new_fave.speaker.speaker import Speaker
+import numpy as np
 
 from pathlib import Path
 
@@ -26,7 +27,7 @@ from pathlib import Path
 def fave_audio_textgrid(
     audio_path: str|Path,
     textgrid_path: str|Path,
-    speakers: int|list[int] = 0,
+    speakers: int|list[int]|str|Path = 0,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -40,9 +41,10 @@ def fave_audio_textgrid(
             Path to an audio file
         textgrid_path (str | Path): 
             Path to a textgrid
-        speakers (int | list[int], optional): 
+        speakers (int, list[int], str, Path, optional): 
             Which speaker(s) to produce data for.
-            Should be a numeric index.
+            Can be a numeric index, or a path to a 
+            speaker file, or "all"
         recode_rules (str | None, optional): 
             Either a string naming built-in set of
             recode rules, or path to a custom  ruleset. 
@@ -95,6 +97,16 @@ def fave_audio_textgrid(
     if type(speakers) is int:
         speakers = [speakers]
 
+    speaker_path = None
+    if type(speakers) is str and not speakers == "all":
+        speaker_path = Path(speakers)
+
+    speaker_demo = None
+    if speaker_path:
+        speaker_demo = Speaker(speaker_path)
+        speakers = speaker_demo.df["speaker_num"].to_list()
+        speakers = [s-1 for s in speakers]
+
     candidates = process_audio_textgrid(
         audio_path = audio_path,
         textgrid_path = textgrid_path,
@@ -103,6 +115,8 @@ def fave_audio_textgrid(
 
     atg = get_textgrid(candidates[0].interval)
     tg_names = [tg.name for tg in atg]
+    if speakers == "all":
+        speakers = np.arange(len(atg))
     if len(speakers) > len(atg):
         raise ValueError(
             (
@@ -132,6 +146,8 @@ def fave_audio_textgrid(
 
     vms = [VowelMeasurement(t, heuristic=heuristic) for t in target_candidates]
     vowel_systems = SpeakerCollection(vms)
+    if speaker_demo:
+        vowel_systems.speaker = speaker_demo
 
     for vs in vowel_systems.values():
         run_optimize(vs)
