@@ -70,6 +70,9 @@ quartodoc:
         - fave_audio_textgrid
         - fave_corpus
         - fave_subcorpora
+    - title: Writers
+      contents:
+        - write_data        
     - title: Optimization
       desc: Functions for optimizing formant measurements
       contents:
@@ -102,6 +105,3 @@ quartodoc:
             - to_tracks_df
             - to_param_df
             - to_point_df
-    - title: Writers
-      contents:
-        - write_data
