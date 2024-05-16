@@ -98,13 +98,13 @@ def fave_audio_textgrid(
         for track in cand.candidates:
             track.label = cand.label
 
-    vms = [VowelMeasurement(t) for t in target_candidates]
+    vms = [VowelMeasurement(t, heuristic=heuristic) for t in target_candidates]
     vowel_systems = SpeakerCollection(vms)
 
     for vs in vowel_systems.values():
         run_optimize(vs)
 
-    return (vowel_systems, atg)
+    return vowel_systems
 
 
     
