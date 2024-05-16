@@ -30,6 +30,7 @@ import re
 def fave_subcorpora(
     subcorpora_glob: str|Path,
     speakers: int|list[int]|str|Path = 0,
+    speakers_glob: str = None,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -45,6 +46,9 @@ def fave_subcorpora(
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
+        speakers_glob (str):
+            Alternatively to `speakers`, a 
+            file glob to speaker files.
         recode_rules (str | None, optional): 
             Either a string naming built-in set of
             recode rules, or path to a custom  ruleset. 
@@ -106,6 +110,14 @@ def fave_subcorpora(
     atgs = get_all_textgrid(candidates)
 
     target_candidates = candidates
+
+    speaker_demo = None
+    if speakers_glob:
+        speaker_path = None
+        speaker_paths = [Path(p) for p in glob(speakers_glob)]
+        speaker_demo = Speaker([Speaker(s) for s in speaker_paths])
+        
+
     if type(speakers) is int:
         target_candidates = [
             cand
@@ -113,14 +125,12 @@ def fave_subcorpora(
             if cand.group == get_textgrid(cand.interval)[speakers].name
         ]
 
-    speaker_path = None
     if type(speakers) is str and not speakers == "all":
         speaker_path = Path(speakers)
-
-    speaker_demo = None
+    
     if speaker_path:
         speaker_demo = Speaker(speaker_path)
-    
+
     if speaker_demo:
         file_names = speaker_demo.df["file_name"].to_list()
         speaker_nums = speaker_demo.df["speaker_num"].to_list()
@@ -129,10 +139,9 @@ def fave_subcorpora(
 
         target_candidates = [
             cand for cand in candidates
-            for fn, num in zip(file_names, speaker_nums)
             if (
                 cand.file_name, 
-                int(re.search("^(\d+)-", cand.id).group(1))+1
+                int(re.search("^(\d+)-", cand.id).group(1))
             ) in target_speakers
         ]
 
@@ -159,6 +168,4 @@ def fave_subcorpora(
 
     return vowel_systems
 
-
-    
 
