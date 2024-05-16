@@ -31,7 +31,39 @@ def fave_audio_textgrid(
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
     ft_config: str|None = "default"
-):
+)->SpeakerCollection:
+    """
+    Process a single audio/textgrid pair.
+
+    Args:
+        audio_path (str | Path): 
+            Path to an audio file
+        textgrid_path (str | Path): 
+            Path to a textgrid
+        speakers (int | list[int], optional): 
+            Which speaker(s) to produce data for.
+            Should be a numeric index.
+        recode_rules (str | None, optional): 
+            Either a string naming built-in set of
+            recode rules, or path to a custom  ruleset. 
+            Defaults to None.
+        labelset_parser (str | None, optional): 
+            Either a string naming a built-in labelset
+            parser, or a path to a custom parser definition. 
+            Defaults to None.
+        point_heuristic (str | None, optional): 
+            Either a string naming a built in point heuristic,
+            or a path to a custom heuristic definition. 
+            Defaults to None.
+        ft_config (str | None, optional): 
+            Either a string naming a built-in fasttrack config file,
+            or a path to a custom config file. 
+            Defaults to "default".
+
+    Returns:
+        (SpeakerCollection): 
+            A [](`new_fave.SpeakerCollection`)
+    """
     fasttrack_kwargs = generic_resolver(
         resolve_func=read_fasttrack,
         to_resolve=ft_config,
