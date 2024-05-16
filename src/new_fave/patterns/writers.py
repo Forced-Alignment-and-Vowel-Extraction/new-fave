@@ -13,7 +13,11 @@ def write_df(
     separate: bool =False
 ):
     """
-    Write the data frame, with the given appdendix
+    Write the data frame, with the given appdendix.
+
+    #### Intended Usage
+    This is not intended to be used on its own. Rather
+    it is a convenience function for [](`~new_fave.patterns.writers.write_data`).
 
     Args:
         df (pl.DataFrame): A polars dataframe.
@@ -68,21 +72,30 @@ def write_data(
     separate: bool = False
 ):
     """
-    Save data. There are multiple data output types, including
+    Save data. 
     
-    - tracks: Vowel formant tracks
-    - points: Point measurements
-    - param: DCT parameters on Hz
-    - log_param: DCT parameters on log(Hz)
-    - textgrid: The recoded textgrid
+    #### Intended usage 
+
+    There are multiple data output types, including
+    
+    - `tracks`: Vowel formant tracks
+    - `points`: Point measurements
+    - `param`: DCT parameters on Hz
+    - `log_param`: DCT parameters on log(Hz)
+    - `textgrid`: The recoded textgrid
     
     By default, they will all be saved.
 
     Args:
-        vowel_spaces (SpeakerCollection): _description_
-        destination (str | Path, optional): _description_. Defaults to Path(".").
-        which (Literal[&quot;all&quot;] | list[Literal[ &quot;tracks&quot;, &quot;points&quot;, &quot;param&quot;, &quot;log_param&quot;, &quot;textgrid&quot; ]], optional): _description_. Defaults to "all".
-        separate (bool, optional): _description_. Defaults to False.
+        vowel_spaces (SpeakerCollection): 
+            An entire `SpeakerCollection`
+        destination (str | Path, optional): 
+            Destination directory. Defaults to `Path(".")`.
+        which (Literal["all"] | list[Literal[ "tracks", "points", "param", "log_param", "textgrid" ]], optional): 
+            Which data to save. The values are described above. Defaults to "all".
+        separate (bool, optional): 
+            Whether or not to write separate `.csv`s for each individual speaker.
+            Defaults to False.
 
     """
     if which == "all":

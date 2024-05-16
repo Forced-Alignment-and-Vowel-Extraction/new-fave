@@ -1,5 +1,5 @@
 from fasttrackpy import CandidateTracks, OneTrack
-from aligned_textgrid import AlignedTextGrid
+from aligned_textgrid import AlignedTextGrid, SequenceInterval
 from fave_measurement_point.heuristic import Heuristic
 from fave_measurement_point.formants import FormantArray
 from new_fave.utils.textgrid import get_textgrid
@@ -39,7 +39,20 @@ def blank_list():
     
 @dataclass
 class VowelMeasurement(Sequence):
-    """ A class used to represent a vowel measurment.
+    """ A class used to represent a vowel measurement.
+
+    ## Intended Usage
+    Certain properties of a `VowelMeasurement` instance
+    are set by its membership within a [](`~new_fave.VowelClass`)
+    and that [](`~new_fave.VowelClass`)'s membership 
+    in a [](`~new_fave.VowelClassCollection`). These memberships
+    are best managed by passing a list of `VowelMeasurement`s to
+    [](`~new_fave.SpeakerCollection`).
+
+    ```{.python}
+    vowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]
+    speakers = SpeakerCollection(vowel_measurements)
+    ```
 
     Args:
         track (fasttrackpy.CandidateTracks): 
@@ -67,7 +80,7 @@ class VowelMeasurement(Sequence):
             TierGroup of the track
         id (str):
             id of the track
-        interval (object):
+        interval (aligned_textgrid.SequenceInterval):
             interval of the track
         label (str):
             label of the track
@@ -403,22 +416,36 @@ class VowelMeasurement(Sequence):
 class VowelClass(Sequence):
     """A class used to represent a vowel class.
 
+    ## Intended Usage
+
+    `VowelClass` subclasses [](`collections.abc.Sequence`), so 
+    it is indexable. While it can be created on its own, it is 
+    best to leave this up to either [](`~new_fave.VowelClassCollection`)
+    or [](`~new_fave.SpeakerCollection`).
+
+    ```{.python}
+    vowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]
+    vowel_class = VowelClass("ay", vowel_measurements)
+    ```
+    
+
     Args:
         label (str):
             The vowel class label
         tracks (list[VowelMeasurement]): 
             A list of VowelMeasurements
+
     Attributes:
         label (str): 
             label of the vowel class
         tracks (list): 
-           A list of `VowelMeasurement`s
+            A list of `VowelMeasurement`s
         vowel_system (VowelClassCollection):
             A the containing vowel system
-        winners: 
+        winners (list[OneTrack]): 
             A list of winner OneTracks from
             the vowel class
-        winner_params:
+        winner_params (np.array):
             An `np.array` of winner DCT parameters
             from the vowel class.
     """
@@ -515,9 +542,16 @@ class VowelClass(Sequence):
 
 class VowelClassCollection(defaultdict):
     """
-    A class for an entire vowel system. It is a subclass
-    of `defaultdict`, so it can be keyed by vowel class 
-    label
+    A class for an entire vowel system. 
+    
+    ## Intended Usage
+    It is a subclass of `defaultdict`, so it can be 
+    keyed by vowel class label.
+
+    ```{.python}
+    vowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]
+    vowel_system = VowelClassCollection(vowel_measurements)
+    ```
 
     Args:
         track_list (list[VowelMeasurement]):
@@ -783,8 +817,16 @@ class VowelClassCollection(defaultdict):
 class SpeakerCollection(defaultdict):
     """
     A class to represent the vowel system of all 
-    speakers in a TextGrid. It is a subclass of `defaultdict`,
+    speakers in a TextGrid. 
+    
+    ## Intended usage
+    It is a subclass of `defaultdict`,
     and can be keyed by the `(file_name, group_name)` tuple.
+
+    ```{.python}
+    vowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]
+    speakers = SpeakerCollection(vowel_measurements)
+    ```
 
     Args:
         track_list (list[VowelMeasurement]):
