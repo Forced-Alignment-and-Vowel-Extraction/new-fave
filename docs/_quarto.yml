@@ -53,9 +53,8 @@ interlinks:
       url: https://numpy.org/doc/stable/
     python:
       url: https://docs.python.org/3/
-    # fasttrackpy:
-    #   url: https://fasttrackiverse.github.io/fasttrackpy/
-    #   inv: objects.txt
+    fasttrackpy:
+      url: https://fasttrackiverse.github.io/fasttrackpy/
 
 quartodoc:
   style: pkgdown
