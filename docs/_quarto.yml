@@ -41,11 +41,13 @@ format:
     css: styles/styles.css
     toc: true
     toc-depth: 4
+    highlight-style: github    
 
 filters:
   - interlinks
 
 interlinks:
+  fast: true
   sources:
     numpy:
       url: https://numpy.org/doc/stable/
@@ -53,6 +55,7 @@ interlinks:
       url: https://docs.python.org/3/
     # fasttrackpy:
     #   url: https://fasttrackiverse.github.io/fasttrackpy/
+    #   inv: objects.txt
 
 quartodoc:
   style: pkgdown
@@ -73,4 +76,10 @@ quartodoc:
     - title: Vowel Measurements
       desc: Vowel Measurements
       contents: 
-        - measurements.vowel_measurement
+        - VowelMeasurement
+        - VowelClass
+        - VowelClassCollection
+        - SpeakerCollection
+    - title: Writiers
+      contents:
+        - patterns.writers
