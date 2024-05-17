@@ -6,7 +6,7 @@ title: Getting Started
 
 ```bash
 # bash
-pip install git+git@github.com:Forced-Alignment-and-Vowel-Extraction/new-fave.git
+pip install git+https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave.git
 ```
 
 
