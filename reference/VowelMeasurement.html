@@ -413,61 +413,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>number of formants in the track</td>
 </tr>
 <tr class="even">
+<td>optimized</td>
+<td><a href="https://docs.python.org/3/library/functions.html#int">int</a></td>
+<td>The number of optimization iterations the vowel measurement has been through.</td>
+</tr>
+<tr class="odd">
 <td>winner</td>
 <td></td>
 <td>fasttrackpy.OneTrack The winning formant track</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>winner_index</td>
 <td><a href="https://docs.python.org/3/library/functions.html#int">int</a></td>
 <td>The index of the winning formant track</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>error_log_prob</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>A conversion of the log-mean-squared-error to a log-probabilities, based on an empirical cumulative density function.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>cand_errors</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>A numpy array of the log-mean-squared-errors for each candidate track.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>cand_mahals</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>The mahalanobis distance across DCT parameters for each candidate from the vowel system distribution.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>cand_mahal_log_prob</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>A conversion of <code>cand_mahals</code> to log-probabilies.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>cand_max_formants</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>A numpy array of the maximum formants for this VowelMeasurement</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>cand_params</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>A numpy array of the candidate track DCT parameters.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>max_formant_log_prob</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>A conversion of <code>max_formant_mahal</code> to log-probabilities.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>max_formant_mahal</td>
 <td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array">array</a></td>
 <td>The mahalanobis distance of each maximum formant to the speaker’s entire distribution.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>point_measure</td>
 <td><code>pl</code>.<code>DataFrame</code></td>
 <td>A polars dataframe of the point measurement for this vowel.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>vm_context</td>
 <td><code>pl</code>.<code>DataFrame</code></td>
 <td>A polars dataframe of contextual information for the vowel measurement.</td>
