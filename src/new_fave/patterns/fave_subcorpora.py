@@ -114,6 +114,7 @@ def fave_subcorpora(
     target_candidates = candidates
 
     speaker_demo = None
+    speaker_path = None
     if speakers_glob:
         speaker_path = None
         speaker_paths = [Path(p) for p in glob(speakers_glob)]
