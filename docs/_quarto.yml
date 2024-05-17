@@ -73,7 +73,13 @@ quartodoc:
         - fave_subcorpora
     - title: Writers
       contents:
-        - write_data        
+        - write_data
+    - title: Built-in resources 
+      contents:
+        - utils.local_resources.local_resources
+    - title: Speaker files
+      contents:
+        - speaker.speaker.Speaker
     - title: Optimization
       desc: Functions for optimizing formant measurements
       contents:

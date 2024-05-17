@@ -65,6 +65,26 @@ read_method = {
     ".speaker": oldfave2speaker
 }
 class Speaker():
+    """
+    This is a class to represent speaker information.
+    The argument to `Speaker()` can be one of
+
+    - A .yaml file
+    - A .csv file
+    - A .xlsx file
+    - An old fave .speaker file
+
+    With the exception of the old .speaker files, to
+    work well with new-fave, these speaker files should contain
+    the following fields
+
+    - `file_name`: The file stem of the wav and textgrid files
+    - `speaker_num`: The speaker to be analyzed in a file. the first speaker is `1`.
+
+    Attributes:
+        df (pl.DataFrame): 
+            A polars data frame of speaker information
+    """
     def __init__(self, arg: dict|list|pl.DataFrame|Path = None):
         self.df = None
         if type(arg) is str:

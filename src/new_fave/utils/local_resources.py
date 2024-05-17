@@ -2,6 +2,7 @@ from importlib.resources import files
 from pathlib import Path
 from typing import Callable, Any
 
+
 fave_fasttrack = str(files("new_fave").joinpath("resources", "fasttrack_config.yml"))
 
 fave_cmu2phila = str(files("new_fave").joinpath("resources", "cmu2phila.yml"))
@@ -27,6 +28,20 @@ heuristics = {
 fasttrack_config = {
     "default": fave_fasttrack
 }
+
+def local_resources():
+    """
+    Attributes:
+        recodes (dict): 
+            Recode options. Contains `"cmu2phila"` and `"cmu2labov"`
+        parsers (dict):
+            Labelset parsers. Contains `"cmu_parser"`
+        heursitics (dict):
+            Measurement point heuristics. Contains `"fave"`
+        fasttrack_config (dict):
+            FastTrack config. Contains `"default"`
+    """
+    return
 
 def generic_resolver(
         resolve_func: Callable, 
@@ -74,3 +89,5 @@ def generic_resolver(
             "and does not appear to be a file."
         )
     )
+
+
