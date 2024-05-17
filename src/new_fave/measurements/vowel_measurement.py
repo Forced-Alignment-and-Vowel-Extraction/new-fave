@@ -87,6 +87,9 @@ class VowelMeasurement(Sequence):
             label of the track
         n_formants (int):
             number of formants in the track
+        optimized (int):
+            The number of optimization iterations the
+            vowel measurement has been through.
 
 
         winner: fasttrackpy.OneTrack
@@ -311,7 +314,8 @@ class VowelMeasurement(Sequence):
         return pl.DataFrame(point_dict)
     
     @property
-    def vm_context(self):
+    def vm_context(self):   
+        optimized = self.optimized
         id = self.winner.id
         word = self.winner.interval.within.label
         dur = self.winner.interval.end - self.winner.interval.start
@@ -334,6 +338,7 @@ class VowelMeasurement(Sequence):
             context = "coextensive"
 
         df = pl.DataFrame({
+            "optimized": optimized,
             "id": id,
             "word": word,
             "stress": stress,
