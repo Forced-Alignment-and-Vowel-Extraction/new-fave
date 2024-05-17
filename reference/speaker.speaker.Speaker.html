@@ -30,8 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../reference/write_data.html" rel="next">
-<link href="../reference/fave_corpus.html" rel="prev">
+<link href="../reference/optimize.optimize.html" rel="next">
+<link href="../reference/utils.local_resources.local_resources.html" rel="prev">
 <link href="../assets/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -120,7 +120,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/fave_audio_textgrid.html">Processing Patterns</a></li><li class="breadcrumb-item"><a href="../reference/fave_subcorpora.html">fave_subcorpora</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/speaker.speaker.Speaker.html">Speaker files</a></li><li class="breadcrumb-item"><a href="../reference/speaker.speaker.Speaker.html">speaker.speaker.Speaker</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -166,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link active">
+  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">fave_subcorpora</span></a>
   </div>
 </li>
@@ -217,7 +217,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/speaker.speaker.Speaker.html" class="sidebar-item-text sidebar-link">
+  <a href="../reference/speaker.speaker.Speaker.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">speaker.speaker.Speaker</span></a>
   </div>
 </li>
@@ -285,10 +285,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#new_fave.fave_subcorpora" id="toc-new_fave.fave_subcorpora" class="nav-link active" data-scroll-target="#new_fave.fave_subcorpora">fave_subcorpora</a>
+  <li><a href="#new_fave.speaker.speaker.Speaker" id="toc-new_fave.speaker.speaker.Speaker" class="nav-link active" data-scroll-target="#new_fave.speaker.speaker.Speaker">speaker.speaker.Speaker</a>
   <ul>
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
-  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
+  <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -299,80 +298,41 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="new_fave.fave_subcorpora" class="level1">
-<h1>fave_subcorpora</h1>
-<p><code>fave_subcorpora(subcorpora_glob, speakers=0, speakers_glob=None, recode_rules=None, labelset_parser=None, point_heuristic=None, ft_config='default')</code></p>
-<p>Process a multiple subcorpora</p>
-<section id="parameters" class="level2">
-<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
+<section id="new_fave.speaker.speaker.Speaker" class="level1">
+<h1>speaker.speaker.Speaker</h1>
+<p><code>speaker.speaker.Speaker(self, arg=None)</code></p>
+<p>This is a class to represent speaker information. The argument to <code>Speaker()</code> can be one of</p>
+<ul>
+<li>A .yaml file</li>
+<li>A .csv file</li>
+<li>A .xlsx file</li>
+<li>An old fave .speaker file</li>
+</ul>
+<p>With the exception of the old .speaker files, to work well with new-fave, these speaker files should contain the following fields</p>
+<ul>
+<li><code>file_name</code>: The file stem of the wav and textgrid files</li>
+<li><code>speaker_num</code>: The speaker to be analyzed in a file. the first speaker is <code>1</code>.</li>
+</ul>
+<section id="attributes" class="level2">
+<h2 class="anchored" data-anchor-id="attributes">Attributes</h2>
 <table class="table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 48%">
+<col style="width: 44%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Name</th>
 <th>Type</th>
 <th>Description</th>
-<th>Default</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>subcorpora_glob</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></td>
-<td>Glob to subcorpora</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>speakers</code></td>
-<td>(<a href="https://docs.python.org/3/library/functions.html#int">int</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>)</td>
-<td>Which speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”</td>
-<td><code>0</code></td>
-</tr>
-<tr class="odd">
-<td><code>speakers_glob</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>Alternatively to <code>speakers</code>, a file glob to speaker files.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>recode_rules</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="odd">
-<td><code>labelset_parser</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>point_heuristic</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="odd">
-<td><code>ft_config</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.</td>
-<td><code>'default'</code></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="returns" class="level2">
-<h2 class="anchored" data-anchor-id="returns">Returns</h2>
-<table class="table">
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection">SpeakerCollection</a></td>
-<td>A <a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection"><code>new_fave.SpeakerCollection</code></a></td>
+<td>df</td>
+<td><code>pl</code>.<code>DataFrame</code></td>
+<td>A polars data frame of speaker information</td>
 </tr>
 </tbody>
 </table>
@@ -937,13 +897,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../reference/fave_corpus.html" class="pagination-link" aria-label="fave_corpus">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">fave_corpus</span>
+      <a href="../reference/utils.local_resources.local_resources.html" class="pagination-link" aria-label="utils.local_resources.local_resources">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">utils.local_resources.local_resources</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../reference/write_data.html" class="pagination-link" aria-label="write_data">
-        <span class="nav-page-text">write_data</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../reference/optimize.optimize.html" class="pagination-link" aria-label="optimize.optimize">
+        <span class="nav-page-text">optimize.optimize</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
