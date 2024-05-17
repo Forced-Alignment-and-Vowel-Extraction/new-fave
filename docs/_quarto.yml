@@ -4,7 +4,8 @@ project:
 
 website:
   title: "new-fave"
-  #favicon: assets/logo_f2.png
+  favicon: assets/logo.png
+  image: assets/logo.png
   page-navigation: true
   navbar:
     left: 
@@ -17,13 +18,13 @@ website:
         href: https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave
   sidebar:
       - id: get-started
-        #logo: assets/logo_f2.png
+        logo: assets/logo.png
         title: Get Started
         style: floating
         align: left
         contents:
           - index.qmd
-          - auto: dev_plan
+          - auto: usage
           # - usage/getting_started.qmd
           # - usage/all_arguments.qmd
           # - usage/pythonic_use.ipynb
