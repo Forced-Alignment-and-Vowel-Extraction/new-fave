@@ -25,8 +25,7 @@ def write_df(
         appendix (str): Appendix to add
         separate (bool, optional): Split data by filename and group. Defaults to False.
     """
-    if separate:
-        unique_entries = (df
+    file_group = (df
             .select("file_name", "group")
             .unique()
             .with_columns(
@@ -36,9 +35,11 @@ def write_df(
                      separator="_"
                 ).alias("newname")
             ) 
-            .rows_by_key("newname", named = True)
-        )
+    )
 
+    if separate:
+        unique_entries = file_group.rows_by_key("newname", named = True)
+    
         for entry in unique_entries:
             file = unique_entries[entry][0]["file_name"]
             group = unique_entries[entry][0]["group"]
@@ -57,9 +58,22 @@ def write_df(
         
         return
     
-    file = Path(df["file_name"][0] + "_" + appendix).with_suffix(".csv")
-    out_path = destination.joinpath(file)
-    df.write_csv(out_path)
+    unique_entries = (
+        file_group
+        .select("file_name")
+        .unique()
+    )["file_name"].to_list()
+    for file in unique_entries:
+        entry_stem = Path(str(file) + "_" + appendix)
+        entry_path = destination.joinpath(entry_stem).with_suffix(".csv")
+        out_df = (
+            df
+            .filter(pl.col("file_name") == file)
+        )
+
+        out_df.write_csv(file = entry_path)
+
+
             
 
 def write_data(
