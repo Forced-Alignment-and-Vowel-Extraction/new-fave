@@ -20,6 +20,9 @@ def run_optimize(
         new_formants = vowel_system.winner_expanded_formants
         new_msqe = np.sqrt(((current_formants - new_formants)**2).mean())
 
+        if np.isclose(new_msqe, 0.0):
+            return
+
         if msqe[-1]/new_msqe <= 1.1:
             return
         
