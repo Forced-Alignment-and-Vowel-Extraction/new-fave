@@ -169,7 +169,9 @@ def test_vm_context():
     vm0 = vms[0]
 
     df = vm0.vm_context
-    cols =  ["id",
+    cols =  [
+            "optimized",
+            "id",
             "word",
             "stress",
             "dur",
