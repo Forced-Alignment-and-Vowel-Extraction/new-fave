@@ -4,7 +4,7 @@
     "href": "usage/getting_started.html",
     "title": "Getting Started",
     "section": "",
-    "text": "# bash\npip install git+git@github.com:Forced-Alignment-and-Vowel-Extraction/new-fave.git",
+    "text": "# bash\npip install git+https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave.git",
     "crumbs": [
       "Home",
       "Usage",
