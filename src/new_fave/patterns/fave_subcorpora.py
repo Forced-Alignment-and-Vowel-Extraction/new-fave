@@ -24,8 +24,9 @@ import numpy as np
 from pathlib import Path
 from glob import glob
 import re
-
-
+import logging
+logger = logging.getLogger("subcorpora")
+logger.setLevel(logging.INFO)
 
 def fave_subcorpora(
     subcorpora_glob: str|Path,
@@ -101,6 +102,7 @@ def fave_subcorpora(
         default_value=Heuristic()
     )
 
+    logger.info("FastTrack Processing")
     candidates = [
         candidate 
         for corpus in corpora
@@ -163,8 +165,9 @@ def fave_subcorpora(
     if speaker_demo:
         vowel_systems.speaker = speaker_demo
 
-    for vs in vowel_systems.values():
-        run_optimize(vs)
+    for vs in vowel_systems:
+        logger.info(f"Optimizing {vs}")
+        run_optimize(vowel_systems[vs])
 
     return vowel_systems
 

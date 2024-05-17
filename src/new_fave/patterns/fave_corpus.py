@@ -22,7 +22,9 @@ import numpy as np
 
 from pathlib import Path
 import re
-
+import logging
+logger = logging.getLogger("corpus")
+logger.setLevel(level=logging.INFO)
 
 
 def fave_corpus(
@@ -92,6 +94,7 @@ def fave_corpus(
         default_value=Heuristic()
     )
 
+    logger.info('FastTrack Processing')
     candidates = process_corpus(
         corpus_path=corpus_path,
         **fasttrack_kwargs
@@ -149,8 +152,9 @@ def fave_corpus(
     if speaker_demo:
         vowel_systems.speaker = speaker_demo
 
-    for vs in vowel_systems.values():
-        run_optimize(vs)
+    for vs in vowel_systems:
+        logger.info(f'Optimizing {vs}')
+        run_optimize(vowel_systems[vs])
 
     return vowel_systems
 

@@ -21,7 +21,9 @@ from new_fave.speaker.speaker import Speaker
 import numpy as np
 
 from pathlib import Path
-
+import logging
+logger = logging.getLogger("audio-textgrid")
+logger.setLevel(level=logging.INFO)
 
 
 def fave_audio_textgrid(
@@ -107,6 +109,7 @@ def fave_audio_textgrid(
         speakers = speaker_demo.df["speaker_num"].to_list()
         speakers = [s-1 for s in speakers]
 
+    logger.info("FastTrack Processing")
     candidates = process_audio_textgrid(
         audio_path = audio_path,
         textgrid_path = textgrid_path,
@@ -149,8 +152,9 @@ def fave_audio_textgrid(
     if speaker_demo:
         vowel_systems.speaker = speaker_demo
 
-    for vs in vowel_systems.values():
-        run_optimize(vs)
+    for vs in vowel_systems:
+        logger.info(f"Optimizing {vs}")
+        run_optimize(vowel_systems[vs])
 
     return vowel_systems
 
