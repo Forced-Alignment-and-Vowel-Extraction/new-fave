@@ -58,7 +58,7 @@ class VowelMeasurement(Sequence):
     Args:
         track (fasttrackpy.CandidateTracks): 
             A fasttrackpy.CandidateTrracks object
-        heuristic (Heuristic, optional): 
+        heuristic (fave_measurement_point.Heuristic, optional): 
             A point measurement Heuristic to use. 
             Defaults to Heuristic().
     
@@ -67,12 +67,12 @@ class VowelMeasurement(Sequence):
             an object of CandidateTracks class
         candidates (list):
             list of candidates for the track
-        heuristic (Heuristic, optional):
+        heuristic (fave_measurement_point.Heuristic, optional):
             an object of Heuristic class (default is Heuristic())
         vowel_class (VowelClass):
             The containing VowelClass object
 
-        formant_array (FormantArray): 
+        formant_array (fave_measurement_point.FormantArray): 
             A FormantArray object            
 
         file_name (str):
@@ -449,7 +449,7 @@ class VowelClass(Sequence):
             A list of `VowelMeasurement`s
         vowel_system (VowelClassCollection):
             A the containing vowel system
-        winners (list[OneTrack]): 
+        winners (list[fasttrackpy.OneTrack]): 
             A list of winner OneTracks from
             the vowel class
         winner_params (np.array):
