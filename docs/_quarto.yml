@@ -60,6 +60,10 @@ interlinks:
       url: https://fasttrackiverse.github.io/fasttrackpy/
     aligned_textgrid:
       url: https://forced-alignment-and-vowel-extraction.github.io/alignedTextGrid/
+    fave_recode:
+      url: https://forced-alignment-and-vowel-extraction.github.io/fave-recode/
+    fave_measurement_point:
+      url: https://forced-alignment-and-vowel-extraction.github.io/fave-measurement-point/
 
 quartodoc:
   style: pkgdown
