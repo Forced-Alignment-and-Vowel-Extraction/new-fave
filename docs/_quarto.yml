@@ -46,6 +46,8 @@ format:
 
 filters:
   - interlinks
+resources: 
+  - objects.inv  
 
 interlinks:
   fast: true
@@ -56,6 +58,8 @@ interlinks:
       url: https://docs.python.org/3/
     fasttrackpy:
       url: https://fasttrackiverse.github.io/fasttrackpy/
+    aligned_textgrid:
+      url: https://forced-alignment-and-vowel-extraction.github.io/alignedTextGrid/
 
 quartodoc:
   style: pkgdown
