@@ -63,7 +63,7 @@ class VowelMeasurement(Sequence):
             Defaults to Heuristic().
     
     Attributes: 
-        track (CandidateTracks):
+        track (fasttrackpy.CandidateTracks):
             an object of CandidateTracks class
         candidates (list):
             list of candidates for the track
