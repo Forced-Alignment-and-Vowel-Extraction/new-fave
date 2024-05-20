@@ -94,6 +94,8 @@ def fave_corpus(
     speaker_path = None
     if type(speakers) is str and not speakers == "all":
         speaker_path = Path(speakers)
+    if isinstance(speakers, Path):
+        speaker_path = speakers
 
     speaker_demo = None
     if speaker_path:
