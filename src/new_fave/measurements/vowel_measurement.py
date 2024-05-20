@@ -25,18 +25,6 @@ def blank():
 
 def blank_list():
     return []
-
-# def first_deriv(coefs, size = 100):
-#     hatu = coefs.copy()
-#     for i in range(hatu.size):
-#         hatu[i]=-(i)*hatu[i]
-#     hatu[:-1]=hatu[1:]
-#     hatu[-1]=0
-#     dotu=idst(hatu, n = size, type=2)
-#     return dotu.tolist()
-
-
-
     
 @dataclass
 class VowelMeasurement(Sequence):
@@ -134,7 +122,7 @@ class VowelMeasurement(Sequence):
             self
         ):
         super().__init__()
-        self.label = self.track.label
+        #self.label = self.track.label
         self.candidates = self.track.candidates
         self.n_formants = self.track.n_formants
         self._winner = self.track.winner
@@ -142,6 +130,7 @@ class VowelMeasurement(Sequence):
         self.group = self.track.group
         self.id = self.track.id
         self.file_name = self.track.file_name
+        self._label = None
         self._expanded_formants = None
         self._optimized = 0
 
@@ -160,6 +149,21 @@ class VowelMeasurement(Sequence):
             "}"
         )
         return out
+    
+    @property
+    def label(self):
+        if (not self._label) or (self._label != self.interval.label):
+            for cand in self.candidates:
+                cand.label = self.interval.label
+            self.track.label = self.interval.label
+            self._label = self.interval.label
+
+        return self.interval.label
+
+    @label.setter
+    def label(self, x:str):
+        self.interval.label = x
+            
 
     @property
     def formant_array(self):
