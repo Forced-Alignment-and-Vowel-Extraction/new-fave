@@ -62,4 +62,4 @@ testpaths = "tests"
 
 
 [tool.poetry.scripts]
-fave_extract = 'new_fave.extract:fave_extract'
+fave-extract = 'new_fave.extract:fave_extract'

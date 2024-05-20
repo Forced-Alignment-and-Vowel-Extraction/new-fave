@@ -4,7 +4,8 @@ from aligned_textgrid import AlignedTextGrid
 from pathlib import Path
 from typing import Literal
 import polars as pl
-
+import logging
+logger = logging.getLogger("write-data")
 
 def write_df(
     df: pl.DataFrame,
@@ -112,7 +113,7 @@ def write_data(
             Defaults to False.
 
     """
-    if which == "all":
+    if "all" in which:
         which = [
             "tracks", 
             "points", 
@@ -137,18 +138,23 @@ def write_data(
         destination.mkdir()
     
     if "tracks" in which:
+        logger.info("Writing track data.")
         write_df(vowel_spaces.to_tracks_df(), destination, "tracks", separate)
 
     if "points" in which:
+        logger.info("Writing point data.")
         write_df(vowel_spaces.to_point_df(), destination, "points", separate)
     
     if "param" in which:
+        logger.info("Writing DCT(Hz) data.")
         write_df(vowel_spaces.to_param_df(output="param"), destination, "param", separate)
 
     if "log_param" in which:
+        logger.info("Writing DCT(log(Hz)) data.")
         write_df(vowel_spaces.to_param_df(output="log_param"), destination, "logparam", separate)
         
     if "textgrid" in which:
+        logger.info("Writing recoded textgrid.")
         tg_name = set(
             [(vs.textgrid, vs.file_name) for vs in vowel_spaces.values()]
         )
