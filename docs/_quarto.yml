@@ -7,6 +7,8 @@ website:
   favicon: assets/logo.png
   image: assets/logo.png
   page-navigation: true
+  twitter-card: true
+  open-graph: true
   navbar:
     left: 
       - href: index.qmd
