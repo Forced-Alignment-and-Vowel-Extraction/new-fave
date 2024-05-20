@@ -10,6 +10,20 @@ def run_optimize(
         optim_params = ["cand_mahal", "max_formant"],
         max_iter = 10
     ):
+    """
+    Repeatedly run optimization until either `max_iter` is reached,
+    or the difference between two iterations becomes small.
+
+    Args:
+        vowel_system (VowelClassCollection):
+            The vowel space to be optimized
+        optim_params (list, optional): 
+            The parameters to use for optimization. 
+            Defaults to ["cand_mahal", "max_formant"].
+        max_iter (int, optional):
+            The maximum number of iterations to run.
+            Defaults to 10.
+    """
     current_formants = vowel_system.winner_expanded_formants
     msqe = [np.inf]
     for i in range(max_iter):
