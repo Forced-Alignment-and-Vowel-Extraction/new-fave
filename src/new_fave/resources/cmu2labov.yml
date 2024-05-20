@@ -1,3 +1,12 @@
+- rule: sp-ns-to-blank
+  conditions:
+    - attribute: label
+      relation: in
+      set:
+        - sp
+        - "{NS}"
+  return: ""
+
 - rule: schwa
   conditions:
     - attribute: label
