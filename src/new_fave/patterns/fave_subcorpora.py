@@ -19,6 +19,7 @@ from new_fave.utils.local_resources import recodes, \
 from new_fave.utils.fasttrack_config import read_fasttrack
 from new_fave.speaker.speaker import Speaker
 from new_fave.patterns.fave_corpus import fave_corpus
+from new_fave.patterns.common_processing import resolve_resources
 import numpy as np
 
 from pathlib import Path
@@ -78,32 +79,8 @@ def fave_subcorpora(
     
     corpora = [Path(p) for p in glob(subcorpora_glob)]
 
-    fasttrack_kwargs = generic_resolver(
-        resolve_func=read_fasttrack,
-        to_resolve=ft_config,
-        resource_dict=fasttrack_config,
-        default_value=dict()
-    )
-    
-    ruleset = generic_resolver(
-        resolve_func = get_rules,
-        to_resolve = recode_rules,
-        resource_dict = recodes,
-        default_value=RuleSet()
-    )
-
-    parser = generic_resolver(
-        resolve_func = get_parser,
-        to_resolve = labelset_parser,
-        resource_dict = parsers,
-        default_value = LabelSetParser()
-    )
-
-    heuristic = generic_resolver(
-        resolve_func=lambda x: Heuristic(heuristic_path=x),
-        to_resolve=point_heuristic,
-        resource_dict=heuristics,
-        default_value=Heuristic()
+    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config
     )
 
     logger.info("FastTrack Processing")

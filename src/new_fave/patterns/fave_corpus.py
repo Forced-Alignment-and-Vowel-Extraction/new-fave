@@ -17,6 +17,7 @@ from new_fave.utils.local_resources import recodes, \
     fasttrack_config,\
     generic_resolver
 from new_fave.utils.fasttrack_config import read_fasttrack
+from new_fave.patterns.common_processing import resolve_resources
 from new_fave.speaker.speaker import Speaker
 import numpy as np
 
@@ -70,34 +71,9 @@ def fave_corpus(
         (SpeakerCollection): 
             A [](`new_fave.SpeakerCollection`)
     """
-    fasttrack_kwargs = generic_resolver(
-        resolve_func=read_fasttrack,
-        to_resolve=ft_config,
-        resource_dict=fasttrack_config,
-        default_value=dict()
+    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config
     )
-    
-    ruleset = generic_resolver(
-        resolve_func = get_rules,
-        to_resolve = recode_rules,
-        resource_dict = recodes,
-        default_value=RuleSet()
-    )
-
-    parser = generic_resolver(
-        resolve_func = get_parser,
-        to_resolve = labelset_parser,
-        resource_dict = parsers,
-        default_value = LabelSetParser()
-    )
-
-    heuristic = generic_resolver(
-        resolve_func=lambda x: Heuristic(heuristic_path=x),
-        to_resolve=point_heuristic,
-        resource_dict=heuristics,
-        default_value=Heuristic()
-    )
-
     logger.info('FastTrack Processing')
     candidates = process_corpus(
         corpus_path=corpus_path,
@@ -107,6 +83,7 @@ def fave_corpus(
     atgs = get_all_textgrid(candidates)
 
     target_candidates = candidates
+    
     if type(speakers) is int:
         target_candidates = [
             cand
