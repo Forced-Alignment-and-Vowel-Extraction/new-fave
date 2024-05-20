@@ -40,7 +40,7 @@ def fave_subcorpora(
     ft_config: str|None = "default"
 )->SpeakerCollection:
     """
-    Process a multiple subcorpora
+    Process multiple subcorpora
 
     Args:
         subcorpora_glob (str | Path): 
@@ -77,7 +77,7 @@ def fave_subcorpora(
             A [](`new_fave.SpeakerCollection`)
     """
     
-    corpora = [Path(p) for p in glob(subcorpora_glob)]
+    corpora = [Path(p) for p in glob(str(subcorpora_glob))]
 
     ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
         recode_rules, labelset_parser, point_heuristic, ft_config
@@ -98,7 +98,7 @@ def fave_subcorpora(
     speaker_path = None
     if speakers_glob:
         speaker_path = None
-        speaker_paths = [Path(p) for p in glob(speakers_glob)]
+        speaker_paths = [Path(p) for p in glob(str(speakers_glob))]
         speaker_demo = Speaker([Speaker(s) for s in speaker_paths])
         
 
@@ -111,6 +111,8 @@ def fave_subcorpora(
 
     if type(speakers) is str and not speakers == "all":
         speaker_path = Path(speakers)
+    if isinstance(speakers, Path):
+        speaker_path = speakers
     
     if speaker_path:
         speaker_demo = Speaker(speaker_path)
