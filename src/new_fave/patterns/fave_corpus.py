@@ -30,7 +30,7 @@ logger.setLevel(level=logging.INFO)
 def fave_corpus(
     corpus_path: str|Path,
     speakers: int|list[int]|str|Path = 0,
-    include_overlaps: bool = False,
+    include_overlaps: bool = True,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -145,9 +145,10 @@ def fave_corpus(
             scheme=ruleset, 
             target_tier="Phone"
             )
+        if not include_overlaps:
+            mark_overlaps(atg)
 
     if not include_overlaps:
-        mark_overlaps(atg)
         target_candidates = [
             cand 
             for cand in target_candidates

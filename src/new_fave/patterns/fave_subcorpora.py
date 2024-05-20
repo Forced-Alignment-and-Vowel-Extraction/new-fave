@@ -31,7 +31,7 @@ logger.setLevel(logging.INFO)
 def fave_subcorpora(
     subcorpora_glob: str|Path,
     speakers: int|list[int]|str|Path = 0,
-    include_overlaps: bool = False,
+    include_overlaps: bool = True,
     speakers_glob: str = None,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
@@ -159,9 +159,10 @@ def fave_subcorpora(
             scheme=ruleset, 
             target_tier="Phone"
             )
+        if not include_overlaps:
+            mark_overlaps(atg)
 
     if not include_overlaps:
-        mark_overlaps(atg)
         target_candidates = [
             cand 
             for cand in target_candidates
