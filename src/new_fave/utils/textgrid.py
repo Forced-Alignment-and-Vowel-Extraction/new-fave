@@ -3,6 +3,7 @@ from aligned_textgrid import AlignedTextGrid, \
     SequenceInterval
 from aligned_textgrid.sequences.tiers import TierGroup
 from fasttrackpy import CandidateTracks
+import numpy as np
 
 def get_top_tier(interval: SequenceInterval) -> SequenceTier:
     """Given a sequence interval, return the top-level tier
@@ -63,3 +64,45 @@ def get_all_textgrid(
         get_textgrid(cand.interval)
         for cand in candidates
     })
+
+def mark_overlaps(
+        atg: AlignedTextGrid
+):
+    """
+    For all Phone intervals in a data frame, 
+    mark whether or not they are overlapping with another tier's content.
+    It adds a boolean `overlapped` attribute to the SequenceIntervals.
+
+    Args:
+        atg (AlignedTextGrid):
+            The aligned textgrid on which to mark overaps.
+    """
+    for g in atg:
+        for t in g:
+            for i in t:
+                i.set_feature("overlapped", False)
+
+    if len(atg) == 1:
+        return
+
+    for i in range(len(atg)-1):
+        for j in range(i+1, len(atg)):
+            tier1 = atg[i].Phone
+            tier2 = atg[j].Phone
+
+            x1 = np.array([seq.start for seq in tier1 if seq.label != ""])
+            x2 = np.array([seq.end for seq in tier1 if seq.label != ""])
+
+            y1 = np.array([seq.start for seq in tier2 if seq.label != ""])
+            y2 = np.array([seq.end for seq in tier2 if seq.label != ""])
+
+            a = np.array([x >= y1 for x in x2])
+            b = np.array([x <= y2 for x in x1])
+
+            overlap_locs = np.where(a & b)
+
+            for idx1, idx2 in zip(*overlap_locs):
+                tier1[idx1].overlapped = True
+                tier2[idx2].overlapped = True
+
+            return overlap_locs

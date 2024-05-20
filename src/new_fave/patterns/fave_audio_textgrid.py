@@ -10,13 +10,14 @@ from new_fave.measurements.vowel_measurement import VowelClassCollection, \
     VowelMeasurement, \
     SpeakerCollection
 from new_fave.optimize.optimize import run_optimize
-from new_fave.utils.textgrid import get_textgrid, get_all_textgrid
+from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
 from new_fave.utils.local_resources import recodes, \
     parsers,\
     heuristics, \
     fasttrack_config,\
     generic_resolver
 from new_fave.utils.fasttrack_config import read_fasttrack
+from new_fave.patterns.common_processing import resolve_resources, resolve_speaker
 from new_fave.speaker.speaker import Speaker
 import numpy as np
 
@@ -30,6 +31,7 @@ def fave_audio_textgrid(
     audio_path: str|Path,
     textgrid_path: str|Path,
     speakers: int|list[int]|str|Path = 0,
+    include_overlaps: bool = True,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -43,10 +45,13 @@ def fave_audio_textgrid(
             Path to an audio file
         textgrid_path (str | Path): 
             Path to a textgrid
-        speakers (int, list[int], str, Path, optional): 
+        speakers (int | list[int] | str | Path | optional): 
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
+        include_overlaps (bool, optional):
+            Whether or not to include vowels that are overlapped
+            with speech from other tiers. Defaults to `True`.
         recode_rules (str | None, optional): 
             Either a string naming built-in set of
             recode rules, or path to a custom  ruleset. 
@@ -68,46 +73,11 @@ def fave_audio_textgrid(
         (SpeakerCollection): 
             A [](`new_fave.SpeakerCollection`)
     """
-    fasttrack_kwargs = generic_resolver(
-        resolve_func=read_fasttrack,
-        to_resolve=ft_config,
-        resource_dict=fasttrack_config,
-        default_value=dict()
-    )
-    
-    ruleset = generic_resolver(
-        resolve_func = get_rules,
-        to_resolve = recode_rules,
-        resource_dict = recodes,
-        default_value=RuleSet()
+    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config
     )
 
-    parser = generic_resolver(
-        resolve_func = get_parser,
-        to_resolve = labelset_parser,
-        resource_dict = parsers,
-        default_value = LabelSetParser()
-    )
-
-    heuristic = generic_resolver(
-        resolve_func=lambda x: Heuristic(heuristic_path=x),
-        to_resolve=point_heuristic,
-        resource_dict=heuristics,
-        default_value=Heuristic()
-    )
-
-    if type(speakers) is int:
-        speakers = [speakers]
-
-    speaker_path = None
-    if type(speakers) is str and not speakers == "all":
-        speaker_path = Path(speakers)
-
-    speaker_demo = None
-    if speaker_path:
-        speaker_demo = Speaker(speaker_path)
-        speakers = speaker_demo.df["speaker_num"].to_list()
-        speakers = [s-1 for s in speakers]
+    speaker_demo, speakers = resolve_speaker(speakers)
 
     logger.info("FastTrack Processing")
     candidates = process_audio_textgrid(
@@ -117,6 +87,7 @@ def fave_audio_textgrid(
     )
 
     atg = get_textgrid(candidates[0].interval)
+
     tg_names = [tg.name for tg in atg]
     if speakers == "all":
         speakers = np.arange(len(atg))
@@ -140,12 +111,20 @@ def fave_audio_textgrid(
         parser = parser,
         scheme=ruleset,
         target_tier="Phone"
-    )
+    )  
 
     for cand in target_candidates:
         cand.label = cand.interval.label
         for track in cand.candidates:
             track.label = cand.label
+
+    if not include_overlaps:
+        mark_overlaps(atg)
+        target_candidates = [
+            cand 
+            for cand in target_candidates
+            if not cand.interval.overlapped
+        ]      
 
     vms = [VowelMeasurement(t, heuristic=heuristic) for t in target_candidates]
     vowel_systems = SpeakerCollection(vms)

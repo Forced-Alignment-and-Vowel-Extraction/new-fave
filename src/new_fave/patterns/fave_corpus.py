@@ -10,13 +10,14 @@ from new_fave.measurements.vowel_measurement import VowelClassCollection, \
     VowelMeasurement, \
     SpeakerCollection
 from new_fave.optimize.optimize import run_optimize
-from new_fave.utils.textgrid import get_textgrid, get_all_textgrid
+from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
 from new_fave.utils.local_resources import recodes, \
     parsers,\
     heuristics, \
     fasttrack_config,\
     generic_resolver
 from new_fave.utils.fasttrack_config import read_fasttrack
+from new_fave.patterns.common_processing import resolve_resources
 from new_fave.speaker.speaker import Speaker
 import numpy as np
 
@@ -30,6 +31,7 @@ logger.setLevel(level=logging.INFO)
 def fave_corpus(
     corpus_path: str|Path,
     speakers: int|list[int]|str|Path = 0,
+    include_overlaps: bool = True,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -45,6 +47,9 @@ def fave_corpus(
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
+        include_overlaps (bool, optional):
+            Whether or not to include vowels that are overlapped
+            with speech from other tiers. Defaults to `True`.            
         recode_rules (str | None, optional): 
             Either a string naming built-in set of
             recode rules, or path to a custom  ruleset. 
@@ -66,34 +71,9 @@ def fave_corpus(
         (SpeakerCollection): 
             A [](`new_fave.SpeakerCollection`)
     """
-    fasttrack_kwargs = generic_resolver(
-        resolve_func=read_fasttrack,
-        to_resolve=ft_config,
-        resource_dict=fasttrack_config,
-        default_value=dict()
+    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config
     )
-    
-    ruleset = generic_resolver(
-        resolve_func = get_rules,
-        to_resolve = recode_rules,
-        resource_dict = recodes,
-        default_value=RuleSet()
-    )
-
-    parser = generic_resolver(
-        resolve_func = get_parser,
-        to_resolve = labelset_parser,
-        resource_dict = parsers,
-        default_value = LabelSetParser()
-    )
-
-    heuristic = generic_resolver(
-        resolve_func=lambda x: Heuristic(heuristic_path=x),
-        to_resolve=point_heuristic,
-        resource_dict=heuristics,
-        default_value=Heuristic()
-    )
-
     logger.info('FastTrack Processing')
     candidates = process_corpus(
         corpus_path=corpus_path,
@@ -103,6 +83,7 @@ def fave_corpus(
     atgs = get_all_textgrid(candidates)
 
     target_candidates = candidates
+    
     if type(speakers) is int:
         target_candidates = [
             cand
@@ -113,6 +94,8 @@ def fave_corpus(
     speaker_path = None
     if type(speakers) is str and not speakers == "all":
         speaker_path = Path(speakers)
+    if isinstance(speakers, Path):
+        speaker_path = speakers
 
     speaker_demo = None
     if speaker_path:
@@ -141,7 +124,16 @@ def fave_corpus(
             scheme=ruleset, 
             target_tier="Phone"
             )
+        if not include_overlaps:
+            mark_overlaps(atg)
 
+    if not include_overlaps:
+        target_candidates = [
+            cand 
+            for cand in target_candidates
+            if not cand.interval.overlapped
+        ]   
+        
     for cand in target_candidates:
         cand.label = cand.interval.label
         for track in cand.candidates:

@@ -10,7 +10,7 @@ from new_fave.measurements.vowel_measurement import VowelClassCollection, \
     VowelMeasurement, \
     SpeakerCollection
 from new_fave.optimize.optimize import run_optimize
-from new_fave.utils.textgrid import get_textgrid, get_all_textgrid
+from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
 from new_fave.utils.local_resources import recodes, \
     parsers,\
     heuristics, \
@@ -19,6 +19,7 @@ from new_fave.utils.local_resources import recodes, \
 from new_fave.utils.fasttrack_config import read_fasttrack
 from new_fave.speaker.speaker import Speaker
 from new_fave.patterns.fave_corpus import fave_corpus
+from new_fave.patterns.common_processing import resolve_resources
 import numpy as np
 
 from pathlib import Path
@@ -31,6 +32,7 @@ logger.setLevel(logging.INFO)
 def fave_subcorpora(
     subcorpora_glob: str|Path,
     speakers: int|list[int]|str|Path = 0,
+    include_overlaps: bool = True,
     speakers_glob: str = None,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
@@ -38,7 +40,7 @@ def fave_subcorpora(
     ft_config: str|None = "default"
 )->SpeakerCollection:
     """
-    Process a multiple subcorpora
+    Process multiple subcorpora
 
     Args:
         subcorpora_glob (str | Path): 
@@ -47,6 +49,9 @@ def fave_subcorpora(
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
+        include_overlaps (bool, optional):
+            Whether or not to include vowels that are overlapped
+            with speech from other tiers. Defaults to `True`.            
         speakers_glob (str):
             Alternatively to `speakers`, a 
             file glob to speaker files.
@@ -72,34 +77,10 @@ def fave_subcorpora(
             A [](`new_fave.SpeakerCollection`)
     """
     
-    corpora = [Path(p) for p in glob(subcorpora_glob)]
+    corpora = [Path(p) for p in glob(str(subcorpora_glob))]
 
-    fasttrack_kwargs = generic_resolver(
-        resolve_func=read_fasttrack,
-        to_resolve=ft_config,
-        resource_dict=fasttrack_config,
-        default_value=dict()
-    )
-    
-    ruleset = generic_resolver(
-        resolve_func = get_rules,
-        to_resolve = recode_rules,
-        resource_dict = recodes,
-        default_value=RuleSet()
-    )
-
-    parser = generic_resolver(
-        resolve_func = get_parser,
-        to_resolve = labelset_parser,
-        resource_dict = parsers,
-        default_value = LabelSetParser()
-    )
-
-    heuristic = generic_resolver(
-        resolve_func=lambda x: Heuristic(heuristic_path=x),
-        to_resolve=point_heuristic,
-        resource_dict=heuristics,
-        default_value=Heuristic()
+    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config
     )
 
     logger.info("FastTrack Processing")
@@ -117,7 +98,7 @@ def fave_subcorpora(
     speaker_path = None
     if speakers_glob:
         speaker_path = None
-        speaker_paths = [Path(p) for p in glob(speakers_glob)]
+        speaker_paths = [Path(p) for p in glob(str(speakers_glob))]
         speaker_demo = Speaker([Speaker(s) for s in speaker_paths])
         
 
@@ -130,6 +111,8 @@ def fave_subcorpora(
 
     if type(speakers) is str and not speakers == "all":
         speaker_path = Path(speakers)
+    if isinstance(speakers, Path):
+        speaker_path = speakers
     
     if speaker_path:
         speaker_demo = Speaker(speaker_path)
@@ -155,6 +138,16 @@ def fave_subcorpora(
             scheme=ruleset, 
             target_tier="Phone"
             )
+        if not include_overlaps:
+            mark_overlaps(atg)
+
+    if not include_overlaps:
+        target_candidates = [
+            cand 
+            for cand in target_candidates
+            if not cand.interval.overlapped
+        ]   
+                
 
     for cand in target_candidates:
         cand.label = cand.interval.label
