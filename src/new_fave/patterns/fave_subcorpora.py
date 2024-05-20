@@ -10,7 +10,7 @@ from new_fave.measurements.vowel_measurement import VowelClassCollection, \
     VowelMeasurement, \
     SpeakerCollection
 from new_fave.optimize.optimize import run_optimize
-from new_fave.utils.textgrid import get_textgrid, get_all_textgrid
+from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
 from new_fave.utils.local_resources import recodes, \
     parsers,\
     heuristics, \
@@ -31,6 +31,7 @@ logger.setLevel(logging.INFO)
 def fave_subcorpora(
     subcorpora_glob: str|Path,
     speakers: int|list[int]|str|Path = 0,
+    include_overlaps: bool = False,
     speakers_glob: str = None,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
@@ -47,6 +48,9 @@ def fave_subcorpora(
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
+        include_overlaps (bool, optional):
+            Whether or not to include vowels that are overlapped
+            with speech from other tiers. Defaults to `True`.            
         speakers_glob (str):
             Alternatively to `speakers`, a 
             file glob to speaker files.
@@ -155,6 +159,15 @@ def fave_subcorpora(
             scheme=ruleset, 
             target_tier="Phone"
             )
+
+    if not include_overlaps:
+        mark_overlaps(atg)
+        target_candidates = [
+            cand 
+            for cand in target_candidates
+            if not cand.interval.overlapped
+        ]   
+                
 
     for cand in target_candidates:
         cand.label = cand.interval.label

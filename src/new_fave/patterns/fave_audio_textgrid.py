@@ -10,7 +10,7 @@ from new_fave.measurements.vowel_measurement import VowelClassCollection, \
     VowelMeasurement, \
     SpeakerCollection
 from new_fave.optimize.optimize import run_optimize
-from new_fave.utils.textgrid import get_textgrid, get_all_textgrid
+from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
 from new_fave.utils.local_resources import recodes, \
     parsers,\
     heuristics, \
@@ -30,6 +30,7 @@ def fave_audio_textgrid(
     audio_path: str|Path,
     textgrid_path: str|Path,
     speakers: int|list[int]|str|Path = 0,
+    include_overlaps: bool = True,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -43,10 +44,13 @@ def fave_audio_textgrid(
             Path to an audio file
         textgrid_path (str | Path): 
             Path to a textgrid
-        speakers (int, list[int], str, Path, optional): 
+        speakers (int | list[int] | str | Path | optional): 
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
+        include_overlaps (bool, optional):
+            Whether or not to include vowels that are overlapped
+            with speech from other tiers. Defaults to `True`.
         recode_rules (str | None, optional): 
             Either a string naming built-in set of
             recode rules, or path to a custom  ruleset. 
@@ -117,6 +121,7 @@ def fave_audio_textgrid(
     )
 
     atg = get_textgrid(candidates[0].interval)
+
     tg_names = [tg.name for tg in atg]
     if speakers == "all":
         speakers = np.arange(len(atg))
@@ -141,6 +146,14 @@ def fave_audio_textgrid(
         scheme=ruleset,
         target_tier="Phone"
     )
+
+    if not include_overlaps:
+        mark_overlaps(atg)
+        target_candidates = [
+            cand 
+            for cand in target_candidates
+            if not cand.interval.overlapped
+        ]        
 
     for cand in target_candidates:
         cand.label = cand.interval.label
