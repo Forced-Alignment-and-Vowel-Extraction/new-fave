@@ -61,13 +61,13 @@ def optimize_vowel_measures(
         optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
             The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
     """
-    
+
     new_winners = [
         optimize_one_measure(vm, optim_params=optim_params) 
         for vm in tqdm(vowel_measurements)
     ]
 
-    for idx, new_idx in new_winners:
+    for idx, new_idx in enumerate(new_winners):
         if new_idx is None:
             new_winners[idx] = vowel_measurements[idx].winner_index
     
