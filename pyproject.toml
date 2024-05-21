@@ -53,7 +53,7 @@ addopts = [
     "--cov-config=tests/.coveragerc",
     "--cov-report=xml",
     "--cov",
-    "--log-cli-level=INFO"
+    "--log-cli-level=CRITICAL"
 ]
 filterwarnings =[
     "ignore::UserWarning",
