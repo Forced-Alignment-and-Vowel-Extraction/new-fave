@@ -2,6 +2,10 @@ from new_fave import fave_audio_textgrid,\
     fave_corpus,\
     fave_subcorpora,\
     write_data
+from fasttrackpy.patterns.just_audio import create_audio_checker
+from fasttrackpy.patterns.corpus import get_audio_files, get_corpus, CorpusPair
+from fasttrackpy.utils.safely import safely, filter_nones
+from new_fave.patterns.writers import check_outputs
 
 from pathlib import Path
 import click
@@ -9,16 +13,47 @@ import cloup
 from cloup import Context, HelpFormatter, HelpTheme, Style,\
     option_group, option
 
+import re
+
 import yaml
 
 import inspect
 
 from typing import Any, Literal
 
+import warnings
+
 import logging
 import sys
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
+try:
+    import magic
+    no_magic = False
+except:
+    warnings.warn("libmagic not found. "\
+                "Some audio file types won't be discovered by fasttrack. "\
+                "(mp3, ogg, ...)")
+    import sndhdr
+    from sndhdr import SndHeaders
+    no_magic = True
+
+is_audio = create_audio_checker(no_magic=no_magic)
+
+def ask(message: str) -> bool:
+    response = input(f"{message}" + " [y/n]:   ")
+    yes_patt = re.compile(r"^[Yy](es)?$")
+    no_patt = re.compile(r"^[Nn]o?$")
+
+    yes = yes_patt.fullmatch(response)
+    no = no_patt.fullmatch(response)
+    if no:
+        return False
+    if yes:
+        return True
+    
+    warnings.warn("You must respond 'y' or 'n'")
+    return ask(message)
 
 formatter_settings = HelpFormatter.settings(
     theme=HelpTheme(
@@ -98,6 +133,16 @@ configs = cloup.option_group(
         )
     )
 )
+speaker_opt = cloup.option(
+    "--speakers",
+    default=1,
+    show_default=True,
+    help=("Which speakers to analyze. " 
+          "Values can be: a numeric value (1 = first speaker), "
+          "the string 'all', for all speakers, or "
+          "a path to a speaker demographics file."
+    )
+)
 outputs = cloup.option_group(
     "Output options",
     cloup.option(
@@ -155,16 +200,7 @@ def fave_extract():
     type = click.Path(exists=True, file_okay=True, dir_okay=False, readable=True),
     help="Path to the TextGrid file."
 )
-@cloup.option(
-    "--speakers",
-    default=1,
-    show_default=True,
-    help=("Which speakers to analyze. " 
-          "Values can be: a numeric value (1 = first speaker), "
-          "the string 'all', for all speakers, or "
-          "a path to a speaker demographics file."
-    )
-)
+@speaker_opt
 @configs
 @outputs
 def audio_textgrid(
@@ -183,6 +219,29 @@ def audio_textgrid(
         ]],
     separate: bool
 ):
+    audio_path = Path(audio_path)
+    textgrid_path = Path(textgrid_path)
+    destination = Path(destination)
+    if "all" in which:
+        which = [
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]
+    matched_which = check_outputs(audio_path, destination, which)
+
+    overwrite = True
+    if len(matched_which) > 0:
+        overwrite = ask(
+            (
+            f"Some output files already exist for {audio_path.stem} at {destination}. \n"
+            "Should they be overwritten? (y = overwrite, n = don't overwrite.)"
+            )
+        )
+    if not overwrite:
+        which = [x for x in which if x not in matched_which]
+    
+    if len(which) == 0:
+        return 
+    
     include_overlaps = not exclude_overlaps
     if type(speakers) is int:
         speakers = speakers - 1
@@ -198,12 +257,91 @@ def audio_textgrid(
         fave_aligned=fave_aligned
     )
     
-    write_data(
-        SpeakerData,
-        destination=destination,
-        which=which,
-        separate=separate
-    )
+    if SpeakerData is not None:
+        write_data(
+            SpeakerData,
+            destination=destination,
+            which=which,
+            separate=separate
+        )
+
+@fave_extract.command(
+    aliases = ["corpus"]
+)
+@cloup.argument(
+    "corpus_path",
+    type = click.Path(file_okay=False, dir_okay=True),
+    help="Path to a corpus directory."
+)
+@speaker_opt
+@configs
+@outputs
+def corpus(
+    corpus_path: str|Path,
+    speakers: int|list[int]|str|Path,
+    exclude_overlaps: bool,
+    recode_rules: str|None,
+    labelset_parser: str|None,
+    point_heuristic: str|None,
+    ft_config: str|None,
+    fave_aligned: bool,
+    destination: Path,
+    which: list[Literal[
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]],
+    separate: bool    
+):
+    if "all" in which:
+        which = [
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]
+    all_audio = get_audio_files(corpus_path = corpus_path)
+    all_which = [which for a in all_audio]
+    result_which = []
+    for a,w in zip(all_audio, all_which):
+        overwrite = True
+        matched_which = check_outputs(a, destination, which)
+
+        if len(matched_which) > 0:
+            overwrite = ask(
+                (
+                f"Some output files already exist for {a.stem} at {destination}. \n"
+                "Should they be overwritten? (y = overwrite, n = don't overwrite.)"
+                )
+            )
+        new_which = w
+        if not overwrite:
+            new_which = [x for x in w if x not in matched_which]
+        result_which.append(new_which)
+    
+    audio_to_process = [a for a,w in zip(all_audio, result_which) if len(w) > 0]
+
+    result_which,audio_to_process =  filter_nones(result_which, [result_which, audio_to_process])
+
+    corpus = get_corpus(audio_to_process)
+
+    include_overlaps = not exclude_overlaps
+    if type(speakers) is int:
+        speakers = speakers - 1
+    for pair, w in zip(corpus, result_which):
+        SpeakerData = fave_audio_textgrid(
+            audio_path=pair.wav,
+            textgrid_path=pair.tg,
+            speakers = speakers,
+            include_overlaps=include_overlaps,
+            recode_rules=recode_rules,
+            labelset_parser=labelset_parser,
+            point_heuristic=point_heuristic,
+            ft_config=ft_config,
+            fave_aligned=fave_aligned
+        )
+        if SpeakerData is not None:
+            write_data(
+                SpeakerData,
+                destination=destination,
+                which = w,
+                separate=separate
+            )
 
 if __name__ == "__main__":
     fave_extract()
