@@ -1,0 +1,124 @@
+project:
+  type: website
+  output-dir: _site
+
+website:
+  title: "new-fave"
+  favicon: assets/logo.png
+  image: assets/logo.png
+  page-navigation: true
+  twitter-card: true
+  open-graph: true
+  navbar:
+    left: 
+      - href: index.qmd
+        text: Home
+      - href: reference/
+        text: Package reference 
+    right:
+      - icon: github
+        href: https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave
+  sidebar:
+      - id: get-started
+        logo: assets/logo.png
+        title: Get Started
+        style: floating
+        align: left
+        contents:
+          - index.qmd
+          - auto: usage
+          # - usage/getting_started.qmd
+          # - usage/all_arguments.qmd
+          # - usage/pythonic_use.ipynb
+
+metadata-files:
+  - reference/_sidebar.yml
+
+
+
+format:
+  html:
+    theme: 
+      light: [flatly, styles/light.scss]
+      dark: [darkly, styles/dark.scss]
+    css: styles/styles.css
+    toc: true
+    toc-depth: 4
+    highlight-style: github    
+
+filters:
+  - interlinks
+resources: 
+  - objects.inv  
+
+interlinks:
+  fast: true
+  sources:
+    numpy:
+      url: https://numpy.org/doc/stable/
+    python:
+      url: https://docs.python.org/3/
+    fasttrackpy:
+      url: https://fasttrackiverse.github.io/fasttrackpy/
+    aligned_textgrid:
+      url: https://forced-alignment-and-vowel-extraction.github.io/alignedTextGrid/
+    fave_recode:
+      url: https://forced-alignment-and-vowel-extraction.github.io/fave-recode/
+    fave_measurement_point:
+      url: https://forced-alignment-and-vowel-extraction.github.io/fave-measurement-point/
+
+quartodoc:
+  style: pkgdown
+  dir: reference
+  package: new_fave
+  sidebar: "reference/_sidebar.yml"
+  parser: google
+  render_interlinks: true
+  sections:
+    - title: Processing Patterns
+      desc: Different patterns for processing data
+      contents: 
+        - fave_audio_textgrid
+        - fave_corpus
+        - fave_subcorpora
+    - title: Writers
+      contents:
+        - write_data
+    - title: Built-in resources 
+      contents:
+        - utils.local_resources.local_resources
+    - title: Speaker files
+      contents:
+        - speaker.speaker.Speaker
+    - title: Optimization
+      desc: Functions for optimizing formant measurements
+      contents:
+        - optimize.optimize
+    - title: Vowel Measurements
+      desc: Vowel Measurements
+      options:
+        dynamic: true
+      contents: 
+        - name: VowelMeasurement
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+
+        - name: VowelClass
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+
+        - name: VowelClassCollection
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df
+
+        - name: SpeakerCollection
+          members:
+            - to_tracks_df
+            - to_param_df
+            - to_point_df

@@ -1,0 +1,26 @@
+from new_fave import fave_corpus
+from new_fave import SpeakerCollection
+from new_fave.speaker.speaker import Speaker
+from pathlib import Path
+
+
+CORPUS = Path("tests", "test_data", "fave_classic")
+
+SPEAKERS = fave_corpus(
+    corpus_path=CORPUS,
+    speakers=0,
+    recode_rules="cmu2labov",
+    labelset_parser="cmu_parser",
+    point_heuristic="fave",
+    ft_config=Path("tests", "test_patterns", "test_ft_config.yml"),
+    fave_aligned=True
+)
+
+def test_fave_classic():
+    assert isinstance(SPEAKERS, SpeakerCollection)
+
+    speaker0 = list(SPEAKERS.values())[0]
+    vms = speaker0.vowel_measurements
+    labels = [vm.label for vm in vms]
+
+    assert "ay" in labels

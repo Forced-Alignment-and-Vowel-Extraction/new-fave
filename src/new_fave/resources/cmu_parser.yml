@@ -1,0 +1,47 @@
+parser: "CMU"
+
+properties:
+  - name: "stress"
+    updates: "stress"
+    default: ""
+    rules:
+
+      - rule: "1"
+        conditions:
+          - attribute: label
+            relation: contains
+            set: "1"
+        return: "1"
+
+      - rule: "2"
+        conditions:
+          - attribute: label
+            relation: contains
+            set: "2"
+        return: "2"
+
+      - rule: "0"
+        conditions:
+          - attribute: label
+            relation: contains
+            set: "0"
+        return: "0"
+  
+  - name: "coloring"
+    updates: "LR"
+    default: ""
+    rules:
+      - rule: "R"
+        conditions: 
+          - attribute: fol.label
+            relation: in
+            set: 
+              - R
+              - AXR
+        return: "R"
+      - rule: "L"
+        conditions:
+          - attribute: fol.label
+            relation: "=="
+            set: L
+        return: L

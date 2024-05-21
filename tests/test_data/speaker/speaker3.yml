@@ -1,0 +1,11 @@
+- file_name: KY25A_1
+  speaker_num: 1
+  name: KY25A
+- file_name: KY25A_1
+  speaker_num: 2
+  name: IVR
+- name: Joe F
+  gender: m
+  age: 39
+  file_name: josef-fruehwald_speaker
+  speaker_num: 1

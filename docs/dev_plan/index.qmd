@@ -1,0 +1,22 @@
+---
+title: Development Plan
+date-modified: today
+---
+
+## What is FAVEy about this?
+
+### Why not just use fasttrackpy on all data?
+
+The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.
+
+### What is new-fave going to offer?
+
+The plan is for new-fave to bring together, under one tool
+
+- `fave-recode`ing of input data, allowing for dialect, language, or research question specific recoding of alignment output
+- Customizable point measurement heuristics
+- Enriched data output enabled by its opinionated approach to data input. (e.g. `fave-syllabify`)
+
+### What will new-fave contribute to the *analysis*?
+
+See [New-Fave Approach](new-fave-approach.qmd)

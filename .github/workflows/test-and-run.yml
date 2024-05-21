@@ -1,0 +1,54 @@
+name: Python CI
+
+on:
+  push:
+    branches: [ $default-branch, "main", "dev", "workflows" ]
+  pull_request:
+    branches: [ $default-branch, "main", "dev", "feature/**" ]
+
+defaults:
+  run:
+    shell: bash
+jobs:
+  lint-and-test:
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        exclude:
+          - os: windows-latest
+            python-version: "3.9"
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: "pip"
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}        
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --with test --no-interaction --no-root
+    - name: Test with pytest
+      run: |
+        source $VENV
+        pytest
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}        

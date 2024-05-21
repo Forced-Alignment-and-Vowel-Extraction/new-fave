@@ -1,0 +1,90 @@
+---
+title: Getting Started
+---
+
+# Installation
+
+```bash
+# bash
+pip install git+https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave.git
+```
+
+
+# Usage
+Current basic usage, for now. If you want speaker demographics included in the data
+output, see [`Speaker`](../reference/speaker.speaker.Speaker.qmd)
+
+## Audio + TextGrid
+See [`fave_audio_textgrid`](../reference/fave_audio_textgrid.qmd) and
+ [`write_data`](../reference/write_data.qmd). 
+ And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+
+```python
+from new_fave import fave_audio_textgrid, write_data
+
+speakers = fave_audio_textgrid(
+    audio_path = "speaker1.wav",
+    textgrid_path = "speaker2.TextGrid",
+    ## all optional args below
+    speakers = "all",
+    recode_rules = "cmu2labov",
+    labelset_parser = "cmu_parser",
+    point_heuristic = "fave",
+    ft_config = "default"
+)
+
+write_data(
+    speakers, 
+    destination = "output_dir"
+)
+```
+
+
+## Corpus
+See [`fave_corpus`](../reference/fave_corpus.qmd) and
+ [`write_data`](../reference/write_data.qmd). 
+ And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+ 
+```python
+from new_fave import fave_corpus, write_data
+
+speakers = fave_audio_textgrid(
+    corpus_path = "corpus/",
+    ## all optional args below
+    speakers = "all",
+    recode_rules = "cmu2labov",
+    labelset_parser = "cmu_parser",
+    point_heuristic = "fave",
+    ft_config = "default"
+)
+
+write_data(
+    speakers, 
+    destination = "output_dir"
+)
+```
+
+
+## Subcorpora
+See [`fave_subcorpora`](../reference/fave_subcorpora.qmd) and
+ [`write_data`](../reference/write_data.qmd). 
+ And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+ 
+```python
+from new_fave import fave_subcorpora, write_data
+
+speakers = fave_subcorpora(
+    subcorpora_glob = "project/speakers/*/",
+    ## all optional args below
+    speakers = "all",
+    recode_rules = "cmu2labov",
+    labelset_parser = "cmu_parser",
+    point_heuristic = "fave",
+    ft_config = "default"
+)
+
+write_data(
+    speakers, 
+    destination = "output_dir"
+)
+```
