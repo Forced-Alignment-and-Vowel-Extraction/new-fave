@@ -1,4 +1,5 @@
 from fasttrackpy import process_audio_textgrid
+from fasttrackpy.utils.safely import safely
 from aligned_textgrid import AlignedTextGrid
 from fave_recode.fave_recode import run_recode, \
     get_rules, \
@@ -26,7 +27,7 @@ import logging
 logger = logging.getLogger("audio-textgrid")
 logger.setLevel(level=logging.INFO)
 
-
+@safely("There was a problem processing an audio-textgrid pair.")
 def fave_audio_textgrid(
     audio_path: str|Path,
     textgrid_path: str|Path,
