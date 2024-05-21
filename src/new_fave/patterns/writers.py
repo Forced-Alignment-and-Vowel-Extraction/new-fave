@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Literal
 import polars as pl
 import logging
+from copy import copy
 logger = logging.getLogger("write-data")
 
 def write_df(
@@ -163,3 +164,56 @@ def write_data(
             out_name = Path(pair[1] + "_recoded").with_suffix(".TextGrid")
             out_path = destination.joinpath(out_name)
             pair[0].save_textgrid(out_path)
+
+def check_outputs(
+    stem: Path|str,
+    destination: Path|str,
+    which: Literal["all"] | 
+        list[Literal[
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]] = "all"
+)->list[Literal["tracks", "points", "param", "log_param", "textgrid"]]:
+    """
+    Check to see if outputs already exist
+    for a given file stem.
+
+    Args:
+        stem (Path | str): 
+            The filestem
+        destination (Path | str):
+            The destination where some output files may exist.
+        which (Literal["all"] | list[Literal[ "tracks", "points", "param", "log_param", "textgrid" ]], optional): 
+            Which data to save. The values are described above. Defaults to "all".
+
+    Returns:
+        (list[Literal["tracks", "points", "param", "log_param", "textgrid"]]):
+            The output types for which data exists.
+    """
+    stem = Path(stem).stem
+    destination = Path(destination)
+    if "all" in which:
+        which = [
+            "tracks", 
+            "points", 
+            "param", 
+            "log_param", 
+            "textgrid"
+        ]
+    affixes = copy(which)
+    for i,a in enumerate(affixes):
+        if a == "log_param":
+            affixes[i] = "logparam"
+        if a == "textgrid":
+            affixes[i] = "recoded"
+    to_glob = [
+        str(stem)+"*_"+a+"*"
+        for a in affixes
+    ]
+
+    matched_which = []
+    for tg, w in zip(to_glob, which):
+        globbed = list(destination.glob(tg))
+        if len(globbed)>0:
+            matched_which.append(w)
+
+    return matched_which
