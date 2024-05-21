@@ -32,8 +32,8 @@ logger.setLevel(logging.INFO)
 def fave_subcorpora(
     subcorpora_glob: str|Path,
     speakers: int|list[int]|str|Path = 0,
-    include_overlaps: bool = True,
     speakers_glob: str = None,
+    include_overlaps: bool = True,    
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -50,12 +50,12 @@ def fave_subcorpora(
             Which speaker(s) to produce data for.
             Can be a numeric index, or a path to a 
             speaker file, or "all"
-        include_overlaps (bool, optional):
-            Whether or not to include vowels that are overlapped
-            with speech from other tiers. Defaults to `True`.            
         speakers_glob (str):
             Alternatively to `speakers`, a 
             file glob to speaker files.
+        include_overlaps (bool, optional):
+            Whether or not to include vowels that are overlapped
+            with speech from other tiers. Defaults to `True`.            
         recode_rules (str | None, optional): 
             Either a string naming built-in set of
             recode rules, or path to a custom  ruleset. 
@@ -117,6 +117,7 @@ def fave_subcorpora(
 
     if type(speakers) is str and not speakers == "all":
         speaker_path = Path(speakers)
+        
     if isinstance(speakers, Path):
         speaker_path = speakers
     
