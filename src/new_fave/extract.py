@@ -42,19 +42,11 @@ except:
 is_audio = create_audio_checker(no_magic=no_magic)
 
 def ask(message: str) -> bool:
-    response = input(f"{message}" + " [y/n]:   ")
-    yes_patt = re.compile(r"^[Yy](es)?$")
-    no_patt = re.compile(r"^[Nn]o?$")
-
-    yes = yes_patt.fullmatch(response)
-    no = no_patt.fullmatch(response)
-    if no:
-        return False
-    if yes:
-        return True
-    
-    warnings.warn("You must respond 'y' or 'n'")
-    return ask(message)
+    response = click.confirm(
+        f"{message}",
+        default=True
+    )
+    return response
 
 formatter_settings = HelpFormatter.settings(
     theme=HelpTheme(
