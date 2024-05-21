@@ -1,6 +1,7 @@
 from new_fave.measurements.vowel_measurement import VowelMeasurement, \
     VowelClass, \
     VowelClassCollection
+from fasttrackpy.utils.safely import safely
 import numpy as np
 from tqdm import tqdm
 from typing import Literal
@@ -60,14 +61,20 @@ def optimize_vowel_measures(
         optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
             The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
     """
+    
     new_winners = [
         optimize_one_measure(vm, optim_params=optim_params) 
         for vm in tqdm(vowel_measurements)
     ]
+
+    for idx, new_idx in new_winners:
+        if new_idx is None:
+            new_winners[idx] = vowel_measurements[idx].winner_index
     
     for vm, idx in zip(vowel_measurements, new_winners):
         vm.winner = idx
 
+@safely(message="There was a problem optimizing a vowel.")
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
          optim_params: list[Literal["cand_mahal", "max_formant"]] = ["cand_mahal", "max_formant"]
