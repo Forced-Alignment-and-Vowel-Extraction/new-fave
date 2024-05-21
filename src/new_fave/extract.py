@@ -8,6 +8,7 @@ from fasttrackpy.utils.safely import safely, filter_nones
 from new_fave.patterns.writers import check_outputs
 
 from pathlib import Path
+from glob import glob
 import click
 import cloup
 from cloup import Context, HelpFormatter, HelpTheme, Style,\
@@ -137,6 +138,7 @@ speaker_opt = cloup.option(
     "--speakers",
     default=1,
     show_default=True,
+    type=click.UNPROCESSED,
     help=("Which speakers to analyze. " 
           "Values can be: a numeric value (1 = first speaker), "
           "the string 'all', for all speakers, or "
@@ -266,7 +268,9 @@ def audio_textgrid(
         )
 
 @fave_extract.command(
-    aliases = ["corpus"]
+    aliases = ["corpus"],
+    formatter_settings=formatter_settings,
+    help = "Run fave-extract on a directory of audio+textgrid pairs."
 )
 @cloup.argument(
     "corpus_path",
@@ -342,6 +346,90 @@ def corpus(
                 which = w,
                 separate=separate
             )
+
+@fave_extract.command(
+    aliases = ["subcorpora"],
+    formatter_settings=formatter_settings,
+    help = "Run fave-extract on multiple subdirectories."
+)
+@cloup.argument(
+    "subcorpora",
+    type = click.UNPROCESSED,
+    nargs=-1,
+    help="A glob that resolves to subcorpora directories"
+)
+@speaker_opt
+@configs
+@outputs
+def subcorpora(
+    subcorpora: list[str|Path],
+    speakers: int|list[int]|str|Path,
+    exclude_overlaps: bool,
+    recode_rules: str|None,
+    labelset_parser: str|None,
+    point_heuristic: str|None,
+    ft_config: str|None,
+    fave_aligned: bool,
+    destination: Path,
+    which: list[Literal[
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]],
+    separate: bool 
+):
+    corpora = [Path(p) for p in subcorpora]
+    if "all" in which:
+        which = [
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]
+    all_audio = [a for c in corpora for a in get_audio_files(corpus_path = c)]
+    all_which = [which for a in all_audio]
+    result_which = []
+    for a,w in zip(all_audio, all_which):
+        overwrite = True
+        matched_which = check_outputs(a, destination, which)
+
+        if len(matched_which) > 0:
+            overwrite = ask(
+                (
+                f"Some output files already exist for {a.stem} at {destination}. \n"
+                "Should they be overwritten? (y = overwrite, n = don't overwrite.)"
+                )
+            )
+        new_which = w
+        if not overwrite:
+            new_which = [x for x in w if x not in matched_which]
+        result_which.append(new_which)
+    
+    audio_to_process = [a for a,w in zip(all_audio, result_which) if len(w) > 0]
+
+    result_which,audio_to_process =  filter_nones(result_which, [result_which, audio_to_process])
+
+    corpus = get_corpus(audio_to_process)    
+
+    include_overlaps = not exclude_overlaps
+    if type(speakers) is int:
+        speakers = speakers - 1
+    for pair, w in zip(corpus, result_which):
+        SpeakerData = fave_audio_textgrid(
+            audio_path=pair.wav,
+            textgrid_path=pair.tg,
+            speakers = speakers,
+            include_overlaps=include_overlaps,
+            recode_rules=recode_rules,
+            labelset_parser=labelset_parser,
+            point_heuristic=point_heuristic,
+            ft_config=ft_config,
+            fave_aligned=fave_aligned
+        )
+        if SpeakerData is not None:
+            write_data(
+                SpeakerData,
+                destination=destination,
+                which = w,
+                separate=separate
+            )
+    pass
+
 
 if __name__ == "__main__":
     fave_extract()
