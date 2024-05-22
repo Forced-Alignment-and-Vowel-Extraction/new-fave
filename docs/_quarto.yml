@@ -81,19 +81,6 @@ quartodoc:
         - fave_audio_textgrid
         - fave_corpus
         - fave_subcorpora
-    - title: Writers
-      contents:
-        - write_data
-    - title: Built-in resources 
-      contents:
-        - utils.local_resources.local_resources
-    - title: Speaker files
-      contents:
-        - speaker.speaker.Speaker
-    - title: Optimization
-      desc: Functions for optimizing formant measurements
-      contents:
-        - optimize.optimize
     - title: Vowel Measurements
       desc: Vowel Measurements
       options:
@@ -122,3 +109,20 @@ quartodoc:
             - to_tracks_df
             - to_param_df
             - to_point_df
+
+    - title: Optimization
+      desc: Functions for optimizing formant measurements
+      contents:
+        - optimize.optimize
+
+    - title: Writers
+      contents:
+        - write_data
+        
+    - title: Built-in resources 
+      contents:
+        - utils.local_resources.local_resources
+
+    - title: Speaker files
+      contents:
+        - speaker.speaker.Speaker
