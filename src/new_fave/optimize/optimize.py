@@ -8,7 +8,7 @@ from typing import Literal
 
 def run_optimize(
         vowel_system: VowelClassCollection,
-        optim_params = ["cand_mahal", "max_formant"],
+        optim_params = ["cand_mahal", "vclass_mahal", "max_formant"],
         max_iter = 10
     ):
     """
@@ -50,7 +50,9 @@ def run_optimize(
 
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
-        optim_params: list[Literal["cand_mahal", "max_formant"]] = ["cand_mahal", "max_formant"]
+        optim_params: list[
+            Literal["cand_mahal", "vclass_mahal", "max_formant"]
+            ] = ["cand_mahal", "vclass_mahal", "max_formant"]
     ):
     """
     Optimize a list of VowelMeasurements.
@@ -77,7 +79,9 @@ def optimize_vowel_measures(
 @safely(message="There was a problem optimizing a vowel.")
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params: list[Literal["cand_mahal", "max_formant"]] = ["cand_mahal", "max_formant"]
+         optim_params: list[
+             Literal["cand_mahal", "vclass_mahal", "max_formant"]
+             ] = ["cand_mahal", "vclass_mahal", "max_formant"]
     )->int:
     """
     This function optimizes a given vowel measurement based on the 
@@ -97,6 +101,9 @@ def optimize_one_measure(
 
     if "cand_mahal" in optim_params:
         prob_dict["cand_mahal"] = vowel_measurement.cand_mahal_log_prob
+
+    if "vclass_mahal" in optim_params:
+        prob_dict["vclass_mahal"] = vowel_measurement.cand_vclass_mahal_log_prob
 
     if "max_formant" in optim_params:
         prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob

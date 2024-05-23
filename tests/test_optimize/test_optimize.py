@@ -9,6 +9,7 @@ class MockVowelMeasure:
         log_prob[winner_idx] = -0.5
 
         self.cand_mahal_log_prob = log_prob
+        self.cand_vclass_mahal_log_prob = log_prob
         self.max_formant_log_prob = log_prob
         self.error_log_prob  = log_prob
         self.winner = None
