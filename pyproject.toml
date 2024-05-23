@@ -1,11 +1,14 @@
 [tool.poetry]
 name = "new-fave"
-version = "0.1.1"
+version = "0.1.2"
 description = "New Vowel Extraction Suite"
 authors = ["JoFrhwld <jofrhwld@gmail.com>"]
 license = "GPLv3"
 readme = "README.md"
 packages = [{include = "new_fave", from="src"}]
+homepage = "https://forced-alignment-and-vowel-extraction.github.io/new-fave/"
+repository = "https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave"
+
 
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
