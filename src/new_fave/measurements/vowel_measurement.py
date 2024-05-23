@@ -285,6 +285,8 @@ class VowelMeasurement(Sequence):
         )
         if np.isfinite(log_prob).mean() < 0.5:
             log_prob = np.zeros(shape = log_prob.shape)
+        if len(self.vowel_class) < 10:
+            log_prob = np.zeros(shape = log_prob.shape)
         return log_prob    
     
     @property 
