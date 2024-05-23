@@ -190,6 +190,7 @@ class VowelMeasurement(Sequence):
     def winner(self, idx):
         self._winner = self.candidates[idx]
         self.vowel_class.vowel_system._reset_winners()
+        self.vowel_class._reset_winners()
         self._expanded_formants = None
         self._optimized += 1
 
@@ -263,6 +264,28 @@ class VowelMeasurement(Sequence):
         if np.isfinite(log_prob).mean() < 0.5:
             log_prob = np.zeros(shape = log_prob.shape)
         return log_prob
+    
+    @property
+    def cand_vclass_mahals(self):
+        N = len(self.candidates)
+        square_params = self.cand_params.reshape(-1, N)
+        inv_covmat = self.vowel_class.params_icov
+        param_means = self.vowel_class.params_means
+        x_mu = square_params - param_means
+        left = np.dot(x_mu.T, inv_covmat)
+        mahal = np.dot(left, x_mu)
+        return mahal.diagonal()
+    
+    @property
+    def cand_vclass_mahal_log_prob(self):
+        df = self.cand_params.size
+        log_prob = stats.chi2.logsf(
+            self.cand_vclass_mahals,
+            df = df
+        )
+        if np.isfinite(log_prob).mean() < 0.5:
+            log_prob = np.zeros(shape = log_prob.shape)
+        return log_prob    
     
     @property 
     def max_formant_mahal(self):
@@ -465,6 +488,10 @@ class VowelClass(Sequence):
     def __post_init__(self):
         super().__init__()
         self._winners = [x.winner for x in self.tracks]
+        self._winner_params = None
+        self._params_means = None
+        self._params_cov = None
+        self._params_icov = None
         for t in self.tracks:
             t.vowel_class = self
 
@@ -483,6 +510,12 @@ class VowelClass(Sequence):
         )
         return out
     
+    def _reset_winners(self):
+        self._winner_params = None
+        self._params_means = None
+        self._params_cov = None
+        self._params_icov = None
+    
     @property
     def vowel_system(self):
         return self._vowel_system
@@ -498,6 +531,9 @@ class VowelClass(Sequence):
     
     @property
     def winner_params(self):
+        if not self._winner_params is None:
+            return self._winner_params
+
         params = np.array(
             [
                 x.parameters
@@ -506,6 +542,47 @@ class VowelClass(Sequence):
         ).T
 
         return params
+
+    @property
+    def params_means(self):
+        if self._params_means is not None:
+            return self._params_means
+        N = len(self.winners)
+        winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        self._params_means = winner_mean
+        return winner_mean
+    
+    @property
+    def params_covs(self):
+        if self._params_cov is not None:
+            return self._params_cov
+        N = len(self.winners)
+        square_param = self.winner_params.reshape(-1, N)
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            param_cov = np.cov(square_param)
+        return param_cov
+    
+    @property
+    def params_icov(self):
+        if self._params_icov is not None:
+            return self._params_icov
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            try:
+                params_icov = np.linalg.inv(self.params_covs)
+                self._params_icov = params_icov
+                return params_icov
+            except:
+                params_icov = np.array([
+                    [np.nan] * self.params_covs.size
+                ]).reshape(
+                    self.params_covs.shape[0],
+                    self.params_covs.shape[1]
+                )
+                self._params_icov = params_icov
+                return params_icov    
     
     def to_param_df(
             self, 
