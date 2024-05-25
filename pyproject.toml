@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "new-fave"
-version = "0.1.2"
+version = "0.1.3"
 description = "New Vowel Extraction Suite"
 authors = ["JoFrhwld <jofrhwld@gmail.com>"]
 license = "GPLv3"
