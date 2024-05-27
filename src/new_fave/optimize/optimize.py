@@ -106,7 +106,7 @@ def optimize_one_measure(
         prob_dict["vclass_mahal"] = vowel_measurement.cand_vclass_mahal_log_prob
 
     if "max_formant" in optim_params:
-        prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob
+        prob_dict["max_formant"] = vowel_measurement.max_formant_ecdf_log_prob
         
     joint_prob = vowel_measurement.error_log_prob 
     for dim in optim_params:

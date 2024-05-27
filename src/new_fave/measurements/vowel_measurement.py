@@ -311,6 +311,18 @@ class VowelMeasurement(Sequence):
         return log_prob
 
     @property
+    def max_formant_ecdf_log_prob(self):
+        ecdf = self.vowel_class.vowel_system.max_formant_ecdf
+        prob = ecdf.cdf.evaluate(self.cand_max_formants[0])
+        
+        half_prob = np.array([1-p if p > 0.5 else p for p in prob])/0.5
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            log_prob = np.log(half_prob)
+
+        return log_prob
+    
+    @property
     def error_log_prob(self):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -839,7 +851,7 @@ class VowelClassCollection(defaultdict):
     def maximum_formant_means(self):
         if self._maximum_formant_means is not None:
             return self._maximum_formant_means
-        self._maximum_formant_means = self.winners_maximum_formant.mean()
+        self._maximum_formant_means = np.median(self.winners_maximum_formant)
         return self.winners_maximum_formant.mean()
     
     @property
@@ -861,6 +873,11 @@ class VowelClassCollection(defaultdict):
         except:
             self._max_formant_icov = np.array([[np.nan]])
             return np.array([[np.nan]])    
+        
+    @property
+    def max_formant_ecdf(self):
+        dist = stats.ecdf(self.winners_maximum_formant[0])
+        return dist
                 
     def to_tracks_df(self):
         """Return a DataFrame of the formant tracks
