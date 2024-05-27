@@ -4,10 +4,10 @@ entry_classes:
 target_tier: "Phone"
 target_labels: "[AEIOU]"
 min_duration: 0.05
-min_max_formant: 4800
+min_max_formant: 4000
 max_max_formant: 9000
 n_formants: 3
-nstep: 40
+nstep: 30
 window_length: 0.025
 time_step: 0.002
 time_step: 0.002
