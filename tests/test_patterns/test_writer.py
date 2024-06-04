@@ -1,5 +1,6 @@
 from new_fave import fave_corpus
-from new_fave.patterns.writers import write_data
+from new_fave.patterns.writers import write_data, pickle_speakers, unpickle_speakers
+from new_fave import SpeakerCollection
 from pathlib import Path
 import tempfile
 import logging
@@ -61,4 +62,22 @@ def test_write_all_data_sep():
     
     assert len(all_files) == (n_input * 4) + n_tg
 
-    tmp.cleanup()    
+    tmp.cleanup()
+
+
+def test_pickling():
+    tmp = tempfile.NamedTemporaryFile()
+    tmp_path = Path(tmp.name)
+
+    pickle_speakers(speakers, tmp_path)
+
+    assert tmp_path.exists()
+
+    re_read = unpickle_speakers(tmp_path)
+
+    assert isinstance(re_read, SpeakerCollection)
+
+    for k in re_read:
+        assert k in speakers
+
+    tmp.close()
