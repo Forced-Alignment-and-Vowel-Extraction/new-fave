@@ -118,6 +118,8 @@ quartodoc:
     - title: Writers
       contents:
         - write_data
+        - pickle_speakers
+        - unpickle_speakers
         
     - title: Built-in resources 
       contents:

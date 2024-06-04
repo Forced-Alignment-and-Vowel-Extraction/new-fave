@@ -5,7 +5,11 @@ from pathlib import Path
 from typing import Literal
 import polars as pl
 import logging
-from copy import copy
+from copy import copy, deepcopy
+import cloudpickle
+import sys
+import warnings
+
 logger = logging.getLogger("write-data")
 
 def write_df(
@@ -217,3 +221,62 @@ def check_outputs(
             matched_which.append(w)
 
     return matched_which
+
+
+def pickle_speakers(
+        speakers: SpeakerCollection,
+        path: str | Path
+):
+    """
+    This will serialize a SpeakerCollection to a pickle
+    file, that can be re-read in a new python session.
+
+    **Note**: new-fave uses the cloudpickle library, 
+    rather than the standard pickle library, which comes
+    with the following limitations, according to the
+    cloudpickle documentation:
+
+    > Cloudpickle can only be used to send objects between the exact same version of Python.
+    > 
+    > Using cloudpickle for long-term object storage is not supported and strongly discouraged.
+
+    Args:
+        speakers (SpeakerCollection): 
+            A SpeakerCollection to serialize
+        path (str | Path):
+            The destination file to save the
+            pickle file.
+    """
+    path = Path(path)
+
+    if not isinstance(speakers, SpeakerCollection):
+        raise ValueError("pickle_speakers can only pickle a SpeakerCollection")
+    
+    with path.open('wb') as f:
+        sys.setrecursionlimit(30000)
+        cloudpickle.dump(speakers, f)
+
+
+def unpickle_speakers(
+        path: str | Path
+) -> SpeakerCollection:
+    """
+    Unpickle a pickled SpeakerCollection
+
+    Args:
+        path (str | Path):
+            Path to a pickled speaker collection
+
+    Returns:
+        (SpeakerCollection):
+            The unpickled SpeakerCollection
+    """
+    path = Path(path)
+    with path.open('rb') as f:
+        sys.setrecursionlimit(30000)
+        speakers = cloudpickle.load(f)
+    
+    if not isinstance(speakers, SpeakerCollection):
+        warnings.warn("An unexpected object type was returned.")
+
+    return speakers

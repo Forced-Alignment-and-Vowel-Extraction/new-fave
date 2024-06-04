@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "new-fave"
-version = "0.1.2"
+version = "0.1.3"
 description = "New Vowel Extraction Suite"
 authors = ["JoFrhwld <jofrhwld@gmail.com>"]
 license = "GPLv3"
@@ -11,9 +11,9 @@ repository = "https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave"
 
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-aligned-textgrid = "^0.6.6"
-fasttrackpy = "^0.4.6"
+python = ">=3.11,<3.12"
+aligned-textgrid = "^0.6.7"
+fasttrackpy = "^0.4.7"
 numpy = "^1.26.4"
 tqdm = "^4.66.2"
 fave-recode = "^0.3.0"
@@ -24,6 +24,8 @@ polars = "^0.20.18"
 xlsx2csv = "^0.8.2"
 python-magic = {version = "^0.4.27", markers = "sys_platform != 'win32'"}
 python-magic-bin = {version = "^0.4.14", markers = "sys_platform == 'win32'"}
+scipy = "^1.13.1"
+cloudpickle = "^3.0.0"
 
 
 [tool.poetry.group.docs.dependencies]
