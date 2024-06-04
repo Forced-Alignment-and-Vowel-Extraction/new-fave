@@ -66,18 +66,19 @@ def test_write_all_data_sep():
 
 
 def test_pickling():
-    tmp = tempfile.NamedTemporaryFile()
+    tmp = tempfile.TemporaryDirectory()
     tmp_path = Path(tmp.name)
+    tmp_file = tmp_path.joinpath("speaker.pickle")
 
-    pickle_speakers(speakers, tmp_path)
+    pickle_speakers(speakers, tmp_file)
 
-    assert tmp_path.exists()
+    assert tmp_file.exists()
 
-    re_read = unpickle_speakers(tmp_path)
+    re_read = unpickle_speakers(tmp_file)
 
     assert isinstance(re_read, SpeakerCollection)
 
     for k in re_read:
         assert k in speakers
 
-    tmp.close()
+    tmp.cleanup()
