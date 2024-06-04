@@ -13,7 +13,7 @@ import scipy.stats as stats
 from scipy.fft import idst, idct
 from joblib import Parallel, delayed, cpu_count
 
-from collections.abc import Sequence
+from collections.abc import Sequence, Iterable
 from dataclasses import dataclass, field
 
 NCPU = cpu_count()
@@ -25,6 +25,8 @@ def blank():
 
 def blank_list():
     return []
+
+EMPTY_LIST = blank_list()
     
 @dataclass
 class VowelMeasurement(Sequence):
@@ -485,8 +487,8 @@ class VowelClass(Sequence):
             An `np.array` of winner DCT parameters
             from the vowel class.
     """
-    label: str
-    tracks: list[VowelMeasurement]
+    label: str = field(default="")
+    tracks: list[VowelMeasurement] = field(default_factory= lambda : [])
     def __post_init__(self):
         super().__init__()
         self._winners = [x.winner for x in self.tracks]
@@ -682,12 +684,13 @@ class VowelClassCollection(defaultdict):
             An `np.array` of the maximum formants
             for the winners in the entire vowel system           
     """
-    def __init__(self, track_list:list[VowelMeasurement]):
-
+    def __init__(self, track_list:list[VowelMeasurement] = EMPTY_LIST):
         super().__init__(blank)
+        self.track_list = track_list
         self.tracks_dict = defaultdict(blank_list)
-        self._make_tracks_dict(track_list)
-        self._dictify()
+        if isinstance(self.track_list, Iterable):
+            self._make_tracks_dict()
+            self._dictify()
         self._vowel_system()
         self._params_means = None
         self._params_icov = None
@@ -706,8 +709,8 @@ class VowelClassCollection(defaultdict):
         self._maximum_formant_means = None
         self._max_formant_icov = None
 
-    def _make_tracks_dict(self, track_list):
-        for v in track_list:
+    def _make_tracks_dict(self):
+        for v in self.track_list:
             self.tracks_dict[v.label].append(v)
 
     def _dictify(self):
@@ -922,17 +925,18 @@ class SpeakerCollection(defaultdict):
         track_list (list[VowelMeasurement]):
             A list of `VowelMeasurement`s.
     """
-    def __init__(self, track_list:list[VowelMeasurement]):
+    def __init__(self, track_list:list[VowelMeasurement] = []):
+        self.track_list = track_list
         self.speakers_dict = defaultdict(blank_list)
-        self._make_tracks_dict(track_list)
+        self._make_tracks_dict()
         self._dictify()
         self._speaker = None
     
     def __setitem__(self, __key, __value) -> None:
         super().__setitem__(__key, __value)
 
-    def _make_tracks_dict(self, track_list):
-        for v in track_list:
+    def _make_tracks_dict(self):
+        for v in self.track_list:
             file_speaker = (v.file_name, v.group)
             self.speakers_dict[file_speaker].append(v)
         
