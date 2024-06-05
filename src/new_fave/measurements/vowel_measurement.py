@@ -278,14 +278,10 @@ class VowelMeasurement(Sequence):
     def cand_param_logprob_speaker_global(
         self
     ) -> NDArray[Shape["Cand"], Float]:
-        winner_shape = self.cand_param.shape
-        df = winner_shape[0] * winner_shape[1]
-        log_prob = stats.chi2.logsf(
+        log_prob  = mahal_log_prob(
             self.cand_param_mahal_speaker_global,
-            df = df
+            self.cand_param
         )
-        if np.isfinite(log_prob).mean() < 0.5:
-            log_prob = np.zeros(shape = log_prob.shape)
         return log_prob
     
     @property
@@ -296,22 +292,17 @@ class VowelMeasurement(Sequence):
         square_params = self.cand_param.reshape(-1, N)
         inv_covmat = self.vowel_class.winner_param_icov
         param_means = self.vowel_class.winner_param_mean
-        x_mu = square_params - param_means
-        left = np.dot(x_mu.T, inv_covmat)
-        mahal = np.dot(left, x_mu)
-        return mahal.diagonal()
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
     
     @property
     def cand_param_logprob_speaker_byvclass(
         self
     ) -> NDArray[Shape["Cand"], Float]:
-        df = self.cand_param.shape[0] * self.cand_param.shape[1]
-        log_prob = stats.chi2.logsf(
+        log_prob = mahal_log_prob(
             self.cand_param_mahal_speaker_byvclass,
-            df = df
+            self.cand_param
         )
-        if np.isfinite(log_prob).mean() < 0.5:
-            log_prob = np.zeros(shape = log_prob.shape)
         if len(self.vowel_class) < 10:
             log_prob = np.zeros(shape = log_prob.shape)
         return log_prob
@@ -339,13 +330,10 @@ class VowelMeasurement(Sequence):
     def cand_maxformant_logprob_speaker_global(
         self
     ) -> NDArray[Shape["Cand"], Float]:
-        log_prob = stats.chi2.logsf(
+        log_prob = mahal_log_prob(
             self.cand_maxformant_mahal_speaker_global,
-            df = 1
+            self.cand_maxformant
         )
-
-        if np.isfinite(log_prob).mean() < 0.5:
-            log_prob = np.zeros(shape = log_prob.shape)
 
         return log_prob
 
@@ -610,11 +598,7 @@ class VowelClass(Sequence):
     ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
         if self._winner_param_cov is not None:
             return self._winner_param_cov
-        N = len(self.winners)
-        square_param = self.winner_param.reshape(-1, N)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            param_cov = np.cov(square_param)
+        param_cov = param_to_cov(self.winner_param)
         self._winner_param_cov = param_cov
         return param_cov
     
@@ -624,21 +608,10 @@ class VowelClass(Sequence):
     ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
         if self._winner_param_icov is not None:
             return self._winner_param_icov
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            try:
-                params_icov = np.linalg.inv(self.winner_param_cov)
-                self._winner_param_icov = params_icov
-                return params_icov
-            except:
-                params_icov = np.array([
-                    [np.nan] * self.winner_param_cov.size
-                ]).reshape(
-                    self.winner_param_cov.shape[0],
-                    self.winner_param_cov.shape[1]
-                )
-                self._winner_param_icov = params_icov
-                return params_icov    
+
+        params_icov = cov_to_icov(self.winner_param_cov)
+        self._winner_param_icov = params_icov
+        return params_icov    
     
     def to_param_df(
             self, 
@@ -892,11 +865,7 @@ class VowelClassCollection(defaultdict):
     def winner_param_cov(
         self
     ) -> NDArray[Shape["FormantParam, FormantParam"], Float]:
-        N = len(self.winners)
-        square_param = self.winner_param.reshape(-1, N)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            param_cov = np.cov(square_param)
+        param_cov = param_to_cov(self.winner_param)
         return param_cov
     
     @property
@@ -905,21 +874,9 @@ class VowelClassCollection(defaultdict):
     ) -> NDArray[Shape["FormantParam, FormantParam"], Float] :
         if self._winner_param_icov is not None:
             return self._winner_param_icov
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            try:
-                params_icov = np.linalg.inv(self.winner_param_cov)
-                self._winner_param_icov = params_icov
-                return params_icov
-            except:
-                params_icov = np.array([
-                    [np.nan] * self.winner_param_cov.size
-                ]).reshape(
-                    self.winner_param_cov.shape[0],
-                    self.winner_param_cov.shape[1]
-                )
-                self._winner_param_icov = params_icov
-                return params_icov
+        params_icov = cov_to_icov(self.winner_param_cov)
+        self._winner_param_icov = params_icov
+        return params_icov
 
     @property
     def winner_maxformant_mean(
@@ -934,9 +891,8 @@ class VowelClassCollection(defaultdict):
     def winner_maxformant_cov(
         self
     ) -> NDArray[Shape["1, 1"], Float]:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")        
-            cov = np.cov(self.winner_maxformant).reshape(1,1)
+        cov = param_to_cov(self.winner_maxformant)
+        cov = cov.reshape(1,1)
         return cov
     
     @property
@@ -946,13 +902,9 @@ class VowelClassCollection(defaultdict):
         if self._winner_maxformant_icov is not None:
             return self._winner_maxformant_icov
         
-        try:
-            icov = np.linalg.inv(self.winner_maxformant_cov)
-            self._winner_maxformant_icov = icov
-            return icov
-        except:
-            self._winner_maxformant_icov = np.array([[np.nan]])
-            return np.array([[np.nan]])    
+        icov = cov_to_icov(self.winner_maxformant_cov)
+        self._winner_maxformant_icov = icov
+        return icov
                 
     def to_tracks_df(self)->pl.DataFrame:
         """Return a DataFrame of the formant tracks
