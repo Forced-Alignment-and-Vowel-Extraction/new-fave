@@ -216,11 +216,11 @@ class VowelMeasurement(Sequence):
     )->NDArray[Shape['N, Formant, Cand'], Float]:
         if self._expanded_formants is not None:
             return self._expanded_formants
-        N = self.winner.formants.shape[1]
+
         self._expanded_formants = np.apply_along_axis(
-            lambda x: idct(x.T, n = N, orthogonalize=True, norm = "forward"),
+            lambda x: idct(x.T, n = 20, orthogonalize=True, norm = "forward"),
             0,
-            self.cand_params
+            self.cand_param
         )
         return self._expanded_formants    
         
@@ -523,7 +523,7 @@ class VowelClass(Sequence):
         winners (list[fasttrackpy.OneTrack]): 
             A list of winner OneTracks from
             the vowel class
-        winner_params (np.array):
+        winner_param (np.array):
             An `np.array` of winner DCT parameters
             from the vowel class.
     """
@@ -574,7 +574,9 @@ class VowelClass(Sequence):
         return self._winners
     
     @property
-    def winner_param(self):
+    def winner_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
         if not self._winner_param is None:
             return self._winner_param
 
@@ -588,7 +590,9 @@ class VowelClass(Sequence):
         return params
 
     @property
-    def winner_param_mean(self):
+    def winner_param_mean(
+        self
+    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
         if self._winner_param_mean is not None:
             return self._winner_param_mean
         N = len(self.winners)
@@ -598,7 +602,9 @@ class VowelClass(Sequence):
         return winner_mean
     
     @property
-    def winner_param_cov(self):
+    def winner_param_cov(
+        self
+    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
         if self._winner_param_cov is not None:
             return self._winner_param_cov
         N = len(self.winners)
@@ -610,7 +616,9 @@ class VowelClass(Sequence):
         return param_cov
     
     @property
-    def winner_param_icov(self):
+    def winner_param_icov(
+        self
+    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
         if self._winner_param_icov is not None:
             return self._winner_param_icov
         with warnings.catch_warnings():
@@ -775,7 +783,9 @@ class VowelClassCollection(defaultdict):
         self._corpus = corp
     
     @property
-    def winners(self):
+    def winners(
+        self
+    ) -> list[OneTrack]:
         return [
             x
             for vc in self.values()
@@ -783,7 +793,9 @@ class VowelClassCollection(defaultdict):
         ]
     
     @property
-    def vowel_measurements(self):
+    def vowel_measurements(
+        self
+    ) -> list[VowelMeasurement]:
         return [
             x  
             for vc in self.values()
@@ -791,7 +803,9 @@ class VowelClassCollection(defaultdict):
         ]
     
     @property
-    def textgrid(self):
+    def textgrid(
+        self
+    ) -> AlignedTextGrid:
         if self._textgrid:
             return self._textgrid
         
@@ -799,7 +813,9 @@ class VowelClassCollection(defaultdict):
         return self._textgrid
     
     @property
-    def file_name(self):
+    def file_name(
+        self
+    ) -> str:
         if self._file_name:
             return self._file_name
         
@@ -807,7 +823,9 @@ class VowelClassCollection(defaultdict):
         return self._file_name
 
     @property
-    def winner_param(self):
+    def winner_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
         params = np.array(
             [
                 x.parameters
@@ -817,19 +835,23 @@ class VowelClassCollection(defaultdict):
 
         return params
     
-    @property
-    def winner_formants(self):
-        formants = np.hstack(
-            [
-                x.formants
-                for x in self.winners
-            ]
-        )
+    # @property
+    # def winner_formants(
+    #     self
+    # ):
+    #     formants = np.hstack(
+    #         [
+    #             x.formants
+    #             for x in self.winners
+    #         ]
+    #     )
 
-        return formants
+    #     return formants
     
     @property
-    def winner_expanded_formants(self):
+    def winner_expanded_formants(
+        self
+    ) -> NDArray[Shape["20, FormantN"], Float]:
         formants = np.hstack(
             [
                 x.expanded_formants[:, :, x.winner_index]
@@ -840,7 +862,9 @@ class VowelClassCollection(defaultdict):
         return formants
         
     @property
-    def winner_maxformant(self):
+    def winner_maxformant(
+        self
+    ) -> NDArray[Shape["1, N"], Float]:
         max_formants = np.array([[
             x.maximum_formant
             for x in self.winners
@@ -850,7 +874,9 @@ class VowelClassCollection(defaultdict):
 
     
     @property
-    def winner_param_mean(self):
+    def winner_param_mean(
+        self
+    ) -> NDArray[Shape["FormantParam"], Float]:
         if self._winner_param_mean is not None:
             return self._winner_param_mean
         N = len(self.winners)
@@ -860,7 +886,9 @@ class VowelClassCollection(defaultdict):
         return winner_mean
     
     @property
-    def winner_param_cov(self):
+    def winner_param_cov(
+        self
+    ) -> NDArray[Shape["FormantParam, FormantParam"], Float]:
         N = len(self.winners)
         square_param = self.winner_param.reshape(-1, N)
         with warnings.catch_warnings():
@@ -869,7 +897,9 @@ class VowelClassCollection(defaultdict):
         return param_cov
     
     @property
-    def winner_param_icov(self):
+    def winner_param_icov(
+        self
+    ) -> NDArray[Shape["FormantParam, FormantParam"], Float] :
         if self._winner_param_icov is not None:
             return self._winner_param_icov
         with warnings.catch_warnings():
@@ -889,21 +919,27 @@ class VowelClassCollection(defaultdict):
                 return params_icov
 
     @property
-    def winner_maxformant_mean(self):
+    def winner_maxformant_mean(
+        self
+    ) -> float:
         if self._winner_maxformant_mean is not None:
             return self._winner_maxformant_mean
         self._winner_maxformant_mean = self.winner_maxformant.mean()
         return self._winner_maxformant_mean
     
     @property
-    def winner_maxformant_cov(self):
+    def winner_maxformant_cov(
+        self
+    ) -> NDArray[Shape["1, 1"], Float]:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")        
             cov = np.cov(self.winner_maxformant).reshape(1,1)
         return cov
     
     @property
-    def winner_maxformant_icov(self):
+    def winner_maxformant_icov(
+        self
+    ) -> NDArray[Shape["1, 1"], Float]:
         if self._winner_maxformant_icov is not None:
             return self._winner_maxformant_icov
         
@@ -915,7 +951,7 @@ class VowelClassCollection(defaultdict):
             self._winner_maxformant_icov = np.array([[np.nan]])
             return np.array([[np.nan]])    
                 
-    def to_tracks_df(self):
+    def to_tracks_df(self)->pl.DataFrame:
         """Return a DataFrame of the formant tracks
 
         Returns:
@@ -944,7 +980,7 @@ class VowelClassCollection(defaultdict):
 
         return df    
     
-    def to_point_df(self):
+    def to_point_df(self) -> pl.DataFrame:
         """Return a DataFrame of point measurements
 
         Returns:
