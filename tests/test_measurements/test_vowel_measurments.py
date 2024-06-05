@@ -86,12 +86,12 @@ def test_winner_reset():
     speaker = speakers[first_speaker]
     speaker_vms = speaker.vowel_measurements
 
-    initial_mean = speaker.maximum_formant_means
+    initial_mean = speaker.winner_maxformant_mean
 
     initial_index = speaker_vms[0].winner_index
     speaker_vms[0].winner = initial_index+1
 
-    new_mean = speaker.maximum_formant_means
+    new_mean = speaker.winner_maxformant_mean
 
     assert ~np.isclose(initial_mean, new_mean)
 
@@ -143,7 +143,7 @@ def test_winner_param():
     ]
 
     for vc in all_vcs:
-        params = vc.winner_params
+        params = vc.winner_param
         expected_shape = (5, NFORMANT, len(vc))
         for s1, s2 in zip(params.shape, expected_shape):
             assert s1 == s2
@@ -155,9 +155,9 @@ def test_probs():
     is equal to the number of steps
     """
     for vm in vms:
-        cand_mahal_log_prob = vm.cand_mahal_log_prob
-        max_formant_log_prob = vm.max_formant_log_prob
-        error_log_prob = vm.error_log_prob
+        cand_mahal_log_prob = vm.cand_param_logprob_speaker_global
+        max_formant_log_prob = vm.cand_maxformant_logprob_speaker_global
+        error_log_prob = vm.cand_error_logprob_vm
 
         assert cand_mahal_log_prob.size == NSTEP
         assert max_formant_log_prob.size == NSTEP

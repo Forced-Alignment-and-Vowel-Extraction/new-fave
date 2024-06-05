@@ -109,7 +109,9 @@ quartodoc:
             - to_tracks_df
             - to_param_df
             - to_point_df
-
+    - title: Calculations
+      contents:
+        - measurements.calcs.mahalanobis
     - title: Optimization
       desc: Functions for optimizing formant measurements
       contents:
