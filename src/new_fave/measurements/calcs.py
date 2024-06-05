@@ -2,6 +2,8 @@ import numpy as np
 import nptyping as npt
 from nptyping import NDArray, Shape, Float
 from typing import Any
+import scipy.stats as stats
+import warnings
 
 def mahalanobis(
         params:NDArray[Shape['Dim, Cand'], Float], 
@@ -104,4 +106,4 @@ def cov_to_icov(
                 cov_mat.shape[1]
             )
     
-    pass
+    return params_icov
