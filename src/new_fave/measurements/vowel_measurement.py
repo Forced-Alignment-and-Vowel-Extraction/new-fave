@@ -5,7 +5,10 @@ from fave_measurement_point.formants import FormantArray
 
 from new_fave.utils.textgrid import get_textgrid
 from new_fave.speaker.speaker import Speaker
-from new_fave.measurements.calcs import mahalanobis
+from new_fave.measurements.calcs import mahalanobis, \
+    mahal_log_prob,\
+    param_to_cov,\
+    cov_to_icov
 
 from collections import defaultdict
 import numpy as np
