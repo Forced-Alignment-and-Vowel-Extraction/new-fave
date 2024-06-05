@@ -308,11 +308,36 @@ class VowelMeasurement(Sequence):
         return log_prob
     
 
-    # @property
-    # def cand_corpus_mahals(self):
-    #     N = len(self.candidates)
-    #     square_params = self.cand_params.reshape(-1, N)
+    @property
+    def cand_param_mahal_corpus_byvowel(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
         
+        N = len(self.candidates)
+        square_params = self.cand_param.reshape(-1, N)
+        inv_covmat = self\
+            .vowel_class\
+            .vowel_system\
+            .corpus\
+            .winner_param_icov[self.label]
+        param_means = self\
+            .vowel_class\
+            .vowel_system\
+            .corpus\
+            .winner_param_mean[self.label]
+        
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
+
+    @property
+    def cand_param_logprob_corpus_byvowel(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_param_mahal_corpus_byvowel,
+            self.cand_param
+        )
+        return log_prob        
 
     @property 
     def cand_maxformant_mahal_speaker_global(
@@ -997,7 +1022,9 @@ class SpeakerCollection(defaultdict):
 
     @property
     @lru_cache
-    def vowel_dict(self):
+    def vowel_dict(
+        self
+    ) -> defaultdict[str, list[VowelMeasurement]]:
         out = defaultdict(blank_list)
         for speaker in self.values():
             for vowel in speaker:
@@ -1006,7 +1033,9 @@ class SpeakerCollection(defaultdict):
     
     @property
     @lru_cache
-    def vowel_winners(self):
+    def vowel_winners(
+        self
+    ) -> defaultdict[str, list[OneTrack]]:
         out = defaultdict(blank_list)
         for vowel in self.vowel_dict:
             out[vowel] += [x.winner for x in self.vowel_dict[vowel]]
@@ -1015,7 +1044,9 @@ class SpeakerCollection(defaultdict):
     
     @property
     @lru_cache
-    def vowel_winner_params(self):
+    def winner_param(
+        self
+    ) -> defaultdict[str, NDArray[Shape["Param, Formant, N"], Float]]:
         out = defaultdict(blank_list)
         for vowel in self.vowel_winners:
             params = np.array(
@@ -1030,50 +1061,41 @@ class SpeakerCollection(defaultdict):
     
     @property
     @lru_cache
-    def vowel_params_means(self):
+    def winner_param_mean(
+        self
+    ) -> defaultdict[str, NDArray[Shape["FormantParam, 1"], Float]]:
         out = defaultdict(lambda: np.array([]))
 
-        for vowel in self.vowel_winner_params:
-            N = len(self.vowel_winner_params[vowel])
-            winner_mean =  self.vowel_winner_params[vowel].reshape(-1, N).mean(axis = 1)
+        for vowel in self.winner_param:
+            N = len(self.vowel_dict[vowel])
+            winner_mean =  self.winner_param[vowel].reshape(-1, N).mean(axis = 1)
             winner_mean = winner_mean[:, np.newaxis]
             out[vowel] = winner_mean
         return out
 
     
     @property
-    def vowel_params_covs(self)->defaultdict:
+    def winner_param_cov(
+        self
+    )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:
         out = defaultdict(lambda: np.array([]))
 
-        for vowel in  self.vowel_winner_params:
-            N = len(self.vowel_winner_params[vowel])
-            square_param = self.vowel_winner_params[vowel].reshape(-1, N)
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                param_cov = np.cov(square_param)
+        for vowel in  self.winner_param:
+            param_cov = param_to_cov(self.winner_param[vowel])
             out[vowel] = param_cov
         
         return out
 
     @property
     @lru_cache
-    def vowel_params_icov(self)->defaultdict[str, np.array]:
+    def winner_param_icov(
+        self
+    )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:
         out = defaultdict(lambda: np.array([]))
 
-        for vowel in self.vowel_params_covs:
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore")
-                try:
-                    params_icov = np.linalg.inv(self.vowel_params_covs[vowel])
-                    out[vowel] = params_icov
-                except:
-                    params_icov = np.array([
-                        [np.nan] * self.vowel_params_covs[vowel].size
-                    ]).reshape(
-                        self.vowel_params_covs[vowel][0],
-                        self.vowel_params_covs[vowel][1]
-                    )
-                    out[vowel] = params_icov
+        for vowel in self.winner_param_cov:
+            params_icov = cov_to_icov(self.winner_param_cov[vowel])
+            out[vowel] = params_icov
 
         return out
 
