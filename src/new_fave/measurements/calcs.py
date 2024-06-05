@@ -29,6 +29,79 @@ def mahalanobis(
     mahal = np.dot(left, x_mu)
     return mahal.diagonal()
 
-def mahal_log_prob(mahals, df):
+def mahal_log_prob(
+        mahals: NDArray[Shape["Cand"], Float], 
+        params: NDArray[Shape["*, *, ..."], Float]
+    ) -> NDArray[Shape["Cand"], Float]:
+    """
+    
+    Args:
+        mahals (NDArray[Shape["Cand"], Float]): 
+            The Mahalanobis distances.
+        params (NDArray[Shape["*, *, ..."], Float]): 
+            The parameters across which the mahalanobis
+            distance was calculated
 
+    Returns:
+        (NDArray[Shape["Cand"], Float]): 
+            The log probability
+    """
+    df = np.prod(params.shape[0:-1])
+    log_prob = stats.chi2.logsf(
+            mahals,
+            df = df
+        )
+    if np.isfinite(log_prob).mean() < 0.5:
+        log_prob = np.zeros(shape = log_prob.shape)    
+    return log_prob
+
+
+def param_to_cov(
+    params:NDArray[Shape["*, *, ..."], Float]
+) -> NDArray[Shape["X, X"], Float]:
+    """
+    Calculates the covariance matrix of the given parameters.
+
+    Args:
+        params (NDArray[Shape["*, *, ..."], Float]): 
+            The parameters for which the covariance matrix is to be calculated.
+
+    Returns:
+        (NDArray[Shape["X, X"], Float]): 
+            The covariance matrix of the parameters.
+    """    
+    N = params.shape[-1]
+    square_params = params.reshape(-1, N)
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        param_cov = np.cov(square_params)
+    
+    return param_cov
+
+def cov_to_icov(
+    cov_mat: NDArray[Shape["X, X"], Float]
+) -> NDArray[Shape["X, X"], Float]:
+    """
+    Calculates the inverse covariance matrix of the given covariance matrix.
+
+    Args:
+        cov_mat (NDArray[Shape["X, X"], Float]): 
+            The covariance matrix for which the inverse is to be calculated.
+
+    Returns:
+        (NDArray[Shape["X, X"], Float]): 
+            The inverse covariance matrix of the given covariance matrix.
+    """    
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        try:
+            params_icov = np.linalg.inv(cov_mat)
+        except:
+            params_icov = np.array([
+                [np.nan] * cov_mat.size
+            ]).reshape(
+                cov_mat.shape[0],
+                cov_mat.shape[1]
+            )
+    
     pass
