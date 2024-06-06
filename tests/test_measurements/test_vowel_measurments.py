@@ -154,15 +154,16 @@ def test_probs():
     Test that the length of log probs
     is equal to the number of steps
     """
+    target_properties = [
+        x 
+        for x in VowelMeasurement.__dict__.keys()
+        if "logprob" in x
+    ]
+
     for vm in vms:
-        cand_mahal_log_prob = vm.cand_param_logprob_speaker_global
-        max_formant_log_prob = vm.cand_maxformant_logprob_speaker_global
-        error_log_prob = vm.cand_error_logprob_vm
-
-        assert cand_mahal_log_prob.size == NSTEP
-        assert max_formant_log_prob.size == NSTEP
-        assert error_log_prob.size == NSTEP
-
+       for target in target_properties:
+           log_prob = getattr(vm, target)
+           assert log_prob.size == NSTEP, f"{target}"
 
 ## output tests
 def test_vm_context():
