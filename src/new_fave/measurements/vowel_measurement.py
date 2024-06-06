@@ -731,10 +731,7 @@ class VowelClassCollection(defaultdict):
         super().__setitem__(__key, __value)
 
     def _reset_winners(self):
-        self._winner_param_mean = None
-        self._winner_param_icov = None
-        self._winner_maxformant_mean = None
-        self._winner_maxformant_icov = None
+        clear_cached_properties(self)
 
     def _make_tracks_dict(self):
         for v in self.track_list:
