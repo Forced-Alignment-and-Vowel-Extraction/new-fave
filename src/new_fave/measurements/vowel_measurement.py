@@ -8,7 +8,8 @@ from new_fave.speaker.speaker import Speaker
 from new_fave.measurements.calcs import mahalanobis, \
     mahal_log_prob,\
     param_to_cov,\
-    cov_to_icov
+    cov_to_icov,\
+    clear_cached_properties
 
 from collections import defaultdict
 import numpy as np
@@ -23,7 +24,7 @@ from collections.abc import Sequence, Iterable
 from dataclasses import dataclass, field
 from nptyping import NDArray, Shape, Float
 
-from functools import lru_cache
+from functools import lru_cache, cached_property
 
 NCPU = cpu_count()
 
@@ -398,7 +399,7 @@ class VowelMeasurement(Sequence):
 
         return pl.DataFrame(point_dict)
     
-    @property
+    @cached_property
     def vm_context(
         self
     ) -> pl.DataFrame:   
@@ -571,10 +572,7 @@ class VowelClass(Sequence):
         return out
     
     def _reset_winners(self):
-        self._winner_param = None
-        self._winner_param_mean = None
-        self._winner_param_cov = None
-        self._winner_param_icov = None
+        clear_cached_properties(self)
     
     @property
     def vowel_system(self):
@@ -584,58 +582,43 @@ class VowelClass(Sequence):
     def vowel_system(self, vowel_system):
         self._vowel_system = vowel_system
 
-    @property
+    @cached_property
     def winners(self):
-        self._winners = [x.winner for x in self.tracks]
-        return self._winners
+        return [x.winner for x in self.tracks]
     
-    @property
+    @cached_property
     def winner_param(
         self
     ) -> NDArray[Shape["Param, Formant, N"], Float]:
-        if not self._winner_param is None:
-            return self._winner_param
-
         params = np.array(
             [
                 x.parameters
                 for x in self.winners
             ]
         ).T
-        self._winner_param = params
         return params
 
-    @property
+    @cached_property
     def winner_param_mean(
         self
     ) -> NDArray[Shape["ParamFormant, 1"], Float]:
-        if self._winner_param_mean is not None:
-            return self._winner_param_mean
         N = len(self.winners)
         winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
         winner_mean = winner_mean[:, np.newaxis]
-        self._winner_param_mean = winner_mean
         return winner_mean
     
-    @property
+    @cached_property
     def winner_param_cov(
         self
     ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
-        if self._winner_param_cov is not None:
-            return self._winner_param_cov
         param_cov = param_to_cov(self.winner_param)
-        self._winner_param_cov = param_cov
         return param_cov
     
-    @property
+    @cached_property
     def winner_param_icov(
         self
     ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
-        if self._winner_param_icov is not None:
-            return self._winner_param_icov
-
         params_icov = cov_to_icov(self.winner_param_cov)
-        self._winner_param_icov = params_icov
         return params_icov    
     
     def to_param_df(
@@ -742,11 +725,6 @@ class VowelClassCollection(defaultdict):
             self._make_tracks_dict()
             self._dictify()
         self._vowel_system()
-        self._winner_param_mean = None
-        self._winner_param_icov = None
-        self._winner_maxformant_mean = None
-        self._winner_maxformant_icov = None
-        self._textgrid = None
         self._file_name = None
         self._corpus = None
 
@@ -775,6 +753,9 @@ class VowelClassCollection(defaultdict):
         for v in self.tracks_dict:
             self[v].vowel_system = self
     
+    def _reset_winners(self):
+        clear_cached_properties(self)
+    
     @property
     def corpus(self):
         return self._corpus
@@ -783,7 +764,7 @@ class VowelClassCollection(defaultdict):
     def corpus(self, corp):
         self._corpus = corp
     
-    @property
+    @cached_property
     def winners(
         self
     ) -> list[OneTrack]:
@@ -803,15 +784,11 @@ class VowelClassCollection(defaultdict):
             for x in vc.tracks
         ]
     
-    @property
+    @cached_property
     def textgrid(
         self
     ) -> AlignedTextGrid:
-        if self._textgrid:
-            return self._textgrid
-        
-        self._textgrid = get_textgrid(self.vowel_measurements[0].interval)
-        return self._textgrid
+        return get_textgrid(self.vowel_measurements[0].interval)
     
     @property
     def file_name(
@@ -823,7 +800,7 @@ class VowelClassCollection(defaultdict):
         self._file_name = self.vowel_measurements[0].winner.file_name
         return self._file_name
 
-    @property
+    @cached_property
     def winner_param(
         self
     ) -> NDArray[Shape["Param, Formant, N"], Float]:
@@ -836,20 +813,7 @@ class VowelClassCollection(defaultdict):
 
         return params
     
-    # @property
-    # def winner_formants(
-    #     self
-    # ):
-    #     formants = np.hstack(
-    #         [
-    #             x.formants
-    #             for x in self.winners
-    #         ]
-    #     )
-
-    #     return formants
-    
-    @property
+    @cached_property
     def winner_expanded_formants(
         self
     ) -> NDArray[Shape["20, FormantN"], Float]:
@@ -862,7 +826,7 @@ class VowelClassCollection(defaultdict):
 
         return formants
         
-    @property
+    @cached_property
     def winner_maxformant(
         self
     ) -> NDArray[Shape["1, N"], Float]:
@@ -874,45 +838,36 @@ class VowelClassCollection(defaultdict):
         return max_formants
 
     
-    @property
+    @cached_property
     def winner_param_mean(
         self
     ) -> NDArray[Shape["FormantParam"], Float]:
-        if self._winner_param_mean is not None:
-            return self._winner_param_mean
         N = len(self.winners)
         winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
         winner_mean = winner_mean[:, np.newaxis]
-        self._winner_param_mean = winner_mean
         return winner_mean
     
-    @property
+    @cached_property
     def winner_param_cov(
         self
     ) -> NDArray[Shape["FormantParam, FormantParam"], Float]:
         param_cov = param_to_cov(self.winner_param)
         return param_cov
     
-    @property
+    @cached_property
     def winner_param_icov(
         self
     ) -> NDArray[Shape["FormantParam, FormantParam"], Float] :
-        if self._winner_param_icov is not None:
-            return self._winner_param_icov
         params_icov = cov_to_icov(self.winner_param_cov)
-        self._winner_param_icov = params_icov
         return params_icov
 
-    @property
+    @cached_property
     def winner_maxformant_mean(
         self
     ) -> float:
-        if self._winner_maxformant_mean is not None:
-            return self._winner_maxformant_mean
-        self._winner_maxformant_mean = self.winner_maxformant.mean()
-        return self._winner_maxformant_mean
+        return self.winner_maxformant.mean()
     
-    @property
+    @cached_property
     def winner_maxformant_cov(
         self
     ) -> NDArray[Shape["1, 1"], Float]:
@@ -920,15 +875,11 @@ class VowelClassCollection(defaultdict):
         cov = cov.reshape(1,1)
         return cov
     
-    @property
+    @cached_property
     def winner_maxformant_icov(
         self
-    ) -> NDArray[Shape["1, 1"], Float]:
-        if self._winner_maxformant_icov is not None:
-            return self._winner_maxformant_icov
-        
+    ) -> NDArray[Shape["1, 1"], Float]:        
         icov = cov_to_icov(self.winner_maxformant_cov)
-        self._winner_maxformant_icov = icov
         return icov
                 
     def to_tracks_df(self)->pl.DataFrame:
@@ -1020,8 +971,10 @@ class SpeakerCollection(defaultdict):
         for speaker in self.values():
             speaker.corpus = self
 
-    @property
-    @lru_cache
+    def _reset_winners(self):
+        clear_cached_properties(self)
+
+    @cached_property
     def vowel_dict(
         self
     ) -> defaultdict[str, list[VowelMeasurement]]:
@@ -1031,8 +984,7 @@ class SpeakerCollection(defaultdict):
                 out[vowel] += speaker[vowel]
         return out
     
-    @property
-    @lru_cache
+    @cached_property
     def vowel_winners(
         self
     ) -> defaultdict[str, list[OneTrack]]:
@@ -1042,8 +994,7 @@ class SpeakerCollection(defaultdict):
 
         return out
     
-    @property
-    @lru_cache
+    @cached_property
     def winner_param(
         self
     ) -> defaultdict[str, NDArray[Shape["Param, Formant, N"], Float]]:
@@ -1059,8 +1010,7 @@ class SpeakerCollection(defaultdict):
             out[vowel] = params
         return out
     
-    @property
-    @lru_cache
+    @cached_property
     def winner_param_mean(
         self
     ) -> defaultdict[str, NDArray[Shape["FormantParam, 1"], Float]]:
@@ -1086,8 +1036,7 @@ class SpeakerCollection(defaultdict):
         
         return out
 
-    @property
-    @lru_cache
+    @cached_property
     def winner_param_icov(
         self
     )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:

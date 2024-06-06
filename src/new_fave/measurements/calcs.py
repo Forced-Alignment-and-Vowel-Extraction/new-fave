@@ -4,6 +4,7 @@ from nptyping import NDArray, Shape, Float
 from typing import Any
 import scipy.stats as stats
 import warnings
+import functools
 
 def mahalanobis(
         params:NDArray[Shape['Dim, Cand'], Float], 
@@ -107,3 +108,18 @@ def cov_to_icov(
             )
     
     return params_icov
+
+def clear_cached_properties(obj:object) -> None:
+    """Clear the cache of any property in an object
+
+    Args:
+        obj (object): Any object.
+    """
+    cls = obj.__class__
+    to_clear = [
+        k for k, v in vars(cls).items()
+        if isinstance(v, functools.cached_property)
+    ]
+    for var in to_clear:
+        if var in obj.__dict__:
+            del obj.__dict__[var]
