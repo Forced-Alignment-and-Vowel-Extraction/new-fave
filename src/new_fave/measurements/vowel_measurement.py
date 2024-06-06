@@ -201,6 +201,7 @@ class VowelMeasurement(Sequence):
     @winner.setter
     def winner(self, idx):
         self._winner = self.candidates[idx]
+        self.vowel_class.vowel_system.corpus._reset_winners()
         self.vowel_class.vowel_system._reset_winners()
         self.vowel_class._reset_winners()
         self._expanded_formants = None
@@ -346,9 +347,6 @@ class VowelMeasurement(Sequence):
     ) -> NDArray[Shape["Cand"], Float]:
         inv_covmat = self.vowel_class.vowel_system.winner_maxformant_icov
         maximum_formant_means = self.vowel_class.vowel_system.winner_maxformant_mean        
-        # x_mu = self.cand_maxformant - maximum_formant_means
-        # left = np.dot(x_mu.T, inv_covmat)
-        # mahal = np.dot(left, x_mu)
         mahal = mahalanobis(self.cand_maxformant, maximum_formant_means, inv_covmat)
         return mahal
     
