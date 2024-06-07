@@ -1,3 +1,41 @@
+"""
+This module contains classes to represent vowel measurements and their
+aggregations at different levels.
+
+```{mermaid}
+classDiagram
+direction LR
+
+class VowelMeasurement~list~{
+    .vowel_class
+}
+class VowelClass~list~{
+    .vowel_system
+}
+class VowelClassCollection~dict~{
+    .corpus
+}
+class SpeakerCollection~dict~
+
+SpeakerCollection --o VowelClassCollection
+VowelClassCollection --o VowelClass
+VowelClass --o VowelMeasurement
+```
+
+When a class has a numpy array for an attribute, its 
+type is annotated using [nptyping](https://pypi.org/project/nptyping/)
+to provide the expected dimensions. For example:
+
+```
+cand_param (NDArray[Shape["Param, Formant, Cand"], Float])
+```
+
+This indicates that `cand_param` is a three dimensional array.
+The first dimension is `"Param"` (the number of DCT parameters)
+long, the second is `"Formant"` (the number of formants) long, 
+and the third is `"Cand"` (the number of candidates) long.
+"""
+
 from fasttrackpy import CandidateTracks, OneTrack
 from aligned_textgrid import AlignedTextGrid, SequenceInterval
 from fave_measurement_point.heuristic import Heuristic
@@ -91,37 +129,37 @@ class VowelMeasurement(Sequence):
             The number of optimization iterations the
             vowel measurement has been through.
 
-
         winner: fasttrackpy.OneTrack
             The winning formant track
         winner_index (int):
             The index of the winning formant track
+        
+        cand_param (NDArray[Shape["Param, Formant, Cand"], Float]):
+            A array of the candidate DCT parameters.
+        cand_maxformant (NDArray[Shape["1, Cand"], Float]):
+            An array of the candidate maximum formants.
+        cand_error (NDArray[Shape["Cand"], Float]):
+            An array of the candidate smoothing error.
 
-        error_log_prob (np.array):
-            A conversion of the log-mean-squared-error to a 
-            log-probabilities, based on an empirical cumulative
-            density function.
-        cand_errors (np.array):
-            A numpy array of the log-mean-squared-errors
-            for each candidate track.
-        cand_mahals (np.array):
-            The mahalanobis distance across DCT parameters
-            for each candidate from the vowel system 
-            distribution.
-        cand_mahal_log_prob (np.array):
-            A conversion of `cand_mahals` to log-probabilies.
-        cand_max_formants (np.array):
-            A numpy array of the maximum formants for
-            this VowelMeasurement
-        cand_params (np.array):
-            A numpy array of the candidate track 
-            DCT parameters.                
-        max_formant_log_prob (np.array):
-            A conversion of `max_formant_mahal` to log-probabilities.            
-        max_formant_mahal (np.array):
-            The mahalanobis distance of each
-            maximum formant to the speaker's entire
-            distribution.
+        cand_error_logprob_vm (NDArray[Shape["Cand"], Float]):
+            Conversion of the smooth error to log probabilities. The candidate with
+            the lowest error = log(1), and the candidate with the largest 
+            error = log(0).
+        cand_param_(mahal/logprob)_speaker_byvclass (NDArray[Shape["Cand"], Float]):
+            The mahalanobis distance (`mahal`) or associated log probability (`logprob`) 
+            for each candidate relative to the VowelClass for this speaker.
+            These are calculated by drawing the relevant mean and covariance matrix from 
+            `vm.vowel_class`
+        cand_param_(mahal/logprob)_speaker_global (NDArray[Shape["Cand"], Float]):
+            The mahalanobis distance (`mahal`) or associated log probability (`logprob`) 
+            for each candidate relative to *all* vowel measurements for this speaker.
+            These are calculated by drawing the relevant mean and covariance matrix from 
+            `vm.vowel_class.vowel_system`
+        cand_param_(mahal/logprob)_corpus_byvclass (NDArray[Shape["Cand"], Float]):
+            The mahalanobis distance (`mahal`) or associated log probability (`logprob`) 
+            for each candidate relative to this vowel class across all speakers.
+            These are calculated by drawing the relevant mean and covariance matrix from 
+            `vm.vowel_class.vowel_system.corpus`
 
         point_measure (pl.DataFrame):
             A polars dataframe of the point measurement for this vowel.
