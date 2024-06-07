@@ -25,8 +25,13 @@ website:
         style: floating
         align: left
         contents:
-          - index.qmd
+          - section: Home
+            contents:
+              - index.qmd
           - auto: usage
+          - section: Dev Notes
+            contents:
+              - auto: dev
           # - usage/getting_started.qmd
           # - usage/all_arguments.qmd
           # - usage/pythonic_use.ipynb
@@ -82,33 +87,45 @@ quartodoc:
         - fave_corpus
         - fave_subcorpora
     - title: Vowel Measurements
-      desc: Vowel Measurements
+      #kind: page
       options:
         dynamic: true
-      contents: 
-        - name: VowelMeasurement
-          members:
-            - to_tracks_df
-            - to_param_df
-            - to_point_df
+      contents:
+        - name: measurements.vowel_measurement
+          children: linked
+        - VowelMeasurement
+        - VowelClass
+        - VowelClassCollection
+        - SpeakerCollection
 
-        - name: VowelClass
-          members:
-            - to_tracks_df
-            - to_param_df
-            - to_point_df
+    # - title: Vowel Measurements
+    #   desc: Vowel Measurements
+    #   options:
+    #     dynamic: true
+    #   contents: 
+    #     - name: VowelMeasurement
+    #       members:
+    #         - to_tracks_df
+    #         - to_param_df
+    #         - to_point_df
 
-        - name: VowelClassCollection
-          members:
-            - to_tracks_df
-            - to_param_df
-            - to_point_df
+    #     - name: VowelClass
+    #       members:
+    #         - to_tracks_df
+    #         - to_param_df
+    #         - to_point_df
 
-        - name: SpeakerCollection
-          members:
-            - to_tracks_df
-            - to_param_df
-            - to_point_df
+    #     - name: VowelClassCollection
+    #       members:
+    #         - to_tracks_df
+    #         - to_param_df
+    #         - to_point_df
+
+    #     - name: SpeakerCollection
+    #       members:
+    #         - to_tracks_df
+    #         - to_param_df
+    #         - to_point_df
     - title: Calculations
       contents:
         - measurements.calcs.mahalanobis

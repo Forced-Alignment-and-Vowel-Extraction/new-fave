@@ -1,5 +1,5 @@
 ---
-title: Dev Notes
+title: Variable Naming Conventions
 ---
 
 ## Property naming descriptors
