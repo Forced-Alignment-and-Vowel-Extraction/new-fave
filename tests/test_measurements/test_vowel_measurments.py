@@ -153,6 +153,7 @@ def test_probs():
     """
     Test that the length of log probs
     is equal to the number of steps
+    And all log probs are finite and <= 0
     """
     target_properties = [
         x 
@@ -164,6 +165,8 @@ def test_probs():
        for target in target_properties:
            log_prob = getattr(vm, target)
            assert log_prob.size == NSTEP, f"{target}"
+           assert np.all(np.isfinite(log_prob))
+           assert np.all(log_prob <= 0)
 
 ## output tests
 def test_vm_context():
