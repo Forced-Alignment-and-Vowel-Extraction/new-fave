@@ -201,7 +201,6 @@ class VowelMeasurement(Sequence):
     @winner.setter
     def winner(self, idx):
         self._winner = self.candidates[idx]
-        self.vowel_class.vowel_system.corpus._reset_winners()
         self.vowel_class.vowel_system._reset_winners()
         self.vowel_class._reset_winners()
         self._expanded_formants = None
