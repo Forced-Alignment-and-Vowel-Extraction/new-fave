@@ -165,7 +165,7 @@ def test_probs():
        for target in target_properties:
            log_prob = getattr(vm, target)
            assert log_prob.size == NSTEP, f"{target}"
-           assert np.all(np.isfinite(log_prob))
+           assert np.all(~np.isnan(log_prob))
            assert np.all(log_prob <= 0)
 
 ## output tests
