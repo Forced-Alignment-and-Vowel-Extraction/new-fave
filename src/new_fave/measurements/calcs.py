@@ -115,9 +115,13 @@ def clear_cached_properties(obj:object) -> None:
     Args:
         obj (object): Any object.
     """
-    cls = obj.__class__
-    to_clear = [
-        k for k, v in vars(cls).items()
+    clses = obj.__class__.mro()
+    to_clear = []
+
+    to_clear += [
+        k 
+        for cls in clses
+        for k, v in vars(cls).items()
         if isinstance(v, functools.cached_property)
     ]
     for var in to_clear:
