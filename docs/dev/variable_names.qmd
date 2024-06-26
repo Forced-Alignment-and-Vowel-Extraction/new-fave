@@ -20,6 +20,7 @@ title: Variable Naming Conventions
 - `param`: The DCT parameters
 - `maxformant`: The maximum formant
 - `error`: The smoothing error term
+- `bparam`: The formant bandwidths parameters
 
 ### Summary Descriptors
 
