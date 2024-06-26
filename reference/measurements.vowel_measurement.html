@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>new-fave - Development Plan</title>
+<title>new-fave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,6 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../reference/VowelMeasurement.html" rel="next">
+<link href="../reference/fave_subcorpora.html" rel="prev">
 <link href="../assets/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -69,18 +71,23 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../styles/styles.css">
-<meta property="og:title" content="new-fave - Development Plan">
-<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/dev_plan/assets/logo.png">
+<meta property="og:title" content="new-fave">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
 <meta property="og:site_name" content="new-fave">
-<meta name="twitter:title" content="new-fave - Development Plan">
-<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/dev_plan/assets/logo.png">
+<meta name="twitter:title" content="new-fave">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -98,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -119,21 +126,214 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/measurements.vowel_measurement.html">Vowel Measurements</a></li><li class="breadcrumb-item"><a href="../reference/measurements.vowel_measurement.html">measurements.vowel_measurement</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function reference</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
+ <span class="menu-text">Processing Patterns</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_audio_textgrid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_audio_textgrid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_corpus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_subcorpora</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+ <span class="menu-text">Vowel Measurements</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/measurements.vowel_measurement.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">measurements.vowel_measurement</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelMeasurement</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/VowelClass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelClass</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/VowelClassCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelClassCollection</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/SpeakerCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SpeakerCollection</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+ <span class="menu-text">Calculations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/measurements.calcs.mahalanobis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">measurements.calcs.mahalanobis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true">
+ <span class="menu-text">Optimization</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/optimize.optimize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">optimize.optimize</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
+ <span class="menu-text">Writers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/write_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">write_data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/pickle_speakers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pickle_speakers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/unpickle_speakers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">unpickle_speakers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true">
+ <span class="menu-text">Built-in resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/utils.local_resources.local_resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">utils.local_resources.local_resources</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true">
+ <span class="menu-text">Speaker files</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/speaker.speaker.Speaker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">speaker.speaker.Speaker</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#what-is-favey-about-this" id="toc-what-is-favey-about-this" class="nav-link active" data-scroll-target="#what-is-favey-about-this">What is FAVEy about this?</a>
+  <li><a href="#new_fave.measurements.vowel_measurement" id="toc-new_fave.measurements.vowel_measurement" class="nav-link active" data-scroll-target="#new_fave.measurements.vowel_measurement">measurements.vowel_measurement</a>
   <ul>
-  <li><a href="#why-not-just-use-fasttrackpy-on-all-data" id="toc-why-not-just-use-fasttrackpy-on-all-data" class="nav-link" data-scroll-target="#why-not-just-use-fasttrackpy-on-all-data">Why not just use fasttrackpy on all data?</a></li>
-  <li><a href="#what-is-new-fave-going-to-offer" id="toc-what-is-new-fave-going-to-offer" class="nav-link" data-scroll-target="#what-is-new-fave-going-to-offer">What is new-fave going to offer?</a></li>
-  <li><a href="#what-will-new-fave-contribute-to-the-analysis" id="toc-what-will-new-fave-contribute-to-the-analysis" class="nav-link" data-scroll-target="#what-will-new-fave-contribute-to-the-analysis">What will new-fave contribute to the <em>analysis</em>?</a></li>
+  <li><a href="#classes" id="toc-classes" class="nav-link" data-scroll-target="#classes">Classes</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -141,49 +341,72 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
-<div class="quarto-title">
-<h1 class="title">Development Plan</h1>
+
+
+
+<section id="new_fave.measurements.vowel_measurement" class="level1">
+<h1>measurements.vowel_measurement</h1>
+<p><code>measurements.vowel_measurement</code></p>
+<p>This module contains classes to represent vowel measurements and their aggregations at different levels.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">classDiagram
+direction LR
+
+class VowelMeasurement~list~{
+    .vowel_class
+}
+class VowelClass~list~{
+    .vowel_system
+}
+class VowelClassCollection~dict~{
+    .corpus
+}
+class SpeakerCollection~dict~
+
+SpeakerCollection --o VowelClassCollection
+VowelClassCollection --o VowelClass
+VowelClass --o VowelMeasurement
+</pre>
 </div>
-
-
-
-<div class="quarto-title-meta">
-
-    
-  
-    <div>
-    <div class="quarto-title-meta-heading">Modified</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date-modified">June 26, 2024</p>
-    </div>
-  </div>
-    
-  </div>
-  
-
-
-</header>
-
-
-<section id="what-is-favey-about-this" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-favey-about-this">What is FAVEy about this?</h2>
-<section id="why-not-just-use-fasttrackpy-on-all-data" class="level3">
-<h3 class="anchored" data-anchor-id="why-not-just-use-fasttrackpy-on-all-data">Why not just use fasttrackpy on all data?</h3>
-<p>The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.</p>
-</section>
-<section id="what-is-new-fave-going-to-offer" class="level3">
-<h3 class="anchored" data-anchor-id="what-is-new-fave-going-to-offer">What is new-fave going to offer?</h3>
-<p>The plan is for new-fave to bring together, under one tool</p>
-<ul>
-<li><code>fave-recode</code>ing of input data, allowing for dialect, language, or research question specific recoding of alignment output</li>
-<li>Customizable point measurement heuristics</li>
-<li>Enriched data output enabled by its opinionated approach to data input. (e.g.&nbsp;<code>fave-syllabify</code>)</li>
-</ul>
-</section>
-<section id="what-will-new-fave-contribute-to-the-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="what-will-new-fave-contribute-to-the-analysis">What will new-fave contribute to the <em>analysis</em>?</h3>
-<p>See <a href="../dev_plan/new-fave-approach.html">New-Fave Approach</a></p>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>When a class has a numpy array for an attribute, its type is annotated using <a href="https://pypi.org/project/nptyping/">nptyping</a> to provide the expected dimensions. For example:</p>
+<pre><code>cand_param (NDArray[Shape["Param, Formant, Cand"], Float])</code></pre>
+<p>This indicates that <code>cand_param</code> is a three dimensional array. The first dimension is <code>"Param"</code> (the number of DCT parameters) long, the second is <code>"Formant"</code> (the number of formants) long, and the third is <code>"Cand"</code> (the number of candidates) long.</p>
+<section id="classes" class="level2">
+<h2 class="anchored" data-anchor-id="classes">Classes</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection"><code>new_fave.measurements.vowel_measurement.SpeakerCollection</code></a></td>
+<td>A class to represent the vowel system of all</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/VowelClass.html#new_fave.VowelClass"><code>new_fave.measurements.vowel_measurement.VowelClass</code></a></td>
+<td>A class used to represent a vowel class.</td>
+</tr>
+<tr class="odd">
+<td><a href="../reference/VowelClassCollection.html#new_fave.VowelClassCollection"><code>new_fave.measurements.vowel_measurement.VowelClassCollection</code></a></td>
+<td>A class for an entire vowel system.</td>
+</tr>
+<tr class="even">
+<td><a href="../reference/VowelMeasurement.html#new_fave.VowelMeasurement"><code>new_fave.measurements.vowel_measurement.VowelMeasurement</code></a></td>
+<td>A class used to represent a vowel measurement.</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>
@@ -743,6 +966,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../reference/fave_subcorpora.html" class="pagination-link" aria-label="fave_subcorpora">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">fave_subcorpora</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../reference/VowelMeasurement.html" class="pagination-link" aria-label="VowelMeasurement">
+        <span class="nav-page-text">VowelMeasurement</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
