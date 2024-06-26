@@ -1,0 +1,53 @@
+---
+title: Variable Naming Conventions
+---
+
+## Property naming descriptors
+
+### From Descriptors
+
+- `cand`: candidate tracks. 
+    - Returns 
+        - list of [](`fasttrackpy.OneTrack`)s
+        - a [](`numpy.array`) of concatenated results from [](`fasttrackpy.OneTrack`)s
+- `winner`: The winner track
+    - Returns
+        - A single [](`fasttrackpy.OneTrack`)
+        - a [](`numpy.array`) of concatenated results from winner [](`fasttrackpy.OneTrack`)s
+
+### Value Descriptors
+
+- `param`: The DCT parameters
+- `maxformant`: The maximum formant
+- `error`: The smoothing error term
+- `bparam`: The formant bandwidths parameters
+
+### Summary Descriptors
+
+- `mean`: A mean
+- `cov`: A covariance matrix
+- `icov`: An inverse covariance matrix
+
+
+### Derived Values Descriptors
+
+- `mahal`: Mahalanobis distance
+- `logprob`: The log probability
+
+### Scope Descriptors
+
+- `vm`: Vowel Measurement
+- `vclass`: Vowel Class
+- `speaker`: Speaker
+- `corpus`: Corpus
+
+### Scope Subdivision Descriptors
+
+- `global`: Global
+- `byvclass`: By VowelClass
+
+## Property Naming Structure
+
+- `source`_`value`_`derived`_`scope`_`subdivision`
+- `source`_`value`_`summary`
+- `source`_`value`

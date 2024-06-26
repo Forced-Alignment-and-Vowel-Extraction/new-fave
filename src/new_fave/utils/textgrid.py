@@ -90,11 +90,11 @@ def mark_overlaps(
             tier1 = atg[i].Phone
             tier2 = atg[j].Phone
 
-            x1 = np.array([seq.start for seq in tier1 if seq.label != ""])
-            x2 = np.array([seq.end for seq in tier1 if seq.label != ""])
+            x1 = tier1.starts
+            x2 = tier1.ends
 
-            y1 = np.array([seq.start for seq in tier2 if seq.label != ""])
-            y2 = np.array([seq.end for seq in tier2 if seq.label != ""])
+            y1 = tier2.starts
+            y2 = tier2.ends
 
             a = np.array([x >= y1 for x in x2])
             b = np.array([x <= y2 for x in x1])
@@ -102,7 +102,8 @@ def mark_overlaps(
             overlap_locs = np.where(a & b)
 
             for idx1, idx2 in zip(*overlap_locs):
-                tier1[idx1].overlapped = True
-                tier2[idx2].overlapped = True
+                if tier1[idx1].label != "" and tier2[idx2].label != "":
+                    tier1[idx1].overlapped = True
+                    tier2[idx2].overlapped = True
 
             return overlap_locs
