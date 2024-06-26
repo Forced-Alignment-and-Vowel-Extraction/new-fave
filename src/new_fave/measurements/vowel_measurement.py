@@ -27,7 +27,87 @@ def blank_list():
     return []
 
 EMPTY_LIST = blank_list()
+
+class StatPropertyMixins:
+
+    @cached_property
+    def winner_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
+        params = np.array(
+            [
+                x.parameters
+                for x in self.winners
+            ]
+        ).T
+        return params
     
+    @cached_property
+    def winner_bandwidth_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
+        params = np.array([
+            x.bandwidth_parameters
+            for x in self.winners
+        ])
+        return params
+    
+    @cached_property
+    def winner_maxformant(
+        self
+    ) -> NDArray[Shape["1, N"], Float]:
+        max_formants = np.array([[
+            x.maximum_formant
+            for x in self.winners
+        ]])
+
+        return max_formants
+
+    @cached_property
+    def winner_param_mean(
+        self
+    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+        N = len(self.winners)
+        winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        return winner_mean
+    
+    @cached_property
+    def winner_param_cov(
+        self
+    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        param_cov = param_to_cov(self.winner_param)
+        return param_cov
+    
+    @cached_property
+    def winner_param_icov(
+        self
+    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        params_icov = cov_to_icov(self.winner_param_cov)
+        return params_icov    
+    
+    @cached_property
+    def winner_maxformant_mean(
+        self
+    ) -> float:
+        return self.winner_maxformant.mean()
+    
+    @cached_property
+    def winner_maxformant_cov(
+        self
+    ) -> NDArray[Shape["1, 1"], Float]:
+        cov = param_to_cov(self.winner_maxformant)
+        cov = cov.reshape(1,1)
+        return cov
+    
+    @cached_property
+    def winner_maxformant_icov(
+        self
+    ) -> NDArray[Shape["1, 1"], Float]:        
+        icov = cov_to_icov(self.winner_maxformant_cov)
+        return icov
+
+
 @dataclass
 class VowelMeasurement(Sequence):
     """ A class used to represent a vowel measurement.
@@ -227,9 +307,21 @@ class VowelMeasurement(Sequence):
         ).T
 
         return params
+    
+    @property
+    def cand_bandwidth_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+        params = np.array([
+            x.bandwidth_parameters
+            for x in self.candidates
+        ])
+
 
     @property
-    def cand_max_formants(self):
+    def cand_maxformant(
+        self
+    ) -> NDArray[Shape["1, Cand"], Float]:
         return np.array([[
             c.maximum_formant
             for c in self.candidates

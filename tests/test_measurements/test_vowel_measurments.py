@@ -2,6 +2,7 @@ from aligned_textgrid import AlignedTextGrid, Word, Phone
 from fasttrackpy import CandidateTracks, OneTrack, process_corpus
 from pathlib import Path
 from functools import reduce
+from copy import copy
 
 import polars as pl
 import numpy as np
@@ -86,10 +87,12 @@ def test_winner_reset():
     speaker = speakers[first_speaker]
     speaker_vms = speaker.vowel_measurements
 
-    initial_mean = speaker.maximum_formant_means
+    initial_mean = copy(speaker.winner_maxformant_mean)
+    assert "winner_maxformant_mean" in speaker.__dict__
 
     initial_index = speaker_vms[0].winner_index
-    speaker_vms[0].winner = initial_index+1
+    speaker_vms[0].winner = initial_index+2
+    assert not "winner_maxformant_mean" in speaker.__dict__
 
     new_mean = speaker.maximum_formant_means
 

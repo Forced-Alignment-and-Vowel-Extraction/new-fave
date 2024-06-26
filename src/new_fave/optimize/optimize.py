@@ -8,7 +8,8 @@ from typing import Literal
 
 def run_optimize(
         vowel_system: VowelClassCollection,
-        optim_params = ["cand_mahal", "vclass_mahal", "max_formant"],
+        optim_params: list[Literal["cand_mahal", "vclass_mahal","corpus_mahal", "max_formant"]] = 
+            ["cand_mahal", "vclass_mahal", "max_formant"],
         max_iter = 10
     ):
     """
@@ -20,7 +21,7 @@ def run_optimize(
             The vowel space to be optimized
         optim_params (list, optional): 
             The parameters to use for optimization. 
-            Defaults to ["cand_mahal", "max_formant"].
+            Defaults to ["cand_mahal", "vclass_mahal", "max_formant"].
         max_iter (int, optional):
             The maximum number of iterations to run.
             Defaults to 10.
@@ -51,7 +52,7 @@ def run_optimize(
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params: list[
-            Literal["cand_mahal", "vclass_mahal", "max_formant"]
+            Literal["cand_mahal", "vclass_mahal", "corpus_mahal", "max_formant"]
             ] = ["cand_mahal", "vclass_mahal", "max_formant"]
     ):
     """
@@ -60,8 +61,8 @@ def optimize_vowel_measures(
     Args:
         vowel_measurements (list[VowelMeasurement]): 
             The list of vowel measurements to optimize
-        optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
-            The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
+        optim_params (list[Literal["cand_mahal", "vclass_mahal", "corpus_mahal", "max_formant"]], optional): 
+            The optimization parameters to use. Defaults to ["cand_mahal", "vclass_mahal", "max_formant"].
     """
 
     new_winners = [
@@ -80,7 +81,7 @@ def optimize_vowel_measures(
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
          optim_params: list[
-             Literal["cand_mahal", "vclass_mahal", "max_formant"]
+             Literal["cand_mahal", "vclass_mahal", "corpus_mahal", "max_formant"]
              ] = ["cand_mahal", "vclass_mahal", "max_formant"]
     )->int:
     """
@@ -91,8 +92,8 @@ def optimize_one_measure(
     Args:
         vowel_measurement (VowelMeasurement): 
             The VowelMeasurement to optimize
-        optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
-            The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
+        optim_params (list[Literal["cand_mahal", "vclass_mahal", "corpus_mahal", "max_formant"]], optional): 
+            The optimization parameters to use. Defaults to ["cand_mahal", "vclass_mahal", "max_formant"].
 
     Returns:
         (int): The index of the winning candidate.
@@ -103,7 +104,10 @@ def optimize_one_measure(
         prob_dict["cand_mahal"] = vowel_measurement.cand_mahal_log_prob
 
     if "vclass_mahal" in optim_params:
-        prob_dict["vclass_mahal"] = vowel_measurement.cand_vclass_mahal_log_prob
+        prob_dict["vclass_mahal"] = vowel_measurement.cand_param_logprob_speaker_byvclass
+    
+    if "corpus_mahal" in optim_params:
+        prob_dict["corpus_mahal"] = vowel_measurement.cand_param_logprob_corpus_byvowel
 
     if "max_formant" in optim_params:
         prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob

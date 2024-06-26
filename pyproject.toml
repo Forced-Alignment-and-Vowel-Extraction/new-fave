@@ -13,7 +13,7 @@ repository = "https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave"
 [tool.poetry.dependencies]
 python = ">=3.11,<3.12"
 aligned-textgrid = "^0.6.7"
-fasttrackpy = "^0.4.7"
+fasttrackpy = "^0.4.8"
 numpy = "^1.26.4"
 tqdm = "^4.66.2"
 fave-recode = "^0.3.0"
