@@ -91,13 +91,13 @@ class StatPropertyMixins:
         return params
     
     @cached_property
-    def winner_bandwidth_param(
+    def winner_bparam(
         self
     ) -> NDArray[Shape["Param, Formant, N"], Float]:
         params = np.array([
             x.bandwidth_parameters
             for x in self.winners
-        ])
+        ]).T
         return params
     
     @cached_property
@@ -121,6 +121,16 @@ class StatPropertyMixins:
         return winner_mean
     
     @cached_property
+    def winner_bparam_mean(
+        self
+    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+        N = len(self.winners)
+        winner_mean =  self.winner_bparam.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        return winner_mean        
+        pass
+    
+    @cached_property
     def winner_param_cov(
         self
     ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
@@ -134,6 +144,21 @@ class StatPropertyMixins:
         params_icov = cov_to_icov(self.winner_param_cov)
         return params_icov    
     
+    @cached_property
+    def winner_bparam_cov(
+        self
+    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        param_cov = param_to_cov(self.winner_bparam)
+        return param_cov
+    
+    @cached_property
+    def winner_bparam_icov(
+        self
+    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        params_icov = cov_to_icov(self.winner_bparam_cov)
+        return params_icov    
+
+
     @cached_property
     def winner_maxformant_mean(
         self
@@ -309,7 +334,7 @@ class VowelMeasurement(Sequence):
             return self._vclass
     
     @vowel_class.setter
-    def vowel_class(self, vclass):
+    def vowel_class(self, vclass: 'VowelClass'):
         self._vclass = vclass
 
     @property
@@ -361,14 +386,15 @@ class VowelMeasurement(Sequence):
         return params
     
     @property
-    def cand_bandwidth_param(
+    def cand_bparam(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
         params = np.array([
             x.bandwidth_parameters
             for x in self.candidates
         ])
-
+    
+        return params
 
     @property
     def cand_maxformant(
@@ -466,7 +492,55 @@ class VowelMeasurement(Sequence):
             self.cand_param_mahal_corpus_byvowel,
             self.cand_param
         )
-        return log_prob        
+        return log_prob
+    
+    @property
+    def cand_bparam_mahal_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        N = len(self.candidates)
+        square_params = self.cand_bparam.reshape(-1, N)
+        inv_covmat = self.vowel_class.winner_bparam_icov
+        param_means = self.vowel_class.winner_bparam_mean
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
+    
+    @property
+    def cand_bparam_logprob_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_bparam_mahal_speaker_byvclass,
+            self.cand_bparam
+        )
+        if len(self.vowel_class) < 10:
+            log_prob = np.zeros(shape = log_prob.shape)
+        return log_prob
+
+    @property
+    def cand_bparam_mahal_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        N = len(self.candidates)
+        square_params = self.cand_bparam.reshape(-1, N)
+        inv_covmat = self.vowel_class.vowel_system.winner_bparam_icov
+        param_means = self.vowel_class.vowel_system.winner_bparam_mean
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
+    
+    @property
+    def cand_bparam_logprob_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_bparam_mahal_speaker_global,
+            self.cand_bparam
+        )
+        if len(self.vowel_class) < 10:
+            log_prob = np.zeros(shape = log_prob.shape)
+        return log_prob
+
+
 
     @property 
     def cand_maxformant_mahal_speaker_global(
@@ -707,7 +781,7 @@ class VowelClass(Sequence, StatPropertyMixins):
         return self._vowel_system
     
     @vowel_system.setter
-    def vowel_system(self, vowel_system):
+    def vowel_system(self, vowel_system: 'VowelClassCollection'):
         self._vowel_system = vowel_system
 
     @cached_property
