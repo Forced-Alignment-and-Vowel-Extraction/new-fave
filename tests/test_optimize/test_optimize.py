@@ -10,7 +10,9 @@ class MockVowelMeasure:
 
         self.cand_param_logprob_speaker_global = log_prob
         self.cand_param_logprob_speaker_byvclass = log_prob
-        self.cand_maxformant_logprob_speaker_global = log_prob
+        self.cand_maxformant_logprob_speaker_global = log_prob 
+        self.cand_bparam_logprob_speaker_global = log_prob 
+        self.cand_bparam_logprob_speaker_byvclass = log_prob         
         self.cand_error_logprob_vm  = log_prob
         self.winner = None
 
