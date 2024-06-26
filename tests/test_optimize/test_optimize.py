@@ -8,10 +8,10 @@ class MockVowelMeasure:
         log_prob = -np.ones(len)*2
         log_prob[winner_idx] = -0.5
 
-        self.cand_mahal_log_prob = log_prob
-        self.cand_vclass_mahal_log_prob = log_prob
-        self.max_formant_log_prob = log_prob
-        self.error_log_prob  = log_prob
+        self.cand_param_logprob_speaker_global = log_prob
+        self.cand_param_logprob_speaker_byvclass = log_prob
+        self.cand_maxformant_logprob_speaker_global = log_prob
+        self.cand_error_logprob_vm  = log_prob
         self.winner = None
 
 class MockVowelClassCollection:

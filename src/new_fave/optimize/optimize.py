@@ -101,7 +101,7 @@ def optimize_one_measure(
     prob_dict = dict()
 
     if "cand_mahal" in optim_params:
-        prob_dict["cand_mahal"] = vowel_measurement.cand_mahal_log_prob
+        prob_dict["cand_mahal"] = vowel_measurement.cand_param_logprob_speaker_global
 
     if "vclass_mahal" in optim_params:
         prob_dict["vclass_mahal"] = vowel_measurement.cand_param_logprob_speaker_byvclass
@@ -110,9 +110,9 @@ def optimize_one_measure(
         prob_dict["corpus_mahal"] = vowel_measurement.cand_param_logprob_corpus_byvowel
 
     if "max_formant" in optim_params:
-        prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob
+        prob_dict["max_formant"] = vowel_measurement.cand_maxformant_logprob_speaker_global
         
-    joint_prob = vowel_measurement.error_log_prob 
+    joint_prob = vowel_measurement.cand_error_logprob_vm
     for dim in optim_params:
         joint_prob += prob_dict[dim]
     
