@@ -10,7 +10,7 @@ from new_fave.patterns.writers import write_data, pickle_speakers, unpickle_spea
 
 from importlib.metadata import version
 
-__version__ = version("new-fave")
+__version__ = version("new_fave")
 
 __all__ = [
     "VowelMeasurement", 
