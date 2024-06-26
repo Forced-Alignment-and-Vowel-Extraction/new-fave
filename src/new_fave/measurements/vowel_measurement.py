@@ -1,9 +1,54 @@
+"""
+This module contains classes to represent vowel measurements and their
+aggregations at different levels.
+
+```{mermaid}
+classDiagram
+direction LR
+
+class VowelMeasurement~list~{
+    .vowel_class
+}
+class VowelClass~list~{
+    .vowel_system
+}
+class VowelClassCollection~dict~{
+    .corpus
+}
+class SpeakerCollection~dict~
+
+SpeakerCollection --o VowelClassCollection
+VowelClassCollection --o VowelClass
+VowelClass --o VowelMeasurement
+```
+
+When a class has a numpy array for an attribute, its 
+type is annotated using [nptyping](https://pypi.org/project/nptyping/)
+to provide the expected dimensions. For example:
+
+```
+cand_param (NDArray[Shape["Param, Formant, Cand"], Float])
+```
+
+This indicates that `cand_param` is a three dimensional array.
+The first dimension is `"Param"` (the number of DCT parameters)
+long, the second is `"Formant"` (the number of formants) long, 
+and the third is `"Cand"` (the number of candidates) long.
+"""
+import fasttrackpy
 from fasttrackpy import CandidateTracks, OneTrack
 from aligned_textgrid import AlignedTextGrid, SequenceInterval
 from fave_measurement_point.heuristic import Heuristic
 from fave_measurement_point.formants import FormantArray
+
 from new_fave.utils.textgrid import get_textgrid
 from new_fave.speaker.speaker import Speaker
+from new_fave.measurements.calcs import mahalanobis, \
+    mahal_log_prob,\
+    param_to_cov,\
+    cov_to_icov,\
+    clear_cached_properties
+
 from collections import defaultdict
 import numpy as np
 from typing import Literal
@@ -15,6 +60,9 @@ from joblib import Parallel, delayed, cpu_count
 
 from collections.abc import Sequence, Iterable
 from dataclasses import dataclass, field
+from nptyping import NDArray, Shape, Float
+
+from functools import lru_cache, cached_property
 
 NCPU = cpu_count()
 
@@ -27,7 +75,112 @@ def blank_list():
     return []
 
 EMPTY_LIST = blank_list()
+
+class StatPropertyMixins:
+
+    @cached_property
+    def winner_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
+        params = np.array(
+            [
+                x.parameters
+                for x in self.winners
+            ]
+        ).T
+        return params
     
+    @cached_property
+    def winner_bparam(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
+        params = np.array([
+            x.bandwidth_parameters
+            for x in self.winners
+        ]).T
+        return params
+    
+    @cached_property
+    def winner_maxformant(
+        self
+    ) -> NDArray[Shape["1, N"], Float]:
+        max_formants = np.array([[
+            x.maximum_formant
+            for x in self.winners
+        ]])
+
+        return max_formants
+
+    @cached_property
+    def winner_param_mean(
+        self
+    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+        N = len(self.winners)
+        winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        return winner_mean
+    
+    @cached_property
+    def winner_bparam_mean(
+        self
+    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+        N = len(self.winners)
+        winner_mean =  self.winner_bparam.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        return winner_mean        
+        pass
+    
+    @cached_property
+    def winner_param_cov(
+        self
+    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        param_cov = param_to_cov(self.winner_param)
+        return param_cov
+    
+    @cached_property
+    def winner_param_icov(
+        self
+    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        params_icov = cov_to_icov(self.winner_param_cov)
+        return params_icov    
+    
+    @cached_property
+    def winner_bparam_cov(
+        self
+    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        param_cov = param_to_cov(self.winner_bparam)
+        return param_cov
+    
+    @cached_property
+    def winner_bparam_icov(
+        self
+    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        params_icov = cov_to_icov(self.winner_bparam_cov)
+        return params_icov    
+
+
+    @cached_property
+    def winner_maxformant_mean(
+        self
+    ) -> float:
+        return self.winner_maxformant.mean()
+    
+    @cached_property
+    def winner_maxformant_cov(
+        self
+    ) -> NDArray[Shape["1, 1"], Float]:
+        cov = param_to_cov(self.winner_maxformant)
+        cov = cov.reshape(1,1)
+        return cov
+    
+    @cached_property
+    def winner_maxformant_icov(
+        self
+    ) -> NDArray[Shape["1, 1"], Float]:        
+        icov = cov_to_icov(self.winner_maxformant_cov)
+        return icov
+
+
 @dataclass
 class VowelMeasurement(Sequence):
     """ A class used to represent a vowel measurement.
@@ -81,37 +234,37 @@ class VowelMeasurement(Sequence):
             The number of optimization iterations the
             vowel measurement has been through.
 
-
         winner: fasttrackpy.OneTrack
             The winning formant track
         winner_index (int):
             The index of the winning formant track
+        
+        cand_param (NDArray[Shape["Param, Formant, Cand"], Float]):
+            A array of the candidate DCT parameters.
+        cand_maxformant (NDArray[Shape["1, Cand"], Float]):
+            An array of the candidate maximum formants.
+        cand_error (NDArray[Shape["Cand"], Float]):
+            An array of the candidate smoothing error.
 
-        error_log_prob (np.array):
-            A conversion of the log-mean-squared-error to a 
-            log-probabilities, based on an empirical cumulative
-            density function.
-        cand_errors (np.array):
-            A numpy array of the log-mean-squared-errors
-            for each candidate track.
-        cand_mahals (np.array):
-            The mahalanobis distance across DCT parameters
-            for each candidate from the vowel system 
-            distribution.
-        cand_mahal_log_prob (np.array):
-            A conversion of `cand_mahals` to log-probabilies.
-        cand_max_formants (np.array):
-            A numpy array of the maximum formants for
-            this VowelMeasurement
-        cand_params (np.array):
-            A numpy array of the candidate track 
-            DCT parameters.                
-        max_formant_log_prob (np.array):
-            A conversion of `max_formant_mahal` to log-probabilities.            
-        max_formant_mahal (np.array):
-            The mahalanobis distance of each
-            maximum formant to the speaker's entire
-            distribution.
+        cand_error_logprob_vm (NDArray[Shape["Cand"], Float]):
+            Conversion of the smooth error to log probabilities. The candidate with
+            the lowest error = log(1), and the candidate with the largest 
+            error = log(0).
+        cand_param_(mahal/logprob)_speaker_byvclass (NDArray[Shape["Cand"], Float]):
+            The mahalanobis distance (`mahal`) or associated log probability (`logprob`) 
+            for each candidate relative to the VowelClass for this speaker.
+            These are calculated by drawing the relevant mean and covariance matrix from 
+            `vm.vowel_class`
+        cand_param_(mahal/logprob)_speaker_global (NDArray[Shape["Cand"], Float]):
+            The mahalanobis distance (`mahal`) or associated log probability (`logprob`) 
+            for each candidate relative to *all* vowel measurements for this speaker.
+            These are calculated by drawing the relevant mean and covariance matrix from 
+            `vm.vowel_class.vowel_system`
+        cand_param_(mahal/logprob)_corpus_byvclass (NDArray[Shape["Cand"], Float]):
+            The mahalanobis distance (`mahal`) or associated log probability (`logprob`) 
+            for each candidate relative to this vowel class across all speakers.
+            These are calculated by drawing the relevant mean and covariance matrix from 
+            `vm.vowel_class.vowel_system.corpus`
 
         point_measure (pl.DataFrame):
             A polars dataframe of the point measurement for this vowel.
@@ -153,7 +306,7 @@ class VowelMeasurement(Sequence):
         return out
     
     @property
-    def label(self):
+    def label(self) -> str:
         if (not self._label) or (self._label != self.interval.label):
             for cand in self.candidates:
                 cand.label = self.interval.label
@@ -168,7 +321,7 @@ class VowelMeasurement(Sequence):
             
 
     @property
-    def formant_array(self):
+    def formant_array(self) -> FormantArray:
         return FormantArray(
             self.winner.smoothed_formants, 
             self.winner.time_domain,
@@ -181,11 +334,11 @@ class VowelMeasurement(Sequence):
             return self._vclass
     
     @vowel_class.setter
-    def vowel_class(self, vclass):
+    def vowel_class(self, vclass: 'VowelClass'):
         self._vclass = vclass
 
     @property
-    def winner(self):
+    def winner(self)->OneTrack:
         return self._winner
     
     @winner.setter
@@ -197,28 +350,32 @@ class VowelMeasurement(Sequence):
         self._optimized += 1
 
     @property
-    def optimized(self):
+    def optimized(self)->int:
         return self._optimized
     
     @property
-    def winner_index(self):
+    def winner_index(self)->int:
         return self.candidates.index(self.winner)
     
     @property
-    def expanded_formants(self):
+    def expanded_formants(
+        self
+    )->NDArray[Shape['N, Formant, Cand'], Float]:
         if self._expanded_formants is not None:
             return self._expanded_formants
 
         self._expanded_formants = np.apply_along_axis(
             lambda x: idct(x.T, n = 20, orthogonalize=True, norm = "forward"),
             0,
-            self.cand_params
+            self.cand_param
         )
         return self._expanded_formants    
         
 
     @property
-    def cand_params(self):
+    def cand_param(
+        self
+    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
         params = np.array(
             [
                 x.parameters
@@ -227,16 +384,31 @@ class VowelMeasurement(Sequence):
         ).T
 
         return params
+    
+    @property
+    def cand_bparam(
+        self
+    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+        params = np.array([
+            x.bandwidth_parameters
+            for x in self.candidates
+        ])
+    
+        return params
 
     @property
-    def cand_max_formants(self):
+    def cand_maxformant(
+        self
+    ) -> NDArray[Shape["1, Cand"], Float]:
         return np.array([[
             c.maximum_formant
             for c in self.candidates
         ]])
     
     @property
-    def cand_errors(self):
+    def cand_error(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
          with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             return np.array([
@@ -245,84 +417,166 @@ class VowelMeasurement(Sequence):
             ])
 
     @property
-    def cand_mahals(self):
+    def cand_param_mahal_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
         N = len(self.candidates)
-        square_params = self.cand_params.reshape(-1, N)
-        inv_covmat = self.vowel_class.vowel_system.params_icov
-        param_means = self.vowel_class.vowel_system.params_means
-        x_mu = square_params - param_means
-        left = np.dot(x_mu.T, inv_covmat)
-        mahal = np.dot(left, x_mu)
-        return mahal.diagonal()
+        square_params = self.cand_param.reshape(-1, N)
+        mahal = mahalanobis(
+            square_params,
+            self.vowel_class.vowel_system.winner_param_mean,
+            self.vowel_class.vowel_system.winner_param_icov
+        )
+        return mahal
     
     @property
-    def cand_mahal_log_prob(self):
-        winner_shape = self.cand_params.shape
-        df = winner_shape[0] * winner_shape[1]
-        log_prob = stats.chi2.logsf(
-            self.cand_mahals,
-            df = df
+    def cand_param_logprob_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob  = mahal_log_prob(
+            self.cand_param_mahal_speaker_global,
+            self.cand_param
         )
-        if np.isfinite(log_prob).mean() < 0.5:
-            log_prob = np.zeros(shape = log_prob.shape)
         return log_prob
     
     @property
-    def cand_vclass_mahals(self):
+    def cand_param_mahal_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
         N = len(self.candidates)
-        square_params = self.cand_params.reshape(-1, N)
-        inv_covmat = self.vowel_class.params_icov
-        param_means = self.vowel_class.params_means
-        x_mu = square_params - param_means
-        left = np.dot(x_mu.T, inv_covmat)
-        mahal = np.dot(left, x_mu)
-        return mahal.diagonal()
+        square_params = self.cand_param.reshape(-1, N)
+        inv_covmat = self.vowel_class.winner_param_icov
+        param_means = self.vowel_class.winner_param_mean
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
     
     @property
-    def cand_vclass_mahal_log_prob(self):
-        df = self.cand_params.size
-        log_prob = stats.chi2.logsf(
-            self.cand_vclass_mahals,
-            df = df
+    def cand_param_logprob_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_param_mahal_speaker_byvclass,
+            self.cand_param
         )
-        if np.isfinite(log_prob).mean() < 0.5:
-            log_prob = np.zeros(shape = log_prob.shape)
         if len(self.vowel_class) < 10:
             log_prob = np.zeros(shape = log_prob.shape)
-        return log_prob    
+        return log_prob
     
-    @property 
-    def max_formant_mahal(self):
-        inv_covmat = self.vowel_class.vowel_system.max_formant_icov
-        maximum_formant_means = self.vowel_class.vowel_system.maximum_formant_means
-        x_mu = self.cand_max_formants - maximum_formant_means
-        left = np.dot(x_mu.T, inv_covmat)
-        mahal = np.dot(left, x_mu)
-        return mahal.diagonal()
+
+    @property
+    def cand_param_mahal_corpus_byvowel(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        
+        N = len(self.candidates)
+        square_params = self.cand_param.reshape(-1, N)
+        inv_covmat = self\
+            .vowel_class\
+            .vowel_system\
+            .corpus\
+            .winner_param_icov[self.label]
+        param_means = self\
+            .vowel_class\
+            .vowel_system\
+            .corpus\
+            .winner_param_mean[self.label]
+        
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
+
+    @property
+    def cand_param_logprob_corpus_byvowel(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_param_mahal_corpus_byvowel,
+            self.cand_param
+        )
+        return log_prob
     
     @property
-    def max_formant_log_prob(self):
-        log_prob = stats.chi2.logsf(
-            self.max_formant_mahal,
-            df = 1
+    def cand_bparam_mahal_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        N = len(self.candidates)
+        square_params = self.cand_bparam.reshape(-1, N)
+        inv_covmat = self.vowel_class.winner_bparam_icov
+        param_means = self.vowel_class.winner_bparam_mean
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
+    
+    @property
+    def cand_bparam_logprob_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_bparam_mahal_speaker_byvclass,
+            self.cand_bparam
         )
-
-        if np.isfinite(log_prob).mean() < 0.5:
+        if len(self.vowel_class) < 10:
             log_prob = np.zeros(shape = log_prob.shape)
+        return log_prob
+
+    @property
+    def cand_bparam_mahal_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        N = len(self.candidates)
+        square_params = self.cand_bparam.reshape(-1, N)
+        inv_covmat = self.vowel_class.vowel_system.winner_bparam_icov
+        param_means = self.vowel_class.vowel_system.winner_bparam_mean
+        mahal = mahalanobis(square_params, param_means, inv_covmat)
+        return mahal
+    
+    @property
+    def cand_bparam_logprob_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_bparam_mahal_speaker_global,
+            self.cand_bparam
+        )
+        if len(self.vowel_class) < 10:
+            log_prob = np.zeros(shape = log_prob.shape)
+        return log_prob
+
+
+
+    @property 
+    def cand_maxformant_mahal_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        inv_covmat = self.vowel_class.vowel_system.winner_maxformant_icov
+        maximum_formant_means = self.vowel_class.vowel_system.winner_maxformant_mean        
+        mahal = mahalanobis(self.cand_maxformant, maximum_formant_means, inv_covmat)
+        return mahal
+    
+    @property
+    def cand_maxformant_logprob_speaker_global(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_maxformant_mahal_speaker_global,
+            self.cand_maxformant
+        )
 
         return log_prob
 
     @property
-    def error_log_prob(self):
+    def cand_error_logprob_vm(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            err_norm = self.cand_errors - np.nanmin(self.cand_errors)
+            err_norm = self.cand_error - np.nanmin(self.cand_error)
             err_surv = 1 - (err_norm/np.nanmax(err_norm))
             err_log_prob = np.log(err_surv)
         return err_log_prob
 
     @property
-    def point_measure(self):
+    def point_measure(
+        self
+    ) -> pl.DataFrame:
         winner_slice =  self.heuristic.apply_heuristic(
             self.label,
             formants=self.formant_array
@@ -344,8 +598,10 @@ class VowelMeasurement(Sequence):
 
         return pl.DataFrame(point_dict)
     
-    @property
-    def vm_context(self):   
+    @cached_property
+    def vm_context(
+        self
+    ) -> pl.DataFrame:   
         optimized = self.optimized
         id = self.winner.id
         word = self.winner.interval.within.label
@@ -451,7 +707,7 @@ class VowelMeasurement(Sequence):
         return(df)
 
 @dataclass
-class VowelClass(Sequence):
+class VowelClass(Sequence, StatPropertyMixins):
     """A class used to represent a vowel class.
 
     ## Intended Usage
@@ -465,7 +721,6 @@ class VowelClass(Sequence):
     vowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]
     vowel_class = VowelClass("ay", vowel_measurements)
     ```
-    
 
     Args:
         label (str):
@@ -474,28 +729,32 @@ class VowelClass(Sequence):
             A list of VowelMeasurements
 
     Attributes:
-        label (str): 
+        label (str):
             label of the vowel class
-        tracks (list): 
-            A list of `VowelMeasurement`s
+        tracks (list):
+            A list of VowelMeasurements
         vowel_system (VowelClassCollection):
-            A the containing vowel system
-        winners (list[fasttrackpy.OneTrack]): 
-            A list of winner OneTracks from
-            the vowel class
-        winner_params (np.array):
-            An `np.array` of winner DCT parameters
-            from the vowel class.
+            The containing vowel system
+        winners (list[OneTrack]):
+            A list of winner [](`~fasttrackpy.OneTrack`)s from the vowel class
+        winner_param (NDArray[Shape["Param, Formant, N"], Float]):
+            An np.array of winner DCT parameters from the vowel class
+        winner_param_mean (NDArray[Shape["ParamFormant, 1"], Float]):
+            Mean of winner DCT parameters
+        winner_param_cov (NDArray[Shape["ParamFormant, ParamFormant"], Float]):
+            Covariance of winner DCT parameters
+        winner_param_icov (NDArray[Shape["ParamFormant, ParamFormant"], Float]):
+            Inverse covariance of winner DCT parameters
     """
     label: str = field(default="")
     tracks: list[VowelMeasurement] = field(default_factory= lambda : [])
     def __post_init__(self):
         super().__init__()
         self._winners = [x.winner for x in self.tracks]
-        self._winner_params = None
-        self._params_means = None
-        self._params_cov = None
-        self._params_icov = None
+        self._winner_param = None
+        self._winner_param_mean = None
+        self._winner_param_cov = None
+        self._winner_param_icov = None
         for t in self.tracks:
             t.vowel_class = self
 
@@ -515,78 +774,19 @@ class VowelClass(Sequence):
         return out
     
     def _reset_winners(self):
-        self._winner_params = None
-        self._params_means = None
-        self._params_cov = None
-        self._params_icov = None
+        clear_cached_properties(self)
     
     @property
     def vowel_system(self):
         return self._vowel_system
     
     @vowel_system.setter
-    def vowel_system(self, vowel_system):
+    def vowel_system(self, vowel_system: 'VowelClassCollection'):
         self._vowel_system = vowel_system
 
-    @property
+    @cached_property
     def winners(self):
-        self._winners = [x.winner for x in self.tracks]
-        return self._winners
-    
-    @property
-    def winner_params(self):
-        if not self._winner_params is None:
-            return self._winner_params
-
-        params = np.array(
-            [
-                x.parameters
-                for x in self.winners
-            ]
-        ).T
-
-        return params
-
-    @property
-    def params_means(self):
-        if self._params_means is not None:
-            return self._params_means
-        N = len(self.winners)
-        winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
-        winner_mean = winner_mean[:, np.newaxis]
-        self._params_means = winner_mean
-        return winner_mean
-    
-    @property
-    def params_covs(self):
-        if self._params_cov is not None:
-            return self._params_cov
-        N = len(self.winners)
-        square_param = self.winner_params.reshape(-1, N)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            param_cov = np.cov(square_param)
-        return param_cov
-    
-    @property
-    def params_icov(self):
-        if self._params_icov is not None:
-            return self._params_icov
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            try:
-                params_icov = np.linalg.inv(self.params_covs)
-                self._params_icov = params_icov
-                return params_icov
-            except:
-                params_icov = np.array([
-                    [np.nan] * self.params_covs.size
-                ]).reshape(
-                    self.params_covs.shape[0],
-                    self.params_covs.shape[1]
-                )
-                self._params_icov = params_icov
-                return params_icov    
+        return [x.winner for x in self.tracks]
     
     def to_param_df(
             self, 
@@ -632,7 +832,7 @@ class VowelClass(Sequence):
 
         return df
 
-class VowelClassCollection(defaultdict):
+class VowelClassCollection(defaultdict, StatPropertyMixins):
     """
     A class for an entire vowel system. 
     
@@ -650,39 +850,39 @@ class VowelClassCollection(defaultdict):
             A list of `VowelMeasurement`s.
 
     Attributes:
-        maximum_formant_cov (np.array): 
-            The covariance matrix for the winners maximum formant
-            across the entire vowel system
-        maximum_formant_means (np.array): 
-            The mean maximum formant for the winners
-            across the entire vowel system
-        max_formant_icov (np.array): 
-            The inverse covariance matrix for the winners maximum formant
-            across the entire vowel system
-        params_covs (np.array): 
-            The covariance matrix for the winners' DCT
-            parameters.
-        params_icov (np.array): 
-            The inverse covariance matrix for the winners' 
-            DCT parameters.
-        params_means (np.array): 
-            An `np.array` for the winners' DCT parameters
-            in the entire vowel system.
-        vowel_measurements (list[VowelMeasurement]): 
-            A list of all vowel measurements in the 
-            vowel system
-        winner_formants (np.array): 
-            An `np.array` for the formants 
-            for the winners in the entire vowel system.
-        winner_params (np.array): 
-            An `np.array` of DCT parameters for
-            the winners in entire vowel system.
-        winners (list[fasttrackpy.OneTrack]): 
-            The winning `fasttrackpy.OneTrack` for 
-            the entire vowel system
-        winners_maximum_formant (np.array): 
-            An `np.array` of the maximum formants
-            for the winners in the entire vowel system           
+        winners (list[OneTrack]):
+            All winner tracks from the entire vowel system.
+        vowel_measurements (list[VowelMeasurement]):
+            All `VowelMeasurement` objects within this vowel system
+        textgrid (AlignedTextGrid):
+            The `AlignedTextGrid` associated with this vowel system.
+        winner_expanded_formants (NDArray[Shape["20, FormantN"], Float]):
+            A cached property that returns the expanded formants for the winners.
+
+            
+        winner_param (NDArray[Shape["Param, Formant, N"], Float]):
+            An array of all parameters from all winners across the 
+            vowel system.
+        winner_maxformant (NDArray[Shape["1, N"], Float]):
+            An array of the maximum formants of all winners across
+            the vowel system
+
+        winner_param_mean (NDArray[Shape["1, FormantParam"], Float]):
+            The mean of all DCT parameters across all formants for the winners
+            in this vowel system.
+        winner_param_cov (NDArray[Shape["FormantParam, FormantParam"], Float]):
+            The covariance of all parameters across all formants for the winners
+            in this vowel system
+        winner_param_icov (NDArray[Shape["FormantParam, FormantParam"], Float]):
+            The inverse of `winner_param_cov`.
+
+        winner_maxformant_mean (float):
+            The mean maximum formant across all winners in this vowel system.
+        winner_maxformant_cov (NDArray[Shape["1, 1"], Float]):
+            The covariance of the maximum formant across all winners
+            in this vowel system.
+        winner_maxformant_icov (NDArray[Shape["1, 1"], Float]):
+            The inverse of `winner_maxformant_cov`
     """
     def __init__(self, track_list:list[VowelMeasurement] = EMPTY_LIST):
         super().__init__(blank)
@@ -692,22 +892,15 @@ class VowelClassCollection(defaultdict):
             self._make_tracks_dict()
             self._dictify()
         self._vowel_system()
-        self._params_means = None
-        self._params_icov = None
-        self._maximum_formant_means = None
-        self._max_formant_icov = None
-        self._textgrid = None
         self._file_name = None
+        self._corpus = None
 
 
     def __setitem__(self, __key, __value) -> None:
         super().__setitem__(__key, __value)
 
     def _reset_winners(self):
-        self._params_means = None
-        self._params_icov = None
-        self._maximum_formant_means = None
-        self._max_formant_icov = None
+        clear_cached_properties(self)
 
     def _make_tracks_dict(self):
         for v in self.track_list:
@@ -724,8 +917,21 @@ class VowelClassCollection(defaultdict):
         for v in self.tracks_dict:
             self[v].vowel_system = self
     
+    def _reset_winners(self):
+        clear_cached_properties(self)
+    
     @property
-    def winners(self):
+    def corpus(self):
+        return self._corpus
+    
+    @corpus.setter
+    def corpus(self, corp):
+        self._corpus = corp
+    
+    @cached_property
+    def winners(
+        self
+    ) -> list[OneTrack]:
         return [
             x
             for vc in self.values()
@@ -733,53 +939,35 @@ class VowelClassCollection(defaultdict):
         ]
     
     @property
-    def vowel_measurements(self):
+    def vowel_measurements(
+        self
+    ) -> list[VowelMeasurement]:
         return [
             x  
             for vc in self.values()
             for x in vc.tracks
         ]
     
-    @property
-    def textgrid(self):
-        if self._textgrid:
-            return self._textgrid
-        
-        self._textgrid = get_textgrid(self.vowel_measurements[0].interval)
-        return self._textgrid
+    @cached_property
+    def textgrid(
+        self
+    ) -> AlignedTextGrid:
+        return get_textgrid(self.vowel_measurements[0].interval)
     
     @property
-    def file_name(self):
+    def file_name(
+        self
+    ) -> str:
         if self._file_name:
             return self._file_name
         
         self._file_name = self.vowel_measurements[0].winner.file_name
         return self._file_name
-
-    @property
-    def winner_params(self):
-        params = np.array(
-            [
-                x.parameters
-                for x in self.winners
-            ]
-        ).T
-
-        return params
     
-    @property
-    def winner_formants(self):
-        formants = np.hstack(
-            [
-                x.formants
-                for x in self.winners
-            ]
-        )
-
-        return formants
-    
-    @property
-    def winner_expanded_formants(self):
+    @cached_property
+    def winner_expanded_formants(
+        self
+    ) -> NDArray[Shape["20, FormantN"], Float]:
         formants = np.hstack(
             [
                 x.expanded_formants[:, :, x.winner_index]
@@ -788,84 +976,8 @@ class VowelClassCollection(defaultdict):
         )
 
         return formants
-        
-    @property
-    def winners_maximum_formant(self):
-        max_formants = np.array([[
-            x.maximum_formant
-            for x in self.winners
-        ]])
-
-        return max_formants
-
-    
-    @property
-    def params_means(self):
-        if self._params_means is not None:
-            return self._params_means
-        N = len(self.winners)
-        winner_mean =  self.winner_params.reshape(-1, N).mean(axis = 1)
-        winner_mean = winner_mean[:, np.newaxis]
-        self._params_means = winner_mean
-        return winner_mean
-    
-    @property
-    def params_covs(self):
-        N = len(self.winners)
-        square_param = self.winner_params.reshape(-1, N)
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            param_cov = np.cov(square_param)
-        return param_cov
-    
-    @property
-    def params_icov(self):
-        if self._params_icov is not None:
-            return self._params_icov
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
-            try:
-                params_icov = np.linalg.inv(self.params_covs)
-                self._params_icov = params_icov
-                return params_icov
-            except:
-                params_icov = np.array([
-                    [np.nan] * self.params_covs.size
-                ]).reshape(
-                    self.params_covs.shape[0],
-                    self.params_covs.shape[1]
-                )
-                self._params_icov = params_icov
-                return params_icov
-
-    @property
-    def maximum_formant_means(self):
-        if self._maximum_formant_means is not None:
-            return self._maximum_formant_means
-        self._maximum_formant_means = self.winners_maximum_formant.mean()
-        return self.winners_maximum_formant.mean()
-    
-    @property
-    def maximum_formant_cov(self):
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")        
-            cov = np.cov(self.winners_maximum_formant).reshape(1,1)
-        return cov
-    
-    @property
-    def max_formant_icov(self):
-        if self._max_formant_icov is not None:
-            return self._max_formant_icov
-        
-        try:
-            icov = np.linalg.inv(self.maximum_formant_cov)
-            self._max_formant_icov = icov
-            return icov
-        except:
-            self._max_formant_icov = np.array([[np.nan]])
-            return np.array([[np.nan]])    
                 
-    def to_tracks_df(self):
+    def to_tracks_df(self)->pl.DataFrame:
         """Return a DataFrame of the formant tracks
 
         Returns:
@@ -894,7 +1006,7 @@ class VowelClassCollection(defaultdict):
 
         return df    
     
-    def to_point_df(self):
+    def to_point_df(self) -> pl.DataFrame:
         """Return a DataFrame of point measurements
 
         Returns:
@@ -907,7 +1019,7 @@ class VowelClassCollection(defaultdict):
 
         return df
     
-class SpeakerCollection(defaultdict):
+class SpeakerCollection(defaultdict, StatPropertyMixins):
     """
     A class to represent the vowel system of all 
     speakers in a TextGrid. 
@@ -925,15 +1037,19 @@ class SpeakerCollection(defaultdict):
         track_list (list[VowelMeasurement]):
             A list of `VowelMeasurement`s.
     """
+    __hash__ = object.__hash__
+
     def __init__(self, track_list:list[VowelMeasurement] = []):
         self.track_list = track_list
         self.speakers_dict = defaultdict(blank_list)
         self._make_tracks_dict()
         self._dictify()
         self._speaker = None
+        self._associate_corpus()
     
     def __setitem__(self, __key, __value) -> None:
         super().__setitem__(__key, __value)
+        self._associate_corpus()
 
     def _make_tracks_dict(self):
         for v in self.track_list:
@@ -945,6 +1061,88 @@ class SpeakerCollection(defaultdict):
             self[fs] = VowelClassCollection(
                 self.speakers_dict[fs]
             )
+    
+    def _associate_corpus(self):
+        for speaker in self.values():
+            speaker.corpus = self
+
+    def _reset_winners(self):
+        clear_cached_properties(self)
+
+    @cached_property
+    def vowel_dict(
+        self
+    ) -> defaultdict[str, list[VowelMeasurement]]:
+        out = defaultdict(blank_list)
+        for speaker in self.values():
+            for vowel in speaker:
+                out[vowel] += speaker[vowel]
+        return out
+    
+    @cached_property
+    def vowel_winners(
+        self
+    ) -> defaultdict[str, list[OneTrack]]:
+        out = defaultdict(blank_list)
+        for vowel in self.vowel_dict:
+            out[vowel] += [x.winner for x in self.vowel_dict[vowel]]
+
+        return out
+    
+    @cached_property
+    def winner_param(
+        self
+    ) -> defaultdict[str, NDArray[Shape["Param, Formant, N"], Float]]:
+        out = defaultdict(blank_list)
+        for vowel in self.vowel_winners:
+            params = np.array(
+                [
+                    x.parameters
+                    for x in self.vowel_winners[vowel]
+                ]
+            ).T
+
+            out[vowel] = params
+        return out
+    
+    @cached_property
+    def winner_param_mean(
+        self
+    ) -> defaultdict[str, NDArray[Shape["FormantParam, 1"], Float]]:
+        out = defaultdict(lambda: np.array([]))
+
+        for vowel in self.winner_param:
+            N = len(self.vowel_dict[vowel])
+            winner_mean =  self.winner_param[vowel].reshape(-1, N).mean(axis = 1)
+            winner_mean = winner_mean[:, np.newaxis]
+            out[vowel] = winner_mean
+        return out
+
+    
+    @property
+    def winner_param_cov(
+        self
+    )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:
+        out = defaultdict(lambda: np.array([]))
+
+        for vowel in  self.winner_param:
+            param_cov = param_to_cov(self.winner_param[vowel])
+            out[vowel] = param_cov
+        
+        return out
+
+    @cached_property
+    def winner_param_icov(
+        self
+    )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:
+        out = defaultdict(lambda: np.array([]))
+
+        for vowel in self.winner_param_cov:
+            params_icov = cov_to_icov(self.winner_param_cov[vowel])
+            out[vowel] = params_icov
+
+        return out
+
 
     @property 
     def speaker(self):

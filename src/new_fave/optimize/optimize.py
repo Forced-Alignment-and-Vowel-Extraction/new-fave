@@ -8,9 +8,26 @@ from typing import Literal
 
 def run_optimize(
         vowel_system: VowelClassCollection,
-        optim_params = ["cand_mahal", "vclass_mahal", "max_formant"],
+        optim_params: list[
+             Literal[
+                 "param_speaker_global",
+                 "param_speaker_byvclass",
+                 "bparam_speaker_global",
+                 "bparam_speaker_byvclass",
+                 "maxformant_speaker_global",
+                 "param_corpus_byvowel"
+                ]
+            ] = [
+                 "param_speaker_global",
+                 "param_speaker_byvclass",
+                 "bparam_speaker_global",
+                 "bparam_speaker_byvclass",
+                 "maxformant_speaker_global"
+                ],
         max_iter = 10
     ):
+
+
     """
     Repeatedly run optimization until either `max_iter` is reached,
     or the difference between two iterations becomes small.
@@ -18,9 +35,8 @@ def run_optimize(
     Args:
         vowel_system (VowelClassCollection):
             The vowel space to be optimized
-        optim_params (list, optional): 
-            The parameters to use for optimization. 
-            Defaults to ["cand_mahal", "max_formant"].
+        optim_params (list[Literal["param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global", "param_corpus_byvowel"]], optional): 
+            The optimization parameters to use. Defaults to [ "param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global" ].
         max_iter (int, optional):
             The maximum number of iterations to run.
             Defaults to 10.
@@ -51,8 +67,21 @@ def run_optimize(
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params: list[
-            Literal["cand_mahal", "vclass_mahal", "max_formant"]
-            ] = ["cand_mahal", "vclass_mahal", "max_formant"]
+             Literal[
+                 "param_speaker_global",
+                 "param_speaker_byvclass",
+                 "bparam_speaker_global",
+                 "bparam_speaker_byvclass",
+                 "maxformant_speaker_global",
+                 "param_corpus_byvowel"
+                ]
+            ] = [
+                 "param_speaker_global",
+                 "param_speaker_byvclass",
+                 "bparam_speaker_global",
+                 "bparam_speaker_byvclass",
+                 "maxformant_speaker_global"
+                ]
     ):
     """
     Optimize a list of VowelMeasurements.
@@ -60,8 +89,8 @@ def optimize_vowel_measures(
     Args:
         vowel_measurements (list[VowelMeasurement]): 
             The list of vowel measurements to optimize
-        optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
-            The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
+        optim_params (list[Literal["param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global", "param_corpus_byvowel"]], optional): 
+            The optimization parameters to use. Defaults to [ "param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global" ].
     """
 
     new_winners = [
@@ -80,35 +109,58 @@ def optimize_vowel_measures(
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
          optim_params: list[
-             Literal["cand_mahal", "vclass_mahal", "max_formant"]
-             ] = ["cand_mahal", "vclass_mahal", "max_formant"]
+             Literal[
+                 "param_speaker_global",
+                 "param_speaker_byvclass",
+                 "bparam_speaker_global",
+                 "bparam_speaker_byvclass",
+                 "maxformant_speaker_global",
+                 "param_corpus_byvowel"
+                ]
+             ] = [
+                 "param_speaker_global",
+                 "param_speaker_byvclass",
+                 "bparam_speaker_global",
+                 "bparam_speaker_byvclass",
+                 "maxformant_speaker_global"
+                ]
     )->int:
     """
+    Optimize a single vowel measurement
+
     This function optimizes a given vowel measurement based on the 
-    specified optimization parameters. The optimization parameters 
-    can include 'cand_mahal' and 'max_formant'.
+    specified optimization parameters.
 
     Args:
         vowel_measurement (VowelMeasurement): 
             The VowelMeasurement to optimize
-        optim_params (list[Literal["cand_mahal", "max_formant"]], optional): 
-            The optimization parameters to use. Defaults to ["cand_mahal", "max_formant"].
+        optim_params (list[Literal["param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global", "param_corpus_byvowel"]], optional): 
+            The optimization parameters to use. Defaults to [ "param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global" ].
 
     Returns:
-        (int): The index of the winning candidate.
+        int: _description_
     """
     prob_dict = dict()
 
-    if "cand_mahal" in optim_params:
-        prob_dict["cand_mahal"] = vowel_measurement.cand_mahal_log_prob
+    if "param_speaker_global" in optim_params:
+        prob_dict["param_speaker_global"] = vowel_measurement.cand_param_logprob_speaker_global
 
-    if "vclass_mahal" in optim_params:
-        prob_dict["vclass_mahal"] = vowel_measurement.cand_vclass_mahal_log_prob
+    if "param_speaker_byvclass" in optim_params:
+        prob_dict["param_speaker_byvclass"] = vowel_measurement.cand_param_logprob_speaker_byvclass
 
-    if "max_formant" in optim_params:
-        prob_dict["max_formant"] = vowel_measurement.max_formant_log_prob
+    if "bparam_speaker_global" in optim_params:
+        prob_dict["bparam_speaker_global"] = vowel_measurement.cand_bparam_logprob_speaker_global
+
+    if "bparam_speaker_byvclass" in optim_params:
+        prob_dict["bparam_speaker_byvclass"] = vowel_measurement.cand_bparam_logprob_speaker_byvclass
+
+    if "param_corpus_byvclass" in optim_params:
+        prob_dict["param_corpus_byvclass"] = vowel_measurement.cand_param_logprob_corpus_byvowel
+
+    if "maxformant_speaker_global" in optim_params:
+        prob_dict["maxformant_speaker_global"] = vowel_measurement.cand_maxformant_logprob_speaker_global
         
-    joint_prob = vowel_measurement.error_log_prob 
+    joint_prob = vowel_measurement.cand_error_logprob_vm
     for dim in optim_params:
         joint_prob += prob_dict[dim]
     

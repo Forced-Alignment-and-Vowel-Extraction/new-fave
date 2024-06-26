@@ -2,6 +2,7 @@ from aligned_textgrid import AlignedTextGrid, Word, Phone
 from fasttrackpy import CandidateTracks, OneTrack, process_corpus
 from pathlib import Path
 from functools import reduce
+from copy import copy
 
 import polars as pl
 import numpy as np
@@ -86,12 +87,14 @@ def test_winner_reset():
     speaker = speakers[first_speaker]
     speaker_vms = speaker.vowel_measurements
 
-    initial_mean = speaker.maximum_formant_means
+    initial_mean = copy(speaker.winner_maxformant_mean)
+    assert "winner_maxformant_mean" in speaker.__dict__
 
     initial_index = speaker_vms[0].winner_index
-    speaker_vms[0].winner = initial_index+1
+    speaker_vms[0].winner = initial_index+2
+    assert not "winner_maxformant_mean" in speaker.__dict__
 
-    new_mean = speaker.maximum_formant_means
+    new_mean = speaker.winner_maxformant_mean
 
     assert ~np.isclose(initial_mean, new_mean)
 
@@ -143,7 +146,7 @@ def test_winner_param():
     ]
 
     for vc in all_vcs:
-        params = vc.winner_params
+        params = vc.winner_param
         expected_shape = (5, NFORMANT, len(vc))
         for s1, s2 in zip(params.shape, expected_shape):
             assert s1 == s2
@@ -153,16 +156,20 @@ def test_probs():
     """
     Test that the length of log probs
     is equal to the number of steps
+    And all log probs are finite and <= 0
     """
+    target_properties = [
+        x 
+        for x in VowelMeasurement.__dict__.keys()
+        if "logprob" in x
+    ]
+
     for vm in vms:
-        cand_mahal_log_prob = vm.cand_mahal_log_prob
-        max_formant_log_prob = vm.max_formant_log_prob
-        error_log_prob = vm.error_log_prob
-
-        assert cand_mahal_log_prob.size == NSTEP
-        assert max_formant_log_prob.size == NSTEP
-        assert error_log_prob.size == NSTEP
-
+       for target in target_properties:
+           log_prob = getattr(vm, target)
+           assert log_prob.size == NSTEP, f"{target}"
+           assert np.all(~np.isnan(log_prob))
+           assert np.all(log_prob <= 0)
 
 ## output tests
 def test_vm_context():
