@@ -33,6 +33,7 @@ def fave_audio_textgrid(
     textgrid_path: str|Path,
     speakers: int|list[int]|str|Path = 0,
     include_overlaps: bool = True,
+    no_optimize:bool = False,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
@@ -105,7 +106,8 @@ def fave_audio_textgrid(
                 f"but textgrid has only {len(atg)} speakers."
             )
         )
-
+    
+    logger.info("Identifying target speakers.")
     target_tgs = [tg_names[i] for i in speakers]
     target_candidates = [
         cand 
@@ -113,6 +115,7 @@ def fave_audio_textgrid(
         if cand.group in target_tgs
     ]
 
+    logger.info("Recoding vowel labels.")
     run_recode(
         atg,
         parser = parser,
@@ -126,6 +129,7 @@ def fave_audio_textgrid(
             track.label = cand.label
 
     if not include_overlaps:
+        logger.info("Identifying overlaps.")        
         mark_overlaps(atg)
         target_candidates = [
             cand 
@@ -137,6 +141,9 @@ def fave_audio_textgrid(
     vowel_systems = SpeakerCollection(vms)
     if speaker_demo:
         vowel_systems.speaker = speaker_demo
+    
+    if no_optimize:
+        return(vowel_systems)
 
     for vs in vowel_systems:
         logger.info(f"Optimizing {vs}")

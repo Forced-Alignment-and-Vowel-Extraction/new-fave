@@ -124,6 +124,16 @@ configs = cloup.option_group(
             "Include this flag if you want to "
             "exclude overlapping speech."
         )
+    ),
+    cloup.option(
+        "--no-optimize",
+        type=click.BOOL,
+        is_flag=True,
+        default=False,
+        help=(
+            "Include this flag if you want to "
+            "skip fave optimization"
+        )
     )
 )
 speaker_opt = cloup.option(
@@ -202,6 +212,7 @@ def audio_textgrid(
     textgrid_path: str|Path,
     speakers: int|list[int]|str|Path,
     exclude_overlaps: bool,
+    no_optimize:bool,
     recode_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
@@ -244,6 +255,7 @@ def audio_textgrid(
         textgrid_path=textgrid_path,
         speakers=speakers,
         include_overlaps=include_overlaps,
+        no_optimize=no_optimize,
         recode_rules=recode_rules,
         labelset_parser=labelset_parser,
         point_heuristic=point_heuristic,
@@ -276,6 +288,7 @@ def corpus(
     corpus_path: str|Path,
     speakers: int|list[int]|str|Path,
     exclude_overlaps: bool,
+    no_optimize:bool,    
     recode_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
@@ -325,6 +338,7 @@ def corpus(
             textgrid_path=pair.tg,
             speakers = speakers,
             include_overlaps=include_overlaps,
+            no_optimize=no_optimize,
             recode_rules=recode_rules,
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
@@ -357,6 +371,7 @@ def subcorpora(
     subcorpora: list[str|Path],
     speakers: int|list[int]|str|Path,
     exclude_overlaps: bool,
+    no_optimize:bool,    
     recode_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
@@ -407,6 +422,7 @@ def subcorpora(
             textgrid_path=pair.tg,
             speakers = speakers,
             include_overlaps=include_overlaps,
+            no_optimize=no_optimize,
             recode_rules=recode_rules,
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
@@ -420,6 +436,8 @@ def subcorpora(
                 which = w,
                 separate=separate
             )
+        else:
+            logging.info("Problem writing data")
     pass
 
 

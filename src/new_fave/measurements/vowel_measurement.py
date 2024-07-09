@@ -280,7 +280,8 @@ class VowelMeasurement(Sequence):
         #self.label = self.track.label
         self.candidates = self.track.candidates
         self.n_formants = self.track.n_formants
-        self._winner = self.track.winner
+        self._init_winner()
+        #self._winner = self.track.winner
         self.interval = self.track.interval
         self.group = self.track.group
         self.id = self.track.id
@@ -304,6 +305,15 @@ class VowelMeasurement(Sequence):
             "}"
         )
         return out
+    
+    def _init_winner(self):
+        
+        joint = self.cand_error_logprob_vm 
+        #if not self.only_fasttrack:
+        joint += self.cand_bandwidth_logprob[1, :]
+        idx = np.nanargmax(joint)
+
+        self._winner = self.track.candidates[idx]
     
     @property
     def label(self) -> str:
@@ -382,6 +392,8 @@ class VowelMeasurement(Sequence):
                 for x in self.candidates
             ]
         ).T
+        params = params[:, :2, :]
+        #params = np.concatenate((params, self.cand_bparam))
 
         return params
     
@@ -392,9 +404,29 @@ class VowelMeasurement(Sequence):
         params = np.array([
             x.bandwidth_parameters
             for x in self.candidates
-        ])
-    
+        ]).T
+        params = params[:, :2, :]
         return params
+
+    @property
+    def cand_bandwidth_sums(
+        self
+    ):
+        return np.exp(self.cand_bparam[0,1,:])
+
+    @property
+    def cand_bandwidth_logprob(
+        self
+    ):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            first_param = np.exp(self.cand_bparam[0,:2, :])
+            b_norm = first_param - np.expand_dims(np.nanmin(first_param, axis = 1), axis = 1)
+            #b_norm = self.cand_bandwidth_sums - np.nanmin(self.cand_bandwidth_sums)
+            b_surv = 1 - (b_norm/np.expand_dims(np.nanmax(b_norm, axis = 1), axis = 1))
+            b_log_prob = np.log(b_surv)
+
+        return b_log_prob
 
     @property
     def cand_maxformant(
@@ -561,6 +593,26 @@ class VowelMeasurement(Sequence):
         )
 
         return log_prob
+    
+    @property 
+    def cand_maxformant_mahal_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        inv_covmat = self.vowel_class.winner_maxformant_icov
+        maximum_formant_means = self.vowel_class.winner_maxformant_mean        
+        mahal = mahalanobis(self.cand_maxformant, maximum_formant_means, inv_covmat)
+        return mahal
+    
+    @property
+    def cand_maxformant_logprob_speaker_byvclass(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        log_prob = mahal_log_prob(
+            self.cand_maxformant_mahal_speaker_byvclass,
+            self.cand_maxformant
+        )
+
+        return log_prob    
 
     @property
     def cand_error_logprob_vm(
@@ -586,6 +638,9 @@ class VowelMeasurement(Sequence):
             f"F{i+1}": winner_slice.formants[i]
             for i in range(winner_slice.formants.size)
         }
+        bandwidth_params = self.cand_bparam[0,:,self.winner_index]
+        for idx, param in enumerate(bandwidth_params):
+            point_dict[f"B{idx+1}"] = param
         point_dict["max_formant"] = self.winner.maximum_formant
         point_dict["smooth_error"] = self.winner.smooth_error
         point_dict["time"] = winner_slice.time
@@ -764,6 +819,12 @@ class VowelClass(Sequence, StatPropertyMixins):
     def __len__(self):
         return len(self.tracks)
     
+    def __lt__(self, other):
+        return len(self) < len(other)
+    
+    def __le__(self, other):
+        return len(self) <= len(other)
+    
     def __repr__(self):
         out = (
             "VowelClass: {"
@@ -919,6 +980,10 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
     
     def _reset_winners(self):
         clear_cached_properties(self)
+
+    @property
+    def sorted_keys(self):
+        return sorted(self, key=lambda k: -len(self[k]))
     
     @property
     def corpus(self):

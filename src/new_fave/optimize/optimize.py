@@ -18,13 +18,14 @@ def run_optimize(
                  "param_corpus_byvowel"
                 ]
             ] = [
-                 "param_speaker_global",
-                 "param_speaker_byvclass",
-                 "bparam_speaker_global",
-                 "bparam_speaker_byvclass",
-                 "maxformant_speaker_global"
+                 #"param_speaker_global",
+                 "param_speaker",
+                 #"bparam_speaker_global",
+                 #"bparam_speaker_byvclass",
+                 #"maxformant_speaker_global",
+                 "maxformant_speaker"
                 ],
-        max_iter = 10
+        max_iter = 1
     ):
 
 
@@ -44,8 +45,8 @@ def run_optimize(
     current_formants = vowel_system.winner_expanded_formants
     msqe = [np.inf]
     for i in range(max_iter):
-        optimize_vowel_measures(
-            vowel_system.vowel_measurements,
+        optimize_speaker(
+            vowel_system,
             optim_params=optim_params
             )
         new_formants = vowel_system.winner_expanded_formants
@@ -63,25 +64,33 @@ def run_optimize(
     return
 
 
+def optimize_speaker(
+        speaker: VowelClassCollection,
+        optim_params = ["param_speaker", "maxformant_speaker"]
+):
+    keys = speaker.sorted_keys
+    total_len = 0
+    for k in speaker:
+        total_len += len(speaker[k])
+
+    pbar = tqdm(total = total_len)
+
+    for k in keys:
+        pbar = optimize_vowel_measures(
+            vowel_measurements=speaker[k],
+            optim_params = optim_params,
+            pbar = pbar
+        )
+    
+    pbar.close()
+
 
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params: list[
-             Literal[
-                 "param_speaker_global",
-                 "param_speaker_byvclass",
-                 "bparam_speaker_global",
-                 "bparam_speaker_byvclass",
-                 "maxformant_speaker_global",
-                 "param_corpus_byvowel"
-                ]
-            ] = [
-                 "param_speaker_global",
-                 "param_speaker_byvclass",
-                 "bparam_speaker_global",
-                 "bparam_speaker_byvclass",
-                 "maxformant_speaker_global"
-                ]
+              Literal["param_speaker", "maxformant_speaker"]
+            ] = ["param_speaker", "maxformant_speaker"],
+        pbar: tqdm = None
     ):
     """
     Optimize a list of VowelMeasurements.
@@ -91,21 +100,56 @@ def optimize_vowel_measures(
             The list of vowel measurements to optimize
         optim_params (list[Literal["param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global", "param_corpus_byvowel"]], optional): 
             The optimization parameters to use. Defaults to [ "param_speaker_global", "param_speaker_byvclass", "bparam_speaker_global", "bparam_speaker_byvclass", "maxformant_speaker_global" ].
+        pbar (tqdm):
+            A progress bar.
     """
 
-    new_winners = [
-        optimize_one_measure(vm, optim_params=optim_params) 
-        for vm in tqdm(vowel_measurements)
-    ]
-
-    for idx, new_idx in enumerate(new_winners):
-        if new_idx is None:
-            new_winners[idx] = vowel_measurements[idx].winner_index
+    scope = "_byvclass"
+    if len(vowel_measurements) <= 10:
+        scope = "_global"
     
-    for vm, idx in zip(vowel_measurements, new_winners):
-        vm.winner = idx
+    optim_params = [x+scope for x in optim_params]
 
-@safely(message="There was a problem optimizing a vowel.")
+    optimized = []
+    to_optimize = [vm for vm in vowel_measurements]
+    #chunk_size = int(len(to_optimize) * 0.1)
+    #if chunk_size < 10:
+    chunk_size = 10
+    if not pbar:
+        pbar = tqdm(total=len(to_optimize))
+    while len(to_optimize) > 0:
+        to_optim = np.array([
+            optimize_one_measure(vm, optim_params=optim_params)[vm.winner_index]
+            for vm in to_optimize
+        ])
+
+        order = np.argsort(to_optim)
+        to_optimize = [
+            to_optimize[idx] 
+            for idx in order
+        ]
+
+        if (len(to_optimize)-1) <= chunk_size :
+            chunk = to_optimize[0:]
+        else:
+            chunk = to_optimize[0:(chunk_size)]
+
+        chunk_winners = []
+        for vm in chunk:
+            chunk_winners.append(
+                np.argmax(optimize_one_measure(vm, optim_params=optim_params))
+            )
+            pbar.update()
+        
+        for w, v in zip(chunk_winners, chunk):
+            v.winner = w
+
+        for v in chunk:
+            to_optimize.pop(to_optimize.index(v))
+
+    return pbar
+
+#@safely(message="There was a problem optimizing a vowel.")
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
          optim_params: list[
@@ -122,7 +166,8 @@ def optimize_one_measure(
                  "param_speaker_byvclass",
                  "bparam_speaker_global",
                  "bparam_speaker_byvclass",
-                 "maxformant_speaker_global"
+                 "maxformant_speaker_global",
+                 "maxformant_speaker_byvclass",                 
                 ]
     )->int:
     """
@@ -159,9 +204,12 @@ def optimize_one_measure(
 
     if "maxformant_speaker_global" in optim_params:
         prob_dict["maxformant_speaker_global"] = vowel_measurement.cand_maxformant_logprob_speaker_global
+    
+    if "maxformant_speaker_byvclass" in optim_params:
+        prob_dict["maxformant_speaker_byvclass"] = vowel_measurement.cand_maxformant_logprob_speaker_byvclass        
         
-    joint_prob = vowel_measurement.cand_error_logprob_vm
+    joint_prob = vowel_measurement.cand_error_logprob_vm + vowel_measurement.cand_bandwidth_logprob[1,:]
     for dim in optim_params:
         joint_prob += prob_dict[dim]
     
-    return joint_prob.argmax()
+    return joint_prob
