@@ -64,6 +64,8 @@ from nptyping import NDArray, Shape, Float
 
 from functools import lru_cache, cached_property
 
+import re
+
 NCPU = cpu_count()
 
 import warnings
@@ -88,8 +90,22 @@ class StatPropertyMixins:
                 for x in self.winners
             ]
         ).T
+
+        params = params[:,:2, :]
+
+        #params = np.concatenate((params, self.winner_bparam))
         return params
     
+    @cached_property
+    def winner_param_trim(
+        self
+    ) -> NDArray[Shape["Param, Formant, N"], Float]:
+        inner = self.winner_mahals <= np.nanpercentile(self.winner_mahals, 90)
+        if inner.sum()<=10:
+            return self.winner_param
+
+        return self.winner_param[:, :, inner]
+
     @cached_property
     def winner_bparam(
         self
@@ -98,6 +114,9 @@ class StatPropertyMixins:
             x.bandwidth_parameters
             for x in self.winners
         ]).T
+
+        params = params[0, :2, :]
+
         return params
     
     @cached_property
@@ -109,6 +128,14 @@ class StatPropertyMixins:
             for x in self.winners
         ]])
 
+        lower = max_formants <= np.percentile(max_formants, 95)
+        upper = max_formants >= np.percentile(max_formants, 5)
+        inner = lower & upper
+        if inner.sum() <= 10:
+            return max_formants
+        
+        return max_formants[inner]
+
         return max_formants
 
     @cached_property
@@ -119,6 +146,15 @@ class StatPropertyMixins:
         winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
         winner_mean = winner_mean[:, np.newaxis]
         return winner_mean
+    
+    @cached_property
+    def winner_param_trim_mean(
+        self
+    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+        N = self.winner_param_trim.shape[2]
+        winner_mean =  self.winner_param_trim.reshape(-1, N).mean(axis = 1)
+        winner_mean = winner_mean[:, np.newaxis]
+        return winner_mean    
     
     @cached_property
     def winner_bparam_mean(
@@ -138,12 +174,40 @@ class StatPropertyMixins:
         return param_cov
     
     @cached_property
+    def winner_param_trim_cov(
+        self
+    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        param_cov = param_to_cov(self.winner_param_trim)
+        return param_cov    
+    
+    @cached_property
     def winner_param_icov(
         self
     ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
         params_icov = cov_to_icov(self.winner_param_cov)
-        return params_icov    
+        return params_icov
     
+    @cached_property
+    def winner_param_trim_icov(
+        self
+    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
+        params_icov = cov_to_icov(self.winner_param_trim_cov)
+        return params_icov     
+    
+    @cached_property
+    def winner_mahals(
+        self
+    ):
+        N = self.winner_param.shape[2]
+        square_params = self.winner_param.reshape(-1, N)
+        dists = mahalanobis(
+            square_params,
+            self.winner_param_mean,
+            self.winner_param_icov
+        )
+        
+        return dists
+
     @cached_property
     def winner_bparam_cov(
         self
@@ -204,6 +268,8 @@ class VowelMeasurement(Sequence):
         heuristic (Heuristic, optional): 
             A point measurement Heuristic to use. 
             Defaults to Heuristic().
+        vowel_place_dict (dict[Literal["front","back"], re.Pattern]):
+            A dictionary of regexes that match front or back vowels.
     
     Attributes: 
         track (fasttrackpy.CandidateTracks):
@@ -273,6 +339,8 @@ class VowelMeasurement(Sequence):
     """
     track: CandidateTracks
     heuristic: Heuristic = field(default = Heuristic())
+    vowel_place_dict: dict[Literal["front", "back"], re.Pattern] = field(default_factory=lambda : dict())
+    only_fasttrack: bool = field(default=False)
     def __post_init__(
             self
         ):
@@ -280,15 +348,15 @@ class VowelMeasurement(Sequence):
         #self.label = self.track.label
         self.candidates = self.track.candidates
         self.n_formants = self.track.n_formants
-        self._init_winner()
-        #self._winner = self.track.winner
+        self._label = None
         self.interval = self.track.interval
         self.group = self.track.group
         self.id = self.track.id
         self.file_name = self.track.file_name
-        self._label = None
         self._expanded_formants = None
         self._optimized = 0
+        self._init_winner()
+
 
     def __getitem__(self,i):
         return self.candidates[i]
@@ -311,6 +379,7 @@ class VowelMeasurement(Sequence):
         joint = self.cand_error_logprob_vm 
         #if not self.only_fasttrack:
         joint += self.cand_bandwidth_logprob[1, :]
+        #joint += self.place_penalty
         idx = np.nanargmax(joint)
 
         self._winner = self.track.candidates[idx]
@@ -327,7 +396,16 @@ class VowelMeasurement(Sequence):
 
     @label.setter
     def label(self, x:str):
-        self.interval.label = x
+        self.interval._label = x
+
+
+    @cached_property
+    def place(self) -> str:
+        for k in self.vowel_place_dict:
+            if re.match(self.vowel_place_dict[k], self.label):
+                return k
+        
+        return "unk"
             
 
     @property
@@ -382,7 +460,7 @@ class VowelMeasurement(Sequence):
         return self._expanded_formants    
         
 
-    @property
+    @cached_property
     def cand_param(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
@@ -397,7 +475,7 @@ class VowelMeasurement(Sequence):
 
         return params
     
-    @property
+    @cached_property
     def cand_bparam(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
@@ -405,22 +483,22 @@ class VowelMeasurement(Sequence):
             x.bandwidth_parameters
             for x in self.candidates
         ]).T
-        params = params[:, :2, :]
+        params = params[0, :2, :]
         return params
 
-    @property
+    @cached_property
     def cand_bandwidth_sums(
         self
     ):
         return np.exp(self.cand_bparam[0,1,:])
 
-    @property
+    @cached_property
     def cand_bandwidth_logprob(
         self
     ):
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            first_param = np.exp(self.cand_bparam[0,:2, :])
+            first_param = np.exp(self.cand_bparam[:2, :])
             b_norm = first_param - np.expand_dims(np.nanmin(first_param, axis = 1), axis = 1)
             #b_norm = self.cand_bandwidth_sums - np.nanmin(self.cand_bandwidth_sums)
             b_surv = 1 - (b_norm/np.expand_dims(np.nanmax(b_norm, axis = 1), axis = 1))
@@ -428,7 +506,7 @@ class VowelMeasurement(Sequence):
 
         return b_log_prob
 
-    @property
+    @cached_property
     def cand_maxformant(
         self
     ) -> NDArray[Shape["1, Cand"], Float]:
@@ -437,7 +515,7 @@ class VowelMeasurement(Sequence):
             for c in self.candidates
         ]])
     
-    @property
+    @cached_property
     def cand_error(
         self
     ) -> NDArray[Shape["Cand"], Float]:
@@ -447,6 +525,27 @@ class VowelMeasurement(Sequence):
                 c.smooth_error
                 for c in self.candidates
             ])
+         
+    @cached_property
+    def place_penalty(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        if not self.place in ["front", "back"]:
+            return np.zeros(shape = self.cand_maxformant.shape).squeeze()
+
+        mf_exp =np.power(1.002, self.cand_maxformant)
+        mf_norm = mf_exp - mf_exp.min()
+        mf_surv = mf_norm/mf_norm.max()
+        
+        if self.place == "back":
+            mf_surv = 1 - mf_surv
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            penalty = np.log(mf_surv).squeeze()
+
+        return penalty
+
 
     @property
     def cand_param_mahal_speaker_global(
@@ -638,7 +737,7 @@ class VowelMeasurement(Sequence):
             f"F{i+1}": winner_slice.formants[i]
             for i in range(winner_slice.formants.size)
         }
-        bandwidth_params = self.cand_bparam[0,:,self.winner_index]
+        bandwidth_params = self.cand_bparam[:,self.winner_index]
         for idx, param in enumerate(bandwidth_params):
             point_dict[f"B{idx+1}"] = param
         point_dict["max_formant"] = self.winner.maximum_formant
@@ -954,6 +1053,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
             self._dictify()
         self._vowel_system()
         self._file_name = None
+        self._group = None
         self._corpus = None
 
 
@@ -1003,7 +1103,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
             for x in vc.winners
         ]
     
-    @property
+    @cached_property
     def vowel_measurements(
         self
     ) -> list[VowelMeasurement]:
@@ -1019,7 +1119,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
     ) -> AlignedTextGrid:
         return get_textgrid(self.vowel_measurements[0].interval)
     
-    @property
+    @cached_property
     def file_name(
         self
     ) -> str:
@@ -1029,6 +1129,22 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
         self._file_name = self.vowel_measurements[0].winner.file_name
         return self._file_name
     
+    @cached_property
+    def group(
+        self
+    ) -> str:
+        if self._group:
+            return self._group
+
+        self._group = self.vowel_measurements[0].winner.group
+        return self._group
+    
+    @cached_property
+    def corpus_key(
+        self
+    ) -> tuple[str, str]:
+        return (self.file_name, self.group)
+
     @cached_property
     def winner_expanded_formants(
         self

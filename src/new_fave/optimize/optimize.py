@@ -20,12 +20,13 @@ def run_optimize(
             ] = [
                  #"param_speaker_global",
                  "param_speaker",
+                 #"bparam_speaker",
                  #"bparam_speaker_global",
                  #"bparam_speaker_byvclass",
                  #"maxformant_speaker_global",
                  "maxformant_speaker"
                 ],
-        max_iter = 1
+        max_iter = 5
     ):
 
 
@@ -112,7 +113,7 @@ def optimize_vowel_measures(
 
     optimized = []
     to_optimize = [vm for vm in vowel_measurements]
-    #chunk_size = int(len(to_optimize) * 0.1)
+    #chunk_size = int(len(to_optimize) * 0.05)
     #if chunk_size < 10:
     chunk_size = 10
     if not pbar:
@@ -202,13 +203,17 @@ def optimize_one_measure(
     if "param_corpus_byvclass" in optim_params:
         prob_dict["param_corpus_byvclass"] = vowel_measurement.cand_param_logprob_corpus_byvowel
 
-    if "maxformant_speaker_global" in optim_params:
-        prob_dict["maxformant_speaker_global"] = vowel_measurement.cand_maxformant_logprob_speaker_global
+    #if "maxformant_speaker_global" in optim_params:
+    prob_dict["maxformant_speaker_global"] = vowel_measurement.cand_maxformant_logprob_speaker_global
     
     if "maxformant_speaker_byvclass" in optim_params:
         prob_dict["maxformant_speaker_byvclass"] = vowel_measurement.cand_maxformant_logprob_speaker_byvclass        
         
-    joint_prob = vowel_measurement.cand_error_logprob_vm + vowel_measurement.cand_bandwidth_logprob[1,:]
+    joint_prob = vowel_measurement.cand_error_logprob_vm + \
+        vowel_measurement.place_penalty #+ \
+        #wvowel_measurement.cand_bandwidth_logprob[1,:] 
+        
+    
     for dim in optim_params:
         joint_prob += prob_dict[dim]
     
