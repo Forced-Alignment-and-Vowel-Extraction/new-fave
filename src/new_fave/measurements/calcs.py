@@ -29,7 +29,7 @@ def mahalanobis(
     
     x_mu = params - param_means
     left = np.dot(x_mu.T, inv_cov)
-    mahal = np.dot(left, x_mu)
+    mahal = np.sqrt(np.dot(left, x_mu))
     return mahal.diagonal()
 
 def mahal_log_prob(
