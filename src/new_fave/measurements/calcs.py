@@ -78,6 +78,8 @@ def param_to_cov(
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         param_cov = np.cov(square_params)
+
+    param_cov = param_cov.reshape((square_params.shape[0],square_params.shape[0]))
     
     return param_cov
 
