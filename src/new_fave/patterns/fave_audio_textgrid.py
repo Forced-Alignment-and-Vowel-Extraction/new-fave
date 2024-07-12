@@ -21,6 +21,8 @@ from new_fave.utils.fasttrack_config import read_fasttrack
 from new_fave.patterns.common_processing import resolve_resources, resolve_speaker
 from new_fave.speaker.speaker import Speaker
 import numpy as np
+import re
+from typing import Literal
 
 from pathlib import Path
 import logging
@@ -33,9 +35,11 @@ def fave_audio_textgrid(
     textgrid_path: str|Path,
     speakers: int|list[int]|str|Path = 0,
     include_overlaps: bool = True,
+    no_optimize:bool = False,
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
+    vowel_place_config: str|None = None,
     ft_config: str|None = "default",
     fave_aligned: bool =  False
 )->SpeakerCollection:
@@ -66,6 +70,9 @@ def fave_audio_textgrid(
             Either a string naming a built in point heuristic,
             or a path to a custom heuristic definition. 
             Defaults to None.
+        vowel_place_dict (dict[Literal["front", "back"], re.Pattern], optional):
+            A dictionary of vowel place keys, and associated
+            regexes
         ft_config (str | None, optional): 
             Either a string naming a built-in fasttrack config file,
             or a path to a custom config file. 
@@ -78,8 +85,8 @@ def fave_audio_textgrid(
         (SpeakerCollection): 
             A [](`new_fave.SpeakerCollection`)
     """
-    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
-        recode_rules, labelset_parser, point_heuristic, ft_config
+    ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config, vowel_place_config
     )
 
     speaker_demo, speakers = resolve_speaker(speakers)
@@ -105,7 +112,8 @@ def fave_audio_textgrid(
                 f"but textgrid has only {len(atg)} speakers."
             )
         )
-
+    
+    logger.info("Identifying target speakers.")
     target_tgs = [tg_names[i] for i in speakers]
     target_candidates = [
         cand 
@@ -113,6 +121,7 @@ def fave_audio_textgrid(
         if cand.group in target_tgs
     ]
 
+    logger.info("Recoding vowel labels.")
     run_recode(
         atg,
         parser = parser,
@@ -126,6 +135,7 @@ def fave_audio_textgrid(
             track.label = cand.label
 
     if not include_overlaps:
+        logger.info("Identifying overlaps.")        
         mark_overlaps(atg)
         target_candidates = [
             cand 
@@ -133,10 +143,16 @@ def fave_audio_textgrid(
             if not cand.interval.overlapped
         ]      
 
-    vms = [VowelMeasurement(t, heuristic=heuristic) for t in target_candidates]
+    vms = [
+        VowelMeasurement(t, heuristic=heuristic, vowel_place_dict = vowel_place_dict) 
+        for t in target_candidates
+        ]
     vowel_systems = SpeakerCollection(vms)
     if speaker_demo:
         vowel_systems.speaker = speaker_demo
+    
+    if no_optimize:
+        return(vowel_systems)
 
     for vs in vowel_systems:
         logger.info(f"Optimizing {vs}")

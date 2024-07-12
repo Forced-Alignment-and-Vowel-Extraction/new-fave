@@ -1,4 +1,4 @@
-from new_fave.measurements.vowel_measurement import SpeakerCollection
+from new_fave.measurements.vowel_measurement import SpeakerCollection, VowelClassCollection
 from new_fave.utils.textgrid import get_textgrid
 from aligned_textgrid import AlignedTextGrid
 from pathlib import Path
@@ -224,7 +224,7 @@ def check_outputs(
 
 
 def pickle_speakers(
-        speakers: SpeakerCollection,
+        speakers: SpeakerCollection|VowelClassCollection,
         path: str | Path
 ):
     """
@@ -249,6 +249,11 @@ def pickle_speakers(
     """
     path = Path(path)
 
+    if isinstance(speakers, VowelClassCollection):
+        speakers_to_write = SpeakerCollection()
+        speakers_to_write[
+            (speakers.file_name, speakers.group)
+        ]
     if not isinstance(speakers, SpeakerCollection):
         raise ValueError("pickle_speakers can only pickle a SpeakerCollection")
     

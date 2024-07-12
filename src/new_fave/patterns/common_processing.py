@@ -8,6 +8,7 @@ from new_fave.utils.local_resources import recodes, \
     parsers,\
     heuristics, \
     fasttrack_config,\
+    vowel_place,\
     generic_resolver
 
 from new_fave.speaker.speaker import Speaker
@@ -15,16 +16,20 @@ from new_fave.speaker.speaker import Speaker
 from fave_measurement_point.heuristic import Heuristic
 
 from new_fave.utils.fasttrack_config import read_fasttrack
+from new_fave.utils.vowel_place import read_vowel_place
 
 from pathlib import Path
 import numpy as np
+import re
+from typing import Literal
 
 def resolve_resources(
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
-    ft_config: str|None = "default"
-) -> tuple[RuleSet, LabelSetParser, Heuristic, dict]:
+    vowel_place_config: str|None = None,
+    ft_config: str|None = "default",
+) -> tuple[RuleSet, LabelSetParser, Heuristic, dict, dict[Literal["front", "back"], re.Pattern]]:
     
     ruleset = generic_resolver(
         resolve_func = get_rules,
@@ -53,7 +58,14 @@ def resolve_resources(
         resource_dict=fasttrack_config,
         default_value=dict()
     )
-    return (ruleset, parser, heuristic, fasttrack_kwargs)
+
+    vowel_place_dict = generic_resolver(
+        resolve_func=read_vowel_place,
+        to_resolve=vowel_place_config,
+        resource_dict=vowel_place,
+        default_value = dict()
+    )
+    return (ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict)
 
 def resolve_speaker(
         speakers: int|list[int]|str|Path

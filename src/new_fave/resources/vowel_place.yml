@@ -1,0 +1,16 @@
+front:
+  - ^ae
+  - ^AE
+  - ^e
+  - ^E
+  - ^i[^w]?
+  - ^I
+
+back:
+  - uw
+  - UW
+  - ah
+  - AA
+  - o
+  - ^O
+  - AO

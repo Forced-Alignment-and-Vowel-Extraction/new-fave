@@ -6,6 +6,7 @@ from fasttrackpy.patterns.just_audio import create_audio_checker
 from fasttrackpy.patterns.corpus import get_audio_files, get_corpus, CorpusPair
 from fasttrackpy.utils.safely import safely, filter_nones
 from new_fave.patterns.writers import check_outputs
+from new_fave.patterns.common_processing import resolve_resources, resolve_speaker
 
 from pathlib import Path
 from glob import glob
@@ -94,6 +95,17 @@ configs = cloup.option_group(
         )
     ),
     cloup.option(
+        "--vowel-place",
+        type = click.STRING,
+        default="default",
+        show_default=True,
+        help = (
+            "A vowel place definition file. "
+            "Values can be the name of a built in config ('defailt) "
+            "or a path to a custom config file."
+        )
+    ),    
+    cloup.option(
         "--ft-config",
         type = click.STRING,
         default="default",
@@ -123,6 +135,16 @@ configs = cloup.option_group(
         help=(
             "Include this flag if you want to "
             "exclude overlapping speech."
+        )
+    ),
+    cloup.option(
+        "--no-optimize",
+        type=click.BOOL,
+        is_flag=True,
+        default=False,
+        help=(
+            "Include this flag if you want to "
+            "skip fave optimization"
         )
     )
 )
@@ -202,9 +224,11 @@ def audio_textgrid(
     textgrid_path: str|Path,
     speakers: int|list[int]|str|Path,
     exclude_overlaps: bool,
+    no_optimize:bool,
     recode_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
+    vowel_place: str|None,
     ft_config: str|None,
     fave_aligned: bool,
     destination: Path,
@@ -244,9 +268,11 @@ def audio_textgrid(
         textgrid_path=textgrid_path,
         speakers=speakers,
         include_overlaps=include_overlaps,
+        no_optimize=no_optimize,
         recode_rules=recode_rules,
         labelset_parser=labelset_parser,
         point_heuristic=point_heuristic,
+        vowel_place_config=vowel_place,
         ft_config=ft_config,
         fave_aligned=fave_aligned
     )
@@ -276,9 +302,11 @@ def corpus(
     corpus_path: str|Path,
     speakers: int|list[int]|str|Path,
     exclude_overlaps: bool,
+    no_optimize:bool,    
     recode_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
+    vowel_place: str|None,
     ft_config: str|None,
     fave_aligned: bool,
     destination: Path,
@@ -325,9 +353,11 @@ def corpus(
             textgrid_path=pair.tg,
             speakers = speakers,
             include_overlaps=include_overlaps,
+            no_optimize=no_optimize,
             recode_rules=recode_rules,
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
+            vowel_place_config=vowel_place,
             ft_config=ft_config,
             fave_aligned=fave_aligned
         )
@@ -357,9 +387,11 @@ def subcorpora(
     subcorpora: list[str|Path],
     speakers: int|list[int]|str|Path,
     exclude_overlaps: bool,
+    no_optimize:bool,    
     recode_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
+    vowel_place: str|None,
     ft_config: str|None,
     fave_aligned: bool,
     destination: Path,
@@ -407,9 +439,11 @@ def subcorpora(
             textgrid_path=pair.tg,
             speakers = speakers,
             include_overlaps=include_overlaps,
+            no_optimize=no_optimize,
             recode_rules=recode_rules,
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
+            vowel_place_config=vowel_place,
             ft_config=ft_config,
             fave_aligned=fave_aligned
         )
@@ -420,6 +454,34 @@ def subcorpora(
                 which = w,
                 separate=separate
             )
+        else:
+            logging.info("Problem writing data")
+    pass
+
+@fave_extract.command(
+    aliases = ["show"],
+    formatter_settings=formatter_settings,
+    help = "Show fave-extract configs."
+)
+@speaker_opt
+@configs
+@outputs
+def show(
+    recode_rules: str|None,
+    labelset_parser: str|None,
+    point_heuristic: str|None,
+    vowel_place: str|None,
+    ft_config: str|None,
+    fave_aligned: bool,
+    destination: Path,
+    which: list[Literal[
+            "tracks", "points", "param", "log_param", "textgrid"
+        ]],
+    separate: bool 
+):
+    ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict = resolve_resources(
+        recode_rules, labelset_parser, point_heuristic, ft_config, vowel_place_config
+    )
     pass
 
 
