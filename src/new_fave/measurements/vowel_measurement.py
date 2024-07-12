@@ -98,6 +98,7 @@ class PropertySetter:
             winner_attrs = [
                 x.replace("cand_", "winner_")
                 for x in cand_attrs
+            ]
 
             set_prop(self, cand_attrs, winner_attrs, wrapper, "winner_factory")
             
