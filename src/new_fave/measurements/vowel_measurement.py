@@ -51,9 +51,6 @@ from new_fave.measurements.calcs import mahalanobis, \
 
 from new_fave.measurements.decorators import MahalWrap,\
     MahalCacheWrap,\
-    FlatWrap,\
-    FlatCacheWrap,\
-    PropertyFactory,\
     get_wrapped,\
     set_prop
 
@@ -85,9 +82,15 @@ def blank_list():
 EMPTY_LIST = blank_list()
 
 class PropertySetter:
+    """
+    A mixin class to dynamically create properties 
+    necessary for calculating log-probabilities
+    from properties decorated with either MahalWrap
+    or MahalCacheWrap.
+    """
 
     def _make_attrs(self):
-        for wrapper in [MahalWrap, MahalCacheWrap, FlatWrap, FlatCacheWrap]:
+        for wrapper in [MahalWrap, MahalCacheWrap]:
             cand_attrs = get_wrapped(VowelMeasurement, wrapper)
 
             winner_attrs = [
@@ -111,115 +114,22 @@ class PropertySetter:
 
             set_prop(self, winner_attrs, icov_attrs, wrapper, "icov_factory")
 
-    pass
+            speaker_byvclass_attrs = [
+                attr+"_logprob_speaker_byvclass"
+                for attr in cand_attrs
+            ]
 
-class StatPropertyMixins(PropertySetter):
+            set_prop(self, cand_attrs, speaker_byvclass_attrs, wrapper, "speaker_byvclass")
 
-    # @cached_property
-    # def winner_param(
-    #     self
-    # ) -> NDArray[Shape["Param, Formant, N"], Float]:
-    #     params = np.array(
-    #         [
-    #             x.parameters
-    #             for x in self.winners
-    #         ]
-    #     ).T
-    #     return params
-    
-    # @cached_property
-    # def winner_bparam(
-    #     self
-    # ) -> NDArray[Shape["Param, Formant, N"], Float]:
-    #     params = np.array([
-    #         x.bandwidth_parameters
-    #         for x in self.winners
-    #     ]).T
-    #     return params
-    
-    # @cached_property
-    # def winner_maxformant(
-    #     self
-    # ) -> NDArray[Shape["1, N"], Float]:
-    #     max_formants = np.array([[
-    #         x.maximum_formant
-    #         for x in self.winners
-    #     ]])
+            speaker_global_attrs = [
+                attr+"_logprob_speaker_global"
+                for attr in cand_attrs
+            ]
 
-    #     return max_formants
-
-    # @cached_property
-    # def winner_param_mean(
-    #     self
-    # ) -> NDArray[Shape["ParamFormant, 1"], Float]:
-    #     N = len(self.winners)
-    #     winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
-    #     winner_mean = winner_mean[:, np.newaxis]
-    #     return winner_mean
-    
-    # @cached_property
-    # def winner_bparam_mean(
-    #     self
-    # ) -> NDArray[Shape["ParamFormant, 1"], Float]:
-    #     N = len(self.winners)
-    #     winner_mean =  self.winner_bparam.reshape(-1, N).mean(axis = 1)
-    #     winner_mean = winner_mean[:, np.newaxis]
-    #     return winner_mean        
-    #     pass
-    
-    @cached_property
-    def winner_param_cov(
-        self
-    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
-        param_cov = param_to_cov(self.winner_param)
-        return param_cov
-    
-    @cached_property
-    def winner_param_icov(
-        self
-    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
-        params_icov = cov_to_icov(self.winner_param_cov)
-        return params_icov    
-    
-    @cached_property
-    def winner_bparam_cov(
-        self
-    ) -> NDArray[Shape["ParamFormant, ParamFormant"], Float]:
-        param_cov = param_to_cov(self.winner_bparam)
-        return param_cov
-    
-    @cached_property
-    def winner_bparam_icov(
-        self
-    ) ->  NDArray[Shape["ParamFormant, ParamFormant"], Float]:
-        params_icov = cov_to_icov(self.winner_bparam_cov)
-        return params_icov    
-
-
-    @cached_property
-    def winner_maxformant_mean(
-        self
-    ) -> float:
-        return self.winner_maxformant.mean()
-    
-    @cached_property
-    def winner_maxformant_cov(
-        self
-    ) -> NDArray[Shape["1, 1"], Float]:
-        cov = param_to_cov(self.winner_maxformant)
-        cov = cov.reshape(1,1)
-        return cov
-    
-    @cached_property
-    def winner_maxformant_icov(
-        self
-    ) -> NDArray[Shape["1, 1"], Float]:        
-        icov = cov_to_icov(self.winner_maxformant_cov)
-        return icov
-
+            set_prop(self, cand_attrs, speaker_global_attrs, wrapper, "speaker_global")
 
 @dataclass
-class VowelMeasurement(Sequence):
+class VowelMeasurement(Sequence, PropertySetter):
     """ A class used to represent a vowel measurement.
 
     ## Intended Usage
@@ -325,6 +235,7 @@ class VowelMeasurement(Sequence):
         self._label = None
         self._expanded_formants = None
         self._optimized = 0
+        self._make_attrs()
 
     def __getitem__(self,i):
         return self.candidates[i]
@@ -381,10 +292,14 @@ class VowelMeasurement(Sequence):
     @winner.setter
     def winner(self, idx):
         self._winner = self.candidates[idx]
+        self._reset_winners()
         self.vowel_class.vowel_system._reset_winners()
         self.vowel_class._reset_winners()
         self._expanded_formants = None
         self._optimized += 1
+
+    def _reset_winners(self):
+        clear_cached_properties(self)
 
     @property
     def optimized(self)->int:
@@ -439,11 +354,14 @@ class VowelMeasurement(Sequence):
     @MahalCacheWrap
     def cand_maxformant(
         self
-    ) -> NDArray[Shape["1, Cand"], Float]:
-        return np.array([[
+    ) -> NDArray[Shape["1, 1, Cand"], Float]:
+        mf = np.array([[
             c.maximum_formant
             for c in self.candidates
         ]])
+
+        #mf = mf.reshape((1, np.newaxis, mf.shape[-1]))
+        return mf
     
     @property
     def cand_error(
@@ -455,152 +373,6 @@ class VowelMeasurement(Sequence):
                 c.smooth_error
                 for c in self.candidates
             ])
-
-    @property
-    def cand_param_mahal_speaker_global(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        N = len(self.candidates)
-        square_params = self.cand_param.reshape(-1, N)
-        mahal = mahalanobis(
-            square_params,
-            self.vowel_class.vowel_system.winner_param_mean,
-            self.vowel_class.vowel_system.winner_param_icov
-        )
-        return mahal
-    
-    @property
-    def cand_param_logprob_speaker_global(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        log_prob  = mahal_log_prob(
-            self.cand_param_mahal_speaker_global,
-            self.cand_param
-        )
-        return log_prob
-    
-    @property
-    def cand_param_mahal_speaker_byvclass(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        N = len(self.candidates)
-        square_params = self.cand_param.reshape(-1, N)
-        inv_covmat = self.vowel_class.winner_param_icov
-        param_means = self.vowel_class.winner_param_mean
-        mahal = mahalanobis(square_params, param_means, inv_covmat)
-        return mahal
-    
-    @property
-    def cand_param_logprob_speaker_byvclass(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        log_prob = mahal_log_prob(
-            self.cand_param_mahal_speaker_byvclass,
-            self.cand_param
-        )
-        if len(self.vowel_class) < 10:
-            log_prob = np.zeros(shape = log_prob.shape)
-        return log_prob
-    
-
-    @property
-    def cand_param_mahal_corpus_byvowel(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        
-        N = len(self.candidates)
-        square_params = self.cand_param.reshape(-1, N)
-        inv_covmat = self\
-            .vowel_class\
-            .vowel_system\
-            .corpus\
-            .winner_param_icov[self.label]
-        param_means = self\
-            .vowel_class\
-            .vowel_system\
-            .corpus\
-            .winner_param_mean[self.label]
-        
-        mahal = mahalanobis(square_params, param_means, inv_covmat)
-        return mahal
-
-    @property
-    def cand_param_logprob_corpus_byvowel(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        log_prob = mahal_log_prob(
-            self.cand_param_mahal_corpus_byvowel,
-            self.cand_param
-        )
-        return log_prob
-    
-    @property
-    def cand_bparam_mahal_speaker_byvclass(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        N = len(self.candidates)
-        square_params = self.cand_bparam.reshape(-1, N)
-        inv_covmat = self.vowel_class.winner_bparam_icov
-        param_means = self.vowel_class.winner_bparam_mean
-        mahal = mahalanobis(square_params, param_means, inv_covmat)
-        return mahal
-    
-    @property
-    def cand_bparam_logprob_speaker_byvclass(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        log_prob = mahal_log_prob(
-            self.cand_bparam_mahal_speaker_byvclass,
-            self.cand_bparam
-        )
-        if len(self.vowel_class) < 10:
-            log_prob = np.zeros(shape = log_prob.shape)
-        return log_prob
-
-    @property
-    def cand_bparam_mahal_speaker_global(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        N = len(self.candidates)
-        square_params = self.cand_bparam.reshape(-1, N)
-        inv_covmat = self.vowel_class.vowel_system.winner_bparam_icov
-        param_means = self.vowel_class.vowel_system.winner_bparam_mean
-        mahal = mahalanobis(square_params, param_means, inv_covmat)
-        return mahal
-    
-    @property
-    def cand_bparam_logprob_speaker_global(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        log_prob = mahal_log_prob(
-            self.cand_bparam_mahal_speaker_global,
-            self.cand_bparam
-        )
-        if len(self.vowel_class) < 10:
-            log_prob = np.zeros(shape = log_prob.shape)
-        return log_prob
-
-
-
-    @property 
-    def cand_maxformant_mahal_speaker_global(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        inv_covmat = self.vowel_class.vowel_system.winner_maxformant_icov
-        maximum_formant_means = self.vowel_class.vowel_system.winner_maxformant_mean        
-        mahal = mahalanobis(self.cand_maxformant, maximum_formant_means, inv_covmat)
-        return mahal
-    
-    @property
-    def cand_maxformant_logprob_speaker_global(
-        self
-    ) -> NDArray[Shape["Cand"], Float]:
-        log_prob = mahal_log_prob(
-            self.cand_maxformant_mahal_speaker_global,
-            self.cand_maxformant
-        )
-
-        return log_prob
 
     @property
     def cand_error_logprob_vm(
@@ -789,15 +561,12 @@ class VowelClass(Sequence, PropertySetter):
     label: str = field(default="")
     vowel_measurements: list[VowelMeasurement] = field(default_factory= lambda : [])
     containing_class: ClassVar[type] = VowelMeasurement
+    scope: ClassVar[str] = "speaker_byvclass"
 
     def __post_init__(self):
         super().__init__()
         self._make_attrs()
         self._winners = [x.winner for x in self.vowel_measurements]
-        self._winner_param = None
-        self._winner_param_mean = None
-        self._winner_param_cov = None
-        self._winner_param_icov = None
         for t in self.vowel_measurements:
             t.vowel_class = self
 
@@ -929,6 +698,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
             The inverse of `winner_maxformant_cov`
     """
     containing_class = VowelClass
+    scope = "speaker_global"
     def __init__(self, track_list:list[VowelMeasurement] = EMPTY_LIST):
         super().__init__(blank)
         self.track_list = track_list
