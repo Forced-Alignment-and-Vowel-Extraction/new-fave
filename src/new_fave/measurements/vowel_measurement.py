@@ -49,9 +49,17 @@ from new_fave.measurements.calcs import mahalanobis, \
     cov_to_icov,\
     clear_cached_properties
 
+from new_fave.measurements.decorators import MahalWrap,\
+    MahalCacheWrap,\
+    FlatWrap,\
+    FlatCacheWrap,\
+    PropertyFactory,\
+    get_wrapped,\
+    set_prop
+
 from collections import defaultdict
 import numpy as np
-from typing import Literal
+from typing import Literal, ClassVar
 import polars as pl
 
 import scipy.stats as stats
@@ -76,59 +84,88 @@ def blank_list():
 
 EMPTY_LIST = blank_list()
 
-class StatPropertyMixins:
+class PropertySetter:
 
-    @cached_property
-    def winner_param(
-        self
-    ) -> NDArray[Shape["Param, Formant, N"], Float]:
-        params = np.array(
-            [
-                x.parameters
-                for x in self.winners
+    def _make_attrs(self):
+        for wrapper in [MahalWrap, MahalCacheWrap, FlatWrap, FlatCacheWrap]:
+            cand_attrs = get_wrapped(VowelMeasurement, wrapper)
+
+            winner_attrs = [
+                x.replace("cand_", "winner_")
+                for x in cand_attrs
             ]
-        ).T
-        return params
-    
-    @cached_property
-    def winner_bparam(
-        self
-    ) -> NDArray[Shape["Param, Formant, N"], Float]:
-        params = np.array([
-            x.bandwidth_parameters
-            for x in self.winners
-        ]).T
-        return params
-    
-    @cached_property
-    def winner_maxformant(
-        self
-    ) -> NDArray[Shape["1, N"], Float]:
-        max_formants = np.array([[
-            x.maximum_formant
-            for x in self.winners
-        ]])
 
-        return max_formants
+            set_prop(self, cand_attrs, winner_attrs, wrapper, "winner_factory")
+            
+            mean_attrs = [
+                attr + "_mean" 
+                for attr in winner_attrs
+            ]
+            set_prop(self, winner_attrs, mean_attrs, wrapper, "mean_factory")
+            
 
-    @cached_property
-    def winner_param_mean(
-        self
-    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
-        N = len(self.winners)
-        winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
-        winner_mean = winner_mean[:, np.newaxis]
-        return winner_mean
+            icov_attrs = [
+                attr + "_icov" 
+                for attr in winner_attrs
+            ]
+
+            set_prop(self, winner_attrs, icov_attrs, wrapper, "icov_factory")
+
+    pass
+
+class StatPropertyMixins(PropertySetter):
+
+    # @cached_property
+    # def winner_param(
+    #     self
+    # ) -> NDArray[Shape["Param, Formant, N"], Float]:
+    #     params = np.array(
+    #         [
+    #             x.parameters
+    #             for x in self.winners
+    #         ]
+    #     ).T
+    #     return params
     
-    @cached_property
-    def winner_bparam_mean(
-        self
-    ) -> NDArray[Shape["ParamFormant, 1"], Float]:
-        N = len(self.winners)
-        winner_mean =  self.winner_bparam.reshape(-1, N).mean(axis = 1)
-        winner_mean = winner_mean[:, np.newaxis]
-        return winner_mean        
-        pass
+    # @cached_property
+    # def winner_bparam(
+    #     self
+    # ) -> NDArray[Shape["Param, Formant, N"], Float]:
+    #     params = np.array([
+    #         x.bandwidth_parameters
+    #         for x in self.winners
+    #     ]).T
+    #     return params
+    
+    # @cached_property
+    # def winner_maxformant(
+    #     self
+    # ) -> NDArray[Shape["1, N"], Float]:
+    #     max_formants = np.array([[
+    #         x.maximum_formant
+    #         for x in self.winners
+    #     ]])
+
+    #     return max_formants
+
+    # @cached_property
+    # def winner_param_mean(
+    #     self
+    # ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+    #     N = len(self.winners)
+    #     winner_mean =  self.winner_param.reshape(-1, N).mean(axis = 1)
+    #     winner_mean = winner_mean[:, np.newaxis]
+    #     return winner_mean
+    
+    # @cached_property
+    # def winner_bparam_mean(
+    #     self
+    # ) -> NDArray[Shape["ParamFormant, 1"], Float]:
+    #     N = len(self.winners)
+    #     winner_mean =  self.winner_bparam.reshape(-1, N).mean(axis = 1)
+    #     winner_mean = winner_mean[:, np.newaxis]
+    #     return winner_mean        
+    #     pass
     
     @cached_property
     def winner_param_cov(
@@ -373,6 +410,7 @@ class VowelMeasurement(Sequence):
         
 
     @property
+    @MahalCacheWrap
     def cand_param(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
@@ -386,17 +424,19 @@ class VowelMeasurement(Sequence):
         return params
     
     @property
+    @MahalCacheWrap
     def cand_bparam(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
         params = np.array([
             x.bandwidth_parameters
             for x in self.candidates
-        ])
+        ]).T
     
         return params
 
     @property
+    @MahalCacheWrap
     def cand_maxformant(
         self
     ) -> NDArray[Shape["1, Cand"], Float]:
@@ -707,7 +747,7 @@ class VowelMeasurement(Sequence):
         return(df)
 
 @dataclass
-class VowelClass(Sequence, StatPropertyMixins):
+class VowelClass(Sequence, PropertySetter):
     """A class used to represent a vowel class.
 
     ## Intended Usage
@@ -747,22 +787,25 @@ class VowelClass(Sequence, StatPropertyMixins):
             Inverse covariance of winner DCT parameters
     """
     label: str = field(default="")
-    tracks: list[VowelMeasurement] = field(default_factory= lambda : [])
+    vowel_measurements: list[VowelMeasurement] = field(default_factory= lambda : [])
+    containing_class: ClassVar[type] = VowelMeasurement
+
     def __post_init__(self):
         super().__init__()
-        self._winners = [x.winner for x in self.tracks]
+        self._make_attrs()
+        self._winners = [x.winner for x in self.vowel_measurements]
         self._winner_param = None
         self._winner_param_mean = None
         self._winner_param_cov = None
         self._winner_param_icov = None
-        for t in self.tracks:
+        for t in self.vowel_measurements:
             t.vowel_class = self
 
     def __getitem__(self, i):
-        return self.tracks[i]
+        return self.vowel_measurements[i]
     
     def __len__(self):
-        return len(self.tracks)
+        return len(self.vowel_measurements)
     
     def __repr__(self):
         out = (
@@ -775,6 +818,7 @@ class VowelClass(Sequence, StatPropertyMixins):
     
     def _reset_winners(self):
         clear_cached_properties(self)
+
     
     @property
     def vowel_system(self):
@@ -786,7 +830,7 @@ class VowelClass(Sequence, StatPropertyMixins):
 
     @cached_property
     def winners(self):
-        return [x.winner for x in self.tracks]
+        return [x.winner for x in self.vowel_measurements]
     
     def to_param_df(
             self, 
@@ -799,7 +843,7 @@ class VowelClass(Sequence, StatPropertyMixins):
                 A DataFrame of formant DCT parameters
         """
         df = pl.concat(
-            [x.to_param_df(output=output) for x in self.tracks]
+            [x.to_param_df(output=output) for x in self.vowel_measurements]
         )
 
         return df
@@ -814,7 +858,7 @@ class VowelClass(Sequence, StatPropertyMixins):
                 A DataFrame of formant tracks
         """
         df = pl.concat(
-            [x.to_tracks_df() for x in self.tracks]
+            [x.to_tracks_df() for x in self.vowel_measurements]
         )
 
         return df    
@@ -827,12 +871,12 @@ class VowelClass(Sequence, StatPropertyMixins):
                 A DataFrame of vowel point measures.
         """        
         df = pl.concat(
-            [x.to_point_df() for x in self.tracks]
+            [x.to_point_df() for x in self.vowel_measurements]
         )
 
         return df
 
-class VowelClassCollection(defaultdict, StatPropertyMixins):
+class VowelClassCollection(defaultdict, PropertySetter):
     """
     A class for an entire vowel system. 
     
@@ -884,6 +928,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
         winner_maxformant_icov (NDArray[Shape["1, 1"], Float]):
             The inverse of `winner_maxformant_cov`
     """
+    containing_class = VowelClass
     def __init__(self, track_list:list[VowelMeasurement] = EMPTY_LIST):
         super().__init__(blank)
         self.track_list = track_list
@@ -894,6 +939,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
         self._vowel_system()
         self._file_name = None
         self._corpus = None
+        self._make_attrs()
 
 
     def __setitem__(self, __key, __value) -> None:
@@ -945,7 +991,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
         return [
             x  
             for vc in self.values()
-            for x in vc.tracks
+            for x in vc.vowel_measurements
         ]
     
     @cached_property
@@ -1019,7 +1065,7 @@ class VowelClassCollection(defaultdict, StatPropertyMixins):
 
         return df
     
-class SpeakerCollection(defaultdict, StatPropertyMixins):
+class SpeakerCollection(defaultdict, PropertySetter):
     """
     A class to represent the vowel system of all 
     speakers in a TextGrid. 
@@ -1039,6 +1085,8 @@ class SpeakerCollection(defaultdict, StatPropertyMixins):
     """
     __hash__ = object.__hash__
 
+    containing_class = VowelClassCollection
+
     def __init__(self, track_list:list[VowelMeasurement] = []):
         self.track_list = track_list
         self.speakers_dict = defaultdict(blank_list)
@@ -1046,6 +1094,7 @@ class SpeakerCollection(defaultdict, StatPropertyMixins):
         self._dictify()
         self._speaker = None
         self._associate_corpus()
+        self._make_attrs()
     
     def __setitem__(self, __key, __value) -> None:
         super().__setitem__(__key, __value)
