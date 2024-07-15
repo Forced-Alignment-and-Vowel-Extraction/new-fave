@@ -20,13 +20,16 @@ def run_optimize(
             ] = [
                  #"param_speaker_global",
                  "param_speaker",
+                 #"squareparam_speaker",
+                 "fratio_speaker",
+                 "centroid_speaker",
                  #"bparam_speaker",
                  #"bparam_speaker_global",
                  #"bparam_speaker_byvclass",
                  #"maxformant_speaker_global",
                  "maxformant_speaker"
                 ],
-        max_iter = 5
+        max_iter = 3
     ):
 
 
@@ -67,7 +70,7 @@ def run_optimize(
 
 def optimize_speaker(
         speaker: VowelClassCollection,
-        optim_params = ["param_speaker", "maxformant_speaker"]
+        optim_params: list[str]
 ):
     keys = speaker.sorted_keys
     total_len = 0
@@ -88,9 +91,7 @@ def optimize_speaker(
 
 def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
-        optim_params: list[
-              Literal["param_speaker", "maxformant_speaker"]
-            ] = ["param_speaker", "maxformant_speaker"],
+        optim_params: list[str],
         pbar: tqdm = None
     ):
     """
@@ -153,23 +154,7 @@ def optimize_vowel_measures(
 #@safely(message="There was a problem optimizing a vowel.")
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params: list[
-             Literal[
-                 "param_speaker_global",
-                 "param_speaker_byvclass",
-                 "bparam_speaker_global",
-                 "bparam_speaker_byvclass",
-                 "maxformant_speaker_global",
-                 "param_corpus_byvowel"
-                ]
-             ] = [
-                 "param_speaker_global",
-                 "param_speaker_byvclass",
-                 "bparam_speaker_global",
-                 "bparam_speaker_byvclass",
-                 "maxformant_speaker_global",
-                 "maxformant_speaker_byvclass",                 
-                ]
+         optim_params: list
     )->int:
     """
     Optimize a single vowel measurement
@@ -189,10 +174,10 @@ def optimize_one_measure(
     prob_dict = dict()
 
     if "param_speaker_global" in optim_params:
-        prob_dict["param_speaker_global"] = vowel_measurement.cand_param_logprob_speaker_global
+        prob_dict["squareparam_speaker_global"] = vowel_measurement.cand_squareparam_logprob_speaker_global
 
     if "param_speaker_byvclass" in optim_params:
-        prob_dict["param_speaker_byvclass"] = vowel_measurement.cand_param_logprob_speaker_byvclass
+        prob_dict["squareparam_speaker_byvclass"] = vowel_measurement.cand_squareparam_logprob_speaker_byvclass
 
     if "bparam_speaker_global" in optim_params:
         prob_dict["bparam_speaker_global"] = vowel_measurement.cand_bparam_logprob_speaker_global
@@ -203,18 +188,30 @@ def optimize_one_measure(
     if "param_corpus_byvclass" in optim_params:
         prob_dict["param_corpus_byvclass"] = vowel_measurement.cand_param_logprob_corpus_byvowel
 
-    #if "maxformant_speaker_global" in optim_params:
-    prob_dict["maxformant_speaker_global"] = vowel_measurement.cand_maxformant_logprob_speaker_global
+    if "maxformant_speaker_global" in optim_params:
+        prob_dict["maxformant_speaker_global"] = vowel_measurement.cand_maxformant_logprob_speaker_global
     
     if "maxformant_speaker_byvclass" in optim_params:
-        prob_dict["maxformant_speaker_byvclass"] = vowel_measurement.cand_maxformant_logprob_speaker_byvclass        
+        prob_dict["maxformant_speaker_byvclass"] = vowel_measurement.cand_maxformant_logprob_speaker_byvclass
         
+    if "fratio_speaker_byvclass" in optim_params:
+        prob_dict["fratio_speaker_byvclass"] = vowel_measurement.cand_fratio_logprob_speaker_byvclass
+
+    if "fratio_speaker_global" in optim_params:
+        prob_dict["fratio_speaker_global"] = vowel_measurement.cand_fratio_logprob_speaker_global
+
+    if "centroid_speaker_byvclass" in optim_params:
+        prob_dict["centroid_speaker_byvclass"] = vowel_measurement.cand_centroid_logprob_speaker_byvclass        
+
+    if "centroid_speaker_global" in optim_params:
+        prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global      
+
+
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
-        vowel_measurement.place_penalty #+ \
-        #wvowel_measurement.cand_bandwidth_logprob[1,:] 
+        vowel_measurement.place_penalty
         
     
-    for dim in optim_params:
+    for dim in prob_dict:
         joint_prob += prob_dict[dim]
     
     return joint_prob

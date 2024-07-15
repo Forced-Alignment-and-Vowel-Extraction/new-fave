@@ -51,6 +51,7 @@ from new_fave.measurements.calcs import mahalanobis, \
 
 from new_fave.measurements.decorators import MahalWrap,\
     MahalCacheWrap,\
+    FlatCacheWrap,\
     get_wrapped,\
     set_prop
 
@@ -61,6 +62,9 @@ import polars as pl
 
 import scipy.stats as stats
 from scipy.fft import idst, idct
+
+import librosa
+
 from joblib import Parallel, delayed, cpu_count
 
 from collections.abc import Sequence, Iterable
@@ -129,6 +133,15 @@ class PropertySetter:
             ]
 
             set_prop(self, cand_attrs, speaker_global_attrs, wrapper, "speaker_global")
+
+        for wrapper in [FlatCacheWrap]:
+            cand_attrs = get_wrapped(VowelMeasurement, wrapper)
+
+            agg_attrs = [attr + "s" for attr in cand_attrs]
+
+            set_prop(self, cand_attrs, agg_attrs, wrapper, "agg_factory")
+
+
 
 @dataclass
 class VowelMeasurement(Sequence, PropertySetter):
@@ -264,9 +277,9 @@ class VowelMeasurement(Sequence, PropertySetter):
     def _init_winner(self):
         
         joint = self.cand_error_logprob_vm 
-        #if not self.only_fasttrack:
-        joint += self.cand_bandwidth_logprob[1, :]
-        #joint += self.place_penalty
+        if self.spectral_rolloff < 7:
+            joint += self.place_penalty/100
+
         idx = np.nanargmax(joint)
 
         self._winner = self.track.candidates[idx]
@@ -349,28 +362,107 @@ class VowelMeasurement(Sequence, PropertySetter):
             self.cand_param
         )
         return self._expanded_formants    
+
+    @cached_property
+    @FlatCacheWrap
+    def spectral_rolloff(self) -> float:
+        n_fft_power = 11
+        while self.track.samples.size < 2 ** n_fft_power:
+            n_fft_power -= 1
+        
+        rolloff = librosa.feature.spectral_rolloff(
+            y = self.track.samples[0] + 0.01,
+            sr = self.track.sampling_frequency,
+            n_fft = 2**n_fft_power
+        ).squeeze()
+
+        third = rolloff.size // 3
+
+        log_rolloff = np.log(
+            rolloff[third:-third]
+        ).mean()
+
+        return log_rolloff
+
         
 
-
-    @property
+    @cached_property
     @MahalCacheWrap
     def cand_param(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
         params = np.array(
             [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        params = np.concatenate((params, self.cand_bparam))
+
+        return params
+    
+    @cached_property
+    @MahalCacheWrap
+    def cand_squareparam(
+        self
+    ) -> NDArray[Shape["X, Cand"], Float]:
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        params = np.concatenate((params, self.cand_bparam))
+        square_params = params.reshape((-1, params.shape[-1]))
+
+        return square_params    
+    
+    @cached_property
+    @MahalCacheWrap
+    def cand_centroid(
+        self
+    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        params = params[0,:2,:]
+        params = np.expand_dims(params, 0)
+
+        return params    
+    
+    @cached_property
+    @MahalCacheWrap
+    def cand_fratio(
+        self
+    ) -> NDArray[Shape["1, Formant"], Float]:
+        """The formant ratios
+
+        Returns:
+            (np.ndarray):
+                A numpy array of the ratios of formants.
+                Necessarilly the number of formants minus 1.
+        """
+        params = np.array(
+            [
                 x.parameters
                 for x in self.candidates
             ]
         ).T
-        params = params[:, :2, :]
-        #params = np.concatenate((params, self.cand_bparam))
 
-        return params
-    
+        params = params[0, :, :]
+        ratios = np.diff(
+                np.log(params),
+                axis = 0
+            )
+        
+        ratios = np.expand_dims(ratios, 0)
+        return ratios
 
     @property
-    @MahalCacheWrap
+    #@MahalCacheWrap
     def cand_bparam(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
@@ -378,10 +470,13 @@ class VowelMeasurement(Sequence, PropertySetter):
             x.bandwidth_parameters
             for x in self.candidates
         ]).T
+
+        params = params[0, :, :]
+        params = np.expand_dims(params, 0)
     
         return params
 
-    @property
+    @cached_property
     @MahalCacheWrap
     def cand_maxformant(
         self
@@ -412,7 +507,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         if not self.place in ["front", "back"]:
             return np.zeros(shape = self.cand_maxformant.shape).squeeze()
 
-        mf_exp =np.power(1.002, self.cand_maxformant)
+        mf_exp =np.power(1.0001, self.cand_maxformant)
         mf_norm = mf_exp - mf_exp.min()
         mf_surv = mf_norm/mf_norm.max()
         
@@ -425,6 +520,16 @@ class VowelMeasurement(Sequence, PropertySetter):
 
         return penalty
 
+    @cached_property
+    def cand_b2_logprob(self):
+        f2_bandwidth = self.cand_bparam[0,1,:]
+        f2_norm = f2_bandwidth - np.nanmin(f2_bandwidth)
+        f2_surv = 1 - (f2_norm/np.nanmax(f2_norm))
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            f2_logprob = np.log(f2_surv)
+
+        return f2_logprob
 
     @property
     def cand_error_logprob_vm(
@@ -450,10 +555,12 @@ class VowelMeasurement(Sequence, PropertySetter):
             f"F{i+1}": winner_slice.formants[i]
             for i in range(winner_slice.formants.size)
         }
-        bandwidth_params = self.cand_bparam[:,self.winner_index]
+        bandwidth_params = self.cand_bparam[0, :,self.winner_index]
         for idx, param in enumerate(bandwidth_params):
             point_dict[f"B{idx+1}"] = param
+        
         point_dict["max_formant"] = self.winner.maximum_formant
+        point_dict["spectral_rolloff"] = self.spectral_rolloff
         point_dict["smooth_error"] = self.winner.smooth_error
         point_dict["time"] = winner_slice.time
         point_dict["rel_time"] = winner_slice.rel_time

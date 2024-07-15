@@ -6,6 +6,10 @@ import scipy.stats as stats
 import warnings
 import functools
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from new_fave.measurements.vowel_measurement import VowelMeasurement
+
 def mahalanobis(
         params:NDArray[Shape['Dim, Cand'], Float], 
         param_means:NDArray[Shape['Dim, 1'], Float], 
