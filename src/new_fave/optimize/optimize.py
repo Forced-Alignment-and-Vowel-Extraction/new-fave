@@ -29,7 +29,7 @@ def run_optimize(
                  #"maxformant_speaker_global",
                  "maxformant_speaker"
                 ],
-        max_iter = 3
+        max_iter = 10
     ):
 
 
@@ -206,9 +206,13 @@ def optimize_one_measure(
     if "centroid_speaker_global" in optim_params:
         prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global      
 
+    cutoff = vowel_measurement.cand_centroid_logprob_speaker_global
+    cutoff[cutoff < -10] = -np.inf
+    cutoff[cutoff > -np.inf] = 0
 
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
-        vowel_measurement.place_penalty
+        vowel_measurement.place_penalty * 5+ \
+        cutoff
         
     
     for dim in prob_dict:
