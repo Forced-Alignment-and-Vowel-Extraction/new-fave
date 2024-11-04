@@ -535,31 +535,33 @@ def subcorpora(
             logging.info("Problem writing data")
     pass
 
-@fave_extract.command(
-    aliases = ["show"],
-    formatter_settings=formatter_settings,
-    help = "Show fave-extract configs."
-)
-@speaker_opt
-@configs
-@outputs
-def show(
-    recode_rules: str|None,
-    labelset_parser: str|None,
-    point_heuristic: str|None,
-    vowel_place: str|None,
-    ft_config: str|None,
-    fave_aligned: bool,
-    destination: Path,
-    which: list[Literal[
-            "tracks", "points", "param", "log_param", "textgrid"
-        ]],
-    separate: bool 
-):
-    ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict = resolve_resources(
-        recode_rules, labelset_parser, point_heuristic, ft_config, vowel_place_config
-    )
-    pass
+# @fave_extract.command(
+#     aliases = ["show"],
+#     formatter_settings=formatter_settings,
+#     help = "Show fave-extract configs."
+# )
+# @speaker_opt
+# @configs
+# @outputs
+# def show(
+#     recode_rules: str|None,
+#     labelset_parser: str|None,
+#     point_heuristic: str|None,
+#     vowel_place: str|None,
+#     ft_config: str|None,
+#     vowel_place_config: str|None,
+#     fave_aligned: bool,
+#     destination: Path,
+#     which: list[Literal[
+#             "tracks", "points", "param", "log_param", "textgrid"
+#         ]],
+#     speakers: str|None,
+#     separate: bool 
+# ):
+#     ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict = resolve_resources(
+#         recode_rules, labelset_parser, point_heuristic, ft_config, vowel_place_config
+#     )
+#     pass
 
 
 if __name__ == "__main__":
