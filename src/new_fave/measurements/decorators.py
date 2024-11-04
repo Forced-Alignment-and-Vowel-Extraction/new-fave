@@ -5,6 +5,7 @@ from new_fave.measurements.calcs import (mahalanobis,
     param_to_cov,
     cov_to_icov,
     clear_cached_properties
+)
 
 from typing import Any
 from nptyping import NDArray, Shape, Float
