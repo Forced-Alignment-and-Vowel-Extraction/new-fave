@@ -29,8 +29,8 @@ def resolve_resources(
     recode_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
-    vowel_place_config: str|None = None,
     ft_config: str|None = "default",
+    vowel_place_config: str|None = None,
 ) -> tuple[RuleSet, LabelSetParser, Heuristic, dict, dict[Literal["front", "back"], re.Pattern]]:
     
     ruleset = generic_resolver(

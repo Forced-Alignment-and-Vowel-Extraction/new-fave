@@ -147,7 +147,7 @@ def test_winner_param():
 
     for vc in all_vcs:
         params = vc.winner_param
-        expected_shape = (5, NFORMANT, len(vc))
+        expected_shape = (6, NFORMANT, len(vc))
         for s1, s2 in zip(params.shape, expected_shape):
             assert s1 == s2
 

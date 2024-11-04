@@ -107,7 +107,7 @@ configs = cloup.option_group(
             "Values can be the name of a built in config ('defailt) "
             "or a path to a custom config file."
         )
-    ),    
+    ),   
     cloup.option(
         "--ft-config",
         type = click.STRING,
@@ -151,6 +151,39 @@ configs = cloup.option_group(
         )
     )
 )
+
+reference_values = cloup.option_group(
+        "Reference Values",
+        cloup.option(
+        "--logparam-reference",
+        type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
+        default=None,
+        show_default=False,
+        help = (
+            "A path to a collection of reference *_logparam.csv files."
+        )
+    ),
+    cloup.option(
+        "--param-reference",
+        type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
+        default=None,
+        show_default=False,
+        help = (
+            "A path to a collection of reference *_param.csv files."
+        )
+    ),
+    cloup.option(
+        "--points-reference",
+        type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True),
+        default=None,
+        show_default=False,
+        help = (
+            "A path to a collection of reference *_points.csv files."
+        )
+    ),  
+    constraint=mutually_exclusive
+)
+
 speaker_opt = cloup.option(
     "--speakers",
     default=1,
@@ -221,6 +254,7 @@ def fave_extract():
 )
 @speaker_opt
 @configs
+@reference_values
 @outputs
 def audio_textgrid(
     audio_path: str|Path,
@@ -232,6 +266,9 @@ def audio_textgrid(
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
+    logparam_reference: str|None,
+    param_reference: str|None,    
+    points_reference: str|None,
     ft_config: str|None,
     fave_aligned: bool,
     destination: Path,
@@ -263,6 +300,14 @@ def audio_textgrid(
     if len(which) == 0:
         return 
     
+    if logparam_reference or param_reference or points_reference:
+        logging.info("Processing Reference Values")
+    reference_values = ReferenceValues(
+        logparam_corpus=logparam_reference,
+        param_corpus=param_reference,
+        points_corpus=points_reference
+    )
+    
     include_overlaps = not exclude_overlaps
     if type(speakers) is int:
         speakers = speakers - 1
@@ -277,6 +322,7 @@ def audio_textgrid(
         point_heuristic=point_heuristic,
         vowel_place_config=vowel_place,
         ft_config=ft_config,
+        reference_values = reference_values,
         fave_aligned=fave_aligned
     )
     
@@ -300,6 +346,7 @@ def audio_textgrid(
 )
 @speaker_opt
 @configs
+@reference_values
 @outputs
 def corpus(
     corpus_path: str|Path,
@@ -311,6 +358,9 @@ def corpus(
     point_heuristic: str|None,
     vowel_place: str|None,
     ft_config: str|None,
+    logparam_reference: str|None,
+    param_reference: str|None,    
+    points_reference: str|None,
     fave_aligned: bool,
     destination: Path,
     which: list[Literal[
@@ -350,6 +400,15 @@ def corpus(
     include_overlaps = not exclude_overlaps
     if type(speakers) is int:
         speakers = speakers - 1
+
+    if logparam_reference or param_reference or points_reference:
+        logging.info("Processing Reference Values")
+
+    reference_values = ReferenceValues(
+        logparam_corpus=logparam_reference,
+        param_corpus=param_reference,
+        points_corpus=points_reference
+    )
     for pair, w in zip(corpus, result_which):
         SpeakerData = fave_audio_textgrid(
             audio_path=pair.wav,
@@ -362,6 +421,7 @@ def corpus(
             point_heuristic=point_heuristic,
             vowel_place_config=vowel_place,
             ft_config=ft_config,
+            reference_values = reference_values,        
             fave_aligned=fave_aligned
         )
         if SpeakerData is not None:
@@ -385,6 +445,7 @@ def corpus(
 )
 @speaker_opt
 @configs
+@reference_values
 @outputs
 def subcorpora(
     subcorpora: list[str|Path],
@@ -396,6 +457,9 @@ def subcorpora(
     point_heuristic: str|None,
     vowel_place: str|None,
     ft_config: str|None,
+    logparam_reference: str|None,
+    param_reference: str|None,    
+    points_reference: str|None,    
     fave_aligned: bool,
     destination: Path,
     which: list[Literal[
@@ -436,6 +500,15 @@ def subcorpora(
     include_overlaps = not exclude_overlaps
     if type(speakers) is int:
         speakers = speakers - 1
+
+    if logparam_reference or param_reference or points_reference:
+        logging.info("Processing Reference Values")
+        
+    reference_values = ReferenceValues(
+        logparam_corpus=logparam_reference,
+        param_corpus=param_reference,
+        points_corpus=points_reference
+    )        
     for pair, w in zip(corpus, result_which):
         SpeakerData = fave_audio_textgrid(
             audio_path=pair.wav,
@@ -448,6 +521,7 @@ def subcorpora(
             point_heuristic=point_heuristic,
             vowel_place_config=vowel_place,
             ft_config=ft_config,
+            reference_values = reference_values,         
             fave_aligned=fave_aligned
         )
         if SpeakerData is not None:

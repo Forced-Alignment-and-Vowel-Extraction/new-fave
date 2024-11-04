@@ -205,15 +205,35 @@ def optimize_one_measure(
         prob_dict["centroid_speaker_byvclass"] = vowel_measurement.cand_centroid_logprob_speaker_byvclass        
 
     if "centroid_speaker_global" in optim_params:
-        prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global      
+        prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global
 
-    cutoff = vowel_measurement.cand_centroid_logprob_speaker_global
-    cutoff[cutoff < -10] = -np.inf
-    cutoff[cutoff > -np.inf] = 0
+    
+    cutoff = np.zeros(len(vowel_measurement))
+    f1_cutoff = np.zeros(len(vowel_measurement))
+    f2_cutoff = np.zeros(len(vowel_measurement))
+
+    # cutoff = vowel_measurement.cand_centroid_logprob_speaker_global
+    # cutoff[cutoff < -10] = -np.inf
+    # cutoff[cutoff > -np.inf] = 0
+
+    # f1_max = np.log(1500)/np.sqrt(2)
+    # f2_max = np.log(3500)/np.sqrt(2)
+
+    # f1_cutoff = vowel_measurement.cand_param[0,0,:]
+    # f1_cutoff[f1_cutoff > f1_max] = -np.inf
+    # f1_cutoff[f1_cutoff > -np.inf] = 0
+
+    # f2_cutoff = vowel_measurement.cand_param[0,1,:]
+    # f2_cutoff[f2_cutoff > f2_max] = -np.inf
+    # f2_cutoff[f2_cutoff > -np.inf] = 0
 
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
-        vowel_measurement.place_penalty * 5+ \
-        cutoff
+        cutoff+\
+        f1_cutoff + \
+        f2_cutoff +\
+        vowel_measurement.reference_logprob + \
+        vowel_measurement.place_penalty * 5
+       
         
     
     for dim in prob_dict:

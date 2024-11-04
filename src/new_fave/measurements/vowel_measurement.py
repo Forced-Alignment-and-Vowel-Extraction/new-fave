@@ -242,6 +242,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     track: CandidateTracks
     heuristic: Heuristic = field(default = Heuristic())
     vowel_place_dict: dict[Literal["front", "back"], re.Pattern] = field(default_factory=lambda : dict())
+    reference_values: ReferenceValues = field(default = ReferenceValues())
     only_fasttrack: bool = field(default=False)
     def __post_init__(
             self
@@ -280,9 +281,9 @@ class VowelMeasurement(Sequence, PropertySetter):
     
     def _init_winner(self):
         
-        joint = self.cand_error_logprob_vm 
-        if self.spectral_rolloff < 7:
-            joint += self.place_penalty/100
+        joint = self.cand_error_logprob_vm + self.reference_logprob
+        # if self.spectral_rolloff < 7:
+        #     joint += self.place_penalty/100
 
         idx = np.nanargmax(joint)
 
@@ -388,7 +389,40 @@ class VowelMeasurement(Sequence, PropertySetter):
 
         return log_rolloff
 
-        
+    
+    @cached_property
+    def params(
+        self
+    ):
+        params = np.array(
+            [
+                x.parameters
+                for x in self.candidates
+            ]
+        ).T
+        return params
+    
+    @cached_property
+    def logparams(
+        self
+    ):
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        return params
+    
+    @cached_property
+    def point_values(
+        self
+    ):
+        params = self.params[0]
+        bparams = self.cand_bparam[0]
+
+        param_bparam = np.concatenate([params, bparams])
+        return param_bparam
 
     @cached_property
     @MahalCacheWrap
@@ -545,6 +579,36 @@ class VowelMeasurement(Sequence, PropertySetter):
             err_surv = 1 - (err_norm/np.nanmax(err_norm))
             err_log_prob = np.log(err_surv)
         return err_log_prob
+
+    @cached_property
+    def reference_logprob(self):
+        if self.reference_values.reference_type is None:
+            return np.zeros(len(self))
+        
+        if not self.label in self.reference_values.mean_dict:
+            return np.zeros(len(self))
+        
+        if self.reference_values.reference_type == "logparam":
+            params = self.logparams
+
+        if self.reference_values.reference_type == "param":
+            params = self.params
+
+        if self.reference_values.reference_type == "points":
+            params = self.point_values
+        
+        params = params.reshape((-1, params.shape[-1]))
+        mahals = mahalanobis(
+            params = params,
+            param_means=self.reference_values.mean_dict[self.label],
+            inv_cov = self.reference_values.icov_dict[self.label]
+        )
+        log_prob = mahal_log_prob(
+            mahals=mahals,
+            params=params
+        )
+        
+        return log_prob
 
     @property
     def point_measure(
