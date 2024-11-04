@@ -29,8 +29,11 @@ def read_vowel_place(
     """
     config = Path(config)
     with config.open('r') as c:
-        config_dict = yaml.safe_load(c)
+        config_dict = yaml.safe_load(c) 
     
+    if len(config_dict) < 1:
+        return(dict())
+
     re_dict = {}
     for k in config_dict:
         re_dict[k] = re.compile(
