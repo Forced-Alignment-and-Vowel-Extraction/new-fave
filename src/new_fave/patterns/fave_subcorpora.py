@@ -92,8 +92,12 @@ def fave_subcorpora(
     
     corpora = [Path(p) for p in glob(str(subcorpora_glob))]
 
-    ruleset, parser, heuristic, fasttrack_kwargs,  = resolve_resources(
-        recode_rules, labelset_parser, point_heuristic, ft_config
+    ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict = resolve_resources(
+        recode_rules = recode_rules, 
+        labelset_parser = labelset_parser, 
+        point_heuristic = point_heuristic, 
+        ft_config = ft_config, 
+        vowel_place_config = vowel_place_config
     )
 
     logger.info("FastTrack Processing")

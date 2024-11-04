@@ -95,7 +95,11 @@ def fave_audio_textgrid(
             A [](`new_fave.SpeakerCollection`)
     """
     ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict = resolve_resources(
-        recode_rules, labelset_parser, point_heuristic, ft_config, vowel_place_config
+        recode_rules = recode_rules, 
+        labelset_parser = labelset_parser, 
+        point_heuristic = point_heuristic, 
+        ft_config = ft_config, 
+        vowel_place_config = vowel_place_config
     )
 
     speaker_demo, speakers = resolve_speaker(speakers)
