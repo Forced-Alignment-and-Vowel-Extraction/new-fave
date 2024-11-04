@@ -1,6 +1,7 @@
-from new_fave.measurements.vowel_measurement import VowelMeasurement, \
-    VowelClass, \
+from new_fave.measurements.vowel_measurement import (VowelMeasurement,
+    VowelClass, 
     VowelClassCollection
+)
 from fasttrackpy.utils.safely import safely
 import numpy as np
 from tqdm import tqdm

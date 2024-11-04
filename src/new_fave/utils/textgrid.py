@@ -1,6 +1,7 @@
-from aligned_textgrid import AlignedTextGrid, \
-    SequenceTier, \
+from aligned_textgrid import (AlignedTextGrid, 
+    SequenceTier, 
     SequenceInterval
+)
 from aligned_textgrid.sequences.tiers import TierGroup
 from fasttrackpy import CandidateTracks
 import numpy as np

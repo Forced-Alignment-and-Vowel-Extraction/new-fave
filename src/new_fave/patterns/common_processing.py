@@ -1,15 +1,17 @@
-from fave_recode.fave_recode import run_recode, \
-    get_rules, \
-    get_parser, \
-    RuleSet, \
+from fave_recode.fave_recode import (run_recode, 
+    get_rules, 
+    get_parser, 
+    RuleSet, 
     LabelSetParser
+)
 
-from new_fave.utils.local_resources import recodes, \
-    parsers,\
-    heuristics, \
-    fasttrack_config,\
-    vowel_place,\
+from new_fave.utils.local_resources import (recodes, 
+    parsers,
+    heuristics, 
+    fasttrack_config,
+    vowel_place,
     generic_resolver
+)
 
 from new_fave.speaker.speaker import Speaker
 

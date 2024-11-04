@@ -10,9 +10,9 @@ from typing import Any
 from nptyping import NDArray, Shape, Float
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from new_fave.measurements.vowel_measurement import VowelMeasurement,\
-        VowelClass,\
-        VowelClassCollection
+    from new_fave.measurements.vowel_measurement import (VowelMeasurement,
+        VowelClass,
+        VowelClassCollection)
 
 class AggWrapper:
     """

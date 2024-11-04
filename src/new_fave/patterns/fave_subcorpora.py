@@ -1,21 +1,24 @@
 from fasttrackpy import process_corpus
 from aligned_textgrid import AlignedTextGrid
-from fave_recode.fave_recode import run_recode, \
-    get_rules, \
-    get_parser, \
-    RuleSet, \
+from fave_recode.fave_recode import (run_recode, 
+    get_rules, 
+    get_parser, 
+    RuleSet, 
     LabelSetParser
+)
 from fave_measurement_point.heuristic import Heuristic
-from new_fave.measurements.vowel_measurement import VowelClassCollection, \
-    VowelMeasurement, \
+from new_fave.measurements.vowel_measurement import (VowelClassCollection, 
+    VowelMeasurement, 
     SpeakerCollection
+)
 from new_fave.optimize.optimize import run_optimize
 from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
-from new_fave.utils.local_resources import recodes, \
-    parsers,\
-    heuristics, \
-    fasttrack_config,\
+from new_fave.utils.local_resources import (recodes, 
+    parsers,
+    heuristics, 
+    fasttrack_config,
     generic_resolver
+)
 from new_fave.utils.fasttrack_config import read_fasttrack
 from new_fave.speaker.speaker import Speaker
 from new_fave.patterns.fave_corpus import fave_corpus
