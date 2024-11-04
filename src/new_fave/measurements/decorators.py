@@ -1,9 +1,9 @@
 from functools import cached_property, update_wrapper
 import numpy as np
-from new_fave.measurements.calcs import mahalanobis, \
-    mahal_log_prob,\
-    param_to_cov,\
-    cov_to_icov,\
+from new_fave.measurements.calcs import (mahalanobis,
+    mahal_log_prob,
+    param_to_cov,
+    cov_to_icov,
     clear_cached_properties
 
 from typing import Any
