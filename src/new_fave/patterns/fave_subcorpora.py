@@ -11,6 +11,7 @@ from new_fave.measurements.vowel_measurement import (VowelClassCollection,
     VowelMeasurement, 
     SpeakerCollection
 )
+from new_fave.measurements.reference import ReferenceValues
 from new_fave.optimize.optimize import run_optimize
 from new_fave.utils.textgrid import get_textgrid, get_all_textgrid, mark_overlaps
 from new_fave.utils.local_resources import (recodes, 
