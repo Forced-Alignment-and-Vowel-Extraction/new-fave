@@ -32,9 +32,17 @@ def mahalanobis(
     """    
     
     x_mu = params - param_means
-    left = np.dot(x_mu.T, inv_cov)
-    mahal = np.dot(left, x_mu)
-    return mahal.diagonal()
+    mahal = (
+        np.dot(
+            np.dot(
+                x_mu.T, 
+                inv_cov
+            ), 
+            x_mu)
+        .diagonal()
+        .copy()
+    )
+    return mahal
 
 def mahal_log_prob(
         mahals: NDArray[Shape["Cand"], Float], 
