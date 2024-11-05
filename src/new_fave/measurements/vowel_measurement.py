@@ -587,6 +587,9 @@ class VowelMeasurement(Sequence, PropertySetter):
         
         if not self.label in self.reference_values.mean_dict:
             return np.zeros(len(self))
+
+        if np.isfinite(self.reference_values.icov_dict[self.label]).mean() < 0.5:
+            return np.zeros(len(self))
         
         if self.reference_values.reference_type == "logparam":
             params = self.logparams
@@ -628,7 +631,7 @@ class VowelMeasurement(Sequence, PropertySetter):
             point_dict[f"B{idx+1}"] = param
         
         point_dict["max_formant"] = self.winner.maximum_formant
-        point_dict["spectral_rolloff"] = self.spectral_rolloff
+        #point_dict["spectral_rolloff"] = self.spectral_rolloff
         point_dict["smooth_error"] = self.winner.smooth_error
         point_dict["time"] = winner_slice.time
         point_dict["rel_time"] = winner_slice.rel_time
