@@ -17,7 +17,7 @@ jobs:
               name: setup R
             - name:
               run: |
-                R -e 'install.packages(c("rmarkdown", "knitr"))'
+                R -e 'install.packages(c("rmarkdown", "knitr", "reticulate"))'
             - name: Install Poetry
               uses: snok/install-poetry@v1
               with:
