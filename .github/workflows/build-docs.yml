@@ -13,6 +13,11 @@ jobs:
               id: setup-python
               with:
                 python-version: "3.11"
+            - uses: r-lib/actions/setup-r@v2
+              name: setup R
+            - name:
+              run: |
+                R -e 'install.packages(c("rmarkdown", "knitr"))'
             - name: Install Poetry
               uses: snok/install-poetry@v1
               with:
