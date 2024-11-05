@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -71,6 +71,7 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../styles/styles.css">
@@ -344,7 +345,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="new_fave.fave_corpus" class="level1">
 <h1>fave_corpus</h1>
-<p><code>fave_corpus(corpus_path, speakers=0, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, ft_config='default', fave_aligned=False)</code></p>
+<p><code>fave_corpus(corpus_path, speakers=0, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)</code></p>
 <p>Process a corpus directory.</p>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
@@ -395,10 +396,22 @@ ul.task-list li input[type="checkbox"] {
 <td><code>None</code></td>
 </tr>
 <tr class="odd">
+<td><code>vowel_place_config</code></td>
+<td>str | None)</td>
+<td>A path to a vowel place config file. defaults to None.</td>
+<td><code>None</code></td>
+</tr>
+<tr class="even">
 <td><code>ft_config</code></td>
 <td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
 <td>Either a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.</td>
 <td><code>'default'</code></td>
+</tr>
+<tr class="odd">
+<td><code>reference_values</code></td>
+<td><code>ReferenceValues</code></td>
+<td>A ReferenceValues object defining a path to a reference corpus Defaults to ReferenceValues()</td>
+<td><code>ReferenceValues()</code></td>
 </tr>
 <tr class="even">
 <td><code>fave_aligned</code></td>
@@ -1012,4 +1025,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

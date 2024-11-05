@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>fave_subcorpora – new-fave</title>
+<title>Adding Speaker Demographics – new-fave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,30 +20,64 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../reference/measurements.vowel_measurement.html" rel="next">
-<link href="../reference/fave_corpus.html" rel="prev">
-<link href="../assets/logo.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../usage/customizing/output.html" rel="next">
+<link href="../../usage/customizing/index.html" rel="prev">
+<link href="../../assets/logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,14 +108,14 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles/styles.css">
-<meta property="og:title" content="new-fave">
+<link rel="stylesheet" href="../../styles/styles.css">
+<meta property="og:title" content="Adding Speaker Demographics – new-fave">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
+<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/customizing/assets/logo.png">
 <meta property="og:site_name" content="new-fave">
-<meta name="twitter:title" content="new-fave">
+<meta name="twitter:title" content="Adding Speaker Demographics – new-fave">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
+<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/customizing/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -92,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">new-fave</span>
     </a>
   </div>
@@ -103,11 +137,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reference/"> 
+    <a class="nav-link" href="../../reference/"> 
 <span class="menu-text">Package reference</span></a>
   </li>  
 </ul>
@@ -129,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/fave_audio_textgrid.html">Processing Patterns</a></li><li class="breadcrumb-item"><a href="../reference/fave_subcorpora.html">fave_subcorpora</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/index.html">Customizing</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/demographics.html">Adding Speaker Demographics</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -139,23 +173,17 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Function reference</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Processing Patterns</span></a>
+ <span class="menu-text">Home</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -163,28 +191,16 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/fave_audio_textgrid.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">fave_audio_textgrid</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/fave_corpus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">fave_corpus</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">fave_subcorpora</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Vowel Measurements</span></a>
+            <a href="../../usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -192,131 +208,92 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/measurements.vowel_measurement.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">measurements.vowel_measurement</span></a>
+  <a href="../../usage/defaults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave Defaults</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VowelMeasurement</span></a>
+  <a href="../../usage/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/VowelClass.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VowelClass</span></a>
+  <a href="../../usage/python_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Usage</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/VowelClassCollection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VowelClassCollection</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/SpeakerCollection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SpeakerCollection</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Calculations</span></a>
+            <a href="../../usage/customizing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customizing</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/measurements.calcs.mahalanobis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">measurements.calcs.mahalanobis</span></a>
+  <a href="../../usage/customizing/demographics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Adding Speaker Demographics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/customizing/output.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Output Options</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/customizing/processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Processing Options</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/customizing/reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference Values</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Optimization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a href="../../usage/configs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/optimize.optimize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">optimize.optimize</span></a>
+  <a href="../../usage/configs/ft-config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FastTrack Config</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/configs/point-heuristic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Point Customization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recode Rules and Labelset Parser</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/configs/vowel-place.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vowel Place Penalty</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Writers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/write_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">write_data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/pickle_speakers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">pickle_speakers</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/unpickle_speakers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">unpickle_speakers</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Built-in resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/utils.local_resources.local_resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">utils.local_resources.local_resources</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Speaker files</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/speaker.speaker.Speaker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">speaker.speaker.Speaker</span></a>
-  </div>
-</li>
       </ul>
   </li>
     </ul>
@@ -329,124 +306,239 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#new_fave.fave_subcorpora" id="toc-new_fave.fave_subcorpora" class="nav-link active" data-scroll-target="#new_fave.fave_subcorpora">fave_subcorpora</a>
+  <li><a href="#file-formats" id="toc-file-formats" class="nav-link active" data-scroll-target="#file-formats">File Formats</a>
   <ul>
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
-  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
+  <li><a href="#excel-csv" id="toc-excel-csv" class="nav-link" data-scroll-target="#excel-csv">Excel or CSV files</a></li>
+  <li><a href="#yaml-file" id="toc-yaml-file" class="nav-link" data-scroll-target="#yaml-file">YAML file</a></li>
+  <li><a href="#legacy-fave-speaker-file" id="toc-legacy-fave-speaker-file" class="nav-link" data-scroll-target="#legacy-fave-speaker-file">Legacy-fave speaker file</a></li>
   </ul></li>
+  <li><a href="#usage" id="toc-usage" class="nav-link" data-scroll-target="#usage">Usage</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/index.html">Customizing</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/demographics.html">Adding Speaker Demographics</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Adding Speaker Demographics</h1>
+</div>
 
 
 
-<section id="new_fave.fave_subcorpora" class="level1">
-<h1>fave_subcorpora</h1>
-<p><code>fave_subcorpora(subcorpora_glob, speakers=0, speakers_glob=None, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)</code></p>
-<p>Process multiple subcorpora</p>
-<section id="parameters" class="level2">
-<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<table class="caption-top table">
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>We’ve tried to make adding speaker demographics to <code>fave-extract</code> output as flexible as possible, including</p>
+<ul>
+<li>An <a href="#excel-csv">Excel or CSV files</a></li>
+<li>A <a href="#yaml-file">YAML file</a></li>
+<li>A <a href="#legacy-fave-speaker-file">Legacy-fave speaker file</a></li>
+</ul>
+<section id="file-formats" class="level1">
+<h1>File Formats</h1>
+<section id="excel-csv" class="level2">
+<h2 class="anchored" data-anchor-id="excel-csv">Excel or CSV files</h2>
+<p>To ensure demographic information in a an <code>.xlsx</code> or <code>.csv</code> file is correctly included in fave-extract output two columns are required:</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Required Columns
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p><code>file_name</code>: The file stem of the wav and textgrid files</p></li>
+<li><p><code>speaker_num</code>: The speaker to be analyzed in a file. the first speaker is <code>1</code>.</p></li>
+</ul>
+</div>
+</div>
+<p>So, if you had a corpus that looked like this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>../my_corpus
+├── speaker1.TextGrid
+├── speaker1.wav
+├── speaker2.TextGrid
+└── speaker2.wav</code></pre>
+</div>
+</div>
+<p>Your excel file or csv file would have to look something like this:</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="kptwuzruoi" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans&display=swap');
+#kptwuzruoi table {
+          font-family: 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+        }
+
+#kptwuzruoi thead, tbody, tfoot, tr, td, th { border-style: none; }
+ tr { background-color: transparent; }
+#kptwuzruoi p { margin: 0; padding: 0; }
+ #kptwuzruoi .gt_table { display: table; border-collapse: collapse; line-height: normal; margin-left: auto; margin-right: auto; color: #333333; font-size: 16px; font-weight: normal; font-style: normal; background-color: #FFFFFF; width: auto; border-top-style: solid; border-top-width: 2px; border-top-color: #A8A8A8; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #A8A8A8; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; }
+ #kptwuzruoi .gt_caption { padding-top: 4px; padding-bottom: 4px; }
+ #kptwuzruoi .gt_title { color: #333333; font-size: 125%; font-weight: initial; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; border-bottom-color: #FFFFFF; border-bottom-width: 0; }
+ #kptwuzruoi .gt_subtitle { color: #333333; font-size: 85%; font-weight: initial; padding-top: 3px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; border-top-color: #FFFFFF; border-top-width: 0; }
+ #kptwuzruoi .gt_heading { background-color: #FFFFFF; text-align: center; border-bottom-color: #FFFFFF; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #kptwuzruoi .gt_bottom_border { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #kptwuzruoi .gt_col_headings { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; }
+ #kptwuzruoi .gt_col_heading { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; padding-left: 5px; padding-right: 5px; overflow-x: hidden; }
+ #kptwuzruoi .gt_column_spanner_outer { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: normal; text-transform: inherit; padding-top: 0; padding-bottom: 0; padding-left: 4px; padding-right: 4px; }
+ #kptwuzruoi .gt_column_spanner_outer:first-child { padding-left: 0; }
+ #kptwuzruoi .gt_column_spanner_outer:last-child { padding-right: 0; }
+ #kptwuzruoi .gt_column_spanner { border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: bottom; padding-top: 5px; padding-bottom: 5px; overflow-x: hidden; display: inline-block; width: 100%; }
+ #kptwuzruoi .gt_spanner_row { border-bottom-style: hidden; }
+ #kptwuzruoi .gt_group_heading { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; text-align: left; }
+ #kptwuzruoi .gt_empty_group_heading { padding: 0.5px; color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; vertical-align: middle; }
+ #kptwuzruoi .gt_from_md> :first-child { margin-top: 0; }
+ #kptwuzruoi .gt_from_md> :last-child { margin-bottom: 0; }
+ #kptwuzruoi .gt_row { padding-top: 8px; padding-bottom: 8px; padding-left: 5px; padding-right: 5px; margin: 10px; border-top-style: solid; border-top-width: 1px; border-top-color: #D3D3D3; border-left-style: none; border-left-width: 1px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 1px; border-right-color: #D3D3D3; vertical-align: middle; overflow-x: hidden; }
+ #kptwuzruoi .gt_stub { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; }
+ #kptwuzruoi .gt_stub_row_group { color: #333333; background-color: #FFFFFF; font-size: 100%; font-weight: initial; text-transform: inherit; border-right-style: solid; border-right-width: 2px; border-right-color: #D3D3D3; padding-left: 5px; padding-right: 5px; vertical-align: top; }
+ #kptwuzruoi .gt_row_group_first td { border-top-width: 2px; }
+ #kptwuzruoi .gt_row_group_first th { border-top-width: 2px; }
+ #kptwuzruoi .gt_striped { background-color: rgba(128,128,128,0.05); }
+ #kptwuzruoi .gt_table_body { border-top-style: solid; border-top-width: 2px; border-top-color: #D3D3D3; border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #D3D3D3; }
+ #kptwuzruoi .gt_sourcenotes { color: #333333; background-color: #FFFFFF; border-bottom-style: none; border-bottom-width: 2px; border-bottom-color: #D3D3D3; border-left-style: none; border-left-width: 2px; border-left-color: #D3D3D3; border-right-style: none; border-right-width: 2px; border-right-color: #D3D3D3; }
+ #kptwuzruoi .gt_sourcenote { font-size: 90%; padding-top: 4px; padding-bottom: 4px; padding-left: 5px; padding-right: 5px; text-align: left; }
+ #kptwuzruoi .gt_left { text-align: left; }
+ #kptwuzruoi .gt_center { text-align: center; }
+ #kptwuzruoi .gt_right { text-align: right; font-variant-numeric: tabular-nums; }
+ #kptwuzruoi .gt_font_normal { font-weight: normal; }
+ #kptwuzruoi .gt_font_bold { font-weight: bold; }
+ #kptwuzruoi .gt_font_italic { font-style: italic; }
+ #kptwuzruoi .gt_super { font-size: 65%; }
+ #kptwuzruoi .gt_footnote_marks { font-size: 75%; vertical-align: 0.4em; position: initial; }
+ #kptwuzruoi .gt_asterisk { font-size: 100%; vertical-align: 0; }
+ 
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
+<tr class="header gt_col_headings">
+<th id="file_name" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">file_name</th>
+<th id="speaker_num" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">speaker_num</th>
+<th id="age" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">age</th>
 </tr>
 </thead>
-<tbody>
+<tbody class="gt_table_body">
 <tr class="odd">
-<td><code>subcorpora_glob</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></td>
-<td>Glob to subcorpora</td>
-<td><em>required</em></td>
+<td class="gt_row gt_left">speaker1</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">26</td>
 </tr>
 <tr class="even">
-<td><code>speakers</code></td>
-<td>(<a href="https://docs.python.org/3/library/functions.html#int">int</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>)</td>
-<td>Which speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”</td>
-<td><code>0</code></td>
+<td class="gt_row gt_left">speaker2</td>
+<td class="gt_row gt_right">1</td>
+<td class="gt_row gt_right">50</td>
 </tr>
 <tr class="odd">
-<td><code>speakers_glob</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>Alternatively to <code>speakers</code>, a file glob to speaker files.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>include_overlaps</code></td>
-<td><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></td>
-<td>Whether or not to include vowels that are overlapped with speech from other tiers. Defaults to <code>True</code>.</td>
-<td><code>True</code></td>
-</tr>
-<tr class="odd">
-<td><code>recode_rules</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>labelset_parser</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="odd">
-<td><code>point_heuristic</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>ft_config</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.</td>
-<td><code>'default'</code></td>
-</tr>
-<tr class="odd">
-<td><code>vowel_place_config</code></td>
-<td>str | None)</td>
-<td>A path to a vowel place config file. defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>reference_values</code></td>
-<td><code>ReferenceValues</code></td>
-<td>A ReferenceValues object defining a path to a reference corpus’ Defaults to ReferenceValues()</td>
-<td><code>ReferenceValues()</code></td>
-</tr>
-<tr class="odd">
-<td><code>fave_aligned</code></td>
-<td><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></td>
-<td>Were the textgrids generated by classic FAVE align? Defaults to False.</td>
-<td><code>False</code></td>
+<td class="gt_row gt_left">speaker2</td>
+<td class="gt_row gt_right">2</td>
+<td class="gt_row gt_right">23</td>
 </tr>
 </tbody>
 </table>
-</section>
-<section id="returns" class="level2">
-<h2 class="anchored" data-anchor-id="returns">Returns</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection">SpeakerCollection</a></td>
-<td>A <a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection"><code>new_fave.SpeakerCollection</code></a></td>
-</tr>
-</tbody>
-</table>
 
 
+</div>
+        
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If a speaker demographics file is provided, fave-extract will <em>only</em> process data for speakers with entries.</p>
+</div>
+</div>
 </section>
+<section id="yaml-file" class="level2">
+<h2 class="anchored" data-anchor-id="yaml-file">YAML file</h2>
+<p>Another option for formatting speaker demographic information is in a yaml file. Yaml is a very flexible data structuring format. For this corpus:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>../my_corpus
+├── speaker1.TextGrid
+├── speaker1.wav
+├── speaker2.TextGrid
+└── speaker2.wav</code></pre>
+</div>
+</div>
+<p>An speaker demographics yaml file would look like</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">file_name</span><span class="kw">:</span><span class="at"> speaker1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">speaker_num</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">age</span><span class="kw">:</span><span class="at"> </span><span class="dv">26</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">file_name</span><span class="kw">:</span><span class="at"> speaker3</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">speaker_num</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">age</span><span class="kw">:</span><span class="at"> </span><span class="dv">50</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">file_name</span><span class="kw">:</span><span class="at"> speaker1</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">speaker_num</span><span class="kw">:</span><span class="at"> </span><span class="dv">1</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">age</span><span class="kw">:</span><span class="at"> </span><span class="dv">23</span><span class="at">  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Required Fields
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <code>file_name</code> and <code>speaker_num</code> fields are required.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Flexibility
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Outside of the required fields</p>
+<ul>
+<li><p>Not every speaker has to have the same fields defined.</p></li>
+<li><p>The fields don’t need to appear in a consistent order.</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="legacy-fave-speaker-file" class="level2">
+<h2 class="anchored" data-anchor-id="legacy-fave-speaker-file">Legacy-fave speaker file</h2>
+<p>If you have legacy-fave <code>.speaker</code> files, you can pass them to the <code>--speakers</code> option.</p>
+</section>
+</section>
+<section id="usage" class="level1">
+<h1>Usage</h1>
+<p>All three fave-extract subcommands support passing of demographic files.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus/ <span class="at">--speakers</span> demographics.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -1016,13 +1108,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../reference/fave_corpus.html" class="pagination-link" aria-label="fave_corpus">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">fave_corpus</span>
+      <a href="../../usage/customizing/index.html" class="pagination-link" aria-label="Customizing">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Customizing</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../reference/measurements.vowel_measurement.html" class="pagination-link" aria-label="measurements.vowel_measurement">
-        <span class="nav-page-text">measurements.vowel_measurement</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../usage/customizing/output.html" class="pagination-link" aria-label="Output Options">
+        <span class="nav-page-text">Output Options</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1031,5 +1123,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

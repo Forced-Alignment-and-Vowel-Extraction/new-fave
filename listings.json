@@ -1,0 +1,39 @@
+[
+  {
+    "listing": "/usage/index.html",
+    "items": [
+      "/usage/customizing/demographics.html",
+      "/usage/configs/index.html",
+      "/usage/customizing/index.html",
+      "/usage/configs/ft-config.html",
+      "/usage/getting_started.html",
+      "/usage/configs/point-heuristic.html",
+      "/usage/customizing/output.html",
+      "/usage/customizing/processing.html",
+      "/usage/python_usage.html",
+      "/usage/configs/recode-rules.html",
+      "/usage/customizing/reference.html",
+      "/usage/configs/vowel-place.html",
+      "/usage/subcommands/audio-textgrid.html",
+      "/usage/defaults.html"
+    ]
+  },
+  {
+    "listing": "/usage/customizing/index.html",
+    "items": [
+      "/usage/customizing/demographics.html",
+      "/usage/customizing/output.html",
+      "/usage/customizing/processing.html",
+      "/usage/customizing/reference.html"
+    ]
+  },
+  {
+    "listing": "/usage/configs/index.html",
+    "items": [
+      "/usage/configs/ft-config.html",
+      "/usage/configs/point-heuristic.html",
+      "/usage/configs/recode-rules.html",
+      "/usage/configs/vowel-place.html"
+    ]
+  }
+]

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -105,6 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
 
 
 <link rel="stylesheet" href="../styles/styles.css">
@@ -394,7 +395,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="new_fave.VowelMeasurement" class="level1">
 <h1>VowelMeasurement</h1>
-<p><code>VowelMeasurement(self, track, heuristic=Heuristic())</code></p>
+<p><code>VowelMeasurement(self, track, heuristic=Heuristic(), vowel_place_dict=lambda: dict()(), reference_values=ReferenceValues(), only_fasttrack=False)</code></p>
 <p>A class used to represent a vowel measurement.</p>
 <section id="intended-usage" class="level2">
 <h2 class="anchored" data-anchor-id="intended-usage">Intended Usage</h2>
@@ -425,6 +426,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-measurement-point/reference/heuristic.Heuristic.html#fave_measurement_point.heuristic.Heuristic">Heuristic</a></td>
 <td>A point measurement Heuristic to use. Defaults to Heuristic().</td>
 <td><code>Heuristic()</code></td>
+</tr>
+<tr class="odd">
+<td><code>vowel_place_dict</code></td>
+<td><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<a href="https://docs.python.org/3/library/typing.html#typing.Literal">Literal</a>[‘front’, ‘back’], <a href="https://docs.python.org/3/library/re.html#module-re">re</a>.<a href="https://docs.python.org/3/library/re.html#re.Pattern">Pattern</a>]</td>
+<td>A dictionary of regexes that match front or back vowels.</td>
+<td><code>lambda: dict()()</code></td>
 </tr>
 </tbody>
 </table>
@@ -1247,4 +1254,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

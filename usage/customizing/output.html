@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>fave_subcorpora – new-fave</title>
+<title>Output Options – new-fave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,30 +20,64 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<link href="../reference/measurements.vowel_measurement.html" rel="next">
-<link href="../reference/fave_corpus.html" rel="prev">
-<link href="../assets/logo.png" rel="icon" type="image/png">
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../usage/customizing/processing.html" rel="next">
+<link href="../../usage/customizing/demographics.html" rel="prev">
+<link href="../../assets/logo.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,14 +108,14 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../styles/styles.css">
-<meta property="og:title" content="new-fave">
+<link rel="stylesheet" href="../../styles/styles.css">
+<meta property="og:title" content="Output Options – new-fave">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
+<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/customizing/assets/logo.png">
 <meta property="og:site_name" content="new-fave">
-<meta name="twitter:title" content="new-fave">
+<meta name="twitter:title" content="Output Options – new-fave">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
+<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/customizing/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -92,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">new-fave</span>
     </a>
   </div>
@@ -103,11 +137,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page"> 
+    <a class="nav-link active" href="../../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../reference/"> 
+    <a class="nav-link" href="../../reference/"> 
 <span class="menu-text">Package reference</span></a>
   </li>  
 </ul>
@@ -129,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/fave_audio_textgrid.html">Processing Patterns</a></li><li class="breadcrumb-item"><a href="../reference/fave_subcorpora.html">fave_subcorpora</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/index.html">Customizing</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/output.html">Output Options</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -139,23 +173,17 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../../index.html" class="sidebar-logo-link">
+      <img src="../../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Function reference</span></a>
-  </div>
-</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Processing Patterns</span></a>
+ <span class="menu-text">Home</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -163,28 +191,16 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/fave_audio_textgrid.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">fave_audio_textgrid</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/fave_corpus.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">fave_corpus</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">fave_subcorpora</span></a>
+  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Vowel Measurements</span></a>
+            <a href="../../usage/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Usage</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -192,131 +208,92 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/measurements.vowel_measurement.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">measurements.vowel_measurement</span></a>
+  <a href="../../usage/defaults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave Defaults</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VowelMeasurement</span></a>
+  <a href="../../usage/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/VowelClass.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VowelClass</span></a>
+  <a href="../../usage/python_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Usage</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/VowelClassCollection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">VowelClassCollection</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/SpeakerCollection.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">SpeakerCollection</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
- <span class="menu-text">Calculations</span></a>
+            <a href="../../usage/customizing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customizing</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/measurements.calcs.mahalanobis.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">measurements.calcs.mahalanobis</span></a>
+  <a href="../../usage/customizing/demographics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adding Speaker Demographics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/customizing/output.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Output Options</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/customizing/processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Processing Options</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/customizing/reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference Values</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
+          <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
- <span class="menu-text">Optimization</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <a href="../../usage/configs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../reference/optimize.optimize.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">optimize.optimize</span></a>
+  <a href="../../usage/configs/ft-config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FastTrack Config</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/configs/point-heuristic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Point Customization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recode Rules and Labelset Parser</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/configs/vowel-place.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vowel Place Penalty</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
- <span class="menu-text">Writers</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/write_data.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">write_data</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/pickle_speakers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">pickle_speakers</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/unpickle_speakers.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">unpickle_speakers</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
- <span class="menu-text">Built-in resources</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/utils.local_resources.local_resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">utils.local_resources.local_resources</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
- <span class="menu-text">Speaker files</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../reference/speaker.speaker.Speaker.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">speaker.speaker.Speaker</span></a>
-  </div>
-</li>
       </ul>
   </li>
     </ul>
@@ -329,10 +306,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#new_fave.fave_subcorpora" id="toc-new_fave.fave_subcorpora" class="nav-link active" data-scroll-target="#new_fave.fave_subcorpora">fave_subcorpora</a>
+  <li><a href="#output-destination" id="toc-output-destination" class="nav-link active" data-scroll-target="#output-destination">Output Destination</a></li>
+  <li><a href="#output-formats" id="toc-output-formats" class="nav-link" data-scroll-target="#output-formats">Output formats</a>
   <ul>
-  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
-  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
+  <li><a href="#tracks" id="toc-tracks" class="nav-link" data-scroll-target="#tracks">tracks</a></li>
+  <li><a href="#points" id="toc-points" class="nav-link" data-scroll-target="#points">points</a></li>
+  <li><a href="#param" id="toc-param" class="nav-link" data-scroll-target="#param">param</a></li>
+  <li><a href="#log-param" id="toc-log-param" class="nav-link" data-scroll-target="#log-param">log param</a></li>
+  <li><a href="#textgrid" id="toc-textgrid" class="nav-link" data-scroll-target="#textgrid">textgrid</a></li>
+  <li><a href="#multiple" id="toc-multiple" class="nav-link" data-scroll-target="#multiple">Multiple</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -340,110 +322,72 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/index.html">Customizing</a></li><li class="breadcrumb-item"><a href="../../usage/customizing/output.html">Output Options</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title">Output Options</h1>
+</div>
 
 
 
-<section id="new_fave.fave_subcorpora" class="level1">
-<h1>fave_subcorpora</h1>
-<p><code>fave_subcorpora(subcorpora_glob, speakers=0, speakers_glob=None, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)</code></p>
-<p>Process multiple subcorpora</p>
-<section id="parameters" class="level2">
-<h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>subcorpora_glob</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a></td>
-<td>Glob to subcorpora</td>
-<td><em>required</em></td>
-</tr>
-<tr class="even">
-<td><code>speakers</code></td>
-<td>(<a href="https://docs.python.org/3/library/functions.html#int">int</a>, <a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <a href="https://docs.python.org/3/library/pathlib.html#pathlib.Path">Path</a>)</td>
-<td>Which speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”</td>
-<td><code>0</code></td>
-</tr>
-<tr class="odd">
-<td><code>speakers_glob</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></td>
-<td>Alternatively to <code>speakers</code>, a file glob to speaker files.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>include_overlaps</code></td>
-<td><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></td>
-<td>Whether or not to include vowels that are overlapped with speech from other tiers. Defaults to <code>True</code>.</td>
-<td><code>True</code></td>
-</tr>
-<tr class="odd">
-<td><code>recode_rules</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>labelset_parser</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="odd">
-<td><code>point_heuristic</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>ft_config</code></td>
-<td><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a> | None</td>
-<td>Either a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.</td>
-<td><code>'default'</code></td>
-</tr>
-<tr class="odd">
-<td><code>vowel_place_config</code></td>
-<td>str | None)</td>
-<td>A path to a vowel place config file. defaults to None.</td>
-<td><code>None</code></td>
-</tr>
-<tr class="even">
-<td><code>reference_values</code></td>
-<td><code>ReferenceValues</code></td>
-<td>A ReferenceValues object defining a path to a reference corpus’ Defaults to ReferenceValues()</td>
-<td><code>ReferenceValues()</code></td>
-</tr>
-<tr class="odd">
-<td><code>fave_aligned</code></td>
-<td><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></td>
-<td>Were the textgrids generated by classic FAVE align? Defaults to False.</td>
-<td><code>False</code></td>
-</tr>
-</tbody>
-</table>
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>By default, the fave-extract subcommands will write all possible data outputs to a directory called <code>fave_results/</code>. You can control how this works with a few options.</p>
+<section id="output-destination" class="level1">
+<h1>Output Destination</h1>
+<p>If, instead of a directory called <code>fave_results/</code>, you would prefer the output to be saved to a different directory, you can pass this to the <code>--destination</code> option.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># command-line</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--destination</span> my_corpus_vowels</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If the output directory doesn’t already exist, it will be created.</p>
 </section>
-<section id="returns" class="level2">
-<h2 class="anchored" data-anchor-id="returns">Returns</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection">SpeakerCollection</a></td>
-<td>A <a href="../reference/SpeakerCollection.html#new_fave.SpeakerCollection"><code>new_fave.SpeakerCollection</code></a></td>
-</tr>
-</tbody>
-</table>
+<section id="output-formats" class="level1">
+<h1>Output formats</h1>
+<section id="tracks" class="level2">
+<h2 class="anchored" data-anchor-id="tracks">tracks</h2>
+<p>To only save vowel formant track data as a .csv, pass <code>tracks</code> to the <code>--which</code> option.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> tracks</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="points" class="level2">
+<h2 class="anchored" data-anchor-id="points">points</h2>
+<p>To only save vowel formant point data as a .csv, pass <code>points</code> to the <code>--which</code> option.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="param" class="level2">
+<h2 class="anchored" data-anchor-id="param">param</h2>
+<p>To only save DCT smooth parameters, pass <code>param</code> to the <code>--which</code> option.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> param</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="log-param" class="level2">
+<h2 class="anchored" data-anchor-id="log-param">log param</h2>
+<p>To only save DCT smooth parameters of log(formants), pass <code>log_param</code> to the <code>--which</code> option.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> log_param</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="textgrid" class="level2">
+<h2 class="anchored" data-anchor-id="textgrid">textgrid</h2>
+<p>To only save the recoded textgrid, pass <code>textgrid</code> to the <code>--which</code> option.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> textgrid</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="multiple" class="level2">
+<h2 class="anchored" data-anchor-id="multiple">Multiple</h2>
+<p>If there are multiple (but not all) output formats you would like to save, you can pass the <code>--which</code> option multiple times.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fave-extract</span> corpus my_corpus <span class="dt">\</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> tracks <span class="dt">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--which</span> points</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -1016,13 +960,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../reference/fave_corpus.html" class="pagination-link" aria-label="fave_corpus">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">fave_corpus</span>
+      <a href="../../usage/customizing/demographics.html" class="pagination-link" aria-label="Adding Speaker Demographics">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Adding Speaker Demographics</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../reference/measurements.vowel_measurement.html" class="pagination-link" aria-label="measurements.vowel_measurement">
-        <span class="nav-page-text">measurements.vowel_measurement</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../usage/customizing/processing.html" class="pagination-link" aria-label="Processing Options">
+        <span class="nav-page-text">Processing Options</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
@@ -1031,5 +975,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

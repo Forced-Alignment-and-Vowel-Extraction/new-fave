@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.54">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -30,7 +30,11 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../usage/defaults.html" rel="next">
+<link href="../index.html" rel="prev">
 <link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-listing/list.min.js"></script>
+<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -69,7 +73,66 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-title','listing-author','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-title","listing-author","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles/styles.css">
 <meta property="og:title" content="Usage – new-fave">
@@ -80,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -98,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -119,10 +182,148 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../usage/index.html">Usage</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Home</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../usage/index.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Usage</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/defaults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave Defaults</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/getting_started.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/python_usage.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Python Usage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../usage/customizing/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Customizing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/customizing/demographics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Adding Speaker Demographics</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/customizing/output.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Output Options</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/customizing/processing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Processing Options</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/customizing/reference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reference Values</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="../usage/configs/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Configuration</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/configs/ft-config.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">FastTrack Config</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/configs/point-heuristic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Measurement Point Customization</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Recode Rules and Labelset Parser</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/configs/vowel-place.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vowel Place Penalty</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
@@ -152,7 +353,501 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-</main> <!-- /main -->
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="2" data-listing-word-count-sort="360">
+<div class="thumbnail">
+<p><a href="../usage/customizing/demographics.html" class="no-external"></a></p><a href="../usage/customizing/demographics.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/customizing/demographics.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/customizing/demographics.html" class="no-external">Adding Speaker Demographics</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/customizing/demographics.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/customizing/demographics.html" class="no-external">We’ve tried to make adding speaker demographics to <code>fave-extract</code> output as flexible as possible, including</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/customizing/demographics.html" class="no-external"></a></p><a href="../usage/customizing/demographics.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail">
+<p><a href="../usage/configs/index.html" class="no-external"></a></p><a href="../usage/configs/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/configs/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/configs/index.html" class="no-external">Config Files</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/configs/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/configs/index.html" class="no-external">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="64">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+For more details on how to configure FastTrack, see the fasttrackpy documentation. Any fasttrackpy config file can be passed to a fave-extract subcommand.
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="3" data-listing-word-count-sort="412">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+For more on measurement point definitions, see the fave measurement point package documentation.
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="2">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+See fave-recode
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/configs/index.html" class="no-external"></a></p><a href="../usage/configs/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail">
+<p><a href="../usage/customizing/index.html" class="no-external"></a></p><a href="../usage/customizing/index.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/customizing/index.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/customizing/index.html" class="no-external">Customizing</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/customizing/index.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/customizing/index.html" class="no-external">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="2" data-listing-word-count-sort="360">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+We’ve tried to make adding speaker demographics to <code>fave-extract</code> output as flexible as possible, including
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="2" data-listing-word-count-sort="227">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+By default, the fave-extract subcommands will write all possible data outputs to a directory called <code>fave_results/</code>. You can control how this works with a few options.
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="39">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+Some important additional options you can set for a fave-extract subcommand are:
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="175">
+<div class="thumbnail">
+<p></p>
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+<p></p>
+</div>
+<div class="body">
+
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+If you already have a collection of new-fave or legacy-fave results, and would like to use these formant values as a reference to cut down on formant tracking errors, you…
+</div>
+</div>
+<div class="metadata">
+<p></p>
+
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/customizing/index.html" class="no-external"></a></p><a href="../usage/customizing/index.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="64">
+<div class="thumbnail">
+<p><a href="../usage/configs/ft-config.html" class="no-external"></a></p><a href="../usage/configs/ft-config.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/configs/ft-config.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/configs/ft-config.html" class="no-external">FastTrack Config</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/configs/ft-config.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/configs/ft-config.html" class="no-external">For more details on how to configure FastTrack, see the fasttrackpy documentation. Any fasttrackpy config file can be passed to a fave-extract subcommand.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/configs/ft-config.html" class="no-external"></a></p><a href="../usage/configs/ft-config.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="3" data-listing-word-count-sort="545">
+<div class="thumbnail">
+<p><a href="../usage/getting_started.html" class="no-external"></a></p><a href="../usage/getting_started.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/getting_started.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/getting_started.html" class="no-external">Getting Started</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/getting_started.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/getting_started.html" class="no-external">Command-Line Usage</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/getting_started.html" class="no-external"></a></p><a href="../usage/getting_started.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="3" data-listing-word-count-sort="412">
+<div class="thumbnail">
+<p><a href="../usage/configs/point-heuristic.html" class="no-external"></a></p><a href="../usage/configs/point-heuristic.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/configs/point-heuristic.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/configs/point-heuristic.html" class="no-external">Measurement Point Customization</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/configs/point-heuristic.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/configs/point-heuristic.html" class="no-external">For more on measurement point definitions, see the fave measurement point package documentation.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/configs/point-heuristic.html" class="no-external"></a></p><a href="../usage/configs/point-heuristic.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="2" data-listing-word-count-sort="227">
+<div class="thumbnail">
+<p><a href="../usage/customizing/output.html" class="no-external"></a></p><a href="../usage/customizing/output.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/customizing/output.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/customizing/output.html" class="no-external">Output Options</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/customizing/output.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/customizing/output.html" class="no-external">By default, the fave-extract subcommands will write all possible data outputs to a directory called <code>fave_results/</code>. You can control how this works with a few options.</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/customizing/output.html" class="no-external"></a></p><a href="../usage/customizing/output.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="39">
+<div class="thumbnail">
+<p><a href="../usage/customizing/processing.html" class="no-external"></a></p><a href="../usage/customizing/processing.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/customizing/processing.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/customizing/processing.html" class="no-external">Processing Options</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/customizing/processing.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/customizing/processing.html" class="no-external">Some important additional options you can set for a fave-extract subcommand are:</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/customizing/processing.html" class="no-external"></a></p><a href="../usage/customizing/processing.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="2" data-listing-word-count-sort="282">
+<div class="thumbnail">
+<p><a href="../usage/python_usage.html" class="no-external"></a></p><a href="../usage/python_usage.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/python_usage.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/python_usage.html" class="no-external">Python Usage</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/python_usage.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/python_usage.html" class="no-external">To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions 3.10, 3.11, or 3.12. If you are not sure whether…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/python_usage.html" class="no-external"></a></p><a href="../usage/python_usage.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="2">
+<div class="thumbnail">
+<p><a href="../usage/configs/recode-rules.html" class="no-external"></a></p><a href="../usage/configs/recode-rules.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/configs/recode-rules.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/configs/recode-rules.html" class="no-external">Recode Rules and Labelset Parser</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/configs/recode-rules.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/configs/recode-rules.html" class="no-external">See fave-recode</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/configs/recode-rules.html" class="no-external"></a></p><a href="../usage/configs/recode-rules.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="175">
+<div class="thumbnail">
+<p><a href="../usage/customizing/reference.html" class="no-external"></a></p><a href="../usage/customizing/reference.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/customizing/reference.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/customizing/reference.html" class="no-external">Reference Values</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/customizing/reference.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/customizing/reference.html" class="no-external">If you already have a collection of new-fave or legacy-fave results, and would like to use these formant values as a reference to cut down on formant tracking errors, you…</a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/customizing/reference.html" class="no-external"></a></p><a href="../usage/customizing/reference.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail">
+<p><a href="../usage/configs/vowel-place.html" class="no-external"></a></p><a href="../usage/configs/vowel-place.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/configs/vowel-place.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/configs/vowel-place.html" class="no-external">Vowel Place Penalty</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/configs/vowel-place.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/configs/vowel-place.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/configs/vowel-place.html" class="no-external"></a></p><a href="../usage/configs/vowel-place.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="3">
+<div class="thumbnail">
+<p><a href="../usage/subcommands/audio-textgrid.html" class="no-external"></a></p><a href="../usage/subcommands/audio-textgrid.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/subcommands/audio-textgrid.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/subcommands/audio-textgrid.html" class="no-external">audio-textgrid</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/subcommands/audio-textgrid.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/subcommands/audio-textgrid.html" class="no-external">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex">fave-extract</span> audio-textgrid <span class="at">--help</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Usage: fave-extract audio-textgrid [OPTIONS] AUDIO_PATH
+                                   TEXTGRID_PATH
+Aliases: audio-textgrid
+
+  Run…</code></pre></div></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/subcommands/audio-textgrid.html" class="no-external"></a></p><a href="../usage/subcommands/audio-textgrid.html" class="no-external">
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-listing-file-modified-sort="1730848016601" data-listing-reading-time-sort="1" data-listing-word-count-sort="1">
+<div class="thumbnail">
+<p><a href="../usage/defaults.html" class="no-external"></a></p><a href="../usage/defaults.html" class="no-external">
+<div class="listing-item-img-placeholder card-img-top" >&nbsp;</div>
+</a><p><a href="../usage/defaults.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="../usage/defaults.html" class="no-external">new-fave Defaults</a>
+</h3>
+<div class="listing-subtitle">
+<a href="../usage/defaults.html" class="no-external"></a>
+</div>
+<div class="listing-description">
+<a href="../usage/defaults.html" class="no-external"></a>
+</div>
+</div>
+<div class="metadata">
+<p><a href="../usage/defaults.html" class="no-external"></a></p><a href="../usage/defaults.html" class="no-external">
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -717,9 +1412,22 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="new-fave">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">new-fave</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../usage/defaults.html" class="pagination-link" aria-label="new-fave Defaults">
+        <span class="nav-page-text">new-fave Defaults</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
 </div> <!-- /content -->
 
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

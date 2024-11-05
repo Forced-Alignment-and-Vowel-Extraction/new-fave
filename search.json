@@ -1,5 +1,302 @@
 [
   {
+    "objectID": "reference/VowelClassCollection.html",
+    "href": "reference/VowelClassCollection.html",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "VowelClassCollection(self, track_list=EMPTY_LIST)\nA class for an entire vowel system.\n\n\nIt is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nEMPTY_LIST\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nwinners\nlist[OneTrack]\nAll winner tracks from the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nAll VowelMeasurement objects within this vowel system\n\n\ntextgrid\nAlignedTextGrid\nThe AlignedTextGrid associated with this vowel system.\n\n\nwinner_expanded_formants\nNDArray[Shape[20, FormantN], Float]\nA cached property that returns the expanded formants for the winners.\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn array of all parameters from all winners across the vowel system.\n\n\nwinner_maxformant\nNDArray[Shape[1, N], Float]\nAn array of the maximum formants of all winners across the vowel system\n\n\nwinner_param_mean\nNDArray[Shape[1, FormantParam], Float]\nThe mean of all DCT parameters across all formants for the winners in this vowel system.\n\n\nwinner_param_cov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe covariance of all parameters across all formants for the winners in this vowel system\n\n\nwinner_param_icov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe inverse of winner_param_cov.\n\n\nwinner_maxformant_mean\nfloat\nThe mean maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_cov\nNDArray[Shape[1, 1], Float]\nThe covariance of the maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_icov\nNDArray[Shape[1, 1], Float]\nThe inverse of winner_maxformant_cov\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#intended-usage",
+    "href": "reference/VowelClassCollection.html#intended-usage",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "It is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#parameters",
+    "href": "reference/VowelClassCollection.html#parameters",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nEMPTY_LIST",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#attributes",
+    "href": "reference/VowelClassCollection.html#attributes",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nwinners\nlist[OneTrack]\nAll winner tracks from the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nAll VowelMeasurement objects within this vowel system\n\n\ntextgrid\nAlignedTextGrid\nThe AlignedTextGrid associated with this vowel system.\n\n\nwinner_expanded_formants\nNDArray[Shape[20, FormantN], Float]\nA cached property that returns the expanded formants for the winners.\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn array of all parameters from all winners across the vowel system.\n\n\nwinner_maxformant\nNDArray[Shape[1, N], Float]\nAn array of the maximum formants of all winners across the vowel system\n\n\nwinner_param_mean\nNDArray[Shape[1, FormantParam], Float]\nThe mean of all DCT parameters across all formants for the winners in this vowel system.\n\n\nwinner_param_cov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe covariance of all parameters across all formants for the winners in this vowel system\n\n\nwinner_param_icov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe inverse of winner_param_cov.\n\n\nwinner_maxformant_mean\nfloat\nThe mean maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_cov\nNDArray[Shape[1, 1], Float]\nThe covariance of the maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_icov\nNDArray[Shape[1, 1], Float]\nThe inverse of winner_maxformant_cov",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/VowelClassCollection.html#methods",
+    "href": "reference/VowelClassCollection.html#methods",
+    "title": "VowelClassCollection",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelClassCollection"
+    ]
+  },
+  {
+    "objectID": "reference/fave_subcorpora.html",
+    "href": "reference/fave_subcorpora.html",
+    "title": "fave_subcorpora",
+    "section": "",
+    "text": "fave_subcorpora(subcorpora_glob, speakers=0, speakers_glob=None, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)\nProcess multiple subcorpora\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsubcorpora_glob\nstr | Path\nGlob to subcorpora\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\nspeakers_glob\nstr\nAlternatively to speakers, a file glob to speaker files.\nNone\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nvowel_place_config\nstr | None)\nA path to a vowel place config file. defaults to None.\nNone\n\n\nreference_values\nReferenceValues\nA ReferenceValues object defining a path to a reference corpus’ Defaults to ReferenceValues()\nReferenceValues()\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_subcorpora"
+    ]
+  },
+  {
+    "objectID": "reference/fave_subcorpora.html#parameters",
+    "href": "reference/fave_subcorpora.html#parameters",
+    "title": "fave_subcorpora",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsubcorpora_glob\nstr | Path\nGlob to subcorpora\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\nspeakers_glob\nstr\nAlternatively to speakers, a file glob to speaker files.\nNone\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nvowel_place_config\nstr | None)\nA path to a vowel place config file. defaults to None.\nNone\n\n\nreference_values\nReferenceValues\nA ReferenceValues object defining a path to a reference corpus’ Defaults to ReferenceValues()\nReferenceValues()\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_subcorpora"
+    ]
+  },
+  {
+    "objectID": "reference/fave_subcorpora.html#returns",
+    "href": "reference/fave_subcorpora.html#returns",
+    "title": "fave_subcorpora",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_subcorpora"
+    ]
+  },
+  {
+    "objectID": "reference/fave_audio_textgrid.html",
+    "href": "reference/fave_audio_textgrid.html",
+    "title": "fave_audio_textgrid",
+    "section": "",
+    "text": "fave_audio_textgrid(audio_path, textgrid_path, speakers=0, include_overlaps=True, no_optimize=False, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)\nProcess a single audio/textgrid pair.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\naudio_path\nstr | Path\nPath to an audio file\nrequired\n\n\ntextgrid_path\nstr | Path\nPath to a textgrid\nrequired\n\n\nspeakers\nint | list[int] | str | Path | optional\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nvowel_place_config\nstr | None)\nA path to a vowel place config file. defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nreference_values\nReferenceValues\nA ReferenceValues object defining a path to a reference corpus Defaults to ReferenceValues()\nReferenceValues()\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_audio_textgrid"
+    ]
+  },
+  {
+    "objectID": "reference/fave_audio_textgrid.html#parameters",
+    "href": "reference/fave_audio_textgrid.html#parameters",
+    "title": "fave_audio_textgrid",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\naudio_path\nstr | Path\nPath to an audio file\nrequired\n\n\ntextgrid_path\nstr | Path\nPath to a textgrid\nrequired\n\n\nspeakers\nint | list[int] | str | Path | optional\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nvowel_place_config\nstr | None)\nA path to a vowel place config file. defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nreference_values\nReferenceValues\nA ReferenceValues object defining a path to a reference corpus Defaults to ReferenceValues()\nReferenceValues()\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_audio_textgrid"
+    ]
+  },
+  {
+    "objectID": "reference/fave_audio_textgrid.html#returns",
+    "href": "reference/fave_audio_textgrid.html#returns",
+    "title": "fave_audio_textgrid",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_audio_textgrid"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html",
+    "href": "reference/SpeakerCollection.html",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "SpeakerCollection(self, track_list=[])\nA class to represent the vowel system of all speakers in a TextGrid.\n\n\nIt is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\n[]\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nThis will return a dataframe of the DCT parameters for all speakers.\n\n\nto_point_df\nThis will return a DataFrame of point measurements\n\n\nto_tracks_df\nThis will return a data frame of formant\n\n\n\n\n\nSpeakerCollection.to_param_df(output='log_param')\nThis will return a dataframe of the DCT parameters for all speakers. If output is passed param, it will be the DCT parameters in the original Hz. If passed log_param, it will be the DCT parameters over log(Hz).\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\noutput\nLiteral[‘param’, ‘log_param’]\nWhich set of DCT parameters to return. Defaults to “log_param”.\n'log_param'\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of DCT parameters for all speakers.\n\n\n\n\n\n\n\nSpeakerCollection.to_point_df()\nThis will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.\n\n\n\nSpeakerCollection.to_tracks_df()\nThis will return a data frame of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe of formant tracks for all speakers.",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html#intended-usage",
+    "href": "reference/SpeakerCollection.html#intended-usage",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "It is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html#parameters",
+    "href": "reference/SpeakerCollection.html#parameters",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\n[]",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/SpeakerCollection.html#methods",
+    "href": "reference/SpeakerCollection.html#methods",
+    "title": "SpeakerCollection",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nto_param_df\nThis will return a dataframe of the DCT parameters for all speakers.\n\n\nto_point_df\nThis will return a DataFrame of point measurements\n\n\nto_tracks_df\nThis will return a data frame of formant\n\n\n\n\n\nSpeakerCollection.to_param_df(output='log_param')\nThis will return a dataframe of the DCT parameters for all speakers. If output is passed param, it will be the DCT parameters in the original Hz. If passed log_param, it will be the DCT parameters over log(Hz).\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\noutput\nLiteral[‘param’, ‘log_param’]\nWhich set of DCT parameters to return. Defaults to “log_param”.\n'log_param'\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of DCT parameters for all speakers.\n\n\n\n\n\n\n\nSpeakerCollection.to_point_df()\nThis will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.\n\n\n\nSpeakerCollection.to_tracks_df()\nThis will return a data frame of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe of formant tracks for all speakers.",
+    "crumbs": [
+      "Vowel Measurements",
+      "SpeakerCollection"
+    ]
+  },
+  {
+    "objectID": "reference/optimize.optimize.html",
+    "href": "reference/optimize.optimize.html",
+    "title": "optimize.optimize",
+    "section": "",
+    "text": "optimize.optimize\n\n\n\n\n\nName\nDescription\n\n\n\n\noptimize_one_measure\nOptimize a single vowel measurement\n\n\noptimize_vowel_measures\nOptimize a list of VowelMeasurements.\n\n\nrun_optimize\nRepeatedly run optimization until either max_iter is reached,\n\n\n\n\n\noptimize.optimize.optimize_one_measure(vowel_measurement, optim_params)\nOptimize a single vowel measurement\nThis function optimizes a given vowel measurement based on the specified optimization parameters.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurement\nVowelMeasurement\nThe VowelMeasurement to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nint\ndescription\n\n\n\n\n\n\n\noptimize.optimize.optimize_vowel_measures(vowel_measurements, optim_params, pbar=None)\nOptimize a list of VowelMeasurements.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurements\nlist[VowelMeasurement]\nThe list of vowel measurements to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\nrequired\n\n\npbar\ntqdm\nA progress bar.\nNone\n\n\n\n\n\n\n\noptimize.optimize.run_optimize(vowel_system, optim_params=['param_speaker', 'fratio_speaker', 'centroid_speaker', 'maxformant_speaker'], max_iter=10)\nRepeatedly run optimization until either max_iter is reached, or the difference between two iterations becomes small.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_system\nVowelClassCollection\nThe vowel space to be optimized\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker', 'fratio_speaker', 'centroid_speaker', 'maxformant_speaker']\n\n\nmax_iter\nint\nThe maximum number of iterations to run. Defaults to 10.\n10",
+    "crumbs": [
+      "Optimization",
+      "optimize.optimize"
+    ]
+  },
+  {
+    "objectID": "reference/optimize.optimize.html#functions",
+    "href": "reference/optimize.optimize.html#functions",
+    "title": "optimize.optimize",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\noptimize_one_measure\nOptimize a single vowel measurement\n\n\noptimize_vowel_measures\nOptimize a list of VowelMeasurements.\n\n\nrun_optimize\nRepeatedly run optimization until either max_iter is reached,\n\n\n\n\n\noptimize.optimize.optimize_one_measure(vowel_measurement, optim_params)\nOptimize a single vowel measurement\nThis function optimizes a given vowel measurement based on the specified optimization parameters.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurement\nVowelMeasurement\nThe VowelMeasurement to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nint\ndescription\n\n\n\n\n\n\n\noptimize.optimize.optimize_vowel_measures(vowel_measurements, optim_params, pbar=None)\nOptimize a list of VowelMeasurements.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurements\nlist[VowelMeasurement]\nThe list of vowel measurements to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\nrequired\n\n\npbar\ntqdm\nA progress bar.\nNone\n\n\n\n\n\n\n\noptimize.optimize.run_optimize(vowel_system, optim_params=['param_speaker', 'fratio_speaker', 'centroid_speaker', 'maxformant_speaker'], max_iter=10)\nRepeatedly run optimization until either max_iter is reached, or the difference between two iterations becomes small.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_system\nVowelClassCollection\nThe vowel space to be optimized\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker', 'fratio_speaker', 'centroid_speaker', 'maxformant_speaker']\n\n\nmax_iter\nint\nThe maximum number of iterations to run. Defaults to 10.\n10",
+    "crumbs": [
+      "Optimization",
+      "optimize.optimize"
+    ]
+  },
+  {
+    "objectID": "reference/speaker.speaker.Speaker.html",
+    "href": "reference/speaker.speaker.Speaker.html",
+    "title": "speaker.speaker.Speaker",
+    "section": "",
+    "text": "speaker.speaker.Speaker(self, arg=None)\nThis is a class to represent speaker information. The argument to Speaker() can be one of\n\nA .yaml file\nA .csv file\nA .xlsx file\nAn old fave .speaker file\n\nWith the exception of the old .speaker files, to work well with new-fave, these speaker files should contain the following fields\n\nfile_name: The file stem of the wav and textgrid files\nspeaker_num: The speaker to be analyzed in a file. the first speaker is 1.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ndf\npl.DataFrame\nA polars data frame of speaker information",
+    "crumbs": [
+      "Speaker files",
+      "speaker.speaker.Speaker"
+    ]
+  },
+  {
+    "objectID": "reference/speaker.speaker.Speaker.html#attributes",
+    "href": "reference/speaker.speaker.Speaker.html#attributes",
+    "title": "speaker.speaker.Speaker",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\ndf\npl.DataFrame\nA polars data frame of speaker information",
+    "crumbs": [
+      "Speaker files",
+      "speaker.speaker.Speaker"
+    ]
+  },
+  {
+    "objectID": "reference/fave_corpus.html",
+    "href": "reference/fave_corpus.html",
+    "title": "fave_corpus",
+    "section": "",
+    "text": "fave_corpus(corpus_path, speakers=0, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)\nProcess a corpus directory.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ncorpus_path\nstr | Path\nPath to a corpus directory\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nvowel_place_config\nstr | None)\nA path to a vowel place config file. defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nreference_values\nReferenceValues\nA ReferenceValues object defining a path to a reference corpus Defaults to ReferenceValues()\nReferenceValues()\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_corpus"
+    ]
+  },
+  {
+    "objectID": "reference/fave_corpus.html#parameters",
+    "href": "reference/fave_corpus.html#parameters",
+    "title": "fave_corpus",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ncorpus_path\nstr | Path\nPath to a corpus directory\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nvowel_place_config\nstr | None)\nA path to a vowel place config file. defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nreference_values\nReferenceValues\nA ReferenceValues object defining a path to a reference corpus Defaults to ReferenceValues()\nReferenceValues()\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_corpus"
+    ]
+  },
+  {
+    "objectID": "reference/fave_corpus.html#returns",
+    "href": "reference/fave_corpus.html#returns",
+    "title": "fave_corpus",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
+    "crumbs": [
+      "Processing Patterns",
+      "fave_corpus"
+    ]
+  },
+  {
+    "objectID": "reference/VowelMeasurement.html",
+    "href": "reference/VowelMeasurement.html",
+    "title": "VowelMeasurement",
+    "section": "",
+    "text": "VowelMeasurement(self, track, heuristic=Heuristic(), vowel_place_dict=lambda: dict()(), reference_values=ReferenceValues(), only_fasttrack=False)\nA class used to represent a vowel measurement.\n\n\nCertain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\nvowel_place_dict\ndict[Literal[‘front’, ‘back’], re.Pattern]\nA dictionary of regexes that match front or back vowels.\nlambda: dict()()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
+  },
+  {
+    "objectID": "reference/VowelMeasurement.html#intended-usage",
+    "href": "reference/VowelMeasurement.html#intended-usage",
+    "title": "VowelMeasurement",
+    "section": "",
+    "text": "Certain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
+  },
+  {
+    "objectID": "reference/VowelMeasurement.html#parameters",
+    "href": "reference/VowelMeasurement.html#parameters",
+    "title": "VowelMeasurement",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\nvowel_place_dict\ndict[Literal[‘front’, ‘back’], re.Pattern]\nA dictionary of regexes that match front or back vowels.\nlambda: dict()()",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
+  },
+  {
+    "objectID": "reference/VowelMeasurement.html#attributes",
+    "href": "reference/VowelMeasurement.html#attributes",
+    "title": "VowelMeasurement",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
+  },
+  {
+    "objectID": "reference/VowelMeasurement.html#methods",
+    "href": "reference/VowelMeasurement.html#methods",
+    "title": "VowelMeasurement",
+    "section": "",
+    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
+    "crumbs": [
+      "Vowel Measurements",
+      "VowelMeasurement"
+    ]
+  },
+  {
     "objectID": "index.html#what-is-new-fave",
     "href": "index.html#what-is-new-fave",
     "title": "new-fave",
@@ -33,11 +330,370 @@
     ]
   },
   {
+    "objectID": "usage/index.html",
+    "href": "usage/index.html",
+    "title": "Usage",
+    "section": "",
+    "text": "Adding Speaker Demographics\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nConfig Files\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCustomizing\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFastTrack Config\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nGetting Started\n\n\n\n\n\nCommand-Line Usage\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMeasurement Point Customization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOutput Options\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProcessing Options\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPython Usage\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRecode Rules and Labelset Parser\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReference Values\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVowel Place Penalty\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\naudio-textgrid\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nnew-fave Defaults\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Usage"
+    ]
+  },
+  {
+    "objectID": "usage/configs/ft-config.html",
+    "href": "usage/configs/ft-config.html",
+    "title": "FastTrack Config",
+    "section": "",
+    "text": "For more details on how to configure FastTrack, see the fasttrackpy documentation. Any fasttrackpy config file can be passed to a fave-extract subcommand.\nFor example, if you wanted to adjust the range of max-formants considered by fasttrack, you could create a config file like so:\n# fasttrack.yml\nmin_max_formant: 3000\nmax_max_formant: 6000\nThen you would pass this the –ft-config option.\n# command-line\nfave-extract corpus my_corpus \\\n    --ft-config fasttrack.yml",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Configuration",
+      "FastTrack Config"
+    ]
+  },
+  {
+    "objectID": "usage/configs/point-heuristic.html",
+    "href": "usage/configs/point-heuristic.html",
+    "title": "Measurement Point Customization",
+    "section": "",
+    "text": "For more on measurement point definitions, see the fave measurement point package documentation.",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Configuration",
+      "Measurement Point Customization"
+    ]
+  },
+  {
+    "objectID": "usage/configs/point-heuristic.html#specifics",
+    "href": "usage/configs/point-heuristic.html#specifics",
+    "title": "Measurement Point Customization",
+    "section": "Specifics",
+    "text": "Specifics\nLet’s say you wanted to define a special measurement point rule for just the vowel /ay/, to measure it at maximum F1. This can be done by adding the following rule to the specifics list.\nheuristic: ay-rule\ndefault:\n    prop_time: \"1/3\"\nspecifics:\n    - label: ay\n      prop_time: f1.max.prop_time\nWhat this says is:\n\nApply a special measurement point rule when the interval label is “ay”.\nGet the measurement point where the vowel’s prop_time is equal to the prop_time of F1 maximum.",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Configuration",
+      "Measurement Point Customization"
+    ]
+  },
+  {
+    "objectID": "usage/configs/point-heuristic.html#valid-point-expressions",
+    "href": "usage/configs/point-heuristic.html#valid-point-expressions",
+    "title": "Measurement Point Customization",
+    "section": "Valid point expressions",
+    "text": "Valid point expressions\nThe expression f1.max.prop_time defines the proportional time of F1 maximum. An entire point expression will always be of the format:\nformant.anchor.time\nValid values for each slot are:\n\nFormants\n\nf1, f2, f3, …\nAny formant that’s available\n\nAnchor\n\nmin\nmax\n\nTime\n\ntime\nrel_time\nprop_time\n\n\nAdditionally, any other mathematical expression can be included. For example, the original FAVE suite had a measurement point heuristic for /aw/ and /ow/ defined in the docs as:\n# - OW, AW measured halfway between beginning of segment and F1 maximum  ##\nThe heuristic file for this would look like:\n# yaml\nheuristic: aw-ow-rule\ndefault:\n    prop_time: \"1/3\"\nspecifics:\n    - label: aw\n      prop_time: f1.max.prop_time / 2\n    - label: ow\n      prop_time: f1.max.prop_time / 2",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Configuration",
+      "Measurement Point Customization"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/demographics.html",
+    "href": "usage/customizing/demographics.html",
+    "title": "Adding Speaker Demographics",
+    "section": "",
+    "text": "We’ve tried to make adding speaker demographics to fave-extract output as flexible as possible, including",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Adding Speaker Demographics"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/demographics.html#excel-csv",
+    "href": "usage/customizing/demographics.html#excel-csv",
+    "title": "Adding Speaker Demographics",
+    "section": "Excel or CSV files",
+    "text": "Excel or CSV files\nTo ensure demographic information in a an .xlsx or .csv file is correctly included in fave-extract output two columns are required:\n\n\n\n\n\n\nRequired Columns\n\n\n\n\nfile_name: The file stem of the wav and textgrid files\nspeaker_num: The speaker to be analyzed in a file. the first speaker is 1.\n\n\n\nSo, if you had a corpus that looked like this:\n\n\n../my_corpus\n├── speaker1.TextGrid\n├── speaker1.wav\n├── speaker2.TextGrid\n└── speaker2.wav\n\n\nYour excel file or csv file would have to look something like this:\n\n\n\n\n\n\n\n\nfile_name\nspeaker_num\nage\n\n\n\n\nspeaker1\n1\n26\n\n\nspeaker2\n1\n50\n\n\nspeaker2\n2\n23\n\n\n\n\n\n\n        \n\n\n\n\n\n\n\n\nTip\n\n\n\nIf a speaker demographics file is provided, fave-extract will only process data for speakers with entries.",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Adding Speaker Demographics"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/demographics.html#yaml-file",
+    "href": "usage/customizing/demographics.html#yaml-file",
+    "title": "Adding Speaker Demographics",
+    "section": "YAML file",
+    "text": "YAML file\nAnother option for formatting speaker demographic information is in a yaml file. Yaml is a very flexible data structuring format. For this corpus:\n\n\n../my_corpus\n├── speaker1.TextGrid\n├── speaker1.wav\n├── speaker2.TextGrid\n└── speaker2.wav\n\n\nAn speaker demographics yaml file would look like\n# yaml\n- file_name: speaker1\n  speaker_num: 1\n  age: 26\n- file_name: speaker3\n  speaker_num: 1\n  age: 50\n- file_name: speaker1\n  speaker_num: 1\n  age: 23  \n\n\n\n\n\n\nRequired Fields\n\n\n\nThe file_name and speaker_num fields are required.\n\n\n\n\n\n\n\n\nFlexibility\n\n\n\nOutside of the required fields\n\nNot every speaker has to have the same fields defined.\nThe fields don’t need to appear in a consistent order.",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Adding Speaker Demographics"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/demographics.html#legacy-fave-speaker-file",
+    "href": "usage/customizing/demographics.html#legacy-fave-speaker-file",
+    "title": "Adding Speaker Demographics",
+    "section": "Legacy-fave speaker file",
+    "text": "Legacy-fave speaker file\nIf you have legacy-fave .speaker files, you can pass them to the --speakers option.",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Adding Speaker Demographics"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/processing.html",
+    "href": "usage/customizing/processing.html",
+    "title": "Processing Options",
+    "section": "",
+    "text": "Some important additional options you can set for a fave-extract subcommand are:\n\n--fave-aligned: Was the TextGrid aligned using legacy-fave align?\n--exclude-overlaps: Should overlapping speech be excluded?\n--no-optimize: Should the optimization steps be skipped?",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Processing Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html",
+    "href": "usage/customizing/output.html",
+    "title": "Output Options",
+    "section": "",
+    "text": "By default, the fave-extract subcommands will write all possible data outputs to a directory called fave_results/. You can control how this works with a few options.",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html#tracks",
+    "href": "usage/customizing/output.html#tracks",
+    "title": "Output Options",
+    "section": "tracks",
+    "text": "tracks\nTo only save vowel formant track data as a .csv, pass tracks to the --which option.\nfave-extract corpus my_corpus \\\n    --which tracks",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html#points",
+    "href": "usage/customizing/output.html#points",
+    "title": "Output Options",
+    "section": "points",
+    "text": "points\nTo only save vowel formant point data as a .csv, pass points to the --which option.\nfave-extract corpus my_corpus \\\n    --which points",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html#param",
+    "href": "usage/customizing/output.html#param",
+    "title": "Output Options",
+    "section": "param",
+    "text": "param\nTo only save DCT smooth parameters, pass param to the --which option.\nfave-extract corpus my_corpus \\\n    --which param",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html#log-param",
+    "href": "usage/customizing/output.html#log-param",
+    "title": "Output Options",
+    "section": "log param",
+    "text": "log param\nTo only save DCT smooth parameters of log(formants), pass log_param to the --which option.\nfave-extract corpus my_corpus \\\n    --which log_param",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html#textgrid",
+    "href": "usage/customizing/output.html#textgrid",
+    "title": "Output Options",
+    "section": "textgrid",
+    "text": "textgrid\nTo only save the recoded textgrid, pass textgrid to the --which option.\nfave-extract corpus my_corpus \\\n    --which textgrid",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/output.html#multiple",
+    "href": "usage/customizing/output.html#multiple",
+    "title": "Output Options",
+    "section": "Multiple",
+    "text": "Multiple\nIf there are multiple (but not all) output formats you would like to save, you can pass the --which option multiple times.\nfave-extract corpus my_corpus \\\n    --which tracks \\\n    --which points",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Output Options"
+    ]
+  },
+  {
+    "objectID": "dev/variable_names.html",
+    "href": "dev/variable_names.html",
+    "title": "Variable Naming Conventions",
+    "section": "",
+    "text": "cand: candidate tracks.\n\nReturns\n\nlist of fasttrackpy.OneTracks\na numpy.array of concatenated results from fasttrackpy.OneTracks\n\n\nwinner: The winner track\n\nReturns\n\nA single fasttrackpy.OneTrack\na numpy.array of concatenated results from winner fasttrackpy.OneTracks\n\n\n\n\n\n\n\nparam: The DCT parameters\nmaxformant: The maximum formant\nerror: The smoothing error term\nbparam: The formant bandwidths parameters\n\n\n\n\n\nmean: A mean\ncov: A covariance matrix\nicov: An inverse covariance matrix\n\n\n\n\n\nmahal: Mahalanobis distance\nlogprob: The log probability\n\n\n\n\n\nvm: Vowel Measurement\nvclass: Vowel Class\nspeaker: Speaker\ncorpus: Corpus\n\n\n\n\n\nglobal: Global\nbyvclass: By VowelClass"
+  },
+  {
+    "objectID": "dev/variable_names.html#property-naming-descriptors",
+    "href": "dev/variable_names.html#property-naming-descriptors",
+    "title": "Variable Naming Conventions",
+    "section": "",
+    "text": "cand: candidate tracks.\n\nReturns\n\nlist of fasttrackpy.OneTracks\na numpy.array of concatenated results from fasttrackpy.OneTracks\n\n\nwinner: The winner track\n\nReturns\n\nA single fasttrackpy.OneTrack\na numpy.array of concatenated results from winner fasttrackpy.OneTracks\n\n\n\n\n\n\n\nparam: The DCT parameters\nmaxformant: The maximum formant\nerror: The smoothing error term\nbparam: The formant bandwidths parameters\n\n\n\n\n\nmean: A mean\ncov: A covariance matrix\nicov: An inverse covariance matrix\n\n\n\n\n\nmahal: Mahalanobis distance\nlogprob: The log probability\n\n\n\n\n\nvm: Vowel Measurement\nvclass: Vowel Class\nspeaker: Speaker\ncorpus: Corpus\n\n\n\n\n\nglobal: Global\nbyvclass: By VowelClass"
+  },
+  {
+    "objectID": "dev/variable_names.html#property-naming-structure",
+    "href": "dev/variable_names.html#property-naming-structure",
+    "title": "Variable Naming Conventions",
+    "section": "Property Naming Structure",
+    "text": "Property Naming Structure\n\nsource_value_derived_scope_subdivision\nsource_value_summary\nsource_value"
+  },
+  {
+    "objectID": "dev/index.html",
+    "href": "dev/index.html",
+    "title": "Development Plan",
+    "section": "",
+    "text": "The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.\n\n\n\nThe plan is for new-fave to bring together, under one tool\n\nfave-recodeing of input data, allowing for dialect, language, or research question specific recoding of alignment output\nCustomizable point measurement heuristics\nEnriched data output enabled by its opinionated approach to data input. (e.g. fave-syllabify)\n\n\n\n\nSee New-Fave Approach"
+  },
+  {
+    "objectID": "dev/index.html#what-is-favey-about-this",
+    "href": "dev/index.html#what-is-favey-about-this",
+    "title": "Development Plan",
+    "section": "",
+    "text": "The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.\n\n\n\nThe plan is for new-fave to bring together, under one tool\n\nfave-recodeing of input data, allowing for dialect, language, or research question specific recoding of alignment output\nCustomizable point measurement heuristics\nEnriched data output enabled by its opinionated approach to data input. (e.g. fave-syllabify)\n\n\n\n\nSee New-Fave Approach"
+  },
+  {
+    "objectID": "usage/subcommands/audio-textgrid.html",
+    "href": "usage/subcommands/audio-textgrid.html",
+    "title": "audio-textgrid",
+    "section": "",
+    "text": "fave-extract audio-textgrid --help\n\nUsage: fave-extract audio-textgrid [OPTIONS] AUDIO_PATH\n                                   TEXTGRID_PATH\nAliases: audio-textgrid\n\n  Run fave-extract on a single audio+textgrid pair.\n\nPositional arguments:\n  AUDIO_PATH                      Path to the audio file.\n  TEXTGRID_PATH                   Path to the TextGrid file.\n\nConfiguration Options:\n  --recode-rules TEXT             Recoding rules to adjust vowel interval\n                                  labels. Values can be a string naming one of\n                                  the built-in recode rules\n                                  ('cmu2labov','cmu2phila', 'norecode'), or a\n                                  path to a custom recoding yml file.\n                                  [default: cmu2labov]\n  --labelset-parser TEXT          A labeleset parser. Values can be a string\n                                  naming a built-in parser ('cmu_parser') or a\n                                  path to a custom parser yml file.   [default:\n                                  cmu_parser]\n  --point-heuristic TEXT          The point measurement heuristic to use.\n                                  Values can be a built in heuristic ('fave')\n                                  or a path to a custom heuristic file.\n                                  [default: fave]\n  --vowel-place TEXT              A vowel place definition file. Values can be\n                                  the name of a built in config ('defailt) or a\n                                  path to a custom config file.  [default:\n                                  default]\n  --ft-config TEXT                A fasttrack config file. Values can be the\n                                  name of a built in config ('default') or a\n                                  path to a custom config file.  [default:\n                                  default]\n  --fave-aligned                  Include this flag if the textgrid was aligned\n                                  with FAVE align.\n  --exclude-overlaps              Include this flag if you want to exclude\n                                  overlapping speech.\n  --no-optimize                   Include this flag if you want to skip fave\n                                  optimization\n\nReference Values: [mutually exclusive]\n  --logparam-reference DIRECTORY  A path to a collection of reference\n                                  *_logparam.csv files.\n  --param-reference DIRECTORY     A path to a collection of reference\n                                  *_param.csv files.\n  --points-reference DIRECTORY    A path to a collection of reference\n                                  *_points.csv files.\n\nOutput options:\n  Options for writing output data.\n  --destination DIRECTORY         Destination directory for resulting data\n                                  files. If the directory doesn't exist, it\n                                  will be created.  [default: fave_results]\n  --which [all|tracks|points|param|log_param|textgrid]\n                                  Which output files to write. Default is\n                                  'all'. This option can be included multiple\n                                  times to write just some of the options (e.g.\n                                  'tracks' and 'points'  [default: all]\n  --separate                      Should each individual speaker be written to\n                                  separate data files?\n\nOther options:\n  --speakers TEXT                 Which speakers to analyze. Values can be: a\n                                  numeric value (1 = first speaker), the string\n                                  'all', for all speakers, or a path to a\n                                  speaker demographics file.  [default: 1]\n  --help                          Show this message and exit."
+  },
+  {
+    "objectID": "usage/customizing/reference.html",
+    "href": "usage/customizing/reference.html",
+    "title": "Reference Values",
+    "section": "",
+    "text": "If you already have a collection of new-fave or legacy-fave results, and would like to use these formant values as a reference to cut down on formant tracking errors, you can pass them to a fave-extract subcommand. The option to use will depend on the kind of reference values you are using.\n\nPoint Values Reference\nIf you have a collection of vowel formant point values, either extracted by new-fave or legacy-fave, you can point the fave-extract subcommands at this corpus with the --points-reference option.\n# command-line\nfave-extract audio-textgrid \\\n    speaker1.wav speaker1.TextGrid \\\n    --points-reference fave_results\n\n\nParam Reference\nIf you have a collection of vowel formant DCT smoothing parameters, you can point the fave-extract subcommands at this corpus with the --param-reference option.\n# command-line\nfave-extract audio-textgrid \\\n    speaker1.wav speaker1.TextGrid \\\n    --param-reference fave_results\n\n\nLog-Param Reference\nIf you have a collection of vowel log(formant) DCT smoothing parameters, you can point the fave-extract subcommands at this corpus with the --logparam-reference option.\n# command-line\nfave-extract audio-textgrid \\\n    speaker1.wav speaker1.TextGrid \\\n    --logparam-reference fave_results",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing",
+      "Reference Values"
+    ]
+  },
+  {
+    "objectID": "usage/customizing/index.html",
+    "href": "usage/customizing/index.html",
+    "title": "Customizing",
+    "section": "",
+    "text": "Adding Speaker Demographics\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOutput Options\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nProcessing Options\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nReference Values\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Customizing"
+    ]
+  },
+  {
+    "objectID": "usage/configs/index.html",
+    "href": "usage/configs/index.html",
+    "title": "Config Files",
+    "section": "",
+    "text": "FastTrack Config\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMeasurement Point Customization\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nRecode Rules and Labelset Parser\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVowel Place Penalty\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Configuration"
+    ]
+  },
+  {
+    "objectID": "usage/configs/recode-rules.html",
+    "href": "usage/configs/recode-rules.html",
+    "title": "Recode Rules and Labelset Parser",
+    "section": "",
+    "text": "See fave-recode",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Configuration",
+      "Recode Rules and Labelset Parser"
+    ]
+  },
+  {
+    "objectID": "usage/python_usage.html",
+    "href": "usage/python_usage.html",
+    "title": "Python Usage",
+    "section": "",
+    "text": "To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions 3.10, 3.11, or 3.12. If you are not sure whether python is installed, or what version is installed, here is a good tutorial for figuring that out.\nOnce you have python successfully installed, you can install new-fave at the command-line like so.\n# command-line\npip install new-fave",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Python Usage"
+    ]
+  },
+  {
+    "objectID": "usage/python_usage.html#audio-textgrid",
+    "href": "usage/python_usage.html#audio-textgrid",
+    "title": "Python Usage",
+    "section": "Audio + TextGrid",
+    "text": "Audio + TextGrid\nSee fave_audio_textgrid and write_data. And if desired, SpeakerCollection.\nfrom new_fave import fave_audio_textgrid, write_data\n\nspeakers = fave_audio_textgrid(\n    audio_path = \"speaker1.wav\",\n    textgrid_path = \"speaker2.TextGrid\",\n    ## all optional args below\n    speakers = \"all\",\n    recode_rules = \"cmu2labov\",\n    labelset_parser = \"cmu_parser\",\n    point_heuristic = \"fave\",\n    ft_config = \"default\"\n)\n\nwrite_data(\n    speakers, \n    destination = \"output_dir\"\n)",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Python Usage"
+    ]
+  },
+  {
+    "objectID": "usage/python_usage.html#corpus",
+    "href": "usage/python_usage.html#corpus",
+    "title": "Python Usage",
+    "section": "Corpus",
+    "text": "Corpus\nSee fave_corpus and write_data. And if desired, SpeakerCollection.\nfrom new_fave import fave_corpus, write_data\n\nspeakers = fave_corpus(\n    corpus_path = \"corpus/\",\n    ## all optional args below\n    speakers = \"all\",\n    recode_rules = \"cmu2labov\",\n    labelset_parser = \"cmu_parser\",\n    point_heuristic = \"fave\",\n    ft_config = \"default\"\n)\n\nwrite_data(\n    speakers, \n    destination = \"output_dir\"\n)",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Python Usage"
+    ]
+  },
+  {
+    "objectID": "usage/python_usage.html#subcorpora",
+    "href": "usage/python_usage.html#subcorpora",
+    "title": "Python Usage",
+    "section": "Subcorpora",
+    "text": "Subcorpora\nSee fave_subcorpora and write_data. And if desired, SpeakerCollection.\nfrom new_fave import fave_subcorpora, write_data\n\nspeakers = fave_subcorpora(\n    subcorpora_glob = \"project/speakers/*/\",\n    ## all optional args below\n    speakers = \"all\",\n    recode_rules = \"cmu2labov\",\n    labelset_parser = \"cmu_parser\",\n    point_heuristic = \"fave\",\n    ft_config = \"default\"\n)\n\nwrite_data(\n    speakers, \n    destination = \"output_dir\"\n)",
+    "crumbs": [
+      "Home",
+      "Usage",
+      "Python Usage"
+    ]
+  },
+  {
     "objectID": "usage/getting_started.html",
     "href": "usage/getting_started.html",
     "title": "Getting Started",
     "section": "",
-    "text": "# bash\npip install new-fave",
+    "text": "We expect new-fave to be primarily used as a command-line tool. This page outlines that usage. Using new-fave this way does not require you to do any python programming, but if you would like to import new-fave into a python project of your own, see the page on Python Usage.",
     "crumbs": [
       "Home",
       "Usage",
@@ -48,8 +704,8 @@
     "objectID": "usage/getting_started.html#audio-textgrid",
     "href": "usage/getting_started.html#audio-textgrid",
     "title": "Getting Started",
-    "section": "Audio + TextGrid",
-    "text": "Audio + TextGrid\nSee fave_audio_textgrid and write_data. And if desired, SpeakerCollection.\nfrom new_fave import fave_audio_textgrid, write_data\n\nspeakers = fave_audio_textgrid(\n    audio_path = \"speaker1.wav\",\n    textgrid_path = \"speaker2.TextGrid\",\n    ## all optional args below\n    speakers = \"all\",\n    recode_rules = \"cmu2labov\",\n    labelset_parser = \"cmu_parser\",\n    point_heuristic = \"fave\",\n    ft_config = \"default\"\n)\n\nwrite_data(\n    speakers, \n    destination = \"output_dir\"\n)",
+    "section": "audio-textgrid",
+    "text": "audio-textgrid\nIn the simplest case of a single audio/textgrid pair, your best option is the audio-textgrid subcommand. For example, if you had the following files in a data/ directory:\n\n\ndata\n├── speaker1.TextGrid\n└── speaker1.wav\n\n\nTo use all default settings, you would run the following:\n# command-line\nfave-extract audio-textgrid data/speaker1.wav data/speaker1.TextGrid\nTo customize the way fave-extract audio-textgrid works, including how to incorporate speaker demographics into the output, see the customization documentation.",
     "crumbs": [
       "Home",
       "Usage",
@@ -60,8 +716,8 @@
     "objectID": "usage/getting_started.html#corpus",
     "href": "usage/getting_started.html#corpus",
     "title": "Getting Started",
-    "section": "Corpus",
-    "text": "Corpus\nSee fave_corpus and write_data. And if desired, SpeakerCollection.\nfrom new_fave import fave_corpus, write_data\n\nspeakers = fave_audio_textgrid(\n    corpus_path = \"corpus/\",\n    ## all optional args below\n    speakers = \"all\",\n    recode_rules = \"cmu2labov\",\n    labelset_parser = \"cmu_parser\",\n    point_heuristic = \"fave\",\n    ft_config = \"default\"\n)\n\nwrite_data(\n    speakers, \n    destination = \"output_dir\"\n)",
+    "section": "corpus",
+    "text": "corpus\nIf you have all of your audio file/textgrid pairs in a single directory, then the corpus subcommand is your best option. An example file organization would look like this:\n\n\nmy_corpus\n├── speaker1.TextGrid\n├── speaker1.wav\n├── speaker2.TextGrid\n└── speaker2.wav\n\n\n\n\n\n\n\n\nFile Naming\n\n\n\nThe corpus subcommand will only work if the file names are the the same for the audio/textgrid pairs. That is, if your audio files are named something like speaker1.wav, and your textgrids are named something like speaker1_aligned.TextGrid, the corpus subcommand won’t process them.\n\n\nTo use all default settings, you would run the following:\n# command-line\nfave-extract corpus my_corpus/\nTo customize the way fave-extract corpus works, including how to incorporate speaker demographics into the output, see the customization documentation.",
     "crumbs": [
       "Home",
       "Usage",
@@ -72,12 +728,144 @@
     "objectID": "usage/getting_started.html#subcorpora",
     "href": "usage/getting_started.html#subcorpora",
     "title": "Getting Started",
-    "section": "Subcorpora",
-    "text": "Subcorpora\nSee fave_subcorpora and write_data. And if desired, SpeakerCollection.\nfrom new_fave import fave_subcorpora, write_data\n\nspeakers = fave_subcorpora(\n    subcorpora_glob = \"project/speakers/*/\",\n    ## all optional args below\n    speakers = \"all\",\n    recode_rules = \"cmu2labov\",\n    labelset_parser = \"cmu_parser\",\n    point_heuristic = \"fave\",\n    ft_config = \"default\"\n)\n\nwrite_data(\n    speakers, \n    destination = \"output_dir\"\n)",
+    "section": "subcorpora",
+    "text": "subcorpora\nIf each audio file/textgrid pair is in its own directory inside of a larger project directory, then the subcorpora subcommand is the best to use. An example file organization would look like this:\n\n\nbig_project\n├── speaker1\n│   ├── notes.txt\n│   ├── speaker1.TextGrid\n│   └── speaker1.wav\n└── speaker2\n    ├── notes.txt\n    ├── speaker2.TextGrid\n    └── speaker2.wav\n\n\n\n\n\n\n\n\nFile Naming\n\n\n\nThe corpus subcommand will only work if the file names are the the same for the audio/textgrid pairs. That is, if your audio files are named something like speaker1.wav, and your textgrids are named something like speaker1_aligned.TextGrid, the corpus subcommand won’t process them.\n\n\nTo use all default settings, you would run the following:\n# command-line\nfave-extract subcorpora big_project/speaker*\nTo customize the way fave-extract subcorpora works, including how to incorporate speaker demographics into the output, see the customization documentation.",
     "crumbs": [
       "Home",
       "Usage",
       "Getting Started"
+    ]
+  },
+  {
+    "objectID": "reference/write_data.html",
+    "href": "reference/write_data.html",
+    "title": "write_data",
+    "section": "",
+    "text": "write_data(vowel_spaces, destination=Path('.'), which='all', separate=False)\nSave data.\n\n\nThere are multiple data output types, including\n\ntracks: Vowel formant tracks\npoints: Point measurements\nparam: DCT parameters on Hz\nlog_param: DCT parameters on log(Hz)\ntextgrid: The recoded textgrid\n\nBy default, they will all be saved.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_spaces\nSpeakerCollection\nAn entire SpeakerCollection\nrequired\n\n\ndestination\nstr | Path\nDestination directory. Defaults to Path(\".\").\nPath('.')\n\n\nwhich\nLiteral[‘all’] | list[Literal[‘tracks’, ‘points’, ‘param’, ‘log_param’, ‘textgrid’]]\nWhich data to save. The values are described above. Defaults to “all”.\n'all'\n\n\nseparate\nbool\nWhether or not to write separate .csvs for each individual speaker. Defaults to False.\nFalse",
+    "crumbs": [
+      "Writers",
+      "write_data"
+    ]
+  },
+  {
+    "objectID": "reference/write_data.html#parameters",
+    "href": "reference/write_data.html#parameters",
+    "title": "write_data",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nvowel_spaces\nSpeakerCollection\nAn entire SpeakerCollection\nrequired\n\n\ndestination\nstr | Path\nDestination directory. Defaults to Path(\".\").\nPath('.')\n\n\nwhich\nLiteral[‘all’] | list[Literal[‘tracks’, ‘points’, ‘param’, ‘log_param’, ‘textgrid’]]\nWhich data to save. The values are described above. Defaults to “all”.\n'all'\n\n\nseparate\nbool\nWhether or not to write separate .csvs for each individual speaker. Defaults to False.\nFalse",
+    "crumbs": [
+      "Writers",
+      "write_data"
+    ]
+  },
+  {
+    "objectID": "reference/unpickle_speakers.html",
+    "href": "reference/unpickle_speakers.html",
+    "title": "unpickle_speakers",
+    "section": "",
+    "text": "unpickle_speakers(path)\nUnpickle a pickled SpeakerCollection\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nstr | Path\nPath to a pickled speaker collection\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nThe unpickled SpeakerCollection",
+    "crumbs": [
+      "Writers",
+      "unpickle_speakers"
+    ]
+  },
+  {
+    "objectID": "reference/unpickle_speakers.html#parameters",
+    "href": "reference/unpickle_speakers.html#parameters",
+    "title": "unpickle_speakers",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\npath\nstr | Path\nPath to a pickled speaker collection\nrequired",
+    "crumbs": [
+      "Writers",
+      "unpickle_speakers"
+    ]
+  },
+  {
+    "objectID": "reference/unpickle_speakers.html#returns",
+    "href": "reference/unpickle_speakers.html#returns",
+    "title": "unpickle_speakers",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nThe unpickled SpeakerCollection",
+    "crumbs": [
+      "Writers",
+      "unpickle_speakers"
+    ]
+  },
+  {
+    "objectID": "reference/measurements.calcs.mahalanobis.html",
+    "href": "reference/measurements.calcs.mahalanobis.html",
+    "title": "measurements.calcs.mahalanobis",
+    "section": "",
+    "text": "measurements.calcs.mahalanobis(params, param_means, inv_cov)\nCalculates the Mahalanobis distance.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nparams\nNDArray[Shape[Dim, Cand], Float]\nThe parameters for which the Mahalanobis distance is to be calculated.\nrequired\n\n\nparam_means\nNDArray[Shape[Dim, 1], Float]\nThe mean of the distribution.\nrequired\n\n\ninv_cov\nNDArray[Shape[Dim, Dim], Float]\nThe inverse of the covariance matrix of the distribution.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNDArray[Shape[Cand], Float]\nThe Mahalanobis distance of each parameter from the distribution.",
+    "crumbs": [
+      "Calculations",
+      "measurements.calcs.mahalanobis"
+    ]
+  },
+  {
+    "objectID": "reference/measurements.calcs.mahalanobis.html#parameters",
+    "href": "reference/measurements.calcs.mahalanobis.html#parameters",
+    "title": "measurements.calcs.mahalanobis",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nparams\nNDArray[Shape[Dim, Cand], Float]\nThe parameters for which the Mahalanobis distance is to be calculated.\nrequired\n\n\nparam_means\nNDArray[Shape[Dim, 1], Float]\nThe mean of the distribution.\nrequired\n\n\ninv_cov\nNDArray[Shape[Dim, Dim], Float]\nThe inverse of the covariance matrix of the distribution.\nrequired",
+    "crumbs": [
+      "Calculations",
+      "measurements.calcs.mahalanobis"
+    ]
+  },
+  {
+    "objectID": "reference/measurements.calcs.mahalanobis.html#returns",
+    "href": "reference/measurements.calcs.mahalanobis.html#returns",
+    "title": "measurements.calcs.mahalanobis",
+    "section": "",
+    "text": "Type\nDescription\n\n\n\n\nNDArray[Shape[Cand], Float]\nThe Mahalanobis distance of each parameter from the distribution.",
+    "crumbs": [
+      "Calculations",
+      "measurements.calcs.mahalanobis"
+    ]
+  },
+  {
+    "objectID": "reference/utils.local_resources.local_resources.html",
+    "href": "reference/utils.local_resources.local_resources.html",
+    "title": "utils.local_resources.local_resources",
+    "section": "",
+    "text": "utils.local_resources.local_resources()\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nrecodes\ndict\nRecode options. Contains \"cmu2phila\" and \"cmu2labov\"\n\n\nparsers\ndict\nLabelset parsers. Contains \"cmu_parser\"\n\n\nheursitics\ndict\nMeasurement point heuristics. Contains \"fave\"\n\n\nvowel_place\ndict\nVowel place definitions\n\n\nfasttrack_config\ndict\nFastTrack config. Contains \"default\"",
+    "crumbs": [
+      "Built-in resources",
+      "utils.local_resources.local_resources"
+    ]
+  },
+  {
+    "objectID": "reference/utils.local_resources.local_resources.html#attributes",
+    "href": "reference/utils.local_resources.local_resources.html#attributes",
+    "title": "utils.local_resources.local_resources",
+    "section": "",
+    "text": "Name\nType\nDescription\n\n\n\n\nrecodes\ndict\nRecode options. Contains \"cmu2phila\" and \"cmu2labov\"\n\n\nparsers\ndict\nLabelset parsers. Contains \"cmu_parser\"\n\n\nheursitics\ndict\nMeasurement point heuristics. Contains \"fave\"\n\n\nvowel_place\ndict\nVowel place definitions\n\n\nfasttrack_config\ndict\nFastTrack config. Contains \"default\"",
+    "crumbs": [
+      "Built-in resources",
+      "utils.local_resources.local_resources"
+    ]
+  },
+  {
+    "objectID": "reference/pickle_speakers.html",
+    "href": "reference/pickle_speakers.html",
+    "title": "pickle_speakers",
+    "section": "",
+    "text": "pickle_speakers(speakers, path)\nThis will serialize a SpeakerCollection to a pickle file, that can be re-read in a new python session.\nNote: new-fave uses the cloudpickle library, rather than the standard pickle library, which comes with the following limitations, according to the cloudpickle documentation:\n\nCloudpickle can only be used to send objects between the exact same version of Python.\nUsing cloudpickle for long-term object storage is not supported and strongly discouraged.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspeakers\nSpeakerCollection\nA SpeakerCollection to serialize\nrequired\n\n\npath\nstr | Path\nThe destination file to save the pickle file.\nrequired",
+    "crumbs": [
+      "Writers",
+      "pickle_speakers"
+    ]
+  },
+  {
+    "objectID": "reference/pickle_speakers.html#parameters",
+    "href": "reference/pickle_speakers.html#parameters",
+    "title": "pickle_speakers",
+    "section": "",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nspeakers\nSpeakerCollection\nA SpeakerCollection to serialize\nrequired\n\n\npath\nstr | Path\nThe destination file to save the pickle file.\nrequired",
+    "crumbs": [
+      "Writers",
+      "pickle_speakers"
     ]
   },
   {
@@ -161,149 +949,6 @@
     ]
   },
   {
-    "objectID": "reference/fave_subcorpora.html",
-    "href": "reference/fave_subcorpora.html",
-    "title": "fave_subcorpora",
-    "section": "",
-    "text": "fave_subcorpora(subcorpora_glob, speakers=0, speakers_glob=None, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, ft_config='default', fave_aligned=False)\nProcess multiple subcorpora\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nsubcorpora_glob\nstr | Path\nGlob to subcorpora\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\nspeakers_glob\nstr\nAlternatively to speakers, a file glob to speaker files.\nNone\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_subcorpora"
-    ]
-  },
-  {
-    "objectID": "reference/fave_subcorpora.html#parameters",
-    "href": "reference/fave_subcorpora.html#parameters",
-    "title": "fave_subcorpora",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nsubcorpora_glob\nstr | Path\nGlob to subcorpora\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\nspeakers_glob\nstr\nAlternatively to speakers, a file glob to speaker files.\nNone\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_subcorpora"
-    ]
-  },
-  {
-    "objectID": "reference/fave_subcorpora.html#returns",
-    "href": "reference/fave_subcorpora.html#returns",
-    "title": "fave_subcorpora",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_subcorpora"
-    ]
-  },
-  {
-    "objectID": "reference/measurements.calcs.mahalanobis.html",
-    "href": "reference/measurements.calcs.mahalanobis.html",
-    "title": "measurements.calcs.mahalanobis",
-    "section": "",
-    "text": "measurements.calcs.mahalanobis(params, param_means, inv_cov)\nCalculates the Mahalanobis distance.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nparams\nNDArray[Shape[Dim, Cand], Float]\nThe parameters for which the Mahalanobis distance is to be calculated.\nrequired\n\n\nparam_means\nNDArray[Shape[Dim, 1], Float]\nThe mean of the distribution.\nrequired\n\n\ninv_cov\nNDArray[Shape[Dim, Dim], Float]\nThe inverse of the covariance matrix of the distribution.\nrequired\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nNDArray[Shape[Cand], Float]\nThe Mahalanobis distance of each parameter from the distribution.",
-    "crumbs": [
-      "Calculations",
-      "measurements.calcs.mahalanobis"
-    ]
-  },
-  {
-    "objectID": "reference/measurements.calcs.mahalanobis.html#parameters",
-    "href": "reference/measurements.calcs.mahalanobis.html#parameters",
-    "title": "measurements.calcs.mahalanobis",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nparams\nNDArray[Shape[Dim, Cand], Float]\nThe parameters for which the Mahalanobis distance is to be calculated.\nrequired\n\n\nparam_means\nNDArray[Shape[Dim, 1], Float]\nThe mean of the distribution.\nrequired\n\n\ninv_cov\nNDArray[Shape[Dim, Dim], Float]\nThe inverse of the covariance matrix of the distribution.\nrequired",
-    "crumbs": [
-      "Calculations",
-      "measurements.calcs.mahalanobis"
-    ]
-  },
-  {
-    "objectID": "reference/measurements.calcs.mahalanobis.html#returns",
-    "href": "reference/measurements.calcs.mahalanobis.html#returns",
-    "title": "measurements.calcs.mahalanobis",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nNDArray[Shape[Cand], Float]\nThe Mahalanobis distance of each parameter from the distribution.",
-    "crumbs": [
-      "Calculations",
-      "measurements.calcs.mahalanobis"
-    ]
-  },
-  {
-    "objectID": "reference/pickle_speakers.html",
-    "href": "reference/pickle_speakers.html",
-    "title": "pickle_speakers",
-    "section": "",
-    "text": "pickle_speakers(speakers, path)\nThis will serialize a SpeakerCollection to a pickle file, that can be re-read in a new python session.\nNote: new-fave uses the cloudpickle library, rather than the standard pickle library, which comes with the following limitations, according to the cloudpickle documentation:\n\nCloudpickle can only be used to send objects between the exact same version of Python.\nUsing cloudpickle for long-term object storage is not supported and strongly discouraged.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nspeakers\nSpeakerCollection\nA SpeakerCollection to serialize\nrequired\n\n\npath\nstr | Path\nThe destination file to save the pickle file.\nrequired",
-    "crumbs": [
-      "Writers",
-      "pickle_speakers"
-    ]
-  },
-  {
-    "objectID": "reference/pickle_speakers.html#parameters",
-    "href": "reference/pickle_speakers.html#parameters",
-    "title": "pickle_speakers",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nspeakers\nSpeakerCollection\nA SpeakerCollection to serialize\nrequired\n\n\npath\nstr | Path\nThe destination file to save the pickle file.\nrequired",
-    "crumbs": [
-      "Writers",
-      "pickle_speakers"
-    ]
-  },
-  {
-    "objectID": "reference/VowelMeasurement.html",
-    "href": "reference/VowelMeasurement.html",
-    "title": "VowelMeasurement",
-    "section": "",
-    "text": "VowelMeasurement(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.\n\n\nCertain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelMeasurement"
-    ]
-  },
-  {
-    "objectID": "reference/VowelMeasurement.html#intended-usage",
-    "href": "reference/VowelMeasurement.html#intended-usage",
-    "title": "VowelMeasurement",
-    "section": "",
-    "text": "Certain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelMeasurement"
-    ]
-  },
-  {
-    "objectID": "reference/VowelMeasurement.html#parameters",
-    "href": "reference/VowelMeasurement.html#parameters",
-    "title": "VowelMeasurement",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelMeasurement"
-    ]
-  },
-  {
-    "objectID": "reference/VowelMeasurement.html#attributes",
-    "href": "reference/VowelMeasurement.html#attributes",
-    "title": "VowelMeasurement",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelMeasurement"
-    ]
-  },
-  {
-    "objectID": "reference/VowelMeasurement.html#methods",
-    "href": "reference/VowelMeasurement.html#methods",
-    "title": "VowelMeasurement",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelMeasurement.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelMeasurement.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelMeasurement.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelMeasurement"
-    ]
-  },
-  {
     "objectID": "reference/measurements.vowel_measurement.html",
     "href": "reference/measurements.vowel_measurement.html",
     "title": "measurements.vowel_measurement",
@@ -326,351 +971,11 @@
     ]
   },
   {
-    "objectID": "reference/VowelClassCollection.html",
-    "href": "reference/VowelClassCollection.html",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "VowelClassCollection(self, track_list=EMPTY_LIST)\nA class for an entire vowel system.\n\n\nIt is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nEMPTY_LIST\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nwinners\nlist[OneTrack]\nAll winner tracks from the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nAll VowelMeasurement objects within this vowel system\n\n\ntextgrid\nAlignedTextGrid\nThe AlignedTextGrid associated with this vowel system.\n\n\nwinner_expanded_formants\nNDArray[Shape[20, FormantN], Float]\nA cached property that returns the expanded formants for the winners.\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn array of all parameters from all winners across the vowel system.\n\n\nwinner_maxformant\nNDArray[Shape[1, N], Float]\nAn array of the maximum formants of all winners across the vowel system\n\n\nwinner_param_mean\nNDArray[Shape[1, FormantParam], Float]\nThe mean of all DCT parameters across all formants for the winners in this vowel system.\n\n\nwinner_param_cov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe covariance of all parameters across all formants for the winners in this vowel system\n\n\nwinner_param_icov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe inverse of winner_param_cov.\n\n\nwinner_maxformant_mean\nfloat\nThe mean maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_cov\nNDArray[Shape[1, 1], Float]\nThe covariance of the maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_icov\nNDArray[Shape[1, 1], Float]\nThe inverse of winner_maxformant_cov\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel class.\n\n\n\n\n\nVowelClassCollection.containing_class(self, label='', vowel_measurements=lambda: []())\nA class used to represent a vowel class.\n\n\n\n\nVowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nThe containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn np.array of winner DCT parameters from the vowel class\n\n\nwinner_param_mean\nNDArray[Shape[ParamFormant, 1], Float]\nMean of winner DCT parameters\n\n\nwinner_param_cov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nCovariance of winner DCT parameters\n\n\nwinner_param_icov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nInverse covariance of winner DCT parameters\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel measurement.\n\n\n\n\n\nVowelClassCollection.containing_class.containing_class(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.\n\n\n\n\n\nCertain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\nto_param_df\nVowelClassCollection.containing_class.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\nto_point_df\nVowelClassCollection.containing_class.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\nto_tracks_df\nVowelClassCollection.containing_class.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nVowelClassCollection.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClassCollection.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClassCollection.containing_class.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks\n\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#intended-usage",
-    "href": "reference/VowelClassCollection.html#intended-usage",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "It is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#parameters",
-    "href": "reference/VowelClassCollection.html#parameters",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nEMPTY_LIST",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#attributes",
-    "href": "reference/VowelClassCollection.html#attributes",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\nwinners\nlist[OneTrack]\nAll winner tracks from the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nAll VowelMeasurement objects within this vowel system\n\n\ntextgrid\nAlignedTextGrid\nThe AlignedTextGrid associated with this vowel system.\n\n\nwinner_expanded_formants\nNDArray[Shape[20, FormantN], Float]\nA cached property that returns the expanded formants for the winners.\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn array of all parameters from all winners across the vowel system.\n\n\nwinner_maxformant\nNDArray[Shape[1, N], Float]\nAn array of the maximum formants of all winners across the vowel system\n\n\nwinner_param_mean\nNDArray[Shape[1, FormantParam], Float]\nThe mean of all DCT parameters across all formants for the winners in this vowel system.\n\n\nwinner_param_cov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe covariance of all parameters across all formants for the winners in this vowel system\n\n\nwinner_param_icov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe inverse of winner_param_cov.\n\n\nwinner_maxformant_mean\nfloat\nThe mean maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_cov\nNDArray[Shape[1, 1], Float]\nThe covariance of the maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_icov\nNDArray[Shape[1, 1], Float]\nThe inverse of winner_maxformant_cov",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#classes",
-    "href": "reference/VowelClassCollection.html#classes",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel class.\n\n\n\n\n\nVowelClassCollection.containing_class(self, label='', vowel_measurements=lambda: []())\nA class used to represent a vowel class.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#intended-usage-1",
-    "href": "reference/VowelClassCollection.html#intended-usage-1",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "VowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nThe containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn np.array of winner DCT parameters from the vowel class\n\n\nwinner_param_mean\nNDArray[Shape[ParamFormant, 1], Float]\nMean of winner DCT parameters\n\n\nwinner_param_cov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nCovariance of winner DCT parameters\n\n\nwinner_param_icov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nInverse covariance of winner DCT parameters\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel measurement.\n\n\n\n\n\nVowelClassCollection.containing_class.containing_class(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#intended-usage-2",
-    "href": "reference/VowelClassCollection.html#intended-usage-2",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Certain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\nto_param_df\nVowelClassCollection.containing_class.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\nto_point_df\nVowelClassCollection.containing_class.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\nto_tracks_df\nVowelClassCollection.containing_class.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nVowelClassCollection.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClassCollection.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClassCollection.containing_class.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClassCollection.html#methods-2",
-    "href": "reference/VowelClassCollection.html#methods-2",
-    "title": "VowelClassCollection",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelClassCollection.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClassCollection.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClassCollection.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClassCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html",
-    "href": "reference/SpeakerCollection.html",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "SpeakerCollection(self, track_list=[])\nA class to represent the vowel system of all speakers in a TextGrid.\n\n\nIt is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\n[]\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class for an entire vowel system.\n\n\n\n\n\nSpeakerCollection.containing_class(self, track_list=EMPTY_LIST)\nA class for an entire vowel system.\n\n\n\n\nIt is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nEMPTY_LIST\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nwinners\nlist[OneTrack]\nAll winner tracks from the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nAll VowelMeasurement objects within this vowel system\n\n\ntextgrid\nAlignedTextGrid\nThe AlignedTextGrid associated with this vowel system.\n\n\nwinner_expanded_formants\nNDArray[Shape[20, FormantN], Float]\nA cached property that returns the expanded formants for the winners.\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn array of all parameters from all winners across the vowel system.\n\n\nwinner_maxformant\nNDArray[Shape[1, N], Float]\nAn array of the maximum formants of all winners across the vowel system\n\n\nwinner_param_mean\nNDArray[Shape[1, FormantParam], Float]\nThe mean of all DCT parameters across all formants for the winners in this vowel system.\n\n\nwinner_param_cov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe covariance of all parameters across all formants for the winners in this vowel system\n\n\nwinner_param_icov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe inverse of winner_param_cov.\n\n\nwinner_maxformant_mean\nfloat\nThe mean maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_cov\nNDArray[Shape[1, 1], Float]\nThe covariance of the maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_icov\nNDArray[Shape[1, 1], Float]\nThe inverse of winner_maxformant_cov\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel class.\n\n\n\n\n\nSpeakerCollection.containing_class.containing_class(self, label='', vowel_measurements=lambda: []())\nA class used to represent a vowel class.\n\n\n\n\n\nVowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nThe containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn np.array of winner DCT parameters from the vowel class\n\n\nwinner_param_mean\nNDArray[Shape[ParamFormant, 1], Float]\nMean of winner DCT parameters\n\n\nwinner_param_cov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nCovariance of winner DCT parameters\n\n\nwinner_param_icov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nInverse covariance of winner DCT parameters\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel measurement.\n\n\n\n\ncontaining_class\nSpeakerCollection.containing_class.containing_class.containing_class(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.\n\n\n\n\n\nCertain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\nParameters\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\nAttributes\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\nto_param_df\nSpeakerCollection.containing_class.containing_class.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\nto_point_df\nSpeakerCollection.containing_class.containing_class.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\nto_tracks_df\nSpeakerCollection.containing_class.containing_class.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\nto_param_df\nSpeakerCollection.containing_class.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\nto_point_df\nSpeakerCollection.containing_class.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\nto_tracks_df\nSpeakerCollection.containing_class.containing_class.to_tracks_df()\nReturn DataFrame of formanttracks.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nSpeakerCollection.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nSpeakerCollection.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nSpeakerCollection.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nThis will return a dataframe of the DCT parameters for all speakers.\n\n\nto_point_df\nThis will return a DataFrame of point measurements\n\n\nto_tracks_df\nThis will return a data frame of formant\n\n\n\n\n\nSpeakerCollection.to_param_df(output='log_param')\nThis will return a dataframe of the DCT parameters for all speakers. If output is passed param, it will be the DCT parameters in the original Hz. If passed log_param, it will be the DCT parameters over log(Hz).\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\noutput\nLiteral[‘param’, ‘log_param’]\nWhich set of DCT parameters to return. Defaults to “log_param”.\n'log_param'\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of DCT parameters for all speakers.\n\n\n\n\n\n\n\nSpeakerCollection.to_point_df()\nThis will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.\n\n\n\nSpeakerCollection.to_tracks_df()\nThis will return a data frame of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe of formant tracks for all speakers.",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#intended-usage",
-    "href": "reference/SpeakerCollection.html#intended-usage",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "It is a subclass of defaultdict, and can be keyed by the (file_name, group_name) tuple.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#parameters",
-    "href": "reference/SpeakerCollection.html#parameters",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\n[]",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#classes",
-    "href": "reference/SpeakerCollection.html#classes",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\ncontaining_class\nA class for an entire vowel system.\n\n\n\n\n\nSpeakerCollection.containing_class(self, track_list=EMPTY_LIST)\nA class for an entire vowel system.",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#intended-usage-1",
-    "href": "reference/SpeakerCollection.html#intended-usage-1",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "It is a subclass of defaultdict, so it can be keyed by vowel class label.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_system = VowelClassCollection(vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack_list\nlist[VowelMeasurement]\nA list of VowelMeasurements.\nEMPTY_LIST\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nwinners\nlist[OneTrack]\nAll winner tracks from the entire vowel system.\n\n\nvowel_measurements\nlist[VowelMeasurement]\nAll VowelMeasurement objects within this vowel system\n\n\ntextgrid\nAlignedTextGrid\nThe AlignedTextGrid associated with this vowel system.\n\n\nwinner_expanded_formants\nNDArray[Shape[20, FormantN], Float]\nA cached property that returns the expanded formants for the winners.\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn array of all parameters from all winners across the vowel system.\n\n\nwinner_maxformant\nNDArray[Shape[1, N], Float]\nAn array of the maximum formants of all winners across the vowel system\n\n\nwinner_param_mean\nNDArray[Shape[1, FormantParam], Float]\nThe mean of all DCT parameters across all formants for the winners in this vowel system.\n\n\nwinner_param_cov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe covariance of all parameters across all formants for the winners in this vowel system\n\n\nwinner_param_icov\nNDArray[Shape[FormantParam, FormantParam], Float]\nThe inverse of winner_param_cov.\n\n\nwinner_maxformant_mean\nfloat\nThe mean maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_cov\nNDArray[Shape[1, 1], Float]\nThe covariance of the maximum formant across all winners in this vowel system.\n\n\nwinner_maxformant_icov\nNDArray[Shape[1, 1], Float]\nThe inverse of winner_maxformant_cov\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel class.\n\n\n\n\n\nSpeakerCollection.containing_class.containing_class(self, label='', vowel_measurements=lambda: []())\nA class used to represent a vowel class.",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#intended-usage-2",
-    "href": "reference/SpeakerCollection.html#intended-usage-2",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "VowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nThe containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn np.array of winner DCT parameters from the vowel class\n\n\nwinner_param_mean\nNDArray[Shape[ParamFormant, 1], Float]\nMean of winner DCT parameters\n\n\nwinner_param_cov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nCovariance of winner DCT parameters\n\n\nwinner_param_icov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nInverse covariance of winner DCT parameters\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel measurement.\n\n\n\n\ncontaining_class\nSpeakerCollection.containing_class.containing_class.containing_class(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#intended-usage-3",
-    "href": "reference/SpeakerCollection.html#intended-usage-3",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "Certain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\nParameters\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\nAttributes\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\nMethods\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\nto_param_df\nSpeakerCollection.containing_class.containing_class.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\nto_point_df\nSpeakerCollection.containing_class.containing_class.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\nto_tracks_df\nSpeakerCollection.containing_class.containing_class.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\nto_param_df\nSpeakerCollection.containing_class.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\nto_point_df\nSpeakerCollection.containing_class.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\nto_tracks_df\nSpeakerCollection.containing_class.containing_class.to_tracks_df()\nReturn DataFrame of formanttracks.\n\nReturns\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nSpeakerCollection.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nSpeakerCollection.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nSpeakerCollection.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "reference/SpeakerCollection.html#methods-3",
-    "href": "reference/SpeakerCollection.html#methods-3",
-    "title": "SpeakerCollection",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\nto_param_df\nThis will return a dataframe of the DCT parameters for all speakers.\n\n\nto_point_df\nThis will return a DataFrame of point measurements\n\n\nto_tracks_df\nThis will return a data frame of formant\n\n\n\n\n\nSpeakerCollection.to_param_df(output='log_param')\nThis will return a dataframe of the DCT parameters for all speakers. If output is passed param, it will be the DCT parameters in the original Hz. If passed log_param, it will be the DCT parameters over log(Hz).\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\noutput\nLiteral[‘param’, ‘log_param’]\nWhich set of DCT parameters to return. Defaults to “log_param”.\n'log_param'\n\n\n\n\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of DCT parameters for all speakers.\n\n\n\n\n\n\n\nSpeakerCollection.to_point_df()\nThis will return a DataFrame of point measurements for all speakers Returns: (pl.DataFrame): A DataFrame of vowel point measurements.\n\n\n\nSpeakerCollection.to_tracks_df()\nThis will return a data frame of formant tracks for all speakers.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe of formant tracks for all speakers.",
-    "crumbs": [
-      "Vowel Measurements",
-      "SpeakerCollection"
-    ]
-  },
-  {
-    "objectID": "dev/new-fave-approach.html",
-    "href": "dev/new-fave-approach.html",
-    "title": "new-fave Approach",
-    "section": "",
-    "text": "Currently, I have a few classes and functions written up to allow for a hybrid fave-like and fasttrack-like formant track optimization.",
-    "crumbs": [
-      "Home",
-      "Dev Notes",
-      "Development Plan",
-      "`new-fave` Approach"
-    ]
-  },
-  {
-    "objectID": "dev/variable_names.html",
-    "href": "dev/variable_names.html",
-    "title": "Variable Naming Conventions",
-    "section": "",
-    "text": "cand: candidate tracks.\n\nReturns\n\nlist of fasttrackpy.OneTracks\na numpy.array of concatenated results from fasttrackpy.OneTracks\n\n\nwinner: The winner track\n\nReturns\n\nA single fasttrackpy.OneTrack\na numpy.array of concatenated results from winner fasttrackpy.OneTracks\n\n\n\n\n\n\n\nparam: The DCT parameters\nmaxformant: The maximum formant\nerror: The smoothing error term\nbparam: The formant bandwidths parameters\n\n\n\n\n\nmean: A mean\ncov: A covariance matrix\nicov: An inverse covariance matrix\n\n\n\n\n\nmahal: Mahalanobis distance\nlogprob: The log probability\n\n\n\n\n\nvm: Vowel Measurement\nvclass: Vowel Class\nspeaker: Speaker\ncorpus: Corpus\n\n\n\n\n\nglobal: Global\nbyvclass: By VowelClass",
-    "crumbs": [
-      "Home",
-      "Dev Notes",
-      "Development Plan",
-      "Variable Naming Conventions"
-    ]
-  },
-  {
-    "objectID": "dev/variable_names.html#property-naming-descriptors",
-    "href": "dev/variable_names.html#property-naming-descriptors",
-    "title": "Variable Naming Conventions",
-    "section": "",
-    "text": "cand: candidate tracks.\n\nReturns\n\nlist of fasttrackpy.OneTracks\na numpy.array of concatenated results from fasttrackpy.OneTracks\n\n\nwinner: The winner track\n\nReturns\n\nA single fasttrackpy.OneTrack\na numpy.array of concatenated results from winner fasttrackpy.OneTracks\n\n\n\n\n\n\n\nparam: The DCT parameters\nmaxformant: The maximum formant\nerror: The smoothing error term\nbparam: The formant bandwidths parameters\n\n\n\n\n\nmean: A mean\ncov: A covariance matrix\nicov: An inverse covariance matrix\n\n\n\n\n\nmahal: Mahalanobis distance\nlogprob: The log probability\n\n\n\n\n\nvm: Vowel Measurement\nvclass: Vowel Class\nspeaker: Speaker\ncorpus: Corpus\n\n\n\n\n\nglobal: Global\nbyvclass: By VowelClass",
-    "crumbs": [
-      "Home",
-      "Dev Notes",
-      "Development Plan",
-      "Variable Naming Conventions"
-    ]
-  },
-  {
-    "objectID": "dev/variable_names.html#property-naming-structure",
-    "href": "dev/variable_names.html#property-naming-structure",
-    "title": "Variable Naming Conventions",
-    "section": "Property Naming Structure",
-    "text": "Property Naming Structure\n\nsourcevaluederivedscopesubdivision\nsourcevaluesummary\nsource_value",
-    "crumbs": [
-      "Home",
-      "Dev Notes",
-      "Development Plan",
-      "Variable Naming Conventions"
-    ]
-  },
-  {
-    "objectID": "dev/index.html",
-    "href": "dev/index.html",
-    "title": "Development Plan",
-    "section": "",
-    "text": "The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.\n\n\n\nThe plan is for new-fave to bring together, under one tool\n\nfave-recodeing of input data, allowing for dialect, language, or research question specific recoding of alignment output\nCustomizable point measurement heuristics\nEnriched data output enabled by its opinionated approach to data input. (e.g. fave-syllabify)\n\n\n\n\nSee New-Fave Approach",
-    "crumbs": [
-      "Home",
-      "Dev Notes",
-      "Development Plan"
-    ]
-  },
-  {
-    "objectID": "dev/index.html#what-is-favey-about-this",
-    "href": "dev/index.html#what-is-favey-about-this",
-    "title": "Development Plan",
-    "section": "",
-    "text": "The plan is for new-fave to be more opinionated about the input data stucture. fasttrackpy is more general purpose and therefore has its own design approach.\n\n\n\nThe plan is for new-fave to bring together, under one tool\n\nfave-recodeing of input data, allowing for dialect, language, or research question specific recoding of alignment output\nCustomizable point measurement heuristics\nEnriched data output enabled by its opinionated approach to data input. (e.g. fave-syllabify)\n\n\n\n\nSee New-Fave Approach",
-    "crumbs": [
-      "Home",
-      "Dev Notes",
-      "Development Plan"
-    ]
-  },
-  {
-    "objectID": "reference/fave_corpus.html",
-    "href": "reference/fave_corpus.html",
-    "title": "fave_corpus",
-    "section": "",
-    "text": "fave_corpus(corpus_path, speakers=0, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, ft_config='default', fave_aligned=False)\nProcess a corpus directory.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ncorpus_path\nstr | Path\nPath to a corpus directory\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_corpus"
-    ]
-  },
-  {
-    "objectID": "reference/fave_corpus.html#parameters",
-    "href": "reference/fave_corpus.html#parameters",
-    "title": "fave_corpus",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\ncorpus_path\nstr | Path\nPath to a corpus directory\nrequired\n\n\nspeakers\n(int, str, Path)\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_corpus"
-    ]
-  },
-  {
-    "objectID": "reference/fave_corpus.html#returns",
-    "href": "reference/fave_corpus.html#returns",
-    "title": "fave_corpus",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_corpus"
-    ]
-  },
-  {
-    "objectID": "reference/speaker.speaker.Speaker.html",
-    "href": "reference/speaker.speaker.Speaker.html",
-    "title": "speaker.speaker.Speaker",
-    "section": "",
-    "text": "speaker.speaker.Speaker(self, arg=None)\nThis is a class to represent speaker information. The argument to Speaker() can be one of\n\nA .yaml file\nA .csv file\nA .xlsx file\nAn old fave .speaker file\n\nWith the exception of the old .speaker files, to work well with new-fave, these speaker files should contain the following fields\n\nfile_name: The file stem of the wav and textgrid files\nspeaker_num: The speaker to be analyzed in a file. the first speaker is 1.\n\n\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ndf\npl.DataFrame\nA polars data frame of speaker information",
-    "crumbs": [
-      "Speaker files",
-      "speaker.speaker.Speaker"
-    ]
-  },
-  {
-    "objectID": "reference/speaker.speaker.Speaker.html#attributes",
-    "href": "reference/speaker.speaker.Speaker.html#attributes",
-    "title": "speaker.speaker.Speaker",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\ndf\npl.DataFrame\nA polars data frame of speaker information",
-    "crumbs": [
-      "Speaker files",
-      "speaker.speaker.Speaker"
-    ]
-  },
-  {
-    "objectID": "reference/fave_audio_textgrid.html",
-    "href": "reference/fave_audio_textgrid.html",
-    "title": "fave_audio_textgrid",
-    "section": "",
-    "text": "fave_audio_textgrid(audio_path, textgrid_path, speakers=0, include_overlaps=True, recode_rules=None, labelset_parser=None, point_heuristic=None, ft_config='default', fave_aligned=False)\nProcess a single audio/textgrid pair.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\naudio_path\nstr | Path\nPath to an audio file\nrequired\n\n\ntextgrid_path\nstr | Path\nPath to a textgrid\nrequired\n\n\nspeakers\nint | list[int] | str | Path | optional\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_audio_textgrid"
-    ]
-  },
-  {
-    "objectID": "reference/fave_audio_textgrid.html#parameters",
-    "href": "reference/fave_audio_textgrid.html#parameters",
-    "title": "fave_audio_textgrid",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\naudio_path\nstr | Path\nPath to an audio file\nrequired\n\n\ntextgrid_path\nstr | Path\nPath to a textgrid\nrequired\n\n\nspeakers\nint | list[int] | str | Path | optional\nWhich speaker(s) to produce data for. Can be a numeric index, or a path to a speaker file, or “all”\n0\n\n\ninclude_overlaps\nbool\nWhether or not to include vowels that are overlapped with speech from other tiers. Defaults to True.\nTrue\n\n\nrecode_rules\nstr | None\nEither a string naming built-in set of recode rules, or path to a custom ruleset. Defaults to None.\nNone\n\n\nlabelset_parser\nstr | None\nEither a string naming a built-in labelset parser, or a path to a custom parser definition. Defaults to None.\nNone\n\n\npoint_heuristic\nstr | None\nEither a string naming a built in point heuristic, or a path to a custom heuristic definition. Defaults to None.\nNone\n\n\nft_config\nstr | None\nEither a string naming a built-in fasttrack config file, or a path to a custom config file. Defaults to “default”.\n'default'\n\n\nfave_aligned\nbool\nWere the textgrids generated by classic FAVE align? Defaults to False.\nFalse",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_audio_textgrid"
-    ]
-  },
-  {
-    "objectID": "reference/fave_audio_textgrid.html#returns",
-    "href": "reference/fave_audio_textgrid.html#returns",
-    "title": "fave_audio_textgrid",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nA new_fave.SpeakerCollection",
-    "crumbs": [
-      "Processing Patterns",
-      "fave_audio_textgrid"
-    ]
-  },
-  {
     "objectID": "reference/VowelClass.html",
     "href": "reference/VowelClass.html",
     "title": "VowelClass",
     "section": "",
-    "text": "VowelClass(self, label='', vowel_measurements=lambda: []())\nA class used to represent a vowel class.\n\n\nVowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nThe containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn np.array of winner DCT parameters from the vowel class\n\n\nwinner_param_mean\nNDArray[Shape[ParamFormant, 1], Float]\nMean of winner DCT parameters\n\n\nwinner_param_cov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nCovariance of winner DCT parameters\n\n\nwinner_param_icov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nInverse covariance of winner DCT parameters\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel measurement.\n\n\n\n\n\nVowelClass.containing_class(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.\n\n\n\n\nCertain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelClass.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClass.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClass.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.\n\n\n\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nVowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClass.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks",
+    "text": "VowelClass(self, label='', vowel_measurements=lambda: []())\nA class used to represent a vowel class.\n\n\nVowelClass subclasses collections.abc.Sequence, so it is indexable. While it can be created on its own, it is best to leave this up to either VowelClassCollection or SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nvowel_class = VowelClass(\"ay\", vowel_measurements)\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of VowelMeasurements\nlambda: []()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nlabel\nstr\nlabel of the vowel class\n\n\ntracks\nlist\nA list of VowelMeasurements\n\n\nvowel_system\nVowelClassCollection\nThe containing vowel system\n\n\nwinners\nlist[OneTrack]\nA list of winner OneTracks from the vowel class\n\n\nwinner_param\nNDArray[Shape[Param, Formant, N], Float]\nAn np.array of winner DCT parameters from the vowel class\n\n\nwinner_param_mean\nNDArray[Shape[ParamFormant, 1], Float]\nMean of winner DCT parameters\n\n\nwinner_param_cov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nCovariance of winner DCT parameters\n\n\nwinner_param_icov\nNDArray[Shape[ParamFormant, ParamFormant], Float]\nInverse covariance of winner DCT parameters\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nVowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClass.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks",
     "crumbs": [
       "Vowel Measurements",
       "VowelClass"
@@ -692,7 +997,7 @@
     "href": "reference/VowelClass.html#parameters",
     "title": "VowelClass",
     "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\ntracks\nlist[VowelMeasurement]\nA list of VowelMeasurements\nrequired",
+    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nlabel\nstr\nThe vowel class label\n''\n\n\nvowel_measurements\nlist[VowelMeasurement]\nA list of VowelMeasurements\nlambda: []()",
     "crumbs": [
       "Vowel Measurements",
       "VowelClass"
@@ -710,135 +1015,14 @@
     ]
   },
   {
-    "objectID": "reference/VowelClass.html#classes",
-    "href": "reference/VowelClass.html#classes",
-    "title": "VowelClass",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\ncontaining_class\nA class used to represent a vowel measurement.\n\n\n\n\n\nVowelClass.containing_class(self, track, heuristic=Heuristic())\nA class used to represent a vowel measurement.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClass"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClass.html#intended-usage-1",
-    "href": "reference/VowelClass.html#intended-usage-1",
-    "title": "VowelClass",
-    "section": "",
-    "text": "Certain properties of a VowelMeasurement instance are set by its membership within a VowelClass and that VowelClass’s membership in a VowelClassCollection. These memberships are best managed by passing a list of VowelMeasurements to SpeakerCollection.\nvowel_measurements = [VowelMeasurement(t) for t in fasttrack_tracks]\nspeakers = SpeakerCollection(vowel_measurements)\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nA fasttrackpy.CandidateTrracks object\nrequired\n\n\nheuristic\nHeuristic\nA point measurement Heuristic to use. Defaults to Heuristic().\nHeuristic()\n\n\n\n\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\ntrack\nfasttrackpy.CandidateTracks\nan object of CandidateTracks class\n\n\ncandidates\nlist\nlist of candidates for the track\n\n\nheuristic\nHeuristic\nan object of Heuristic class (default is Heuristic())\n\n\nvowel_class\nVowelClass\nThe containing VowelClass object\n\n\nformant_array\nFormantArray\nA FormantArray object\n\n\nfile_name\nstr\nname of the file of the track\n\n\ngroup\nstr\nTierGroup of the track\n\n\nid\nstr\nid of the track\n\n\ninterval\naligned_textgrid.SequenceInterval\ninterval of the track\n\n\nlabel\nstr\nlabel of the track\n\n\nn_formants\nint\nnumber of formants in the track\n\n\noptimized\nint\nThe number of optimization iterations the vowel measurement has been through.\n\n\nwinner\nOneTrack\nfasttrackpy.OneTrack The winning formant track\n\n\nwinner_index\nint\nThe index of the winning formant track\n\n\ncand_param\nNDArray[Shape[Param, Formant, Cand], Float]\nA array of the candidate DCT parameters.\n\n\ncand_maxformant\nNDArray[Shape[1, Cand], Float]\nAn array of the candidate maximum formants.\n\n\ncand_error\nNDArray[Shape[Cand], Float]\nAn array of the candidate smoothing error.\n\n\ncand_error_logprob_vm\nNDArray[Shape[Cand], Float]\nConversion of the smooth error to log probabilities. The candidate with the lowest error = log(1), and the candidate with the largest error = log(0).\n\n\ncand_param_(mahal/logprob)_speaker_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to the VowelClass for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class\n\n\ncand_param_(mahal/logprob)_speaker_global\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to all vowel measurements for this speaker. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system\n\n\ncand_param_(mahal/logprob)_corpus_byvclass\nNDArray[Shape[Cand], Float]\nThe mahalanobis distance (mahal) or associated log probability (logprob) for each candidate relative to this vowel class across all speakers. These are calculated by drawing the relevant mean and covariance matrix from vm.vowel_class.vowel_system.corpus\n\n\npoint_measure\npl.DataFrame\nA polars dataframe of the point measurement for this vowel.\n\n\nvm_context\npl.DataFrame\nA polars dataframe of contextual information for the vowel measurement.\n\n\n\n\n\n\n\n\n\nName\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn a DataFrame of the formant tracks\n\n\n\n\n\nVowelClass.containing_class.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClass.containing_class.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClass.containing_class.to_tracks_df()\nReturn a DataFrame of the formant tracks\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA dataframe with formant track data.",
-    "crumbs": [
-      "Vowel Measurements",
-      "VowelClass"
-    ]
-  },
-  {
-    "objectID": "reference/VowelClass.html#methods-1",
-    "href": "reference/VowelClass.html#methods-1",
+    "objectID": "reference/VowelClass.html#methods",
+    "href": "reference/VowelClass.html#methods",
     "title": "VowelClass",
     "section": "",
     "text": "Name\nDescription\n\n\n\n\nto_param_df\nReturn DataFrame of formant DCT parameters.\n\n\nto_point_df\nReturn a DataFrame of point measurements\n\n\nto_tracks_df\nReturn DataFrame of formanttracks.\n\n\n\n\n\nVowelClass.to_param_df(output='log_param')\nReturn DataFrame of formant DCT parameters.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant DCT parameters\n\n\n\n\n\n\n\nVowelClass.to_point_df()\nReturn a DataFrame of point measurements\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of vowel point measures.\n\n\n\n\n\n\n\nVowelClass.to_tracks_df()\nReturn DataFrame of formanttracks.\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\npl.DataFrame\nA DataFrame of formant tracks",
     "crumbs": [
       "Vowel Measurements",
       "VowelClass"
-    ]
-  },
-  {
-    "objectID": "reference/unpickle_speakers.html",
-    "href": "reference/unpickle_speakers.html",
-    "title": "unpickle_speakers",
-    "section": "",
-    "text": "unpickle_speakers(path)\nUnpickle a pickled SpeakerCollection\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\npath\nstr | Path\nPath to a pickled speaker collection\nrequired\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nSpeakerCollection\nThe unpickled SpeakerCollection",
-    "crumbs": [
-      "Writers",
-      "unpickle_speakers"
-    ]
-  },
-  {
-    "objectID": "reference/unpickle_speakers.html#parameters",
-    "href": "reference/unpickle_speakers.html#parameters",
-    "title": "unpickle_speakers",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\npath\nstr | Path\nPath to a pickled speaker collection\nrequired",
-    "crumbs": [
-      "Writers",
-      "unpickle_speakers"
-    ]
-  },
-  {
-    "objectID": "reference/unpickle_speakers.html#returns",
-    "href": "reference/unpickle_speakers.html#returns",
-    "title": "unpickle_speakers",
-    "section": "",
-    "text": "Type\nDescription\n\n\n\n\nSpeakerCollection\nThe unpickled SpeakerCollection",
-    "crumbs": [
-      "Writers",
-      "unpickle_speakers"
-    ]
-  },
-  {
-    "objectID": "reference/optimize.optimize.html",
-    "href": "reference/optimize.optimize.html",
-    "title": "optimize.optimize",
-    "section": "",
-    "text": "optimize.optimize\n\n\n\n\n\nName\nDescription\n\n\n\n\noptimize_one_measure\nOptimize a single vowel measurement\n\n\noptimize_vowel_measures\nOptimize a list of VowelMeasurements.\n\n\nrun_optimize\nRepeatedly run optimization until either max_iter is reached,\n\n\n\n\n\noptimize.optimize.optimize_one_measure(vowel_measurement, optim_params=['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global'])\nOptimize a single vowel measurement\nThis function optimizes a given vowel measurement based on the specified optimization parameters.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurement\nVowelMeasurement\nThe VowelMeasurement to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global']\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nint\ndescription\n\n\n\n\n\n\n\noptimize.optimize.optimize_vowel_measures(vowel_measurements, optim_params=['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global'])\nOptimize a list of VowelMeasurements.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurements\nlist[VowelMeasurement]\nThe list of vowel measurements to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global']\n\n\n\n\n\n\n\noptimize.optimize.run_optimize(vowel_system, optim_params=['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global'], max_iter=10)\nRepeatedly run optimization until either max_iter is reached, or the difference between two iterations becomes small.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_system\nVowelClassCollection\nThe vowel space to be optimized\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global']\n\n\nmax_iter\nint\nThe maximum number of iterations to run. Defaults to 10.\n10",
-    "crumbs": [
-      "Optimization",
-      "optimize.optimize"
-    ]
-  },
-  {
-    "objectID": "reference/optimize.optimize.html#functions",
-    "href": "reference/optimize.optimize.html#functions",
-    "title": "optimize.optimize",
-    "section": "",
-    "text": "Name\nDescription\n\n\n\n\noptimize_one_measure\nOptimize a single vowel measurement\n\n\noptimize_vowel_measures\nOptimize a list of VowelMeasurements.\n\n\nrun_optimize\nRepeatedly run optimization until either max_iter is reached,\n\n\n\n\n\noptimize.optimize.optimize_one_measure(vowel_measurement, optim_params=['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global'])\nOptimize a single vowel measurement\nThis function optimizes a given vowel measurement based on the specified optimization parameters.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurement\nVowelMeasurement\nThe VowelMeasurement to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global']\n\n\n\n\n\n\n\n\n\nType\nDescription\n\n\n\n\nint\ndescription\n\n\n\n\n\n\n\noptimize.optimize.optimize_vowel_measures(vowel_measurements, optim_params=['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global'])\nOptimize a list of VowelMeasurements.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_measurements\nlist[VowelMeasurement]\nThe list of vowel measurements to optimize\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global']\n\n\n\n\n\n\n\noptimize.optimize.run_optimize(vowel_system, optim_params=['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global'], max_iter=10)\nRepeatedly run optimization until either max_iter is reached, or the difference between two iterations becomes small.\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_system\nVowelClassCollection\nThe vowel space to be optimized\nrequired\n\n\noptim_params\nlist[Literal[‘param_speaker_global’, ‘param_speaker_byvclass’, ‘bparam_speaker_global’, ‘bparam_speaker_byvclass’, ‘maxformant_speaker_global’, ‘param_corpus_byvowel’]]\nThe optimization parameters to use. Defaults to [ “param_speaker_global”, “param_speaker_byvclass”, “bparam_speaker_global”, “bparam_speaker_byvclass”, “maxformant_speaker_global” ].\n['param_speaker_global', 'param_speaker_byvclass', 'bparam_speaker_global', 'bparam_speaker_byvclass', 'maxformant_speaker_global']\n\n\nmax_iter\nint\nThe maximum number of iterations to run. Defaults to 10.\n10",
-    "crumbs": [
-      "Optimization",
-      "optimize.optimize"
-    ]
-  },
-  {
-    "objectID": "reference/write_data.html",
-    "href": "reference/write_data.html",
-    "title": "write_data",
-    "section": "",
-    "text": "write_data(vowel_spaces, destination=Path('.'), which='all', separate=False)\nSave data.\n\n\nThere are multiple data output types, including\n\ntracks: Vowel formant tracks\npoints: Point measurements\nparam: DCT parameters on Hz\nlog_param: DCT parameters on log(Hz)\ntextgrid: The recoded textgrid\n\nBy default, they will all be saved.\n\n\n\n\n\n\nName\nType\nDescription\nDefault\n\n\n\n\nvowel_spaces\nSpeakerCollection\nAn entire SpeakerCollection\nrequired\n\n\ndestination\nstr | Path\nDestination directory. Defaults to Path(\".\").\nPath('.')\n\n\nwhich\nLiteral[‘all’] | list[Literal[‘tracks’, ‘points’, ‘param’, ‘log_param’, ‘textgrid’]]\nWhich data to save. The values are described above. Defaults to “all”.\n'all'\n\n\nseparate\nbool\nWhether or not to write separate .csvs for each individual speaker. Defaults to False.\nFalse",
-    "crumbs": [
-      "Writers",
-      "write_data"
-    ]
-  },
-  {
-    "objectID": "reference/write_data.html#parameters",
-    "href": "reference/write_data.html#parameters",
-    "title": "write_data",
-    "section": "",
-    "text": "Name\nType\nDescription\nDefault\n\n\n\n\nvowel_spaces\nSpeakerCollection\nAn entire SpeakerCollection\nrequired\n\n\ndestination\nstr | Path\nDestination directory. Defaults to Path(\".\").\nPath('.')\n\n\nwhich\nLiteral[‘all’] | list[Literal[‘tracks’, ‘points’, ‘param’, ‘log_param’, ‘textgrid’]]\nWhich data to save. The values are described above. Defaults to “all”.\n'all'\n\n\nseparate\nbool\nWhether or not to write separate .csvs for each individual speaker. Defaults to False.\nFalse",
-    "crumbs": [
-      "Writers",
-      "write_data"
-    ]
-  },
-  {
-    "objectID": "reference/utils.local_resources.local_resources.html",
-    "href": "reference/utils.local_resources.local_resources.html",
-    "title": "utils.local_resources.local_resources",
-    "section": "",
-    "text": "utils.local_resources.local_resources()\n\n\n\n\n\nName\nType\nDescription\n\n\n\n\nrecodes\ndict\nRecode options. Contains \"cmu2phila\" and \"cmu2labov\"\n\n\nparsers\ndict\nLabelset parsers. Contains \"cmu_parser\"\n\n\nheursitics\ndict\nMeasurement point heuristics. Contains \"fave\"\n\n\nfasttrack_config\ndict\nFastTrack config. Contains \"default\"",
-    "crumbs": [
-      "Built-in resources",
-      "utils.local_resources.local_resources"
-    ]
-  },
-  {
-    "objectID": "reference/utils.local_resources.local_resources.html#attributes",
-    "href": "reference/utils.local_resources.local_resources.html#attributes",
-    "title": "utils.local_resources.local_resources",
-    "section": "",
-    "text": "Name\nType\nDescription\n\n\n\n\nrecodes\ndict\nRecode options. Contains \"cmu2phila\" and \"cmu2labov\"\n\n\nparsers\ndict\nLabelset parsers. Contains \"cmu_parser\"\n\n\nheursitics\ndict\nMeasurement point heuristics. Contains \"fave\"\n\n\nfasttrack_config\ndict\nFastTrack config. Contains \"default\"",
-    "crumbs": [
-      "Built-in resources",
-      "utils.local_resources.local_resources"
     ]
   }
 ]
