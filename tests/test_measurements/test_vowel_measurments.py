@@ -4,6 +4,8 @@ from pathlib import Path
 from functools import reduce
 from copy import copy
 
+from new_fave.measurements.reference import ReferenceValues
+
 import polars as pl
 import numpy as np
 
@@ -17,6 +19,9 @@ from new_fave.speaker.speaker import Speaker
 
 corpus_path = Path("tests", "test_data", "corpus")
 speaker_demo= Speaker(corpus_path.joinpath("speakers.csv"))
+logparam_ref = ReferenceValues(logparam_corpus=Path("tests", "test_data", "fave_results"))
+points_ref = ReferenceValues(points_corpus=Path("tests", "test_data", "fave_results"))
+param_ref = ReferenceValues(param_corpus=Path("tests", "test_data", "fave_results"))
 
 NSTEP = 10
 NFORMANT = 3
@@ -276,3 +281,17 @@ def test_point_df():
     assert agg.shape[1] == total_groups    
 
 
+def test_reference():
+    logparam_vms = [VowelMeasurement(t, reference_values=logparam_ref) for t in candidates]
+    param_vms    = [VowelMeasurement(t, reference_values=param_ref)    for t in candidates]
+    points_vms   = [VowelMeasurement(t, reference_values=points_ref)   for t in candidates]
+
+    for vm in logparam_vms:
+        assert vm.reference_values.reference_type == "logparam"
+        assert vm.reference_logprob.shape == (len(vm.candidates),)
+    for vm in param_vms:
+        assert vm.reference_values.reference_type == "param"
+        assert vm.reference_logprob.shape == (len(vm.candidates),)        
+    for vm in points_vms:
+        assert vm.reference_values.reference_type == "points"
+        assert vm.reference_logprob.shape == (len(vm.candidates),)
