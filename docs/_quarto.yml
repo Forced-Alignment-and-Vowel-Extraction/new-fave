@@ -99,7 +99,7 @@ quartodoc:
     - title: Vowel Measurements
       #kind: page
       options:
-        dynamic: true
+        dynamic: false
       contents:
         - name: measurements.vowel_measurement
           children: linked

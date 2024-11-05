@@ -770,7 +770,7 @@ class VowelClass(Sequence, PropertySetter):
     Args:
         label (str):
             The vowel class label
-        tracks (list[VowelMeasurement]): 
+        vowel_measurements (list[VowelMeasurement]): 
             A list of VowelMeasurements
 
     Attributes:

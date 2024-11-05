@@ -78,6 +78,9 @@ def fave_subcorpora(
             Either a string naming a built-in fasttrack config file,
             or a path to a custom config file. 
             Defaults to "default".
+        vowel_place_config (str | None), optional):
+            A path to a vowel place config file.
+            defaults to None.            
         reference_values (ReferenceValues):
             A ReferenceValues object defining a path to a 
             reference corpus'

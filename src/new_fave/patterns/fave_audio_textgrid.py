@@ -75,9 +75,9 @@ def fave_audio_textgrid(
             Either a string naming a built in point heuristic,
             or a path to a custom heuristic definition. 
             Defaults to None.
-        vowel_place_dict (dict[Literal["front", "back"], re.Pattern], optional):
-            A dictionary of vowel place keys, and associated
-            regexes
+        vowel_place_config (str | None), optional):
+            A path to a vowel place config file.
+            defaults to None.
         ft_config (str | None, optional): 
             Either a string naming a built-in fasttrack config file,
             or a path to a custom config file. 
