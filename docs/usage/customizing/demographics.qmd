@@ -1,0 +1,7 @@
+---
+title: Adding Speaker Demographics
+---
+
+We've tried to make adding speaker demographics to `fave-extract` output as flexible as possible, including
+
+- 
