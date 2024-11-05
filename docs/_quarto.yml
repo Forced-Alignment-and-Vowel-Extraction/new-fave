@@ -36,6 +36,10 @@ website:
                 href: usage/customizing/index.qmd
                 contents: 
                   - auto: usage/customizing/*
+              - section: Configuration
+                href: usage/configs/index.qmd
+                contents: 
+                  - auto: usage/configs/*                  
           - section: Dev Notes
             contents:
               - auto: dev

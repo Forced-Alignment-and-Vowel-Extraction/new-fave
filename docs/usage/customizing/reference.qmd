@@ -1,3 +1,38 @@
 ---
 title: Reference Values
 ---
+
+If you already have a collection of new-fave or legacy-fave results, and would like to use these formant values as a reference to cut down on formant tracking errors, you can pass them to a fave-extract subcommand. The option to use will depend on the kind of reference values you are using.
+
+# Point Values Reference
+
+If you have a collection of vowel formant point values, either extracted by new-fave or legacy-fave, you can point the fave-extract subcommands at this corpus with the `--points-reference` option.
+
+``` bash
+# command-line
+fave-extract audio-textgrid \
+    speaker1.wav speaker1.TextGrid \
+    --points-reference fave_results
+```
+
+# Param Reference
+
+If you have a collection of vowel formant DCT smoothing parameters, you can point the fave-extract subcommands at this corpus with the `--param-reference` option.
+
+``` bash
+# command-line
+fave-extract audio-textgrid \
+    speaker1.wav speaker1.TextGrid \
+    --param-reference fave_results
+```
+
+# Log-Param Reference
+
+If you have a collection of vowel log(formant) DCT smoothing parameters, you can point the fave-extract subcommands at this corpus with the `--logparam-reference` option.
+
+``` bash
+# command-line
+fave-extract audio-textgrid \
+    speaker1.wav speaker1.TextGrid \
+    --logparam-reference fave_results
+```

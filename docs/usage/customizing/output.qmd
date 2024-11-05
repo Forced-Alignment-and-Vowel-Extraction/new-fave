@@ -1,3 +1,74 @@
 ---
 title: Output Options
 ---
+
+By default, the fave-extract subcommands will write all possible data outputs to a directory called `fave_results/`. You can control how this works with a few options.
+
+# Output Destination
+
+If, instead of a directory called `fave_results/`, you would prefer the output to be saved to a different directory, you can pass this to the `--destination` option.
+
+``` bash
+# command-line
+fave-extract corpus my_corpus \
+    --destination my_corpus_vowels
+```
+
+If the output directory doesn't already exist, it will be created.
+
+# Output formats
+
+## tracks
+
+To only save vowel formant track data as a .csv, pass `tracks` to the `--which` option.
+
+``` bash
+fave-extract corpus my_corpus \
+    --which tracks
+```
+
+## points
+
+To only save vowel formant point data as a .csv, pass `points` to the `--which` option.
+
+``` bash
+fave-extract corpus my_corpus \
+    --which points
+```
+
+## param
+
+To only save DCT smooth parameters, pass `param` to the `--which` option.
+
+``` bash
+fave-extract corpus my_corpus \
+    --which param
+```
+
+## log param
+
+To only save DCT smooth parameters of log(formants), pass `log_param` to the `--which` option.
+
+``` bash
+fave-extract corpus my_corpus \
+    --which log_param
+```
+
+## textgrid
+
+To only save the recoded textgrid, pass `textgrid` to the `--which` option.
+
+``` bash
+fave-extract corpus my_corpus \
+    --which textgrid
+```
+
+## Multiple
+
+If there are multiple (but not all) output formats you would like to save, you can pass the `--which` option multiple times.
+
+``` bash
+fave-extract corpus my_corpus \
+    --which tracks \
+    --which points
+```
