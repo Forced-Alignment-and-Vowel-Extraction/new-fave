@@ -368,26 +368,26 @@ class VowelMeasurement(Sequence, PropertySetter):
         )
         return self._expanded_formants    
 
-    @cached_property
-    @FlatCacheWrap
-    def spectral_rolloff(self) -> float:
-        n_fft_power = 11
-        while self.track.samples.size < 2 ** n_fft_power:
-            n_fft_power -= 1
+    # @cached_property
+    # @FlatCacheWrap
+    # def spectral_rolloff(self) -> float:
+    #     n_fft_power = 11
+    #     while self.track.samples.size < 2 ** n_fft_power:
+    #         n_fft_power -= 1
         
-        rolloff = librosa.feature.spectral_rolloff(
-            y = self.track.samples[0] + 0.01,
-            sr = self.track.sampling_frequency,
-            n_fft = 2**n_fft_power
-        ).squeeze()
+    #     rolloff = librosa.feature.spectral_rolloff(
+    #         y = self.track.samples[0] + 0.01,
+    #         sr = self.track.sampling_frequency,
+    #         n_fft = 2**n_fft_power
+    #     ).squeeze()
 
-        third = rolloff.size // 3
+    #     third = rolloff.size // 3
 
-        log_rolloff = np.log(
-            rolloff[third:-third]
-        ).mean()
+    #     log_rolloff = np.log(
+    #         rolloff[third:-third]
+    #     ).mean()
 
-        return log_rolloff
+    #     return log_rolloff
 
     
     @cached_property
