@@ -7,10 +7,11 @@ from copy import copy
 import polars as pl
 import numpy as np
 
-from new_fave.measurements.vowel_measurement import SpeakerCollection, \
-    VowelClassCollection, \
-    VowelClass, \
+from new_fave.measurements.vowel_measurement import (SpeakerCollection, 
+    VowelClassCollection, 
+    VowelClass, 
     VowelMeasurement
+)
 
 from new_fave.speaker.speaker import Speaker
 
