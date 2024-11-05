@@ -6,6 +6,10 @@ import scipy.stats as stats
 import warnings
 import functools
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from new_fave.measurements.vowel_measurement import VowelMeasurement
+
 def mahalanobis(
         params:NDArray[Shape['Dim, Cand'], Float], 
         param_means:NDArray[Shape['Dim, 1'], Float], 
@@ -28,9 +32,17 @@ def mahalanobis(
     """    
     
     x_mu = params - param_means
-    left = np.dot(x_mu.T, inv_cov)
-    mahal = np.dot(left, x_mu)
-    return mahal.diagonal()
+    mahal = (
+        np.dot(
+            np.dot(
+                x_mu.T, 
+                inv_cov
+            ), 
+            x_mu)
+        .diagonal()
+        .copy()
+    )
+    return mahal
 
 def mahal_log_prob(
         mahals: NDArray[Shape["Cand"], Float], 

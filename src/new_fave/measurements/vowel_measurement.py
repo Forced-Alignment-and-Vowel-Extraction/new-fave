@@ -43,16 +43,21 @@ from fave_measurement_point.formants import FormantArray
 
 from new_fave.utils.textgrid import get_textgrid
 from new_fave.speaker.speaker import Speaker
-from new_fave.measurements.calcs import mahalanobis, \
-    mahal_log_prob,\
-    param_to_cov,\
-    cov_to_icov,\
+from new_fave.measurements.calcs import (mahalanobis, 
+    mahal_log_prob,
+    param_to_cov,
+    cov_to_icov,
     clear_cached_properties
+)
 
-from new_fave.measurements.decorators import MahalWrap,\
-    MahalCacheWrap,\
-    get_wrapped,\
+from new_fave.measurements.reference import ReferenceValues
+
+from new_fave.measurements.decorators import (MahalWrap,
+    MahalCacheWrap,
+    FlatCacheWrap,
+    get_wrapped,
     set_prop
+)
 
 from collections import defaultdict
 import numpy as np
@@ -61,6 +66,9 @@ import polars as pl
 
 import scipy.stats as stats
 from scipy.fft import idst, idct
+
+import librosa
+
 from joblib import Parallel, delayed, cpu_count
 
 from collections.abc import Sequence, Iterable
@@ -68,6 +76,8 @@ from dataclasses import dataclass, field
 from nptyping import NDArray, Shape, Float
 
 from functools import lru_cache, cached_property
+
+import re
 
 NCPU = cpu_count()
 
@@ -128,6 +138,15 @@ class PropertySetter:
 
             set_prop(self, cand_attrs, speaker_global_attrs, wrapper, "speaker_global")
 
+        for wrapper in [FlatCacheWrap]:
+            cand_attrs = get_wrapped(VowelMeasurement, wrapper)
+
+            agg_attrs = [attr + "s" for attr in cand_attrs]
+
+            set_prop(self, cand_attrs, agg_attrs, wrapper, "agg_factory")
+
+
+
 @dataclass
 class VowelMeasurement(Sequence, PropertySetter):
     """ A class used to represent a vowel measurement.
@@ -151,6 +170,8 @@ class VowelMeasurement(Sequence, PropertySetter):
         heuristic (Heuristic, optional): 
             A point measurement Heuristic to use. 
             Defaults to Heuristic().
+        vowel_place_dict (dict[Literal["front","back"], re.Pattern]):
+            A dictionary of regexes that match front or back vowels.
     
     Attributes: 
         track (fasttrackpy.CandidateTracks):
@@ -220,6 +241,9 @@ class VowelMeasurement(Sequence, PropertySetter):
     """
     track: CandidateTracks
     heuristic: Heuristic = field(default = Heuristic())
+    vowel_place_dict: dict[Literal["front", "back"], re.Pattern] = field(default_factory=lambda : dict())
+    reference_values: ReferenceValues = field(default = ReferenceValues())
+    only_fasttrack: bool = field(default=False)
     def __post_init__(
             self
         ):
@@ -227,15 +251,17 @@ class VowelMeasurement(Sequence, PropertySetter):
         #self.label = self.track.label
         self.candidates = self.track.candidates
         self.n_formants = self.track.n_formants
-        self._winner = self.track.winner
+        self._label = None
         self.interval = self.track.interval
         self.group = self.track.group
         self.id = self.track.id
         self.file_name = self.track.file_name
-        self._label = None
         self._expanded_formants = None
         self._optimized = 0
+        self._init_winner()
         self._make_attrs()
+        
+
 
     def __getitem__(self,i):
         return self.candidates[i]
@@ -253,6 +279,16 @@ class VowelMeasurement(Sequence, PropertySetter):
         )
         return out
     
+    def _init_winner(self):
+        
+        joint = self.cand_error_logprob_vm + self.reference_logprob
+        # if self.spectral_rolloff < 7:
+        #     joint += self.place_penalty/100
+
+        idx = np.nanargmax(joint)
+
+        self._winner = self.track.candidates[idx]
+    
     @property
     def label(self) -> str:
         if (not self._label) or (self._label != self.interval.label):
@@ -265,7 +301,16 @@ class VowelMeasurement(Sequence, PropertySetter):
 
     @label.setter
     def label(self, x:str):
-        self.interval.label = x
+        self.interval._label = x
+
+
+    @cached_property
+    def place(self) -> str:
+        for k in self.vowel_place_dict:
+            if re.match(self.vowel_place_dict[k], self.label):
+                return k
+        
+        return "unk"
             
 
     @property
@@ -322,13 +367,122 @@ class VowelMeasurement(Sequence, PropertySetter):
             self.cand_param
         )
         return self._expanded_formants    
-        
 
-    @property
+    # @cached_property
+    # @FlatCacheWrap
+    # def spectral_rolloff(self) -> float:
+    #     n_fft_power = 11
+    #     while self.track.samples.size < 2 ** n_fft_power:
+    #         n_fft_power -= 1
+        
+    #     rolloff = librosa.feature.spectral_rolloff(
+    #         y = self.track.samples[0] + 0.01,
+    #         sr = self.track.sampling_frequency,
+    #         n_fft = 2**n_fft_power
+    #     ).squeeze()
+
+    #     third = rolloff.size // 3
+
+    #     log_rolloff = np.log(
+    #         rolloff[third:-third]
+    #     ).mean()
+
+    #     return log_rolloff
+
+    
+    @cached_property
+    def params(
+        self
+    ):
+        params = np.array(
+            [
+                x.parameters
+                for x in self.candidates
+            ]
+        ).T
+        return params
+    
+    @cached_property
+    def logparams(
+        self
+    ):
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        return params
+    
+    @cached_property
+    def point_values(
+        self
+    ):
+        params = self.params[0]
+        bparams = self.cand_bparam[0]
+
+        param_bparam = np.concatenate([params, bparams])
+        return param_bparam
+
+    @cached_property
     @MahalCacheWrap
     def cand_param(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        params = np.concatenate((params, self.cand_bparam))
+
+        return params
+    
+    @cached_property
+    @MahalCacheWrap
+    def cand_squareparam(
+        self
+    ) -> NDArray[Shape["X, Cand"], Float]:
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        params = np.concatenate((params, self.cand_bparam))
+        square_params = params.reshape((-1, params.shape[-1]))
+
+        return square_params    
+    
+    @cached_property
+    @MahalCacheWrap
+    def cand_centroid(
+        self
+    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+        params = np.array(
+            [
+                x.log_parameters
+                for x in self.candidates
+            ]
+        ).T
+        params = params[0,:2,:]
+        params = np.expand_dims(params, 0)
+
+        return params    
+    
+    @cached_property
+    @MahalCacheWrap
+    def cand_fratio(
+        self
+    ) -> NDArray[Shape["1, Formant"], Float]:
+        """The formant ratios
+
+        Returns:
+            (np.ndarray):
+                A numpy array of the ratios of formants.
+                Necessarilly the number of formants minus 1.
+        """
         params = np.array(
             [
                 x.parameters
@@ -336,10 +490,17 @@ class VowelMeasurement(Sequence, PropertySetter):
             ]
         ).T
 
-        return params
-    
+        params = params[0, :, :]
+        ratios = np.diff(
+                np.log(params),
+                axis = 0
+            )
+        
+        ratios = np.expand_dims(ratios, 0)
+        return ratios
+
     @property
-    @MahalCacheWrap
+    #@MahalCacheWrap
     def cand_bparam(
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
@@ -347,10 +508,13 @@ class VowelMeasurement(Sequence, PropertySetter):
             x.bandwidth_parameters
             for x in self.candidates
         ]).T
+
+        params = params[0, :, :]
+        params = np.expand_dims(params, 0)
     
         return params
 
-    @property
+    @cached_property
     @MahalCacheWrap
     def cand_maxformant(
         self
@@ -363,7 +527,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         #mf = mf.reshape((1, np.newaxis, mf.shape[-1]))
         return mf
     
-    @property
+    @cached_property
     def cand_error(
         self
     ) -> NDArray[Shape["Cand"], Float]:
@@ -373,6 +537,37 @@ class VowelMeasurement(Sequence, PropertySetter):
                 c.smooth_error
                 for c in self.candidates
             ])
+         
+    @cached_property
+    def place_penalty(
+        self
+    ) -> NDArray[Shape["Cand"], Float]:
+        if not self.place in ["front", "back"]:
+            return np.zeros(shape = self.cand_maxformant.shape).squeeze()
+
+        mf_exp =np.power(1.0001, self.cand_maxformant)
+        mf_norm = mf_exp - mf_exp.min()
+        mf_surv = mf_norm/mf_norm.max()
+        
+        if self.place == "back":
+            mf_surv = 1 - mf_surv
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            penalty = np.log(mf_surv).squeeze()
+
+        return penalty
+
+    @cached_property
+    def cand_b2_logprob(self):
+        f2_bandwidth = self.cand_bparam[0,1,:]
+        f2_norm = f2_bandwidth - np.nanmin(f2_bandwidth)
+        f2_surv = 1 - (f2_norm/np.nanmax(f2_norm))
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            f2_logprob = np.log(f2_surv)
+
+        return f2_logprob
 
     @property
     def cand_error_logprob_vm(
@@ -384,6 +579,39 @@ class VowelMeasurement(Sequence, PropertySetter):
             err_surv = 1 - (err_norm/np.nanmax(err_norm))
             err_log_prob = np.log(err_surv)
         return err_log_prob
+
+    @cached_property
+    def reference_logprob(self):
+        if self.reference_values.reference_type is None:
+            return np.zeros(len(self))
+        
+        if not self.label in self.reference_values.mean_dict:
+            return np.zeros(len(self))
+
+        if np.isfinite(self.reference_values.icov_dict[self.label]).mean() < 0.5:
+            return np.zeros(len(self))
+        
+        if self.reference_values.reference_type == "logparam":
+            params = self.logparams
+
+        if self.reference_values.reference_type == "param":
+            params = self.params
+
+        if self.reference_values.reference_type == "points":
+            params = self.point_values
+        
+        params = params.reshape((-1, params.shape[-1]))
+        mahals = mahalanobis(
+            params = params,
+            param_means=self.reference_values.mean_dict[self.label],
+            inv_cov = self.reference_values.icov_dict[self.label]
+        )
+        log_prob = mahal_log_prob(
+            mahals=mahals,
+            params=params
+        )
+        
+        return log_prob
 
     @property
     def point_measure(
@@ -398,7 +626,12 @@ class VowelMeasurement(Sequence, PropertySetter):
             f"F{i+1}": winner_slice.formants[i]
             for i in range(winner_slice.formants.size)
         }
+        bandwidth_params = self.cand_bparam[0, :,self.winner_index]
+        for idx, param in enumerate(bandwidth_params):
+            point_dict[f"B{idx+1}"] = param
+        
         point_dict["max_formant"] = self.winner.maximum_formant
+        #point_dict["spectral_rolloff"] = self.spectral_rolloff
         point_dict["smooth_error"] = self.winner.smooth_error
         point_dict["time"] = winner_slice.time
         point_dict["rel_time"] = winner_slice.rel_time
@@ -537,7 +770,7 @@ class VowelClass(Sequence, PropertySetter):
     Args:
         label (str):
             The vowel class label
-        tracks (list[VowelMeasurement]): 
+        vowel_measurements (list[VowelMeasurement]): 
             A list of VowelMeasurements
 
     Attributes:
@@ -575,6 +808,12 @@ class VowelClass(Sequence, PropertySetter):
     
     def __len__(self):
         return len(self.vowel_measurements)
+    
+    def __lt__(self, other):
+        return len(self) < len(other)
+    
+    def __le__(self, other):
+        return len(self) <= len(other)
     
     def __repr__(self):
         out = (
@@ -708,6 +947,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
             self._dictify()
         self._vowel_system()
         self._file_name = None
+        self._group = None
         self._corpus = None
         self._make_attrs()
 
@@ -735,6 +975,10 @@ class VowelClassCollection(defaultdict, PropertySetter):
     
     def _reset_winners(self):
         clear_cached_properties(self)
+
+    @property
+    def sorted_keys(self):
+        return sorted(self, key=lambda k: -len(self[k]))
     
     @property
     def corpus(self):
@@ -754,7 +998,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
             for x in vc.winners
         ]
     
-    @property
+    @cached_property
     def vowel_measurements(
         self
     ) -> list[VowelMeasurement]:
@@ -770,7 +1014,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
     ) -> AlignedTextGrid:
         return get_textgrid(self.vowel_measurements[0].interval)
     
-    @property
+    @cached_property
     def file_name(
         self
     ) -> str:
@@ -780,6 +1024,22 @@ class VowelClassCollection(defaultdict, PropertySetter):
         self._file_name = self.vowel_measurements[0].winner.file_name
         return self._file_name
     
+    @cached_property
+    def group(
+        self
+    ) -> str:
+        if self._group:
+            return self._group
+
+        self._group = self.vowel_measurements[0].winner.group
+        return self._group
+    
+    @cached_property
+    def corpus_key(
+        self
+    ) -> tuple[str, str]:
+        return (self.file_name, self.group)
+
     @cached_property
     def winner_expanded_formants(
         self

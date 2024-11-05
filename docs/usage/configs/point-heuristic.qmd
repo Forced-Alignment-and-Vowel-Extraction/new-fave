@@ -1,0 +1,93 @@
+---
+title: Measurement Point Customization
+---
+
+For more on measurement point definitions, see [the fave measurement point package documentation](https://forced-alignment-and-vowel-extraction.github.io/fave-measurement-point/).
+
+# Customizing Point Measurement Location
+
+When it comes to vowel point measurements, you can customize the point in the vowel that the measurement is taken by defining a measurement point heuristic file.
+
+A heuristic file is a yaml file with the following format:
+
+``` yaml
+# yaml
+heuristic: default
+default:
+    prop_time: "1/3"
+specifics: []
+```
+
+-   The `heuristic` field gives a name to the heuristic.
+-   The `default` field defines the default measurement point method.
+-   The `specifics` field defines specific rules for specific vowels.
+
+The yaml file above, in fact, is the same as the default heuristic if none are provided.
+
+## Specifics
+
+Let's say you wanted to define a special measurement point rule for just the vowel /ay/, to measure it at maximum F1. This can be done by adding the following rule to the `specifics` list.
+
+``` yaml
+heuristic: ay-rule
+default:
+    prop_time: "1/3"
+specifics:
+    - label: ay
+      prop_time: f1.max.prop_time
+```
+
+What this says is:
+
+-   Apply a special measurement point rule when the interval label is "ay".
+-   Get the measurement point where the vowel's `prop_time` is equal to the `prop_time` of F1 maximum.
+
+## Valid point expressions
+
+The expression `f1.max.prop_time` defines the proportional time of F1 maximum. An entire point expression will always be of the format:
+
+```         
+formant.anchor.time
+```
+
+Valid values for each slot are:
+
+-   Formants
+    -   `f1`, `f2`, `f3`, ...
+    -   Any formant that's available
+-   Anchor
+    -   `min`
+    -   `max`
+-   Time
+    -   `time`
+    -   `rel_time`
+    -   `prop_time`
+
+Additionally, any other mathematical expression can be included. For example, the original FAVE suite had a measurement point heuristic for /aw/ and /ow/ defined in the docs as:
+
+```         
+# - OW, AW measured halfway between beginning of segment and F1 maximum  ##
+```
+
+The heuristic file for this would look like:
+
+``` yaml
+# yaml
+heuristic: aw-ow-rule
+default:
+    prop_time: "1/3"
+specifics:
+    - label: aw
+      prop_time: f1.max.prop_time / 2
+    - label: ow
+      prop_time: f1.max.prop_time / 2
+```
+
+# Usage
+
+You can pass a measurement heuristic file to the `--point-heuristic` option.
+
+``` bash
+fave-extract corpus my_corpus \
+    --point-heuristic custom_point.yml
+```

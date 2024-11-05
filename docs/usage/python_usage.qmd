@@ -1,0 +1,86 @@
+---
+title: Python Usage
+---
+
+# Installation
+
+To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions {{< var python >}}. If you are not sure whether python is installed, or what version is installed, [here is a good tutorial for figuring that out](https://realpython.com/installing-python/).
+
+Once you have python successfully installed, you can install new-fave at the command-line like so.
+
+``` bash
+# command-line
+pip install new-fave
+```
+
+# Usage
+
+## Audio + TextGrid
+
+See [`fave_audio_textgrid`](../reference/fave_audio_textgrid.qmd) and [`write_data`](../reference/write_data.qmd). And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+
+``` python
+from new_fave import fave_audio_textgrid, write_data
+
+speakers = fave_audio_textgrid(
+    audio_path = "speaker1.wav",
+    textgrid_path = "speaker2.TextGrid",
+    ## all optional args below
+    speakers = "all",
+    recode_rules = "cmu2labov",
+    labelset_parser = "cmu_parser",
+    point_heuristic = "fave",
+    ft_config = "default"
+)
+
+write_data(
+    speakers, 
+    destination = "output_dir"
+)
+```
+
+## Corpus
+
+See [`fave_corpus`](../reference/fave_corpus.qmd) and [`write_data`](../reference/write_data.qmd). And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+
+``` python
+from new_fave import fave_corpus, write_data
+
+speakers = fave_corpus(
+    corpus_path = "corpus/",
+    ## all optional args below
+    speakers = "all",
+    recode_rules = "cmu2labov",
+    labelset_parser = "cmu_parser",
+    point_heuristic = "fave",
+    ft_config = "default"
+)
+
+write_data(
+    speakers, 
+    destination = "output_dir"
+)
+```
+
+## Subcorpora
+
+See [`fave_subcorpora`](../reference/fave_subcorpora.qmd) and [`write_data`](../reference/write_data.qmd). And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+
+``` python
+from new_fave import fave_subcorpora, write_data
+
+speakers = fave_subcorpora(
+    subcorpora_glob = "project/speakers/*/",
+    ## all optional args below
+    speakers = "all",
+    recode_rules = "cmu2labov",
+    labelset_parser = "cmu_parser",
+    point_heuristic = "fave",
+    ft_config = "default"
+)
+
+write_data(
+    speakers, 
+    destination = "output_dir"
+)
+```

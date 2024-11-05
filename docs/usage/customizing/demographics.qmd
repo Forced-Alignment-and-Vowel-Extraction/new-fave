@@ -1,0 +1,112 @@
+---
+title: Adding Speaker Demographics
+engine: knitr
+---
+
+We've tried to make adding speaker demographics to `fave-extract` output as flexible as possible, including
+
+-   An [Excel or CSV files]
+-   A [YAML file]
+-   A [Legacy-fave speaker file]
+
+# File Formats
+
+## Excel or CSV files {#excel-csv}
+
+To ensure demographic information in a an `.xlsx` or `.csv` file is correctly included in fave-extract output two columns are required:
+
+::: callout-important
+## Required Columns
+
+-   `file_name`: The file stem of the wav and textgrid files
+
+-   `speaker_num`: The speaker to be analyzed in a file. the first speaker is `1`.
+:::
+
+So, if you had a corpus that looked like this:
+
+```{bash}
+#| echo: false
+tree --noreport ../my_corpus
+```
+
+Your excel file or csv file would have to look something like this:
+
+```{python}
+#| echo: false
+import polars as pl
+from great_tables import GT, md, html, style, loc, google_font, system_fonts
+
+demo_data = pl.DataFrame(
+    {
+        "file_name": ["speaker1", "speaker2", "speaker2"],
+        "speaker_num": [1, 1, 2],
+        "age": [26, 50, 23]
+    }
+)
+
+(
+    GT(demo_data)
+    .opt_table_font(
+        font=[
+            google_font(name="Public Sans")
+        ]
+    )
+)
+```
+
+::: callout-tip
+If a speaker demographics file is provided, fave-extract will *only* process data for speakers with entries.
+:::
+
+## YAML file
+
+Another option for formatting speaker demographic information is in a yaml file. Yaml is a very flexible data structuring format. For this corpus:
+
+```{bash}
+#| echo: false
+tree --noreport ../my_corpus
+```
+
+An speaker demographics yaml file would look like
+
+``` yaml
+# yaml
+- file_name: speaker1
+  speaker_num: 1
+  age: 26
+- file_name: speaker3
+  speaker_num: 1
+  age: 50
+- file_name: speaker1
+  speaker_num: 1
+  age: 23  
+```
+
+::: callout-important
+## Required Fields
+
+The `file_name` and `speaker_num` fields are required.
+:::
+
+::: callout-tip
+## Flexibility
+
+Outside of the required fields
+
+-   Not every speaker has to have the same fields defined.
+
+-   The fields don't need to appear in a consistent order.
+:::
+
+## Legacy-fave speaker file
+
+If you have legacy-fave `.speaker` files, you can pass them to the `--speakers` option.
+
+# Usage
+
+All three fave-extract subcommands support passing of demographic files.
+
+``` bash
+fave-extract corpus my_corpus/ --speakers demographics.csv
+```

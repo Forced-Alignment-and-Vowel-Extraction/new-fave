@@ -48,6 +48,6 @@ title: Variable Naming Conventions
 
 ## Property Naming Structure
 
-- `source`_`value`_`derived`_`scope`_`subdivision`
-- `source`_`value`_`summary`
-- `source`_`value`
+- `source_value_derived_scope_subdivision`
+- `source_value_summary`
+- `source_value`

@@ -1,20 +1,21 @@
 from functools import cached_property, update_wrapper
 import numpy as np
-from new_fave.measurements.calcs import mahalanobis, \
-    mahal_log_prob,\
-    param_to_cov,\
-    cov_to_icov,\
+from new_fave.measurements.calcs import (mahalanobis,
+    mahal_log_prob,
+    param_to_cov,
+    cov_to_icov,
     clear_cached_properties
+)
 
 from typing import Any
 from nptyping import NDArray, Shape, Float
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
-    from new_fave.measurements.vowel_measurement import VowelMeasurement,\
-        VowelClass,\
-        VowelClassCollection
+    from new_fave.measurements.vowel_measurement import (VowelMeasurement,
+        VowelClass,
+        VowelClassCollection)
 
-class OptimWrapper:
+class AggWrapper:
     """
     A base class for Optimization parameter wrappers
     """
@@ -24,8 +25,17 @@ class OptimWrapper:
 
     def __call__(self, *args, **kwargs):
         return self.func(*args, **kwargs)
+    
+class OutputWrapper:
+    def __init__(self, func):
+        update_wrapper(self, func)
+        self.func = func
+    
+    def __call__(self, *args, **kwargs):
+        return self.func(*args, **kwargs)
+    pass
 
-class MahalWrap(OptimWrapper):
+class MahalWrap(AggWrapper):
     """ Mahalanobis Wrapper
 
     A wrapper to mark parameters for
@@ -36,13 +46,18 @@ class MahalWrap(OptimWrapper):
     def __init__(self, func):
         super().__init__(func)
 
-class MahalCacheWrap(OptimWrapper):
+class MahalCacheWrap(AggWrapper):
     """Cached Mahalanobis Wrapper
 
     A wrapper to mark parameters for
     mahalanobis distance estimation,
     to be set as a property
     """
+    prop:type[cached_property] = cached_property
+    def __init__(self, func):
+        super().__init__(func)
+
+class FlatCacheWrap(AggWrapper):
     prop:type[cached_property] = cached_property
     def __init__(self, func):
         super().__init__(func)
@@ -107,6 +122,23 @@ class PropertyFactory():
             return icov_mat
 
         return parameterized_func
+    
+    @property
+    def agg_factory(self):
+        """Aggregate single numeric values across vowel measurements
+        """
+        def parameterized_func(obj: 'VowelClass|VowelClassCollection'):
+            if not hasattr(obj, "vowel_measurements"):
+                return None
+            agged = np.array([
+                getattr(x, self.attr)
+                for x in obj.vowel_measurements
+            ])
+
+            agged = agged.flatten()
+            return agged
+        
+        return parameterized_func
 
     @property
     def speaker_byvclass(self):
@@ -134,6 +166,7 @@ class PropertyFactory():
             return logprob
         
         return parameterized_func
+    
 
     @property
     def speaker_global(self):
@@ -164,7 +197,7 @@ class PropertyFactory():
     
     pass
 
-def get_wrapped(cls:type, wrapper:MahalWrap|MahalCacheWrap) -> list[str]:
+def get_wrapped(cls:type, wrapper:MahalWrap|MahalCacheWrap|FlatCacheWrap|OutputWrapper) -> list[str]:
     """Get the class property names that have been wrapped with `wrapper`
 
     Args:
@@ -197,7 +230,7 @@ def set_prop(
         self:'VowelMeasurement|VowelClass|VowelClassCollection', 
         lhs:str, 
         rhs:str, 
-        wrapper:MahalWrap|MahalCacheWrap, 
+        wrapper:MahalWrap|MahalCacheWrap|FlatCacheWrap, 
         factory:str
     ) -> None:
     """Set a property on a class
