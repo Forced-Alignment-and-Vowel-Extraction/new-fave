@@ -35,6 +35,7 @@ quartodoc = "^0.7.2"
 ipython = "^8.21.0"
 nbformat = "^5.9.2"
 jupyter = "^1.0.0"
+great-tables = "^0.13.0"
 
 
 [tool.poetry.group.dev.dependencies]
