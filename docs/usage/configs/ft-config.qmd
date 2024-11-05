@@ -1,3 +1,21 @@
 ---
 title: FastTrack Config
 ---
+
+For more details on how to configure FastTrack, see [the fasttrackpy documentation](https://fasttrackiverse.github.io/fasttrackpy/usage/getting_started.html). Any fasttrackpy config file can be passed to a fave-extract subcommand.
+
+For example, if you wanted to adjust the range of max-formants considered by fasttrack, you could create a config file like so:
+
+``` yaml
+# fasttrack.yml
+min_max_formant: 3000
+max_max_formant: 6000
+```
+
+Then you would pass this the –ft-config option.
+
+``` bash
+# command-line
+fave-extract corpus my_corpus \
+    --ft-config fasttrack.yml
+```
