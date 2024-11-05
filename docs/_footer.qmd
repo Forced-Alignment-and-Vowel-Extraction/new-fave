@@ -1,0 +1,3 @@
+::: {style="text-align:center;"}
+new-fave version: `{python} import new_fave; new_fave.__version__`
+:::

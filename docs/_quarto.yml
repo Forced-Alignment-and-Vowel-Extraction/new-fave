@@ -28,7 +28,10 @@ website:
           - section: Home
             contents:
               - index.qmd
-          - auto: usage
+          - section: Usage
+            href: usage/index.qmd
+            contents:
+              - auto: usage/*
           - section: Dev Notes
             contents:
               - auto: dev
@@ -49,7 +52,10 @@ format:
     css: styles/styles.css
     toc: true
     toc-depth: 4
-    highlight-style: github    
+    highlight-style: github
+    mainfont: "Public Sans"
+    monofont: "Roboto Mono"
+    smooth-scroll: true
 
 filters:
   - interlinks

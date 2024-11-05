@@ -1,90 +1,115 @@
 ---
 title: Getting Started
+description: Command-Line Usage
+engine: knitr
+resources: 
+    - data/*
+    - my_corpus/*
+    - big_project/*
 ---
+
+We expect new-fave to be primarily used as a command-line tool. This page outlines that usage. Using new-fave this way does not require you to do any python programming, but if you would like to import new-fave into a python project of your own, see the page on [Python Usage](python_usage.qmd).
 
 # Installation
 
-```bash
-# bash
+To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions {{< var python >}}. If you are not sure whether python is installed, or what version is installed, [here is a good tutorial](https://realpython.com/installing-python/).
+
+::: callout-tip
+In this documentation, when code is meant to be run at the command line, the code snippet will begin with `# command-line`
+:::
+
+Once you have python successfully installed, you can install new-fave at the command-line like so.
+
+``` bash
+# command-line
 pip install new-fave
 ```
 
-
 # Usage
-Current basic usage, for now. If you want speaker demographics included in the data
-output, see [`Speaker`](../reference/speaker.speaker.Speaker.qmd)
 
-## Audio + TextGrid
-See [`fave_audio_textgrid`](../reference/fave_audio_textgrid.qmd) and
- [`write_data`](../reference/write_data.qmd). 
- And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
+After installing new-fave, the `fave-extract` executable will be made available. You can access a minimal help message by just running `fave-extract` with no arguments.
 
-```python
-from new_fave import fave_audio_textgrid, write_data
-
-speakers = fave_audio_textgrid(
-    audio_path = "speaker1.wav",
-    textgrid_path = "speaker2.TextGrid",
-    ## all optional args below
-    speakers = "all",
-    recode_rules = "cmu2labov",
-    labelset_parser = "cmu_parser",
-    point_heuristic = "fave",
-    ft_config = "default"
-)
-
-write_data(
-    speakers, 
-    destination = "output_dir"
-)
+```{bash}
+# command-line
+fave-extract
 ```
 
+`fave-extract` has three sub-commands. Which one you use will depend on how your data is organized.
 
-## Corpus
-See [`fave_corpus`](../reference/fave_corpus.qmd) and
- [`write_data`](../reference/write_data.qmd). 
- And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
- 
-```python
-from new_fave import fave_corpus, write_data
+-   [`fave-extract audio-textgrid`](#audio-textgrid)
 
-speakers = fave_audio_textgrid(
-    corpus_path = "corpus/",
-    ## all optional args below
-    speakers = "all",
-    recode_rules = "cmu2labov",
-    labelset_parser = "cmu_parser",
-    point_heuristic = "fave",
-    ft_config = "default"
-)
+    -   For when you have a single audio file and force-aligned textgrid pair to process.
 
-write_data(
-    speakers, 
-    destination = "output_dir"
-)
+-   [`fave-extract corpus`](#corpus)
+
+    -   For when you have all of you audio files and force-aligned textgrids in a single directory.
+
+-   [`fave-extract subcorpora`](#subcorpora)
+
+    -   For when your audio file and textgrid pairs are each in their own directory, inside of a larger directory.
+
+## audio-textgrid {#audio-textgrid}
+
+In the simplest case of a single audio/textgrid pair, your best option is the audio-textgrid subcommand. For example, if you had the following files in a `data/` directory:
+
+```{bash}
+#| echo: false
+tree --noreport data
 ```
 
+To use all default settings, you would run the following:
 
-## Subcorpora
-See [`fave_subcorpora`](../reference/fave_subcorpora.qmd) and
- [`write_data`](../reference/write_data.qmd). 
- And if desired, [`SpeakerCollection`](../reference/SpeakerCollection.qmd).
- 
-```python
-from new_fave import fave_subcorpora, write_data
-
-speakers = fave_subcorpora(
-    subcorpora_glob = "project/speakers/*/",
-    ## all optional args below
-    speakers = "all",
-    recode_rules = "cmu2labov",
-    labelset_parser = "cmu_parser",
-    point_heuristic = "fave",
-    ft_config = "default"
-)
-
-write_data(
-    speakers, 
-    destination = "output_dir"
-)
+``` bash
+# command-line
+fave-extract audio-textgrid data/speaker1.wav data/speaker1.TextGrid
 ```
+
+To customize the way `fave-extract audio-textgrid` works, including how to incorporate speaker demographics into the output, see [the customization documentation](customization/).
+
+## corpus {#corpus}
+
+If you have all of your audio file/textgrid pairs in a single directory, then the corpus subcommand is your best option. An example file organization would look like this:
+
+```{bash}
+#| echo: false
+tree --noreport my_corpus
+```
+
+::: callout-important
+## File Naming
+
+The corpus subcommand will only work if the file names are the *the same* for the audio/textgrid pairs. That is, if your audio files are named something like `speaker1.wav`, and your textgrids are named something like `speaker1_aligned.TextGrid`, the corpus subcommand won't process them.
+:::
+
+To use all default settings, you would run the following:
+
+``` bash
+# command-line
+fave-extract corpus my_corpus/
+```
+
+To customize the way `fave-extract corpus` works, including how to incorporate speaker demographics into the output, see [the customization documentation](customization/).
+
+## subcorpora
+
+If each audio file/textgrid pair is in its own directory inside of a larger project directory, then the subcorpora subcommand is the best to use. An example file organization would look like this:
+
+```{bash}
+#| echo: false
+tree --noreport big_project
+```
+
+::: callout-important
+## File Naming
+
+The corpus subcommand will only work if the file names are the *the same* for the audio/textgrid pairs. That is, if your audio files are named something like `speaker1.wav`, and your textgrids are named something like `speaker1_aligned.TextGrid`, the corpus subcommand won't process them.
+:::
+
+To use all default settings, you would run the following:
+
+```bash
+# command-line
+fave-extract subcorpora big_project/speaker*
+```
+
+To customize the way `fave-extract subcorpora` works, including how to incorporate speaker demographics into the output, see [the customization documentation](customization/).
