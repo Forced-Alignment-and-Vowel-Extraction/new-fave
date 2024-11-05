@@ -5,6 +5,7 @@ from pathlib import Path
 import logging
 from new_fave.measurements.calcs import mahalanobis
 from tqdm import tqdm
+import warnings
 
 logger = logging.getLogger("reference")
 logger.setLevel(level=logging.INFO)
@@ -45,32 +46,35 @@ class ReferenceValues:
                 )
             )
 
-        if logparam_corpus:
-            logparam_corpus = Path(logparam_corpus).joinpath("*_logparam.csv")
-            param_corpus = None
-            points_corpus = None
-
-            self.reference_type = "logparam"
-            self._process_param(logparam_corpus)
-        
-        if param_corpus:
-            param_corpus = Path(param_corpus).joinpath("*_param.csv")
-            logparam_corpus = None
-            points_corpus = None
-            
-            self.reference_type = "param"
-            self._process_param(param_corpus)
-
         if points_corpus:
-            points_corpus = Path(points_corpus).joinpath("*_points.csv")
+            points_corpus = Path(points_corpus).glob("*_points.csv")
             logparam_corpus = None
             param_corpus = None
 
             self.reference_type = "points"
             self._process_points(points_corpus)
 
+        if param_corpus:
+            param_corpus = Path(param_corpus).glob("*_param.csv")
+            logparam_corpus = None
+            points_corpus = None
+            
+            self.reference_type = "param"
+            self._process_param(param_corpus)            
+
+        if logparam_corpus:
+            logparam_corpus = Path(logparam_corpus).glob("*_logparam.csv")
+            param_corpus = None
+            points_corpus = None
+
+            self.reference_type = "logparam"
+            self._process_param(logparam_corpus)
+
     def _process_param(self, param_corpus):
-        df = pl.scan_csv(param_corpus)
+        df = pl.concat(
+            (pl.scan_csv(f) for f in param_corpus),
+            how="diagonal"
+        )
 
         gdf = (
             df
@@ -95,7 +99,11 @@ class ReferenceValues:
         self._make_dicts(gdf)
 
     def _process_points(self, points_corpus):
-        df = pl.scan_csv(points_corpus)
+        df = pl.concat(
+            (pl.scan_csv(f) for f in points_corpus),
+            how="diagonal"
+        )
+
         gdf = (
             df
             .select(
@@ -119,10 +127,17 @@ class ReferenceValues:
         mean_dict = {
             k : np.expand_dims(v.mean(axis = 1),1) for k,v in lab_dict.items()
         }
+        
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            icov_dict = {}
+            for k,v in lab_dict.items():
+                try:
+                    cov_mat = np.linalg.inv(np.cov(v))
+                except:
+                    cov_mat = np.empty((v.shape[0], v.shape[0]))
+                icov_dict[k] = cov_mat
 
-        icov_dict = {
-            k : np.linalg.inv(np.cov(v)) for k,v in lab_dict.items()
-        }
 
         new_lab_dict = dict()
         logger.info("Processing Reference Values")
@@ -141,6 +156,13 @@ class ReferenceValues:
             k : np.expand_dims(v.mean(axis = 1),1) for k,v in new_lab_dict.items()
         }
 
-        self.icov_dict = {
-            k : np.linalg.inv(np.cov(v)) for k,v in new_lab_dict.items()
-        }
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            icov_dict = {}
+            for k,v in new_lab_dict.items():
+                try:
+                    cov_mat = np.linalg.inv(np.cov(v))
+                except:
+                    cov_mat = np.empty((v.shape[0], v.shape[0]))
+                icov_dict[k] = cov_mat
+            self.icov_dict = icov_dict
