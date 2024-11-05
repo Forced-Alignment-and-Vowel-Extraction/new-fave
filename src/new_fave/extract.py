@@ -71,7 +71,7 @@ configs = cloup.option_group(
         help=(
             "Recoding rules to adjust vowel interval labels. "
             "Values can be a string naming one of the built-in "
-            "recode rules ('cmu2labov' and 'cmu2phila'), or a path "
+            "recode rules ('cmu2labov','cmu2phila', 'norecode'), or a path "
             "to a custom recoding yml file."
         )
     ),
