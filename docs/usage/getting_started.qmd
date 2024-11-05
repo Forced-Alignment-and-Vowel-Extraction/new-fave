@@ -12,13 +12,13 @@ We expect new-fave to be primarily used as a command-line tool. This page outlin
 
 # Installation
 
-To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions {{< var python >}}. If you are not sure whether python is installed, or what version is installed, [here is a good tutorial](https://realpython.com/installing-python/).
+To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions {{< var python >}}. If you are not sure whether python is installed, or what version is installed, [here is a good tutorial for figuring that out](https://realpython.com/installing-python/).
 
 ::: callout-tip
 In this documentation, when code is meant to be run at the command line, the code snippet will begin with `# command-line`
 :::
 
-Once you have python successfully installed, you can install new-fave at the command-line like so.
+Once you have python successfully installed, you can install new-fave at the command-line like so:
 
 ``` bash
 # command-line
@@ -90,7 +90,7 @@ fave-extract corpus my_corpus/
 
 To customize the way `fave-extract corpus` works, including how to incorporate speaker demographics into the output, see [the customization documentation](customization/).
 
-## subcorpora
+## subcorpora {#subcorpora}
 
 If each audio file/textgrid pair is in its own directory inside of a larger project directory, then the subcorpora subcommand is the best to use. An example file organization would look like this:
 
@@ -107,7 +107,7 @@ The corpus subcommand will only work if the file names are the *the same* for th
 
 To use all default settings, you would run the following:
 
-```bash
+``` bash
 # command-line
 fave-extract subcorpora big_project/speaker*
 ```
