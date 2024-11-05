@@ -1,3 +1,5 @@
+# !!! This is NOT the original extractFormants.py file !!!              ##
+
 from new_fave import (fave_audio_textgrid, 
     fave_corpus, 
     fave_subcorpora, 
