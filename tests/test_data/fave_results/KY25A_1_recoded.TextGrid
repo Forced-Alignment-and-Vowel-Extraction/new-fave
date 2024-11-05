@@ -129,7 +129,7 @@ item []:
         intervals [3]:
             xmin = 10.7317 
             xmax = 11.0017 
-            text = "ae" 
+            text = "AE1" 
         intervals [4]:
             xmin = 11.0017 
             xmax = 13.3117 
@@ -141,7 +141,7 @@ item []:
         intervals [6]:
             xmin = 13.3417 
             xmax = 13.6217 
-            text = "e" 
+            text = "EH1" 
         intervals [7]:
             xmin = 13.6217 
             xmax = 13.6517 
@@ -153,7 +153,7 @@ item []:
         intervals [9]:
             xmin = 13.6817 
             xmax = 13.9017 
-            text = "aw" 
+            text = "AW1" 
         intervals [10]:
             xmin = 13.9017 
             xmax = 13.9317 
@@ -165,7 +165,7 @@ item []:
         intervals [12]:
             xmin = 14.0417 
             xmax = 14.9717 
-            text = "uw" 
+            text = "UW1" 
         intervals [13]:
             xmin = 14.9717 
             xmax = 15.0017 
@@ -177,7 +177,7 @@ item []:
         intervals [15]:
             xmin = 15.0317 
             xmax = 15.2617 
-            text = "ay0" 
+            text = "AY1" 
         intervals [16]:
             xmin = 15.2617 
             xmax = 15.3117 
@@ -197,7 +197,7 @@ item []:
         intervals [20]:
             xmin = 15.5317 
             xmax = 15.7517 
-            text = "ahr" 
+            text = "AA1" 
         intervals [21]:
             xmin = 15.7517 
             xmax = 15.7917 
@@ -213,7 +213,7 @@ item []:
         intervals [24]:
             xmin = 15.9617 
             xmax = 16.2617 
-            text = "ae" 
+            text = "AE1" 
         intervals [25]:
             xmin = 16.2617 
             xmax = 16.3217 
@@ -225,7 +225,7 @@ item []:
         intervals [27]:
             xmin = 17.0217 
             xmax = 17.2117 
-            text = "ay" 
+            text = "AY1" 
         intervals [28]:
             xmin = 17.2117 
             xmax = 17.2417 
@@ -233,7 +233,7 @@ item []:
         intervals [29]:
             xmin = 17.2417 
             xmax = 17.3017 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [30]:
             xmin = 17.3017 
             xmax = 17.3317 
@@ -245,7 +245,7 @@ item []:
         intervals [32]:
             xmin = 17.4817 
             xmax = 17.6917 
-            text = "owr" 
+            text = "AO1" 
         intervals [33]:
             xmin = 17.6917 
             xmax = 17.7617 
@@ -257,7 +257,7 @@ item []:
         intervals [35]:
             xmin = 17.7917 
             xmax = 17.8217 
-            text = "i" 
+            text = "IH1" 
         intervals [36]:
             xmin = 17.8217 
             xmax = 18.0917 
@@ -269,7 +269,7 @@ item []:
         intervals [38]:
             xmin = 18.9517 
             xmax = 19.1517 
-            text = "ey" 
+            text = "EY1" 
         intervals [39]:
             xmin = 19.1517 
             xmax = 19.3717 
@@ -277,7 +277,7 @@ item []:
         intervals [40]:
             xmin = 19.3717 
             xmax = 19.5917 
-            text = "iy" 
+            text = "IY1" 
         intervals [41]:
             xmin = 19.5917 
             xmax = 19.7717 
@@ -289,7 +289,7 @@ item []:
         intervals [43]:
             xmin = 19.8917 
             xmax = 19.9517 
-            text = "i" 
+            text = "IH1" 
         intervals [44]:
             xmin = 19.9517 
             xmax = 20.0317 
@@ -305,7 +305,7 @@ item []:
         intervals [47]:
             xmin = 20.1917 
             xmax = 20.2717 
-            text = "iyF" 
+            text = "IY0" 
         intervals [48]:
             xmin = 20.2717 
             xmax = 20.4317 
@@ -313,7 +313,7 @@ item []:
         intervals [49]:
             xmin = 20.4317 
             xmax = 20.4617 
-            text = "e" 
+            text = "EH1" 
         intervals [50]:
             xmin = 20.4617 
             xmax = 20.4917 
@@ -321,7 +321,7 @@ item []:
         intervals [51]:
             xmin = 20.4917 
             xmax = 20.6117 
-            text = "@" 
+            text = "AH0" 
         intervals [52]:
             xmin = 20.6117 
             xmax = 20.6417 
@@ -345,7 +345,7 @@ item []:
         intervals [57]:
             xmin = 24.9817 
             xmax = 25.1717 
-            text = "iyF" 
+            text = "IY1" 
         intervals [58]:
             xmin = 25.1717 
             xmax = 26.774 
@@ -641,7 +641,7 @@ item []:
         intervals [3]:
             xmin = 0.7217 
             xmax = 0.7917 
-            text = "e" 
+            text = "EH1" 
         intervals [4]:
             xmin = 0.7917 
             xmax = 0.9717 
@@ -649,7 +649,7 @@ item []:
         intervals [5]:
             xmin = 0.9717 
             xmax = 1.1217 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [6]:
             xmin = 1.1217 
             xmax = 1.2117 
@@ -657,7 +657,7 @@ item []:
         intervals [7]:
             xmin = 1.2117 
             xmax = 1.2617 
-            text = "i" 
+            text = "IH1" 
         intervals [8]:
             xmin = 1.2617 
             xmax = 1.2917 
@@ -669,7 +669,7 @@ item []:
         intervals [10]:
             xmin = 1.3617 
             xmax = 1.4117 
-            text = "*hr" 
+            text = "ER0" 
         intervals [11]:
             xmin = 1.4117 
             xmax = 1.4917 
@@ -681,7 +681,7 @@ item []:
         intervals [13]:
             xmin = 1.5517 
             xmax = 1.7017 
-            text = "o" 
+            text = "AA1" 
         intervals [14]:
             xmin = 1.7017 
             xmax = 1.7317 
@@ -689,7 +689,7 @@ item []:
         intervals [15]:
             xmin = 1.7317 
             xmax = 1.8417 
-            text = "ay" 
+            text = "AY1" 
         intervals [16]:
             xmin = 1.8417 
             xmax = 1.8517 
@@ -697,7 +697,7 @@ item []:
         intervals [17]:
             xmin = 1.8517 
             xmax = 1.9617 
-            text = "ae" 
+            text = "AE1" 
         intervals [18]:
             xmin = 1.9617 
             xmax = 2.0117 
@@ -709,7 +709,7 @@ item []:
         intervals [20]:
             xmin = 2.0917 
             xmax = 2.1217 
-            text = "@" 
+            text = "AH0" 
         intervals [21]:
             xmin = 2.1217 
             xmax = 2.1817 
@@ -717,7 +717,7 @@ item []:
         intervals [22]:
             xmin = 2.1817 
             xmax = 2.2817 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [23]:
             xmin = 2.2817 
             xmax = 2.3517 
@@ -729,11 +729,11 @@ item []:
         intervals [25]:
             xmin = 2.3917 
             xmax = 2.5217 
-            text = "*hr" 
+            text = "ER0" 
         intervals [26]:
             xmin = 2.5217 
             xmax = 2.6117 
-            text = "@" 
+            text = "AH0" 
         intervals [27]:
             xmin = 2.6117 
             xmax = 2.7117 
@@ -745,7 +745,7 @@ item []:
         intervals [29]:
             xmin = 2.8417 
             xmax = 3.2217 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [30]:
             xmin = 3.2217 
             xmax = 4.0917 
@@ -757,7 +757,7 @@ item []:
         intervals [32]:
             xmin = 4.1217 
             xmax = 4.1917 
-            text = "i" 
+            text = "IH1" 
         intervals [33]:
             xmin = 4.1917 
             xmax = 4.2417 
@@ -769,7 +769,7 @@ item []:
         intervals [35]:
             xmin = 4.3017 
             xmax = 4.4217 
-            text = "ay" 
+            text = "AY1" 
         intervals [36]:
             xmin = 4.4217 
             xmax = 4.4717 
@@ -781,7 +781,7 @@ item []:
         intervals [38]:
             xmin = 4.5217 
             xmax = 4.6217 
-            text = "ay0" 
+            text = "AY1" 
         intervals [39]:
             xmin = 4.6217 
             xmax = 4.7017 
@@ -793,11 +793,11 @@ item []:
         intervals [41]:
             xmin = 4.7317 
             xmax = 4.8317 
-            text = "@" 
+            text = "AH0" 
         intervals [42]:
             xmin = 4.8317 
             xmax = 4.9617 
-            text = "ae" 
+            text = "AE1" 
         intervals [43]:
             xmin = 4.9617 
             xmax = 5.0317 
@@ -817,11 +817,11 @@ item []:
         intervals [47]:
             xmin = 5.1717 
             xmax = 5.2417 
-            text = "uw" 
+            text = "UW1" 
         intervals [48]:
             xmin = 5.2417 
             xmax = 5.2717 
-            text = "@" 
+            text = "AH0" 
         intervals [49]:
             xmin = 5.2717 
             xmax = 5.3617 
@@ -829,7 +829,7 @@ item []:
         intervals [50]:
             xmin = 5.3617 
             xmax = 5.5417 
-            text = "aw" 
+            text = "AW1" 
         intervals [51]:
             xmin = 5.5417 
             xmax = 5.5717 
@@ -837,7 +837,7 @@ item []:
         intervals [52]:
             xmin = 5.5717 
             xmax = 5.6517 
-            text = "ay" 
+            text = "AY1" 
         intervals [53]:
             xmin = 5.6517 
             xmax = 5.7517 
@@ -845,7 +845,7 @@ item []:
         intervals [54]:
             xmin = 5.7517 
             xmax = 5.8017 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [55]:
             xmin = 5.8017 
             xmax = 5.8317 
@@ -857,7 +857,7 @@ item []:
         intervals [57]:
             xmin = 5.8617 
             xmax = 5.9817 
-            text = "*hr" 
+            text = "ER0" 
         intervals [58]:
             xmin = 5.9817 
             xmax = 6.0317 
@@ -865,7 +865,7 @@ item []:
         intervals [59]:
             xmin = 6.0317 
             xmax = 6.0617 
-            text = "i" 
+            text = "IH0" 
         intervals [60]:
             xmin = 6.0617 
             xmax = 6.1117 
@@ -877,7 +877,7 @@ item []:
         intervals [62]:
             xmin = 6.1417 
             xmax = 6.1717 
-            text = "uw" 
+            text = "UW1" 
         intervals [63]:
             xmin = 6.1717 
             xmax = 6.2117 
@@ -889,7 +889,7 @@ item []:
         intervals [65]:
             xmin = 6.2417 
             xmax = 6.3117 
-            text = "i" 
+            text = "IH0" 
         intervals [66]:
             xmin = 6.3117 
             xmax = 6.3617 
@@ -905,7 +905,7 @@ item []:
         intervals [69]:
             xmin = 6.4817 
             xmax = 6.6617 
-            text = "ay" 
+            text = "AY1" 
         intervals [70]:
             xmin = 6.6617 
             xmax = 6.7417 
@@ -921,7 +921,7 @@ item []:
         intervals [73]:
             xmin = 6.8717 
             xmax = 7.1417 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [74]:
             xmin = 7.1417 
             xmax = 7.6817 
@@ -929,7 +929,7 @@ item []:
         intervals [75]:
             xmin = 7.6817 
             xmax = 7.7817 
-            text = "ae" 
+            text = "AE1" 
         intervals [76]:
             xmin = 7.7817 
             xmax = 7.8417 
@@ -941,11 +941,11 @@ item []:
         intervals [78]:
             xmin = 7.9217 
             xmax = 7.9917 
-            text = "*hr" 
+            text = "ER0" 
         intervals [79]:
             xmin = 7.9917 
             xmax = 8.0817 
-            text = "i" 
+            text = "IH0" 
         intervals [80]:
             xmin = 8.0817 
             xmax = 8.3317 
@@ -965,7 +965,7 @@ item []:
         intervals [84]:
             xmin = 8.4617 
             xmax = 8.5617 
-            text = "e" 
+            text = "EH1" 
         intervals [85]:
             xmin = 8.5617 
             xmax = 8.6917 
@@ -977,7 +977,7 @@ item []:
         intervals [87]:
             xmin = 8.7217 
             xmax = 8.7817 
-            text = "@" 
+            text = "AH0" 
         intervals [88]:
             xmin = 8.7817 
             xmax = 8.9617 
@@ -993,7 +993,7 @@ item []:
         intervals [91]:
             xmin = 9.1117 
             xmax = 9.4217 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [92]:
             xmin = 9.4217 
             xmax = 10.7017 
@@ -1005,7 +1005,7 @@ item []:
         intervals [94]:
             xmin = 10.7317 
             xmax = 10.7917 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [95]:
             xmin = 10.7917 
             xmax = 10.8317 
@@ -1013,7 +1013,7 @@ item []:
         intervals [96]:
             xmin = 10.8317 
             xmax = 10.9717 
-            text = "ae" 
+            text = "AE1" 
         intervals [97]:
             xmin = 10.9717 
             xmax = 11.0717 
@@ -1025,11 +1025,11 @@ item []:
         intervals [99]:
             xmin = 11.1017 
             xmax = 11.1317 
-            text = "*hr" 
+            text = "ER0" 
         intervals [100]:
             xmin = 11.1317 
             xmax = 11.1817 
-            text = "@" 
+            text = "AH0" 
         intervals [101]:
             xmin = 11.1817 
             xmax = 11.2217 
@@ -1037,7 +1037,7 @@ item []:
         intervals [102]:
             xmin = 11.2217 
             xmax = 11.3317 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [103]:
             xmin = 11.3317 
             xmax = 11.3817 
@@ -1045,7 +1045,7 @@ item []:
         intervals [104]:
             xmin = 11.3817 
             xmax = 11.6217 
-            text = "*hr" 
+            text = "ER0" 
         intervals [105]:
             xmin = 11.6217 
             xmax = 12.3117 
@@ -1053,7 +1053,7 @@ item []:
         intervals [106]:
             xmin = 12.3117 
             xmax = 12.4017 
-            text = "i" 
+            text = "IH1" 
         intervals [107]:
             xmin = 12.4017 
             xmax = 12.4317 
@@ -1065,7 +1065,7 @@ item []:
         intervals [109]:
             xmin = 12.4817 
             xmax = 12.8917 
-            text = "uw" 
+            text = "UW1" 
         intervals [110]:
             xmin = 12.8917 
             xmax = 13.3117 
@@ -1073,7 +1073,7 @@ item []:
         intervals [111]:
             xmin = 13.3117 
             xmax = 13.3217 
-            text = "i" 
+            text = "IH1" 
         intervals [112]:
             xmin = 13.3217 
             xmax = 13.3517 
@@ -1081,7 +1081,7 @@ item []:
         intervals [113]:
             xmin = 13.3517 
             xmax = 13.4517 
-            text = "ay" 
+            text = "AY1" 
         intervals [114]:
             xmin = 13.4517 
             xmax = 13.5517 
@@ -1089,7 +1089,7 @@ item []:
         intervals [115]:
             xmin = 13.5517 
             xmax = 13.5817 
-            text = "iy" 
+            text = "IY0" 
         intervals [116]:
             xmin = 13.5817 
             xmax = 13.6717 
@@ -1097,7 +1097,7 @@ item []:
         intervals [117]:
             xmin = 13.6717 
             xmax = 13.8417 
-            text = "ay" 
+            text = "AY1" 
         intervals [118]:
             xmin = 13.8417 
             xmax = 13.9217 
@@ -1113,7 +1113,7 @@ item []:
         intervals [121]:
             xmin = 14.0317 
             xmax = 15.0017 
-            text = "uw" 
+            text = "UW1" 
         intervals [122]:
             xmin = 15.0017 
             xmax = 15.2117 
@@ -1121,7 +1121,7 @@ item []:
         intervals [123]:
             xmin = 15.2117 
             xmax = 15.2517 
-            text = "@" 
+            text = "AH0" 
         intervals [124]:
             xmin = 15.2517 
             xmax = 15.3117 
@@ -1133,7 +1133,7 @@ item []:
         intervals [126]:
             xmin = 15.5217 
             xmax = 15.8117 
-            text = "ʌ" 
+            text = "AH1" 
         intervals [127]:
             xmin = 15.8117 
             xmax = 21.9217 
@@ -1149,7 +1149,7 @@ item []:
         intervals [130]:
             xmin = 22.4017 
             xmax = 22.4917 
-            text = "ae" 
+            text = "AE1" 
         intervals [131]:
             xmin = 22.4917 
             xmax = 22.5217 
@@ -1165,7 +1165,7 @@ item []:
         intervals [134]:
             xmin = 22.5717 
             xmax = 22.6717 
-            text = "ae" 
+            text = "AE1" 
         intervals [135]:
             xmin = 22.6717 
             xmax = 22.7517 
@@ -1177,7 +1177,7 @@ item []:
         intervals [137]:
             xmin = 22.7817 
             xmax = 22.8817 
-            text = "ey" 
+            text = "EY1" 
         intervals [138]:
             xmin = 22.8817 
             xmax = 22.9417 
@@ -1193,7 +1193,7 @@ item []:
         intervals [141]:
             xmin = 23.1517 
             xmax = 23.5417 
-            text = "uw" 
+            text = "UW1" 
         intervals [142]:
             xmin = 23.5417 
             xmax = 23.5717 
@@ -1205,11 +1205,11 @@ item []:
         intervals [144]:
             xmin = 23.5817 
             xmax = 23.6617 
-            text = "aw" 
+            text = "AW1" 
         intervals [145]:
             xmin = 23.6617 
             xmax = 23.7917 
-            text = "ow" 
+            text = "OW1" 
         intervals [146]:
             xmin = 23.7917 
             xmax = 23.9717 
@@ -1229,7 +1229,7 @@ item []:
         intervals [150]:
             xmin = 24.4117 
             xmax = 24.5817 
-            text = "ay" 
+            text = "AY1" 
         intervals [151]:
             xmin = 24.5817 
             xmax = 24.6317 
@@ -1241,7 +1241,7 @@ item []:
         intervals [153]:
             xmin = 24.6617 
             xmax = 24.7117 
-            text = "iyF" 
+            text = "IY0" 
         intervals [154]:
             xmin = 24.7117 
             xmax = 24.8617 
@@ -1253,7 +1253,7 @@ item []:
         intervals [156]:
             xmin = 24.9817 
             xmax = 25.1617 
-            text = "iyF" 
+            text = "IY1" 
         intervals [157]:
             xmin = 25.1617 
             xmax = 26.774 
