@@ -40,12 +40,12 @@ website:
                 href: usage/configs/index.qmd
                 contents: 
                   - auto: usage/configs/*                  
-          - section: Dev Notes
-            contents:
-              - auto: dev
-          # - usage/getting_started.qmd
-          # - usage/all_arguments.qmd
-          # - usage/pythonic_use.ipynb
+          # - section: Dev Notes
+          #   contents:
+          #     - auto: dev
+          # # - usage/getting_started.qmd
+          # # - usage/all_arguments.qmd
+          # # - usage/pythonic_use.ipynb
 
 metadata-files:
   - reference/_sidebar.yml
