@@ -6,7 +6,7 @@ For more on measurement point definitions, see [the fave measurement point packa
 
 # Customizing Point Measurement Location
 
-When it comes to vowel point measurements, you can customize the point in the vowel that the measurement is taken by defining a measurement point heuristic file.
+You can customize the time point in the vowel that a measurement point is taken by defining a measurement point heuristic file.
 
 A heuristic file is a yaml file with the following format:
 
