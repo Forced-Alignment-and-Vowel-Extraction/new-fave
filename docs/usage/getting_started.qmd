@@ -88,7 +88,7 @@ To use all default settings, you would run the following:
 fave-extract corpus my_corpus/
 ```
 
-To customize the way `fave-extract corpus` works, including how to incorporate speaker demographics into the output, see [the customization documentation](customization/).
+To customize the way `fave-extract corpus` works, including how to incorporate speaker demographics into the output, see [the customization documentation](customizating/).
 
 ## subcorpora {#subcorpora}
 
