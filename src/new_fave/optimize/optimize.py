@@ -9,25 +9,10 @@ from typing import Literal
 
 def run_optimize(
         vowel_system: VowelClassCollection,
-        optim_params: list[
-             Literal[
-                 "param_speaker_global",
-                 "param_speaker_byvclass",
-                 "bparam_speaker_global",
-                 "bparam_speaker_byvclass",
-                 "maxformant_speaker_global",
-                 "param_corpus_byvowel"
-                ]
-            ] = [
-                 #"param_speaker_global",
+        optim_params: list = [
                  "param_speaker",
-                 #"squareparam_speaker",
                  "fratio_speaker",
                  "centroid_speaker",
-                 #"bparam_speaker",
-                 #"bparam_speaker_global",
-                 #"bparam_speaker_byvclass",
-                 #"maxformant_speaker_global",
                  "maxformant_speaker"
                 ],
         max_iter = 10
@@ -216,16 +201,16 @@ def optimize_one_measure(
     # cutoff[cutoff < -10] = -np.inf
     # cutoff[cutoff > -np.inf] = 0
 
-    # f1_max = np.log(1500)/np.sqrt(2)
-    # f2_max = np.log(3500)/np.sqrt(2)
+    f1_max = np.log(1500)/np.sqrt(2)
+    f2_max = np.log(3500)/np.sqrt(2)
 
-    # f1_cutoff = vowel_measurement.cand_param[0,0,:]
-    # f1_cutoff[f1_cutoff > f1_max] = -np.inf
-    # f1_cutoff[f1_cutoff > -np.inf] = 0
+    f1_cutoff = vowel_measurement.cand_param[0,0,:]
+    f1_cutoff[f1_cutoff > f1_max] = -np.inf
+    f1_cutoff[f1_cutoff > -np.inf] = 0
 
-    # f2_cutoff = vowel_measurement.cand_param[0,1,:]
-    # f2_cutoff[f2_cutoff > f2_max] = -np.inf
-    # f2_cutoff[f2_cutoff > -np.inf] = 0
+    f2_cutoff = vowel_measurement.cand_param[0,1,:]
+    f2_cutoff[f2_cutoff > f2_max] = -np.inf
+    f2_cutoff[f2_cutoff > -np.inf] = 0
 
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
         cutoff+\
@@ -240,3 +225,4 @@ def optimize_one_measure(
         joint_prob += prob_dict[dim]
     
     return joint_prob
+
