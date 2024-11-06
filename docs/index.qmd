@@ -9,6 +9,9 @@ date-modified: today
 ## Where to go:
 
 [Getting Started](usage/getting_started.qmd){.btn .btn-outline-primary .btn role="button"}
+[How it Works](usage/how_it_works.qmd){.btn .btn-outline-primary .btn role="button"}
+[Customization](usage/customizing/){.btn .btn-outline-primary .btn role="button"}
+[Configuration](usage/configs){.btn .btn-outline-primary .btn role="button"}
 
 ## What is `new-fave`?
 

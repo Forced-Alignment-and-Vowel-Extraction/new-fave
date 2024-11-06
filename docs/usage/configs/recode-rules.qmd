@@ -2,4 +2,96 @@
 title: Recode Rules and Labelset Parser
 ---
 
-[See fave-recode](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/overview.html)
+[See fave-recode](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/overview.html) for the full details on how to write label recoding rules.
+
+A recoding rules file is a yaml file with a list of rules, which are applied in order. When writing a rule set, you must implement the Elsewhere Principle, and place more specific rules at the top of the rule file.
+
+## A rule Example
+
+An example of a single-rule file to recode CMU `AH0` to `@` (schwa) would look like this:
+
+``` yaml
+# yaml
+- rule: schwa
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AH0
+  return: "@"
+```
+
+Each rule has
+
+-   A name
+
+-   A list of conditions that define when it applies
+
+    -   Each condition targets [an interval's attribute](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html)
+
+    -   [A relation](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html) to some other value
+
+    -   The other value
+
+-   A return label
+
+## A collection of rules
+
+Let's say you wanted to recode CMU `AY` into three different categories
+
+-   ayE: /ay/ that appears in words with exceptional raising, like "spider" and "cider"
+
+-   ay0: /ay/ that appears before voiceless consonants
+
+-   ay: /ay/ that appears in all other contexts
+
+The recode rule file would look like:
+
+``` yaml
+# yaml
+## placing most specific rule
+## at top
+- rule: exceptional
+  returns: ayE
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+    - attribute: inword.label
+      relation: in
+      set:
+        - SPIDER
+        - CIDER        
+
+## Next most specific rule
+- rule: ay0
+  returns: ay0
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+    - attribute: fol.label
+      attribute: in
+      set: [CH, F, HH, K, P, S, SH, T, TH]
+
+## Elsewhere rule
+- rule: ay
+  returns: ay
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+```
+
+## More details
+
+For more details on the kinds of attributes that are definable in a rules file
+
+-   [Condition Attributes](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html)
+
+For more details on the kinds of relations that are definable in a rules file
+
+-   [Condition Relations](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html)
+
+For more details on how return labels can be defined, see
+
+-   [Label Set Parsers](https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/label_set_parser.html)

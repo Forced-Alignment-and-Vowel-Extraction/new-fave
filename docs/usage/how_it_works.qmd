@@ -65,8 +65,16 @@ If a corpus of reference values (DCT parameters, or formant points) is provided,
 
 In cases where there are less than 10 tokens for a vowel class, these distributions are replaced with similar distributions over the speaker's entire vowel space.
 
-For these 4 distributions, the Mahalanobis distance is calculated for each candidate formant track for each vowel token. These Mahalanobis distances are converted to log-probabilities and summed, resulting in an overall log-probability for each candidate track. The candidate track with the largest log-probability is selected as the new winning track.
+For these 4 distributions, the Mahalanobis distance is calculated for each candidate formant track for each vowel token. These Mahalanobis distances are converted to log-probabilities and summed, together with the smoothing errors from fasttrack processing, and F1 & F2 cutoff values, resulting in an overall log-probability for each candidate track. The candidate track with the largest log-probability is selected as the new winning track.
 
-This optimization is repeated for a maximum of 10 iterations, or until the difference between two automation steps or until the difference in formant tracks is sufficiently small.
+This optimization is repeated for a maximum of 10 iterations, or until the difference between two automation steps is sufficiently small.
 
 # Saving Data
+
+The desired output data is then saved. Available output formats are
+
+- Formant point data
+- Formant track data
+- DCT parameters of formant track data
+- DCT parameters of log(formant track) data
+- The recoded textgrid.
