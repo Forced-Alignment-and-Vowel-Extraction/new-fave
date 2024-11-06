@@ -2,6 +2,7 @@
 title: Getting Started
 description: Command-Line Usage
 engine: knitr
+order: 1
 resources: 
     - data/*
     - my_corpus/*

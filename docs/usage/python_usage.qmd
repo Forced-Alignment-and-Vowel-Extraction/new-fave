@@ -1,5 +1,6 @@
 ---
 title: Python Usage
+order: 2
 ---
 
 # Installation
