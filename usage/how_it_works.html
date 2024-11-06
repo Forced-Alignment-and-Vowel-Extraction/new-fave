@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Vowel Place Penalty – new-fave</title>
+<title>How it works – new-fave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,29 +20,64 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../usage/configs/recode-rules.html" rel="prev">
-<link href="../../assets/logo.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../usage/defaults.html" rel="next">
+<link href="../usage/python_usage.html" rel="prev">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -73,12 +108,14 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../../styles/styles.css">
-<meta property="og:title" content="Vowel Place Penalty – new-fave">
-<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/configs/assets/logo.png">
+<link rel="stylesheet" href="../styles/styles.css">
+<meta property="og:title" content="How it works – new-fave">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/assets/logo.png">
 <meta property="og:site_name" content="new-fave">
-<meta name="twitter:title" content="Vowel Place Penalty – new-fave">
-<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/configs/assets/logo.png">
+<meta name="twitter:title" content="How it works – new-fave">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -89,7 +126,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">new-fave</span>
     </a>
   </div>
@@ -100,11 +137,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../reference/"> 
+    <a class="nav-link" href="../reference/"> 
 <span class="menu-text">Package reference</span></a>
   </li>  
 </ul>
@@ -126,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/configs/index.html">Configuration</a></li><li class="breadcrumb-item"><a href="../../usage/configs/vowel-place.html">Vowel Place Penalty</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../usage/how_it_works.html">How it works</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -137,8 +174,8 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../../index.html" class="sidebar-logo-link">
-      <img src="../../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
@@ -154,7 +191,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">new-fave</span></a>
   </div>
 </li>
@@ -162,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../usage/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../usage/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Usage</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -171,25 +208,31 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/defaults.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">new-fave Defaults</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/getting_started.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting Started</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/python_usage.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/python_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Python Usage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/how_it_works.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">How it works</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../usage/defaults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave Defaults</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../usage/customizing/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../usage/customizing/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Customizing</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
@@ -198,25 +241,25 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/demographics.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/customizing/demographics.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Adding Speaker Demographics</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/output.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/customizing/output.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Output Options</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/processing.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/customizing/processing.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Processing Options</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/reference.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/customizing/reference.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reference Values</span></a>
   </div>
 </li>
@@ -224,35 +267,29 @@ ul.task-list li input[type="checkbox"] {
   </li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../usage/configs/index.html" class="sidebar-item-text sidebar-link">
+            <a href="../usage/configs/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Configuration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/ft-config.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/configs/ft-config.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">FastTrack Config</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/point-heuristic.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/configs/point-heuristic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Measurement Point Customization</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link">
+  <a href="../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Recode Rules and Labelset Parser</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/vowel-place.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Vowel Place Penalty</span></a>
   </div>
 </li>
       </ul>
@@ -264,15 +301,27 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#initial-formant-tracking" id="toc-initial-formant-tracking" class="nav-link active" data-scroll-target="#initial-formant-tracking">Initial Formant Tracking</a></li>
+  <li><a href="#label-recoding" id="toc-label-recoding" class="nav-link" data-scroll-target="#label-recoding">Label Recoding</a>
+  <ul>
+  <li><a href="#why-bother-with-label-recoding" id="toc-why-bother-with-label-recoding" class="nav-link" data-scroll-target="#why-bother-with-label-recoding">Why bother with label recoding?</a></li>
+  </ul></li>
+  <li><a href="#optimization" id="toc-optimization" class="nav-link" data-scroll-target="#optimization">Optimization</a></li>
+  <li><a href="#saving-data" id="toc-saving-data" class="nav-link" data-scroll-target="#saving-data">Saving Data</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/configs/index.html">Configuration</a></li><li class="breadcrumb-item"><a href="../../usage/configs/vowel-place.html">Vowel Place Penalty</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../usage/how_it_works.html">How it works</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Vowel Place Penalty</h1>
+<h1 class="title">How it works</h1>
 </div>
 
 
@@ -289,8 +338,112 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>A fave-extract on a single audio file/textgrid pair takes place in 4 steps.</p>
+<ol type="1">
+<li><a href="#initial-formant-tracking">Initial Formant Tracking</a></li>
+<li><a href="#label-recoding">Label Recoding</a></li>
+<li><a href="#optimization">Optimization</a></li>
+<li><a href="#saving-data">Saving Data</a></li>
+</ol>
+<section id="initial-formant-tracking" class="level1">
+<h1>Initial Formant Tracking</h1>
+<p>Initial formant tracking is carried out using <a href="https://fasttrackiverse.github.io/fasttrackpy/">fasttrackpy</a>. The range of max-formants considered is broader in the new-fave configuration than the default fasttrackpy settings. This because early testing found this necessary to reduce error for some speakers for some vowels. You can review the fasttrack configuration file below.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+fasttrack config
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>fasttrack_config.yml</strong></pre>
+</div>
+<div class="sourceCode" id="cb1" data-filename="fasttrack_config.yml"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">entry_classes</span><span class="kw">:</span><span class="at"> </span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Word</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> Phone</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">target_tier</span><span class="kw">:</span><span class="at"> </span><span class="st">"Phone"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">target_labels</span><span class="kw">:</span><span class="at"> </span><span class="st">"[AEIOU]"</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">min_duration</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.05</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">min_max_formant</span><span class="kw">:</span><span class="at"> </span><span class="dv">3200</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">max_max_formant</span><span class="kw">:</span><span class="at"> </span><span class="dv">10000</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">n_formants</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nstep</span><span class="kw">:</span><span class="at"> </span><span class="dv">40</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">window_length</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.025</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">time_step</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.002</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">smoother</span><span class="kw">:</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">method</span><span class="kw">:</span><span class="at"> dct_smooth_regression</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">order</span><span class="kw">:</span><span class="at"> </span><span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
+<p>The initial formant tracking uses the original labeling in the input textgrid, and targets intervals that match the regular expression in the <code>target_labels</code> field of the fasttrack config file.</p>
+</section>
+<section id="label-recoding" class="level1">
+<h1>Label Recoding</h1>
+<p>In the next step, any label-recoding rules that were passed to fave-extract are applied. For example, if you wanted to distinguish between schwa and ʌ, but are using CMU labels that label them <code>AH0</code> and <code>AH1</code>, respetively, you could include the following recoding rule file.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> schwa</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> ==</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AH0</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">return</span><span class="kw">:</span><span class="at"> </span><span class="st">"@"</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> wedge</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> rematches</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AH</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">return</span><span class="kw">:</span><span class="at"> </span><span class="st">"^"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="why-bother-with-label-recoding" class="level2">
+<h2 class="anchored" data-anchor-id="why-bother-with-label-recoding">Why bother with label recoding?</h2>
+<p>In the next stage, optimization, distributional statistics are estimated and iteratively updated for each vowel class. Vowel classes are determined by their label, so if there are two distinct vowel classes that you are interested in, but they both have the same label in the original textgrid, you will have to recode them to be separate for optimization.</p>
+</section>
+</section>
+<section id="optimization" class="level1">
+<h1>Optimization</h1>
+<p>In the optimization stage, the following distributional properties are estimated for each vowel class.</p>
+<ol type="1">
+<li>The multidimensional distribution over vowel log(formant track) DCT parameters, and formant bandwidths of the vowel class.</li>
+<li>The multidimensional distribution over the centroid position of the vowel class.</li>
+<li>The multidimensional distribution over formant ratios for the vowel class.</li>
+<li>The distribution over max-formant for the vowel class.</li>
+</ol>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reference Corpus
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>If a corpus of reference values (DCT parameters, or formant points) is provided, the multidimensional distribution over these reference values across the entire corpus is also estimated.</p>
+</div>
+</div>
+<p>In cases where there are less than 10 tokens for a vowel class, these distributions are replaced with similar distributions over the speaker’s entire vowel space.</p>
+<p>For these 4 distributions, the Mahalanobis distance is calculated for each candidate formant track for each vowel token. These Mahalanobis distances are converted to log-probabilities and summed, together with the smoothing errors from fasttrack processing, and F1 &amp; F2 cutoff values, resulting in an overall log-probability for each candidate track. The candidate track with the largest log-probability is selected as the new winning track.</p>
+<p>This optimization is repeated for a maximum of 10 iterations, or until the difference between two automation steps is sufficiently small.</p>
+</section>
+<section id="saving-data" class="level1">
+<h1>Saving Data</h1>
+<p>The desired output data is then saved. Available output formats are</p>
+<ul>
+<li>Formant point data</li>
+<li>Formant track data</li>
+<li>DCT parameters of formant track data</li>
+<li>DCT parameters of log(formant track) data</li>
+<li>The recoded textgrid.</li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -859,11 +1012,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../usage/configs/recode-rules.html" class="pagination-link" aria-label="Recode Rules and Labelset Parser">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Recode Rules and Labelset Parser</span>
+      <a href="../usage/python_usage.html" class="pagination-link" aria-label="Python Usage">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Python Usage</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../usage/defaults.html" class="pagination-link" aria-label="new-fave Defaults">
+        <span class="nav-page-text">new-fave Defaults</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -871,5 +1027,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

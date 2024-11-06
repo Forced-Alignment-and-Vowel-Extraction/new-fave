@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../usage/configs/vowel-place.html" rel="next">
 <link href="../../usage/configs/point-heuristic.html" rel="prev">
 <link href="../../assets/logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -174,12 +207,6 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/defaults.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">new-fave Defaults</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../usage/getting_started.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Getting Started</span></a>
   </div>
@@ -188,6 +215,18 @@ ul.task-list li input[type="checkbox"] {
   <div class="sidebar-item-container"> 
   <a href="../../usage/python_usage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Python Usage</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/how_it_works.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How it works</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../usage/defaults.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">new-fave Defaults</span></a>
   </div>
 </li>
           <li class="sidebar-item sidebar-item-section">
@@ -252,12 +291,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Recode Rules and Labelset Parser</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/vowel-place.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vowel Place Penalty</span></a>
-  </div>
-</li>
       </ul>
   </li>
       </ul>
@@ -267,8 +300,16 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-rule-example" id="toc-a-rule-example" class="nav-link active" data-scroll-target="#a-rule-example">A rule Example</a></li>
+  <li><a href="#a-collection-of-rules" id="toc-a-collection-of-rules" class="nav-link" data-scroll-target="#a-collection-of-rules">A collection of rules</a></li>
+  <li><a href="#more-details" id="toc-more-details" class="nav-link" data-scroll-target="#more-details">More details</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -292,9 +333,90 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/overview.html">See fave-recode</a></p>
+<p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/overview.html">See fave-recode</a> for the full details on how to write label recoding rules.</p>
+<p>A recoding rules file is a yaml file with a list of rules, which are applied in order. When writing a rule set, you must implement the Elsewhere Principle, and place more specific rules at the top of the rule file.</p>
+<section id="a-rule-example" class="level2">
+<h2 class="anchored" data-anchor-id="a-rule-example">A rule Example</h2>
+<p>An example of a single-rule file to recode CMU <code>AH0</code> to <code>@</code> (schwa) would look like this:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> schwa</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> ==</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AH0</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">return</span><span class="kw">:</span><span class="at"> </span><span class="st">"@"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each rule has</p>
+<ul>
+<li><p>A name</p></li>
+<li><p>A list of conditions that define when it applies</p>
+<ul>
+<li><p>Each condition targets <a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html">an interval’s attribute</a></p></li>
+<li><p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html">A relation</a> to some other value</p></li>
+<li><p>The other value</p></li>
+</ul></li>
+<li><p>A return label</p></li>
+</ul>
+</section>
+<section id="a-collection-of-rules" class="level2">
+<h2 class="anchored" data-anchor-id="a-collection-of-rules">A collection of rules</h2>
+<p>Let’s say you wanted to recode CMU <code>AY</code> into three different categories</p>
+<ul>
+<li><p>ayE: /ay/ that appears in words with exceptional raising, like “spider” and “cider”</p></li>
+<li><p>ay0: /ay/ that appears before voiceless consonants</p></li>
+<li><p>ay: /ay/ that appears in all other contexts</p></li>
+</ul>
+<p>The recode rule file would look like:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">## placing most specific rule</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">## at top</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> exceptional</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ayE</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> inword.label</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> in</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> SPIDER</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> CIDER        </span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Next most specific rule</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> ay0</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ay0</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> fol.label</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> in</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">CH</span><span class="kw">,</span><span class="at"> F</span><span class="kw">,</span><span class="at"> HH</span><span class="kw">,</span><span class="at"> K</span><span class="kw">,</span><span class="at"> P</span><span class="kw">,</span><span class="at"> S</span><span class="kw">,</span><span class="at"> SH</span><span class="kw">,</span><span class="at"> T</span><span class="kw">,</span><span class="at"> TH</span><span class="kw">]</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">## Elsewhere rule</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> ay</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ay</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="more-details" class="level2">
+<h2 class="anchored" data-anchor-id="more-details">More details</h2>
+<p>For more details on the kinds of attributes that are definable in a rules file</p>
+<ul>
+<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html">Condition Attributes</a></li>
+</ul>
+<p>For more details on the kinds of relations that are definable in a rules file</p>
+<ul>
+<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html">Condition Relations</a></li>
+</ul>
+<p>For more details on how return labels can be defined, see</p>
+<ul>
+<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/label_set_parser.html">Label Set Parsers</a></li>
+</ul>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -868,9 +990,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../usage/configs/vowel-place.html" class="pagination-link" aria-label="Vowel Place Penalty">
-        <span class="nav-page-text">Vowel Place Penalty</span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

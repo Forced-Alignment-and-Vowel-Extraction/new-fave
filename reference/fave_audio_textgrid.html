@@ -345,7 +345,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="new_fave.fave_audio_textgrid" class="level1">
 <h1>fave_audio_textgrid</h1>
-<p><code>fave_audio_textgrid(audio_path, textgrid_path, speakers=0, include_overlaps=True, no_optimize=False, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)</code></p>
+<p><code>fave_audio_textgrid(audio_path, textgrid_path, speakers=0, include_overlaps=True, no_optimize=False, recode_rules=None, labelset_parser=None, point_heuristic=None, vowel_place_config=None, f1_cutoff=np.inf, f2_cutoff=np.inf, ft_config='default', reference_values=ReferenceValues(), fave_aligned=False)</code></p>
 <p>Process a single audio/textgrid pair.</p>
 <section id="parameters" class="level2">
 <h2 class="anchored" data-anchor-id="parameters">Parameters</h2>
@@ -406,6 +406,18 @@ ul.task-list li input[type="checkbox"] {
 <td>str | None)</td>
 <td>A path to a vowel place config file. defaults to None.</td>
 <td><code>None</code></td>
+</tr>
+<tr class="odd">
+<td><code>f1_cutoff</code></td>
+<td><a href="https://docs.python.org/3/library/functions.html#float">float</a> | <a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64">float64</a></td>
+<td>The maximum considerable F1 value</td>
+<td><code>np.inf</code></td>
+</tr>
+<tr class="even">
+<td><code>f2_cutoff</code></td>
+<td><a href="https://docs.python.org/3/library/functions.html#float">float</a> | <a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64">float64</a></td>
+<td>The maximum considerable F2 value</td>
+<td><code>np.inf</code></td>
 </tr>
 <tr class="odd">
 <td><code>ft_config</code></td>
