@@ -127,7 +127,7 @@ configs = cloup.option_group(
         default=3500,
         show_default=True,
         help = (
-            "The maximum considerable F3 value."
+            "The maximum considerable F2 value."
         )
     ),     
     cloup.option(
