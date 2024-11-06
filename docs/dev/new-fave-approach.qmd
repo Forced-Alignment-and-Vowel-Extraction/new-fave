@@ -6,5 +6,3 @@ fig-width: 5
 order: 1
 ---
 
-Currently, I have a few classes and functions written up to allow for a 
-hybrid fave-like and fasttrack-like formant track optimization.

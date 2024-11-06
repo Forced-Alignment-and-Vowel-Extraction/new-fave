@@ -7,14 +7,18 @@ fave_fasttrack = str(files("new_fave").joinpath("resources", "fasttrack_config.y
 
 fave_cmu2phila = str(files("new_fave").joinpath("resources", "cmu2phila.yml"))
 fave_cmu2labov = str(files("new_fave").joinpath("resources", "cmu2labov.yml"))
+fave_norecode = str(files("new_fave").joinpath("resources", "norecode.yml"))
 
 cmu_parser = str(files("new_fave").joinpath("resources", "cmu_parser.yml"))
 
 fave_measurement = str(files("new_fave").joinpath("resources", "fave_measurement.yml"))
 
+default_vowel_place = str(files("new_fave").joinpath("resources", "vowel_place.yml"))
+
 recodes = {
     "cmu2phila": fave_cmu2phila,
-    "cmu2labov": fave_cmu2labov
+    "cmu2labov": fave_cmu2labov,
+    "norecode": fave_norecode
 }
 
 parsers = {
@@ -29,6 +33,10 @@ fasttrack_config = {
     "default": fave_fasttrack
 }
 
+vowel_place = {
+    "default" : default_vowel_place
+}
+
 def local_resources():
     """
     Attributes:
@@ -38,6 +46,8 @@ def local_resources():
             Labelset parsers. Contains `"cmu_parser"`
         heursitics (dict):
             Measurement point heuristics. Contains `"fave"`
+        vowel_place (dict):
+            Vowel place definitions
         fasttrack_config (dict):
             FastTrack config. Contains `"default"`
     """

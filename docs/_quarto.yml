@@ -28,13 +28,24 @@ website:
           - section: Home
             contents:
               - index.qmd
-          - auto: usage
-          - section: Dev Notes
+          - section: Usage
+            href: usage/index.qmd
             contents:
-              - auto: dev
-          # - usage/getting_started.qmd
-          # - usage/all_arguments.qmd
-          # - usage/pythonic_use.ipynb
+              - auto: usage/*
+              - section: Customizing
+                href: usage/customizing/index.qmd
+                contents: 
+                  - auto: usage/customizing/*
+              - section: Configuration
+                href: usage/configs/index.qmd
+                contents: 
+                  - auto: usage/configs/*                  
+          # - section: Dev Notes
+          #   contents:
+          #     - auto: dev
+          # # - usage/getting_started.qmd
+          # # - usage/all_arguments.qmd
+          # # - usage/pythonic_use.ipynb
 
 metadata-files:
   - reference/_sidebar.yml
@@ -49,7 +60,10 @@ format:
     css: styles/styles.css
     toc: true
     toc-depth: 4
-    highlight-style: github    
+    highlight-style: github
+    mainfont: "Public Sans"
+    monofont: "Roboto Mono"
+    smooth-scroll: true
 
 filters:
   - interlinks
@@ -89,7 +103,7 @@ quartodoc:
     - title: Vowel Measurements
       #kind: page
       options:
-        dynamic: true
+        dynamic: false
       contents:
         - name: measurements.vowel_measurement
           children: linked

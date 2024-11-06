@@ -11,7 +11,7 @@ repository = "https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave"
 
 
 [tool.poetry.dependencies]
-python = ">=3.11,<3.12"
+python = ">=3.10,<3.13"
 aligned-textgrid = "^0.6.7"
 fasttrackpy = "^0.4.8"
 numpy = "^1.26.4"
@@ -27,6 +27,7 @@ python-magic-bin = {version = "^0.4.14", markers = "sys_platform == 'win32'"}
 scipy = "^1.13.1"
 cloudpickle = "^3.0.0"
 nptyping = "^2.5.0"
+librosa = "^0.10.2.post1"
 
 
 [tool.poetry.group.docs.dependencies]
@@ -34,6 +35,7 @@ quartodoc = "^0.7.2"
 ipython = "^8.21.0"
 nbformat = "^5.9.2"
 jupyter = "^1.0.0"
+great-tables = "^0.13.0"
 
 
 [tool.poetry.group.dev.dependencies]

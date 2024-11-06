@@ -1,0 +1,6 @@
+- rule: identity
+  conditions:
+    - attribute: label
+      relation: rematches
+      set: ".*"
+  return: "{label}"

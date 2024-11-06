@@ -330,7 +330,7 @@
     - attribute: prev.label
       relation: == 
       set: Y
-  return: iw
+  return: iw{LR}
 - rule: iw-2
   conditions:
     - attribute: label
@@ -339,7 +339,7 @@
     - attribute: inword.label
       relation: contains
       set: EW
-  return: iw
+  return: iw{LR}
 - rule: iw-2
   conditions:
     - attribute: label
