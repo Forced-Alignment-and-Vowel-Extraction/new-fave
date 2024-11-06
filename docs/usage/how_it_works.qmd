@@ -1,0 +1,80 @@
+---
+title: How it works
+order: 3
+filters:
+   - include-code-files
+---
+
+A fave-extract on a single audio file/textgrid pair takes place in 4 steps.
+
+1.  [Initial Formant Tracking]
+2.  [Label Recoding]
+3.  [Optimization]
+4.  [Saving Data]
+
+# Initial Formant Tracking
+
+Initial formant tracking is carried out using [fasttrackpy](https://fasttrackiverse.github.io/fasttrackpy/). The range of max-formants considered is broader in the new-fave configuration than the default fasttrackpy settings. This because early testing found this necessary to reduce error for some speakers for some vowels. You can review the fasttrack configuration file below.
+
+::: {.callout-note collapse="true"}
+## fasttrack config
+
+``` {.yaml include="../../src/new_fave/resources/fasttrack_config.yml" filename="fasttrack_config.yml"}
+```
+:::
+
+The initial formant tracking uses the original labeling in the input textgrid, and targets intervals that match the regular expression in the `target_labels` field of the fasttrack config file.
+
+# Label Recoding
+
+In the next step, any label-recoding rules that were passed to fave-extract are applied. For example, if you wanted to distinguish between schwa and ʌ, but are using CMU labels that label them `AH0` and `AH1`, respetively, you could include the following recoding rule file.
+
+``` yaml
+- rule: schwa
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AH0
+  return: "@"
+- rule: wedge
+  conditions:
+    - attribute: label
+      relation: rematches
+      set: AH
+  return: "^"
+```
+
+## Why bother with label recoding?
+
+In the next stage, optimization, distributional statistics are estimated and iteratively updated for each vowel class. Vowel classes are determined by their label, so if there are two distinct vowel classes that you are interested in, but they both have the same label in the original textgrid, you will have to recode them to be separate for optimization.
+
+# Optimization
+
+In the optimization stage, the following distributional properties are estimated for each vowel class.
+
+1.  The multidimensional distribution over vowel log(formant track) DCT parameters, and formant bandwidths of the vowel class.
+2.  The multidimensional distribution over the centroid position of the vowel class.
+3.  The multidimensional distribution over formant ratios for the vowel class.
+4.  The distribution over max-formant for the vowel class.
+
+::: callout-note
+## Reference Corpus
+
+If a corpus of reference values (DCT parameters, or formant points) is provided, the multidimensional distribution over these reference values across the entire corpus is also estimated.
+:::
+
+In cases where there are less than 10 tokens for a vowel class, these distributions are replaced with similar distributions over the speaker's entire vowel space.
+
+For these 4 distributions, the Mahalanobis distance is calculated for each candidate formant track for each vowel token. These Mahalanobis distances are converted to log-probabilities and summed, together with the smoothing errors from fasttrack processing, and F1 & F2 cutoff values, resulting in an overall log-probability for each candidate track. The candidate track with the largest log-probability is selected as the new winning track.
+
+This optimization is repeated for a maximum of 10 iterations, or until the difference between two automation steps is sufficiently small.
+
+# Saving Data
+
+The desired output data is then saved. Available output formats are
+
+- Formant point data
+- Formant track data
+- DCT parameters of formant track data
+- DCT parameters of log(formant track) data
+- The recoded textgrid.

@@ -9,3 +9,7 @@ Some important additional options you can set for a fave-extract subcommand are:
 -   `--exclude-overlaps`: Should overlapping speech be excluded?
 
 -   `--no-optimize`: Should the optimization steps be skipped?
+
+-   `--f1-cutoff`: The maximum considerable F1 value
+
+-   `--f2-cutoff`: The maximum considerable F2 value

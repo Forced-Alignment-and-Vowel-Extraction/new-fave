@@ -44,6 +44,8 @@ def fave_audio_textgrid(
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
     vowel_place_config: str|None = None,
+    f1_cutoff: float|np.float64 = np.inf,
+    f2_cutoff: float|np.float64 = np.inf,    
     ft_config: str|None = "default",
     reference_values: ReferenceValues = ReferenceValues(),
     fave_aligned: bool =  False
@@ -78,6 +80,10 @@ def fave_audio_textgrid(
         vowel_place_config (str | None), optional):
             A path to a vowel place config file.
             defaults to None.
+        f1_cutoff (float | np.float64):
+            The maximum considerable F1 value
+        f2_cutoff (float | np.float64):
+            The maximum considerable F2 value            
         ft_config (str | None, optional): 
             Either a string naming a built-in fasttrack config file,
             or a path to a custom config file. 
@@ -174,7 +180,7 @@ def fave_audio_textgrid(
 
     for vs in vowel_systems:
         logger.info(f"Optimizing {vs}")
-        run_optimize(vowel_systems[vs])
+        run_optimize(vowel_systems[vs], f1_cutoff=f1_cutoff, f2_cutoff=f2_cutoff)
 
     return vowel_systems
 

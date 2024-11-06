@@ -6,6 +6,13 @@ date-modified: today
 
 ![PyPI](https://img.shields.io/pypi/v/new-fave.png) [![Python CI](https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave/actions/workflows/test-and-run.yml/badge.svg)](https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave/actions/workflows/test-and-run.yml) [![codecov](https://codecov.io/gh/Forced-Alignment-and-Vowel-Extraction/new-fave/graph/badge.svg?token=8JRGOB9NMN)](https://codecov.io/gh/Forced-Alignment-and-Vowel-Extraction/new-fave) [![Maintainability](https://api.codeclimate.com/v1/badges/2f00920067765c0ad77f/maintainability)](https://codeclimate.com/github/Forced-Alignment-and-Vowel-Extraction/new-fave/maintainability) [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
+## Where to go:
+
+[Getting Started](usage/getting_started.qmd){.btn .btn-outline-primary .btn role="button"}
+[How it Works](usage/how_it_works.qmd){.btn .btn-outline-primary .btn role="button"}
+[Customization](usage/customizing/){.btn .btn-outline-primary .btn role="button"}
+[Configuration](usage/configs){.btn .btn-outline-primary .btn role="button"}
+
 ## What is `new-fave`?
 
 `new-fave` is a tool for automating and optimizing vowel formant extraction. It is philosophically similar (and named after) [the FAVE-suite](https://github.com/JoFrhwld/FAVE). However, `new-fave` has been completely written from scratch, and has some key differences from the FAVE-suite.

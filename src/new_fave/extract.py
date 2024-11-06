@@ -12,6 +12,8 @@ from new_fave.patterns.writers import check_outputs
 from new_fave.patterns.common_processing import resolve_resources, resolve_speaker
 from new_fave.measurements.reference import ReferenceValues
 
+import numpy as np
+
 from pathlib import Path
 from glob import glob
 import click
@@ -109,7 +111,25 @@ configs = cloup.option_group(
             "Values can be the name of a built in config ('defailt) "
             "or a path to a custom config file."
         )
-    ),   
+    ), 
+    cloup.option(
+        "--f1-cutoff",
+        type = click.FLOAT,
+        default=1500,
+        show_default=True,
+        help = (
+            "The maximum considerable F1 value."
+        )
+    ), 
+    cloup.option(
+        "--f2-cutoff",
+        type = click.FLOAT,
+        default=3500,
+        show_default=True,
+        help = (
+            "The maximum considerable F2 value."
+        )
+    ),     
     cloup.option(
         "--ft-config",
         type = click.STRING,
@@ -268,6 +288,8 @@ def audio_textgrid(
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
+    f1_cutoff: float | np.float64,
+    f2_cutoff: float | np.float64,    
     logparam_reference: str|None,
     param_reference: str|None,    
     points_reference: str|None,
@@ -323,6 +345,8 @@ def audio_textgrid(
         labelset_parser=labelset_parser,
         point_heuristic=point_heuristic,
         vowel_place_config=vowel_place,
+        f1_cutoff = f1_cutoff,
+        f2_cutoff = f2_cutoff,        
         ft_config=ft_config,
         reference_values = reference_values,
         fave_aligned=fave_aligned
@@ -359,6 +383,8 @@ def corpus(
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
+    f1_cutoff: float | np.float64,
+    f2_cutoff: float | np.float64,    
     ft_config: str|None,
     logparam_reference: str|None,
     param_reference: str|None,    
@@ -422,6 +448,8 @@ def corpus(
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
             vowel_place_config=vowel_place,
+            f1_cutoff = f1_cutoff,
+            f2_cutoff = f2_cutoff,            
             ft_config=ft_config,
             reference_values = reference_values,        
             fave_aligned=fave_aligned
@@ -458,6 +486,8 @@ def subcorpora(
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
+    f1_cutoff: float | np.float64,
+    f2_cutoff: float | np.float64,    
     ft_config: str|None,
     logparam_reference: str|None,
     param_reference: str|None,    
@@ -522,6 +552,8 @@ def subcorpora(
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
             vowel_place_config=vowel_place,
+            f1_cutoff = f1_cutoff,
+            f2_cutoff = f2_cutoff,            
             ft_config=ft_config,
             reference_values = reference_values,         
             fave_aligned=fave_aligned
