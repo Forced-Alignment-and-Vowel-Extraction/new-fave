@@ -1,5 +1,5 @@
 from fasttrackpy import process_audio_textgrid
-from fasttrackpy.utils.safely import safely
+from new_fave.utils.safely import safely
 from aligned_textgrid import AlignedTextGrid
 from fave_recode.fave_recode import (run_recode, 
     get_rules, 
