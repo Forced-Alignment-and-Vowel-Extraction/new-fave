@@ -52,7 +52,7 @@ is_audio = create_audio_checker(no_magic=no_magic)
 def ask(message: str) -> bool:
     response = click.confirm(
         f"{message}",
-        default=True
+        default=False
     )
     return response
 
