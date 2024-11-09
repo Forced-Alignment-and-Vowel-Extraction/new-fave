@@ -28,6 +28,7 @@ scipy = "^1.13.1"
 cloudpickle = "^3.0.0"
 nptyping = "^2.5.0"
 librosa = "^0.10.2.post1"
+toml = "^0.10.2"
 
 
 [tool.poetry.group.docs.dependencies]
