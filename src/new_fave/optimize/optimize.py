@@ -148,7 +148,14 @@ def optimize_vowel_measures(
         chunk_winners = []
         for vm in chunk:
             chunk_winners.append(
-                np.argmax(optimize_one_measure(vm, optim_params=optim_params))
+                np.argmax(
+                    optimize_one_measure(
+                        vm, 
+                        optim_params=optim_params,
+                        f1_cutoff = f1_cutoff,
+                        f2_cutoff = f2_cutoff
+                    )
+                )
             )
             pbar.update()
         
