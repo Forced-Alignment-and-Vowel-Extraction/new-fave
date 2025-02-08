@@ -13,7 +13,8 @@ def run_optimize(
                  "param_speaker",
                  "fratio_speaker",
                  "centroid_speaker",
-                 "maxformant_speaker"
+                 "maxformant_speaker",
+                 "centroid_speaker_quadrant"
                 ],
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf,        
@@ -114,7 +115,7 @@ def optimize_vowel_measures(
     if len(vowel_measurements) <= 10:
         scope = "_global"
     
-    optim_params = [x+scope for x in optim_params]
+    optim_params = [x+scope for x in optim_params if "quadrant" not in x] 
 
     optimized = []
     to_optimize = [vm for vm in vowel_measurements]
@@ -220,6 +221,12 @@ def optimize_one_measure(
 
     if "centroid_speaker_global" in optim_params:
         prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global
+    
+    if "centroid_speaker_quadrant_global" in optim_params:
+        prob_dict["centroid_speaker_quadrant"] = vowel_measurement.cand_quadrant_logprob
+
+    if "centroid_speaker_quadrant" in optim_params:
+        prob_dict["centroid_speaker_quadrant"] = vowel_measurement.cand_quadrant_logprob
 
     
     cutoff = np.zeros(len(vowel_measurement))

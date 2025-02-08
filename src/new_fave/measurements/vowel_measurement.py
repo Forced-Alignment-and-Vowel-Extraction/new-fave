@@ -423,6 +423,61 @@ class VowelMeasurement(Sequence, PropertySetter):
 
         param_bparam = np.concatenate([params, bparams])
         return param_bparam
+    
+    @cached_property
+    def cand_quadrants(
+        self
+    )->list[tuple[str, str]]:
+        if not self.vowel_class:
+            return
+        if not self.vowel_class.vowel_system:
+            return
+        
+        centered = self.cand_centroid - self.vowel_class.vowel_system.winner_centroid_mean
+        signed = np.sign(centered)
+        quadrants = [
+            (str(a), str(b))
+            for a,b in signed[0].T
+        ]
+        return quadrants
+    
+    @cached_property
+    def winner_quadrant(
+        self
+    ) -> tuple[str, str]:
+        if not self.cand_quadrants:
+            return
+        
+        quadrant = self.cand_quadrants[self.winner_index]
+        return quadrant
+    
+    @cached_property
+    def cand_quadrant_logprob(
+        self
+    ):
+        if not self.vowel_class:
+            return np.zeros(len(self.candidates))
+        if not self.vowel_class.vowel_system:
+            return np.zeroes(len(self.candidates))
+        
+        mahals = [
+            mahalanobis(
+                cent, 
+                self.vowel_class.vowel_system.quadrant_means[quad],
+                self.vowel_class.vowel_system.quadrant_icov[quad]
+            )
+            for quad, cent in zip(self.cand_quadrants, self.cand_centroid.T)
+        ]
+
+        mahal_lp = [
+            mahal_log_prob(m, cent)
+            for m, cent in zip(mahals, self.cand_centroid.T)
+        ]
+
+        mahal_lp_array = np.concatenate(mahal_lp)
+
+        return mahal_lp_array
+
 
     @cached_property
     @MahalCacheWrap
@@ -1008,6 +1063,101 @@ class VowelClassCollection(defaultdict, PropertySetter):
             for x in vc.vowel_measurements
         ]
     
+    @cached_property
+    def winner_quadrants(
+        self
+    ) -> list[tuple[str,str]]:
+        return [
+            vm.winner_quadrant
+            for vm in self.vowel_measurements
+        ]
+    
+    @cached_property
+    def winner_quadrant_centroids(
+        self
+    )->dict:
+        quadrant_dict = defaultdict(list)
+        for q, c in zip(self.winner_quadrants, self.winner_centroid.T):
+            quadrant_dict[q].append(c.T)
+        
+        for q in quadrant_dict:
+            quadrant_dict[q] = np.concatenate(quadrant_dict[q])
+        
+        return quadrant_dict
+    
+    @cached_property
+    def quadrant_means(
+        self
+    )->dict:
+        initial_mean_dict = {
+            k: np.expand_dims(self.winner_quadrant_centroids[k].mean(axis = 0), 1)
+            for k in self.winner_quadrant_centroids
+        }
+        cov_dict = {
+            k: param_to_cov(self.winner_quadrant_centroids[k].T)
+            for k in self.winner_quadrant_centroids
+        }
+        icov_dict = {
+            k: cov_to_icov(cov_dict[k])
+            for k in cov_dict
+        }
+
+        init_mahal = {
+            k: mahalanobis(
+                self.winner_quadrant_centroids[k].T,
+                initial_mean_dict[k],
+                icov_dict[k]
+            ) < 2.447747
+            for k in self.winner_quadrant_centroids
+        }
+
+        mean_dict = {
+            k: np.expand_dims(
+                self.winner_quadrant_centroids[k][init_mahal[k],:].mean(axis = 0), 
+                1
+            )
+            for k in self.winner_quadrant_centroids
+        }
+
+        return mean_dict
+    
+    @cached_property
+    def quadrant_icov(
+        self
+    ):
+        initial_mean_dict = {
+            k: np.expand_dims(self.winner_quadrant_centroids[k].mean(axis = 0), 1)
+            for k in self.winner_quadrant_centroids
+        }
+        initial_cov_dict = {
+            k: param_to_cov(self.winner_quadrant_centroids[k].T)
+            for k in self.winner_quadrant_centroids
+        }
+        initial_icov_dict = {
+            k: cov_to_icov(initial_cov_dict[k])
+            for k in initial_cov_dict
+        }
+
+        init_mahal = {
+            k: mahalanobis(
+                self.winner_quadrant_centroids[k].T,
+                initial_mean_dict[k],
+                initial_icov_dict[k]
+            ) < 2.447747
+            for k in self.winner_quadrant_centroids
+        }
+
+        cov_dict = {
+            k: param_to_cov(self.winner_quadrant_centroids[init_mahal[k],:][k].T)
+            for k in self.winner_quadrant_centroids
+        }
+        icov_dict = {
+            k: cov_to_icov(cov_dict[k])
+            for k in cov_dict
+        }
+
+        return icov_dict
+        
     @cached_property
     def textgrid(
         self
