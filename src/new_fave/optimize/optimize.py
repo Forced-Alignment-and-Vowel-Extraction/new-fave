@@ -2,6 +2,8 @@ from new_fave.measurements.vowel_measurement import (VowelMeasurement,
     VowelClass, 
     VowelClassCollection
 )
+from new_fave.optimize.left_edge import beyond_edge
+
 from fasttrackpy.utils.safely import safely
 import numpy as np
 from tqdm import tqdm
@@ -170,7 +172,7 @@ def optimize_vowel_measures(
 #@safely(message="There was a problem optimizing a vowel.")
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params: list,
+        optim_params: list,
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf
     )->int:
@@ -255,6 +257,7 @@ def optimize_one_measure(
         cutoff+\
         f1_cutoff_prob + \
         f2_cutoff_prob +\
+        beyond_edge(vowel_measurement) + \
         vowel_measurement.reference_logprob + \
         vowel_measurement.place_penalty * 5
        

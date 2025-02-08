@@ -147,6 +147,7 @@ quartodoc:
       desc: Functions for optimizing formant measurements
       contents:
         - optimize.optimize
+        - optimize.left_edge
 
     - title: Writers
       contents:

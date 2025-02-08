@@ -949,6 +949,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
         self._file_name = None
         self._group = None
         self._corpus = None
+        self._edge_slope = None
         self._make_attrs()
 
 
@@ -976,6 +977,34 @@ class VowelClassCollection(defaultdict, PropertySetter):
     def _reset_winners(self):
         clear_cached_properties(self)
 
+    #@lru_cache(maxsize=None)
+    def edge_intercept(
+        self, 
+        slope: float = -1.5
+    ) -> float:
+        """
+        Return the intercept for a line with the given slope
+        such that it will intersect with x=y above the
+        center of the vowel space
+
+        Args:
+            slope (float, optional): 
+                The slope of the line.
+                Defaults to -1.5
+
+        Returns:
+            float: The intercept
+        """
+        if not self._edge_slope:
+            self._edge_slope = slope
+        
+        if self._edge_slope != slope:
+            self._edge_slope = slope
+            if "_edge_intercept" in self.__dict__:
+                del self.__dict__["_edge_intercept"]
+        
+        return self._edge_intercept
+
     @property
     def sorted_keys(self):
         return sorted(self, key=lambda k: -len(self[k]))
@@ -987,7 +1016,14 @@ class VowelClassCollection(defaultdict, PropertySetter):
     @corpus.setter
     def corpus(self, corp):
         self._corpus = corp
-    
+
+    @cached_property
+    def _edge_intercept(self) -> float:
+        center = self.winner_centroid_mean
+        center_x = center[1, 0]
+        intercept = center_x - (self._edge_slope * center_x)
+        return intercept
+
     @cached_property
     def winners(
         self
