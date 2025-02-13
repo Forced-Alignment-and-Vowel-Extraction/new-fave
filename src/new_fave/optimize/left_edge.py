@@ -3,7 +3,7 @@ from new_fave.measurements.vowel_measurement import VowelMeasurement
 
 def beyond_edge(
         vowel_measurement: VowelMeasurement,
-        slope: float = -1.5
+        edge_slope: float = -1.5
     ) -> np.ndarray:
     """
     For a given vowel measurement, return an 
@@ -28,11 +28,11 @@ def beyond_edge(
     edge_logprob = np.zeros(len(vowel_measurement))
     vowel_system = vowel_measurement.vowel_class.vowel_system
     
-    intercept = vowel_system.edge_intercept(slope)
+    intercept = vowel_system.edge_intercept(edge_slope)
     xes = vowel_measurement.cand_centroid[0,1,:]
     ys = vowel_measurement.cand_centroid[0,0,:]
     
-    y_max = intercept + (slope * xes)
+    y_max = intercept + (edge_slope * xes)
 
     edge_logprob[ys > y_max] = -np.inf
     return edge_logprob
