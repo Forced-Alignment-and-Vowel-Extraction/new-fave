@@ -230,8 +230,6 @@ def optimize_one_measure(
     if "centroid_speaker_global" in optim_params:
         prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global
 
-    
-    cutoff = np.zeros(len(vowel_measurement))
     f1_cutoff_prob = np.zeros(len(vowel_measurement))
     f2_cutoff_prob = np.zeros(len(vowel_measurement))
 
@@ -254,7 +252,6 @@ def optimize_one_measure(
     f2_cutoff_prob[f2_cutoff_prob > -np.inf] = 0
 
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
-        cutoff+\
         f1_cutoff_prob + \
         f2_cutoff_prob +\
         beyond_edge(vowel_measurement) + \
