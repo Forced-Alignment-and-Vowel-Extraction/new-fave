@@ -45,7 +45,8 @@ def fave_audio_textgrid(
     point_heuristic: str|None = None,
     vowel_place_config: str|None = None,
     f1_cutoff: float|np.float64 = np.inf,
-    f2_cutoff: float|np.float64 = np.inf,    
+    f2_cutoff: float|np.float64 = np.inf,
+    edge_slope: float|np.float64 = -1.5,
     ft_config: str|None = "default",
     reference_values: ReferenceValues = ReferenceValues(),
     fave_aligned: bool =  False
@@ -180,7 +181,7 @@ def fave_audio_textgrid(
 
     for vs in vowel_systems:
         logger.info(f"Optimizing {vs}")
-        run_optimize(vowel_systems[vs], f1_cutoff=f1_cutoff, f2_cutoff=f2_cutoff)
+        run_optimize(vowel_systems[vs], f1_cutoff=f1_cutoff, f2_cutoff=f2_cutoff, edge_slope=edge_slope)
 
     return vowel_systems
 
