@@ -13,7 +13,6 @@ def run_optimize(
         vowel_system: VowelClassCollection,
         optim_params: list = [
                  "param_speaker",
-                 "fratio_speaker",
                  "centroid_speaker",
                  "maxformant_speaker"
                 ],
