@@ -117,11 +117,16 @@ def optimize_vowel_measures(
             A progress bar.
     """
 
-    scope = "_byvclass"
-    if len(vowel_measurements) <= 10:
-        scope = "_global"
-    
-    optim_params = [x+scope for x in optim_params]
+    global_params = [
+        f"{x}_global" 
+        for x in optim_params
+    ]
+    vowel_params = [
+        f"{x}_byvclass"
+        for x in optim_params
+        if len(vowel_measurements) > 10
+    ]
+    optim_params = global_params + vowel_params
 
     optimized = []
     to_optimize = [vm for vm in vowel_measurements]
