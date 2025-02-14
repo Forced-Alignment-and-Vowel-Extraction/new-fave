@@ -264,6 +264,7 @@ def optimize_one_measure(
     f2_cutoff_prob[f2_cutoff_prob > -np.inf] = 0
 
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
+        vowel_measurement.cand_b2_logprob + \
         f1_cutoff_prob + \
         f2_cutoff_prob +\
         beyond_edge(vowel_measurement, edge_slope = edge_slope) + \
