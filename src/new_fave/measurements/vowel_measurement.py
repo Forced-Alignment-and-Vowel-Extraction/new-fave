@@ -485,14 +485,14 @@ class VowelMeasurement(Sequence, PropertySetter):
         """
         params = np.array(
             [
-                x.parameters
+                x.log_parameters
                 for x in self.candidates
             ]
         ).T
 
         params = params[0, :, :]
         ratios = np.diff(
-                np.log(params),
+                params,
                 axis = 0
             )
         
@@ -565,7 +565,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         f2_surv = 1 - (f2_norm/np.nanmax(f2_norm))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            f2_logprob = np.log(f2_surv)
+            f2_logprob = np.log(f2_surv) * 10
 
         return f2_logprob
 
@@ -577,7 +577,7 @@ class VowelMeasurement(Sequence, PropertySetter):
             warnings.simplefilter("ignore")
             err_norm = self.cand_error - np.nanmin(self.cand_error)
             err_surv = 1 - (err_norm/np.nanmax(err_norm))
-            err_log_prob = np.log(err_surv)
+            err_log_prob = np.log(err_surv)*100
         return err_log_prob
 
     @cached_property
