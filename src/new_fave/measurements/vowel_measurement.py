@@ -446,7 +446,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     ) -> NDArray[Shape["X, Cand"], Float]:
         params = np.array(
             [
-                x.log_parameters
+                x.log_parameters[:,0:3]
                 for x in self.candidates
             ]
         ).T
@@ -505,7 +505,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
         params = np.array([
-            x.bandwidth_parameters
+            x.bandwidth_parameters[:,0:3]
             for x in self.candidates
         ]).T
 
@@ -655,8 +655,14 @@ class VowelMeasurement(Sequence, PropertySetter):
         fol_word = self.winner.interval.within.fol.label
         pre_seg = self.winner.interval.prev.label
         fol_seg = self.winner.interval.fol.label
-        abs_pre_seg = self.winner.interval.get_tierwise(-1).label
-        abs_fol_seg = self.winner.interval.get_tierwise(1).label
+        try:
+            abs_pre_seg = self.winner.interval.get_tierwise(-1).label
+        except:
+            abs_pre_seg = None
+        try:
+            abs_fol_seg = self.winner.interval.get_tierwise(1).label
+        except:
+            abs_fol_seg = None
         stress = ""
         if hasattr(self.track.interval, "stress"):
             stress = self.track.interval.stress
@@ -977,7 +983,6 @@ class VowelClassCollection(defaultdict, PropertySetter):
     def _reset_winners(self):
         clear_cached_properties(self)
 
-    #@lru_cache(maxsize=None)
     def edge_intercept(
         self, 
         slope: float = -1.5

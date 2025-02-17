@@ -46,7 +46,7 @@ def fave_audio_textgrid(
     vowel_place_config: str|None = None,
     f1_cutoff: float|np.float64 = np.inf,
     f2_cutoff: float|np.float64 = np.inf,
-    edge_slope: float|np.float64 = -1.5,
+    edge_slope: float|np.float64 = -1,
     ft_config: str|None = "default",
     reference_values: ReferenceValues = ReferenceValues(),
     fave_aligned: bool =  False

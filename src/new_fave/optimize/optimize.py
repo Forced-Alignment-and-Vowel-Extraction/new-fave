@@ -18,7 +18,7 @@ def run_optimize(
                 ],
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf, 
-        edge_slope: float|np.float64 = -1.5,
+        edge_slope: float|np.float64 = -1,
         max_iter = 10
     ):
 
@@ -70,7 +70,7 @@ def optimize_speaker(
         optim_params: list[str],
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf,
-        edge_slope: float|np.float64 = - 1.5
+        edge_slope: float|np.float64 = - 1
 ):
     keys = speaker.sorted_keys
     total_len = 0
@@ -97,7 +97,7 @@ def optimize_vowel_measures(
         optim_params: list[str],
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf, 
-        edge_slope: float|np.float64 = -1.5,
+        edge_slope: float|np.float64 = -1,
         pbar: tqdm = None
     ):
     """
@@ -186,7 +186,7 @@ def optimize_one_measure(
         optim_params: list,
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf,
-        edge_slope: float|np.float64 = -1.5
+        edge_slope: float|np.float64 = -1
     )->int:
     """
     Optimize a single vowel measurement
