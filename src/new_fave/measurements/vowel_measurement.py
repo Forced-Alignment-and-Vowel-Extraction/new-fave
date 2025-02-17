@@ -72,6 +72,7 @@ import librosa
 from joblib import Parallel, delayed, cpu_count
 
 from collections.abc import Sequence, Iterable
+from numbers import Number
 from dataclasses import dataclass, field
 from nptyping import NDArray, Shape, Float
 
@@ -985,8 +986,8 @@ class VowelClassCollection(defaultdict, PropertySetter):
 
     def edge_intercept(
         self, 
-        slope: float = -1.5
-    ) -> float:
+        slope: Number|NDArray[Shape["Nslopes"], Float] = -1.5
+    ) -> NDArray[Shape["Nslopes"], Float]:
         """
         Return the intercept for a line with the given slope
         such that it will intersect with x=y above the
@@ -1000,10 +1001,18 @@ class VowelClassCollection(defaultdict, PropertySetter):
         Returns:
             float: The intercept
         """
-        if not self._edge_slope:
+        if self._edge_slope is None:
             self._edge_slope = slope
         
-        if self._edge_slope != slope:
+        if isinstance(slope, Number):
+            slope = np.array([slope])
+
+        diff_shape = slope.shape != self._edge_slope.shape
+        diff_values = False
+        if not diff_shape:
+            diff_values = ~np.all(slope == self._edge_slope)
+        
+        if diff_shape or diff_values:
             self._edge_slope = slope
             if "_edge_intercept" in self.__dict__:
                 del self.__dict__["_edge_intercept"]
