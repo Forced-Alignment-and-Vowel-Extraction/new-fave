@@ -2,8 +2,7 @@ import numpy as np
 from new_fave.measurements.vowel_measurement import VowelMeasurement
 
 def beyond_edge(
-        vowel_measurement: VowelMeasurement,
-        edge_slope: float = -1
+        vowel_measurement: VowelMeasurement
     ) -> np.ndarray:
     """
     For a given vowel measurement, return an 
@@ -24,15 +23,22 @@ def beyond_edge(
             below the threshold, and negative 
             infinity for candidates above it.
     """
+    
+    slopes = np.linspace(-1.5, -0.75, num = 20)
+    penalty = -0.2
 
     edge_logprob = np.zeros(len(vowel_measurement))
     vowel_system = vowel_measurement.vowel_class.vowel_system
     
-    intercept = vowel_system.edge_intercept(edge_slope)
+    intercepts = vowel_system.edge_intercept(slopes)
     xes = vowel_measurement.cand_centroid[0,1,:]
     ys = vowel_measurement.cand_centroid[0,0,:]
     
-    y_max = intercept + (edge_slope * xes)
+    for i, s in zip(intercepts, slopes):
+        y_max = i + (s * xes)
+        edge_logprob[ys > y_max] += penalty
+
+    y_max = intercepts[-1] + (slopes[-1] * xes)
 
     edge_logprob[ys > y_max] = -np.inf
     return edge_logprob
