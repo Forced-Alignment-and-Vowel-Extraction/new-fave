@@ -24,8 +24,8 @@ def beyond_edge(
             infinity for candidates above it.
     """
     
-    slopes = np.linspace(-1.5, -0.75, num = 20)
-    penalty = -0.2
+    slopes = np.linspace(-1.5, -0.75, num = 10)
+    penalty = -0.3
 
     edge_logprob = np.zeros(len(vowel_measurement))
     vowel_system = vowel_measurement.vowel_class.vowel_system
