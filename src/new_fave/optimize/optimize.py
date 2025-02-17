@@ -18,7 +18,7 @@ def run_optimize(
                 ],
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf, 
-        edge_slope: float|np.float64 = -1,
+        #edge_slope: float|np.float64 = -1,
         max_iter = 10
     ):
 
@@ -47,8 +47,8 @@ def run_optimize(
             vowel_system,
             optim_params=optim_params,
             f1_cutoff = f1_cutoff,
-            f2_cutoff = f2_cutoff,
-            edge_slope = edge_slope
+            f2_cutoff = f2_cutoff
+            #edge_slope = edge_slope
             )
         new_formants = vowel_system.winner_expanded_formants
         new_msqe = np.sqrt(((current_formants - new_formants)**2).mean())
@@ -69,8 +69,8 @@ def optimize_speaker(
         speaker: VowelClassCollection,
         optim_params: list[str],
         f1_cutoff: float|np.float64 = np.inf,
-        f2_cutoff: float|np.float64 = np.inf,
-        edge_slope: float|np.float64 = - 1
+        f2_cutoff: float|np.float64 = np.inf
+        #edge_slope: float|np.float64 = - 1
 ):
     keys = speaker.sorted_keys
     total_len = 0
@@ -85,7 +85,7 @@ def optimize_speaker(
             optim_params = optim_params,
             f1_cutoff = f1_cutoff,
             f2_cutoff = f2_cutoff, 
-            edge_slope = edge_slope,           
+            #edge_slope = edge_slope,           
             pbar = pbar
         )
     
@@ -96,8 +96,8 @@ def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params: list[str],
         f1_cutoff: float|np.float64 = np.inf,
-        f2_cutoff: float|np.float64 = np.inf, 
-        edge_slope: float|np.float64 = -1,
+        f2_cutoff: float|np.float64 = np.inf,
+        #edge_slope: float|np.float64 = -1,
         pbar: tqdm = None
     ):
     """
@@ -140,8 +140,8 @@ def optimize_vowel_measures(
                 vm, 
                 optim_params=optim_params, 
                 f1_cutoff=f1_cutoff, 
-                f2_cutoff=f2_cutoff,
-                edge_slope=edge_slope
+                f2_cutoff=f2_cutoff
+                #edge_slope=edge_slope
                 )[vm.winner_index]
             for vm in to_optimize
         ])
@@ -165,8 +165,8 @@ def optimize_vowel_measures(
                         vm, 
                         optim_params=optim_params,
                         f1_cutoff = f1_cutoff,
-                        f2_cutoff = f2_cutoff,
-                        edge_slope=edge_slope
+                        f2_cutoff = f2_cutoff
+                        #edge_slope=edge_slope
                     )
                 )
             )
@@ -186,7 +186,7 @@ def optimize_one_measure(
         optim_params: list,
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf,
-        edge_slope: float|np.float64 = -1
+        #edge_slope: float|np.float64 = -1
     )->int:
     """
     Optimize a single vowel measurement
@@ -267,7 +267,7 @@ def optimize_one_measure(
         vowel_measurement.cand_b2_logprob + \
         f1_cutoff_prob + \
         f2_cutoff_prob +\
-        beyond_edge(vowel_measurement, edge_slope = edge_slope) + \
+        beyond_edge(vowel_measurement) + \
         vowel_measurement.reference_logprob + \
         vowel_measurement.place_penalty * 5
        

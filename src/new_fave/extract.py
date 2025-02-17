@@ -130,15 +130,15 @@ configs = cloup.option_group(
             "The maximum considerable F2 value."
         )
     ),     
-    cloup.option(
-        "--edge_slope",
-        type = click.FLOAT,
-        default=-1.5,
-        show_default=True,
-        help = (
-            "The left edge slope"
-        )
-    ),     
+    # cloup.option(
+    #     "--edge_slope",
+    #     type = click.FLOAT,
+    #     default=-1.5,
+    #     show_default=True,
+    #     help = (
+    #         "The left edge slope"
+    #     )
+    # ),     
     cloup.option(
         "--ft-config",
         type = click.STRING,
@@ -299,7 +299,7 @@ def audio_textgrid(
     vowel_place: str|None,
     f1_cutoff: float | np.float64,
     f2_cutoff: float | np.float64,   
-    edge_slope: float | np.float64,       
+    #edge_slope: float | np.float64,       
     logparam_reference: str|None,
     param_reference: str|None,    
     points_reference: str|None,
@@ -357,7 +357,7 @@ def audio_textgrid(
         vowel_place_config=vowel_place,
         f1_cutoff = f1_cutoff,
         f2_cutoff = f2_cutoff,        
-        edge_slope = edge_slope,
+        #edge_slope = edge_slope,
         ft_config=ft_config,
         reference_values = reference_values,
         fave_aligned=fave_aligned
@@ -396,7 +396,7 @@ def corpus(
     vowel_place: str|None,
     f1_cutoff: float | np.float64,
     f2_cutoff: float | np.float64,
-    edge_slope: float | np.float64,        
+    #edge_slope: float | np.float64,        
     ft_config: str|None,
     logparam_reference: str|None,
     param_reference: str|None,    
@@ -462,7 +462,7 @@ def corpus(
             vowel_place_config=vowel_place,
             f1_cutoff = f1_cutoff,
             f2_cutoff = f2_cutoff,
-            edge_slope = edge_slope,                      
+            #edge_slope = edge_slope,                      
             ft_config=ft_config,
             reference_values = reference_values,        
             fave_aligned=fave_aligned
@@ -501,7 +501,7 @@ def subcorpora(
     vowel_place: str|None,
     f1_cutoff: float | np.float64,
     f2_cutoff: float | np.float64,
-    edge_slope: float | np.float64,         
+    #edge_slope: float | np.float64,         
     ft_config: str|None,
     logparam_reference: str|None,
     param_reference: str|None,    
@@ -568,7 +568,7 @@ def subcorpora(
             vowel_place_config=vowel_place,
             f1_cutoff = f1_cutoff,
             f2_cutoff = f2_cutoff,
-            edge_slope = edge_slope,                       
+            # = edge_slope,                       
             ft_config=ft_config,
             reference_values = reference_values,         
             fave_aligned=fave_aligned
