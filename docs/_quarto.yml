@@ -1,6 +1,10 @@
 project:
   type: website
+  pre-render: resource_copy.py
+  resources: /resources/*
   output-dir: _site
+  preview:
+    port: 7777  
 
 website:
   title: "new-fave"
