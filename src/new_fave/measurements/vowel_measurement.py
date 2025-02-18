@@ -592,10 +592,10 @@ class VowelMeasurement(Sequence, PropertySetter):
             return np.zeros(len(self))
         
         if self.reference_values.reference_type == "logparam":
-            params = self.logparams
+            params = self.logparams[0:3, :, :]
 
         if self.reference_values.reference_type == "param":
-            params = self.params
+            params = self.params[0:3, :, :]
 
         if self.reference_values.reference_type == "points":
             params = self.point_values
