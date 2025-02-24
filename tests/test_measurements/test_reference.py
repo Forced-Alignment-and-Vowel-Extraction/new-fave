@@ -13,7 +13,7 @@ def test_logparam_reference():
 
     assert reference.reference_type == "logparam"
     for k,v in reference.icov_dict.items():
-        assert v.shape == (15, 15), f"Wrong shape for {k}."
+        assert v.shape == (9, 9), f"Wrong shape for {k}."
 
 def test_param_reference():
     try:
@@ -23,7 +23,7 @@ def test_param_reference():
 
     assert reference.reference_type == "param"
     for k,v in reference.icov_dict.items():
-        assert v.shape == (15, 15), f"Wrong shape for {k}."    
+        assert v.shape == (9, 9), f"Wrong shape for {k}."    
 
 def test_point_reference():
     try:
