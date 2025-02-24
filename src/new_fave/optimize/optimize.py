@@ -268,8 +268,9 @@ def optimize_one_measure(
         f1_cutoff_prob + \
         f2_cutoff_prob +\
         beyond_edge(vowel_measurement) + \
-        vowel_measurement.reference_logprob + \
-        vowel_measurement.place_penalty * 5
+        vowel_measurement.place_penalty * 5 +\
+        vowel_measurement.reference_logprob 
+       
        
         
     

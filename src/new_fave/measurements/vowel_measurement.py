@@ -584,6 +584,9 @@ class VowelMeasurement(Sequence, PropertySetter):
     def reference_logprob(self):
         if self.reference_values.reference_type is None:
             return np.zeros(len(self))
+
+        if self.optimized > 2:
+            return np.zeros(len(self))        
         
         if not self.label in self.reference_values.mean_dict:
             return np.zeros(len(self))
