@@ -70,7 +70,8 @@ def resolve_resources(
     return (ruleset, parser, heuristic, fasttrack_kwargs, vowel_place_dict)
 
 def resolve_speaker(
-        speakers: int|list[int]|str|Path
+        speakers: int|list[int]|str|Path,
+        file_name: str = None
     ) -> tuple[Speaker|None, list[int]]:
     if type(speakers) is int:
         speakers = [speakers]
@@ -80,16 +81,16 @@ def resolve_speaker(
         return (None, speakers)
 
     speaker_path = None
-    if type(speakers) is str:
+    if isinstance(speakers, (str, Path)):
         speaker_path = Path(speakers)
-    if isinstance(speakers, Path):
-        speaker_path = speakers
 
     if speaker_path:
-        speaker_demo = Speaker(speaker_path)
+        speaker_demo = Speaker(speaker_path, file_name)
         speakers = speaker_demo.df["speaker_num"].to_list()
         speakers = [s-1 for s in speakers]
 
+    if len(speakers) > 0:
         return(speaker_demo, speakers)
+    
     
     return (None, [0])

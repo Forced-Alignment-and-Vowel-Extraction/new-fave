@@ -85,7 +85,7 @@ class Speaker():
         df (pl.DataFrame): 
             A polars data frame of speaker information
     """
-    def __init__(self, arg: dict|list|pl.DataFrame|Path = None):
+    def __init__(self, arg: dict|list|pl.DataFrame|Path = None, file_name: str = None):
         self.df = None
         if type(arg) is str:
             arg = Path(arg)
@@ -125,6 +125,23 @@ class Speaker():
                 .with_columns(
                     pl.col("file_name").map_elements(self._get_stem, return_dtype=pl.String)
                 )
+            )
+        
+        if file_name is not None:
+            self.df = (
+                self.df
+                .filter(
+                    pl.col("file_name") == file_name
+                )
+            )
+        
+        if self.df.shape[0] < 1:
+            warnings.warn(
+                "No value in in the file_name column "
+                "of the provided speaker file matches "
+                f"the file name {file_name}. "
+                f"Only the first speaker in {file_name} " 
+                "will be analyzed."
             )
        
     
