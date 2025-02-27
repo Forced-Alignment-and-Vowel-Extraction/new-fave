@@ -99,6 +99,7 @@ def test_bad_demographics():
     ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
 
     runner = CliRunner()
+    
 
     result = runner.invoke(
         fave_extract,
@@ -110,6 +111,11 @@ def test_bad_demographics():
             "--speakers", str(speaker_path)
         ]
     )
+
+    assert result.exit_code == 0, result.output
+    csvs = list(tmp_path.glob("*.csv"))
+    assert len(csvs) > 0    
+    tmp.cleanup()
 
 def test_subcorpora():
     tmp = tempfile.TemporaryDirectory()
