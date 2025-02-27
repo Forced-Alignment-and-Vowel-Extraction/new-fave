@@ -1,6 +1,10 @@
 project:
   type: website
+  pre-render: resource_copy.py
+  resources: /resources/*
   output-dir: _site
+  preview:
+    port: 7777  
 
 website:
   title: "new-fave"
@@ -147,6 +151,7 @@ quartodoc:
       desc: Functions for optimizing formant measurements
       contents:
         - optimize.optimize
+        - optimize.left_edge
 
     - title: Writers
       contents:

@@ -162,3 +162,5 @@ cython_debug/
 notebooks/
 .vscode/
 /.luarc.json
+/*html
+/*_files
