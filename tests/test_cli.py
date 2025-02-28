@@ -95,7 +95,7 @@ def test_bad_demographics():
 
 
     corpus_path = Path("tests", "test_data", "corpus")
-    speaker_path = Path("tests", "test_data", "corpus", "speakers.csv")
+    speaker_path = Path("tests", "test_data", "subcorpora", "bad_demographics.csv")
     ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
 
     runner = CliRunner()
