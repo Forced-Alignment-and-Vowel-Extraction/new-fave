@@ -2,6 +2,8 @@ from new_fave.measurements.vowel_measurement import (VowelMeasurement,
     VowelClass, 
     VowelClassCollection
 )
+from new_fave.optimize.left_edge import beyond_edge
+
 from fasttrackpy.utils.safely import safely
 import numpy as np
 from tqdm import tqdm
@@ -11,12 +13,12 @@ def run_optimize(
         vowel_system: VowelClassCollection,
         optim_params: list = [
                  "param_speaker",
-                 "fratio_speaker",
                  "centroid_speaker",
                  "maxformant_speaker"
                 ],
         f1_cutoff: float|np.float64 = np.inf,
-        f2_cutoff: float|np.float64 = np.inf,        
+        f2_cutoff: float|np.float64 = np.inf, 
+        #edge_slope: float|np.float64 = -1,
         max_iter = 10
     ):
 
@@ -46,6 +48,7 @@ def run_optimize(
             optim_params=optim_params,
             f1_cutoff = f1_cutoff,
             f2_cutoff = f2_cutoff
+            #edge_slope = edge_slope
             )
         new_formants = vowel_system.winner_expanded_formants
         new_msqe = np.sqrt(((current_formants - new_formants)**2).mean())
@@ -67,6 +70,7 @@ def optimize_speaker(
         optim_params: list[str],
         f1_cutoff: float|np.float64 = np.inf,
         f2_cutoff: float|np.float64 = np.inf
+        #edge_slope: float|np.float64 = - 1
 ):
     keys = speaker.sorted_keys
     total_len = 0
@@ -80,7 +84,8 @@ def optimize_speaker(
             vowel_measurements=speaker[k],
             optim_params = optim_params,
             f1_cutoff = f1_cutoff,
-            f2_cutoff = f2_cutoff,            
+            f2_cutoff = f2_cutoff, 
+            #edge_slope = edge_slope,           
             pbar = pbar
         )
     
@@ -91,7 +96,8 @@ def optimize_vowel_measures(
         vowel_measurements: list[VowelMeasurement],
         optim_params: list[str],
         f1_cutoff: float|np.float64 = np.inf,
-        f2_cutoff: float|np.float64 = np.inf,       
+        f2_cutoff: float|np.float64 = np.inf,
+        #edge_slope: float|np.float64 = -1,
         pbar: tqdm = None
     ):
     """
@@ -110,11 +116,16 @@ def optimize_vowel_measures(
             A progress bar.
     """
 
-    scope = "_byvclass"
-    if len(vowel_measurements) <= 10:
-        scope = "_global"
-    
-    optim_params = [x+scope for x in optim_params]
+    global_params = [
+        f"{x}_global" 
+        for x in optim_params
+    ]
+    vowel_params = [
+        f"{x}_byvclass"
+        for x in optim_params
+        if len(vowel_measurements) > 10
+    ]
+    optim_params = global_params + vowel_params
 
     optimized = []
     to_optimize = [vm for vm in vowel_measurements]
@@ -130,6 +141,7 @@ def optimize_vowel_measures(
                 optim_params=optim_params, 
                 f1_cutoff=f1_cutoff, 
                 f2_cutoff=f2_cutoff
+                #edge_slope=edge_slope
                 )[vm.winner_index]
             for vm in to_optimize
         ])
@@ -154,6 +166,7 @@ def optimize_vowel_measures(
                         optim_params=optim_params,
                         f1_cutoff = f1_cutoff,
                         f2_cutoff = f2_cutoff
+                        #edge_slope=edge_slope
                     )
                 )
             )
@@ -170,9 +183,10 @@ def optimize_vowel_measures(
 #@safely(message="There was a problem optimizing a vowel.")
 def optimize_one_measure(
         vowel_measurement: VowelMeasurement,
-         optim_params: list,
+        optim_params: list,
         f1_cutoff: float|np.float64 = np.inf,
-        f2_cutoff: float|np.float64 = np.inf
+        f2_cutoff: float|np.float64 = np.inf,
+        #edge_slope: float|np.float64 = -1
     )->int:
     """
     Optimize a single vowel measurement
@@ -228,8 +242,6 @@ def optimize_one_measure(
     if "centroid_speaker_global" in optim_params:
         prob_dict["centroid_speaker_global"] = vowel_measurement.cand_centroid_logprob_speaker_global
 
-    
-    cutoff = np.zeros(len(vowel_measurement))
     f1_cutoff_prob = np.zeros(len(vowel_measurement))
     f2_cutoff_prob = np.zeros(len(vowel_measurement))
 
@@ -252,11 +264,13 @@ def optimize_one_measure(
     f2_cutoff_prob[f2_cutoff_prob > -np.inf] = 0
 
     joint_prob = vowel_measurement.cand_error_logprob_vm + \
-        cutoff+\
+        vowel_measurement.cand_b2_logprob + \
         f1_cutoff_prob + \
         f2_cutoff_prob +\
-        vowel_measurement.reference_logprob + \
-        vowel_measurement.place_penalty * 5
+        beyond_edge(vowel_measurement) + \
+        vowel_measurement.place_penalty * 5 +\
+        vowel_measurement.reference_logprob 
+       
        
         
     

@@ -104,6 +104,72 @@ def test_winner_reset():
 
     assert ~np.isclose(initial_mean, new_mean)
 
+## Vowel Class Collection
+
+class TestVowelClassCollection():
+
+    def test_left_edge(self):
+        """
+        Test that the cached intercept updates when
+        the slope changes.
+        """
+        speaker_keys = [s for s in speakers]
+        first_speaker = speaker_keys[0]
+        speaker:VowelClassCollection = speakers[first_speaker]
+
+        first_intercept = speaker.edge_intercept(-1)
+        second_intercept = speaker.edge_intercept(-3)
+
+        assert first_intercept != second_intercept
+
+    def test_left_edge_update (self):
+        """
+        Check that the cached intercept updates
+        when winners are updated.
+        """
+        speaker_keys = [s for s in speakers]
+        first_speaker = speaker_keys[0]
+        speaker:VowelClassCollection = speakers[first_speaker]
+        
+        first_intercept = speaker.edge_intercept(-1)
+
+        # guarantee that the centroid will change
+        winner_indices = [
+            vm.winner_index + 1
+            if vm.winner_index < len(vm.candidates)-1
+            else vm.winner_index-1
+            for vm in speaker.vowel_measurements
+        ]
+
+        for vm, idx in zip(speaker.vowel_measurements, winner_indices):
+            vm.winner = idx
+
+        second_intercept = speaker.edge_intercept(-1)
+        assert first_intercept != second_intercept
+
+    def test_factories(self):
+        """
+        Check that the cached intercept updates
+        when winners are updated.
+        """
+
+        speaker_keys = [s for s in speakers]
+        first_speaker = speaker_keys[0]
+        speaker:VowelClassCollection = speakers[first_speaker]
+
+        assert speaker.winner_param_mean is not None
+        assert speaker.winner_param_icov is not None        
+        assert speaker.winner_squareparam_mean is not None
+        assert speaker.winner_squareparam_icov is not None        
+        assert speaker.winner_param_mean is not None
+        assert speaker.winner_param_icov is not None        
+        assert speaker.winner_centroid_mean is not None
+        assert speaker.winner_centroid_icov is not None        
+        assert speaker.winner_fratio_mean is not None
+        assert speaker.winner_fratio_icov is not None
+        assert speaker.winner_maxformant_mean is not None
+        assert speaker.winner_maxformant_icov is not None        
+        
 ## Vowel Class
 
 def test_vowel_class_setting():
@@ -207,7 +273,7 @@ def test_track_df():
 
     col_names = [
         "F1", "F2", "F3", "F1_s", "F2_s", "F3_s",
-        'error', 'time', 'max_formant', 'n_formant',
+        'error', 'time', 'rel_time', 'prop_time', 'max_formant', 'n_formant',
         'smooth_method', 'file_name', 'id', 'group',
         'label', 'speaker_num', 'word', 'stress', 'dur',
         'pre_word', 'fol_word', 'pre_seg', 'fol_seg',

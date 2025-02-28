@@ -24,9 +24,12 @@ from new_fave.utils.local_resources import (recodes,
 from new_fave.utils.fasttrack_config import read_fasttrack
 from new_fave.patterns.common_processing import resolve_resources, resolve_speaker
 from new_fave.speaker.speaker import Speaker
+import polars as pl
 import numpy as np
 import re
 from typing import Literal
+
+import warnings
 
 from pathlib import Path
 import logging
@@ -45,7 +48,8 @@ def fave_audio_textgrid(
     point_heuristic: str|None = None,
     vowel_place_config: str|None = None,
     f1_cutoff: float|np.float64 = np.inf,
-    f2_cutoff: float|np.float64 = np.inf,    
+    f2_cutoff: float|np.float64 = np.inf,
+    #edge_slope: float|np.float64 = -1,
     ft_config: str|None = "default",
     reference_values: ReferenceValues = ReferenceValues(),
     fave_aligned: bool =  False
@@ -108,7 +112,9 @@ def fave_audio_textgrid(
         vowel_place_config = vowel_place_config
     )
 
-    speaker_demo, speakers = resolve_speaker(speakers)
+    file_name = Path(textgrid_path).stem
+
+    speaker_demo, speakers = resolve_speaker(speakers, file_name=file_name)
 
     logger.info("FastTrack Processing")
     if fave_aligned:
@@ -131,8 +137,36 @@ def fave_audio_textgrid(
                 f"but textgrid has only {len(atg)} speakers."
             )
         )
-    
+
     logger.info("Identifying target speakers.")
+
+    extra_speakers = [
+        sp 
+        for sp in speakers
+        if sp >= len(atg)
+    ]
+
+    if len(extra_speakers) > 0:
+        extra_df = (
+            speaker_demo.df
+            .filter(
+                pl.col("speaker_num").is_in(extra_speakers)
+            )
+        )
+        speakers = [
+            sp
+            for sp in speakers
+            if sp < len(atg)
+        ]
+        warnings.warn(
+            ( 
+                "Some values of speaker_num were greater than "
+                "the number of TextGrid tiers.\n"
+                f"{extra_df}"
+
+            )
+        )        
+            
     target_tgs = [tg_names[i] for i in speakers]
     target_candidates = [
         cand 
