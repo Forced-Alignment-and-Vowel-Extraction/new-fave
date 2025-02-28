@@ -252,7 +252,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         self.candidates = self.track.candidates
         self.n_formants = self.track.n_formants
         self._label = None
-        self.interval = self.track.interval
+        self.interval:SequenceInterval = self.track.interval
         self.group = self.track.group
         self.id = self.track.id
         self.file_name = self.track.file_name
@@ -446,7 +446,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     ) -> NDArray[Shape["X, Cand"], Float]:
         params = np.array(
             [
-                x.log_parameters
+                x.log_parameters[:,0:3]
                 for x in self.candidates
             ]
         ).T
@@ -485,14 +485,14 @@ class VowelMeasurement(Sequence, PropertySetter):
         """
         params = np.array(
             [
-                x.parameters
+                x.log_parameters
                 for x in self.candidates
             ]
         ).T
 
         params = params[0, :, :]
         ratios = np.diff(
-                np.log(params),
+                params,
                 axis = 0
             )
         
@@ -505,7 +505,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         self
     ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
         params = np.array([
-            x.bandwidth_parameters
+            x.bandwidth_parameters[:,0:3]
             for x in self.candidates
         ]).T
 
@@ -565,7 +565,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         f2_surv = 1 - (f2_norm/np.nanmax(f2_norm))
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
-            f2_logprob = np.log(f2_surv)
+            f2_logprob = np.log(f2_surv) * 10
 
         return f2_logprob
 
@@ -577,13 +577,16 @@ class VowelMeasurement(Sequence, PropertySetter):
             warnings.simplefilter("ignore")
             err_norm = self.cand_error - np.nanmin(self.cand_error)
             err_surv = 1 - (err_norm/np.nanmax(err_norm))
-            err_log_prob = np.log(err_surv)
+            err_log_prob = np.log(err_surv)*100
         return err_log_prob
 
     @cached_property
     def reference_logprob(self):
         if self.reference_values.reference_type is None:
             return np.zeros(len(self))
+
+        if self.optimized > 2:
+            return np.zeros(len(self))        
         
         if not self.label in self.reference_values.mean_dict:
             return np.zeros(len(self))
@@ -592,10 +595,10 @@ class VowelMeasurement(Sequence, PropertySetter):
             return np.zeros(len(self))
         
         if self.reference_values.reference_type == "logparam":
-            params = self.logparams
+            params = self.logparams[0:3, :, :]
 
         if self.reference_values.reference_type == "param":
-            params = self.params
+            params = self.params[0:3, :, :]
 
         if self.reference_values.reference_type == "points":
             params = self.point_values
@@ -655,8 +658,14 @@ class VowelMeasurement(Sequence, PropertySetter):
         fol_word = self.winner.interval.within.fol.label
         pre_seg = self.winner.interval.prev.label
         fol_seg = self.winner.interval.fol.label
-        abs_pre_seg = self.winner.interval.get_tierwise(-1).label
-        abs_fol_seg = self.winner.interval.get_tierwise(1).label
+        try:
+            abs_pre_seg = self.winner.interval.get_tierwise(-1).label
+        except:
+            abs_pre_seg = None
+        try:
+            abs_fol_seg = self.winner.interval.get_tierwise(1).label
+        except:
+            abs_fol_seg = None
         stress = ""
         if hasattr(self.track.interval, "stress"):
             stress = self.track.interval.stress
@@ -702,6 +711,29 @@ class VowelMeasurement(Sequence, PropertySetter):
             )
         )
 
+        if df["time"].min() < self.interval.start:
+            half = df["time"].min()/2
+            df = df.with_columns(
+                pl.col("time") + self.interval.start - half,
+            )
+
+        df = df.with_columns(
+            (pl.col("time") - self.interval.start).alias("rel_time")
+        ).with_columns(
+            (
+                pl.col("rel_time")/
+                (self.interval.end-self.interval.start)
+            )
+             .alias("prop_time")
+        )
+        
+        cols = df.columns
+        cols.remove("rel_time")
+        cols.remove("prop_time")
+        time_idx = cols.index("time")
+        cols.insert(time_idx+1, "prop_time")
+        cols.insert(time_idx+1, "rel_time")
+        df = df.select(cols)
         df = df.join(self.vm_context, on = "id")
 
         return df
@@ -746,6 +778,12 @@ class VowelMeasurement(Sequence, PropertySetter):
             ),
             point_heuristic = pl.lit(self.heuristic.heuristic)
         )
+
+        if df["time"].min() < self.interval.start:
+            half = df["time"].min()/2
+            df = df.with_columns(
+                pl.col("time") + self.interval.start - half
+            )
 
         df = df.join(self.vm_context, on = "id")
 
@@ -949,6 +987,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
         self._file_name = None
         self._group = None
         self._corpus = None
+        self._edge_slope = None
         self._make_attrs()
 
 
@@ -976,6 +1015,41 @@ class VowelClassCollection(defaultdict, PropertySetter):
     def _reset_winners(self):
         clear_cached_properties(self)
 
+    def edge_intercept(
+        self, 
+        slope: int|float|NDArray[Shape["Nslopes"], Float] = -1.5
+    ) -> NDArray[Shape["Nslopes"], Float]:
+        """
+        Return the intercept for a line with the given slope
+        such that it will intersect with x=y above the
+        center of the vowel space
+
+        Args:
+            slope (float, optional): 
+                The slope of the line.
+                Defaults to -1.5
+
+        Returns:
+            float: The intercept
+        """
+        if isinstance(slope, (int, float)):
+            slope = np.array([slope])
+
+        if self._edge_slope is None:
+            self._edge_slope = slope
+        
+        diff_shape = slope.shape != self._edge_slope.shape
+        diff_values = False
+        if not diff_shape:
+            diff_values = ~np.all(slope == self._edge_slope)
+        
+        if diff_shape or diff_values:
+            self._edge_slope = slope
+            if "_edge_intercept" in self.__dict__:
+                del self.__dict__["_edge_intercept"]
+        
+        return self._edge_intercept
+
     @property
     def sorted_keys(self):
         return sorted(self, key=lambda k: -len(self[k]))
@@ -987,7 +1061,14 @@ class VowelClassCollection(defaultdict, PropertySetter):
     @corpus.setter
     def corpus(self, corp):
         self._corpus = corp
-    
+
+    @cached_property
+    def _edge_intercept(self) -> float:
+        center = self.winner_centroid_mean
+        center_x = center[1, 0]
+        intercept = center_x - (self._edge_slope * center_x)
+        return intercept
+
     @cached_property
     def winners(
         self

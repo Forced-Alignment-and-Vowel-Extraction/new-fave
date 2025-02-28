@@ -53,6 +53,7 @@ def test_corpus():
 
 
     corpus_path = Path("tests", "test_data", "corpus")
+    speaker_path = Path("tests", "test_data", "corpus", "speakers.csv")
     ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
 
     runner = CliRunner()
@@ -63,7 +64,8 @@ def test_corpus():
             "corpus",
             str(corpus_path),
             "--destination", tmp.name,
-            "--ft-config", str(ft_config)
+            "--ft-config", str(ft_config),
+            "--speakers", str(speaker_path)
         ]
     )
 
@@ -86,6 +88,34 @@ def test_corpus():
     assert result.exit_code == 0, result.output
     tmp.cleanup()
 
+def test_bad_demographics():
+    pass
+    tmp = tempfile.TemporaryDirectory()
+    tmp_path = Path(tmp.name)
+
+
+    corpus_path = Path("tests", "test_data", "corpus")
+    speaker_path = Path("tests", "test_data", "subcorpora", "bad_demographics.csv")
+    ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
+
+    runner = CliRunner()
+    
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "corpus",
+            str(corpus_path),
+            "--destination", tmp.name,
+            "--ft-config", str(ft_config),
+            "--speakers", str(speaker_path)
+        ]
+    )
+
+    assert result.exit_code == 0, result.output
+    csvs = list(tmp_path.glob("*.csv"))
+    assert len(csvs) > 0    
+    tmp.cleanup()
 
 def test_subcorpora():
     tmp = tempfile.TemporaryDirectory()
@@ -94,6 +124,7 @@ def test_subcorpora():
 
     corpus_path1 = Path("tests", "test_data", "subcorpora", "josef-fruehwald"),
     corpus_path2 = Path("tests", "test_data", "subcorpora", "KY25A")
+    speaker = Path("tests", "test_data", "subcorpora", "demographics.csv")
     ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
 
     runner = CliRunner()
@@ -105,7 +136,8 @@ def test_subcorpora():
             str(corpus_path1),
             str(corpus_path2),
             "--destination", tmp.name,
-            "--ft-config", str(ft_config)
+            "--ft-config", str(ft_config),
+            "--speakers", str(speaker)
         ]
     )
 

@@ -81,6 +81,7 @@ class ReferenceValues:
             .select(
                 ["id", "file_name", "group", "label","F1", "F2","F3", "param"]
             )
+            .filter(pl.col("param") < 3)
             .melt(
                 id_vars=["id", "file_name", "group", "label", "param"]
             )
