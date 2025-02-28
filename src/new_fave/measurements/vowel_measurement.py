@@ -252,7 +252,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         self.candidates = self.track.candidates
         self.n_formants = self.track.n_formants
         self._label = None
-        self.interval = self.track.interval
+        self.interval:SequenceInterval = self.track.interval
         self.group = self.track.group
         self.id = self.track.id
         self.file_name = self.track.file_name
@@ -702,6 +702,29 @@ class VowelMeasurement(Sequence, PropertySetter):
             )
         )
 
+        if df["time"].min() < self.interval.start:
+            half = df["time"].min()/2
+            df = df.with_columns(
+                pl.col("time") + self.interval.start - half,
+            )
+
+        df = df.with_columns(
+            (pl.col("time") - self.interval.start).alias("rel_time")
+        ).with_columns(
+            (
+                pl.col("rel_time")/
+                (self.interval.end-self.interval.start)
+            )
+             .alias("prop_time")
+        )
+        
+        cols = df.columns
+        cols.remove("rel_time")
+        cols.remove("prop_time")
+        time_idx = cols.index("time")
+        cols.insert(time_idx+1, "prop_time")
+        cols.insert(time_idx+1, "rel_time")
+        df = df.select(cols)
         df = df.join(self.vm_context, on = "id")
 
         return df
@@ -746,6 +769,12 @@ class VowelMeasurement(Sequence, PropertySetter):
             ),
             point_heuristic = pl.lit(self.heuristic.heuristic)
         )
+
+        if df["time"].min() < self.interval.start:
+            half = df["time"].min()/2
+            df = df.with_columns(
+                pl.col("time") + self.interval.start - half
+            )
 
         df = df.join(self.vm_context, on = "id")
 
