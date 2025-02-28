@@ -273,7 +273,7 @@ def test_track_df():
 
     col_names = [
         "F1", "F2", "F3", "F1_s", "F2_s", "F3_s",
-        'error', 'time', 'max_formant', 'n_formant',
+        'error', 'time', 'rel_time', 'prop_time', 'max_formant', 'n_formant',
         'smooth_method', 'file_name', 'id', 'group',
         'label', 'speaker_num', 'word', 'stress', 'dur',
         'pre_word', 'fol_word', 'pre_seg', 'fol_seg',
