@@ -82,13 +82,13 @@ class ReferenceValues:
                 ["id", "file_name", "group", "label","F1", "F2","F3", "param"]
             )
             .filter(pl.col("param") < 3)
-            .melt(
-                id_vars=["id", "file_name", "group", "label", "param"]
-            )
+            .unpivot(
+                index = ["id", "file_name", "group", "label", "param"]
+                )
             .collect()
             .pivot(
-                columns=["param", "variable"],
-                index = ["id", "file_name", "label"],
+                on=["param", "variable"],
+                index = ["id", "file_name", "group", "label"],
                 values="value",
                 sort_columns = True,
                 separator="_"
