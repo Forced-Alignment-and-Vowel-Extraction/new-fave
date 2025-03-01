@@ -22,18 +22,6 @@ VowelClassCollection --o VowelClass
 VowelClass --o VowelMeasurement
 ```
 
-When a class has a numpy array for an attribute, its 
-type is annotated using [nptyping](https://pypi.org/project/nptyping/)
-to provide the expected dimensions. For example:
-
-```
-cand_param (NDArray[Shape["Param, Formant, Cand"], Float])
-```
-
-This indicates that `cand_param` is a three dimensional array.
-The first dimension is `"Param"` (the number of DCT parameters)
-long, the second is `"Formant"` (the number of formants) long, 
-and the third is `"Cand"` (the number of candidates) long.
 """
 import fasttrackpy
 from fasttrackpy import CandidateTracks, OneTrack
@@ -73,7 +61,6 @@ from joblib import Parallel, delayed, cpu_count
 
 from collections.abc import Sequence, Iterable
 from dataclasses import dataclass, field
-from nptyping import NDArray, Shape, Float
 
 from functools import lru_cache, cached_property
 
@@ -357,7 +344,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @property
     def expanded_formants(
         self
-    )->NDArray[Shape['N, Formant, Cand'], Float]:
+    )->np.ndarray:
         if self._expanded_formants is not None:
             return self._expanded_formants
 
@@ -428,7 +415,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @MahalCacheWrap
     def cand_param(
         self
-    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+    ) -> np.ndarray:
         params = np.array(
             [
                 x.log_parameters
@@ -443,7 +430,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @MahalCacheWrap
     def cand_squareparam(
         self
-    ) -> NDArray[Shape["X, Cand"], Float]:
+    ) -> np.ndarray:
         params = np.array(
             [
                 x.log_parameters[:,0:3]
@@ -459,7 +446,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @MahalCacheWrap
     def cand_centroid(
         self
-    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+    ) -> np.ndarray:
         params = np.array(
             [
                 x.log_parameters
@@ -475,7 +462,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @MahalCacheWrap
     def cand_fratio(
         self
-    ) -> NDArray[Shape["1, Formant"], Float]:
+    ) -> np.ndarray:
         """The formant ratios
 
         Returns:
@@ -503,7 +490,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     #@MahalCacheWrap
     def cand_bparam(
         self
-    ) -> NDArray[Shape["Param, Formant, Cand"], Float]:
+    ) -> np.ndarray:
         params = np.array([
             x.bandwidth_parameters[:,0:3]
             for x in self.candidates
@@ -518,7 +505,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @MahalCacheWrap
     def cand_maxformant(
         self
-    ) -> NDArray[Shape["1, 1, Cand"], Float]:
+    ) -> np.ndarray:
         mf = np.array([[
             c.maximum_formant
             for c in self.candidates
@@ -530,7 +517,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @cached_property
     def cand_error(
         self
-    ) -> NDArray[Shape["Cand"], Float]:
+    ) -> np.ndarray:
          with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             return np.array([
@@ -541,7 +528,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @cached_property
     def place_penalty(
         self
-    ) -> NDArray[Shape["Cand"], Float]:
+    ) -> np.ndarray:
         if not self.place in ["front", "back"]:
             return np.zeros(shape = self.cand_maxformant.shape).squeeze()
 
@@ -572,7 +559,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @property
     def cand_error_logprob_vm(
         self
-    ) -> NDArray[Shape["Cand"], Float]:
+    ) -> np.ndarray:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             err_norm = self.cand_error - np.nanmin(self.cand_error)
@@ -1017,8 +1004,8 @@ class VowelClassCollection(defaultdict, PropertySetter):
 
     def edge_intercept(
         self, 
-        slope: int|float|NDArray[Shape["Nslopes"], Float] = -1.5
-    ) -> NDArray[Shape["Nslopes"], Float]:
+        slope: int|float|np.ndarray = -1.5
+    ) -> np.ndarray:
         """
         Return the intercept for a line with the given slope
         such that it will intersect with x=y above the
@@ -1124,7 +1111,7 @@ class VowelClassCollection(defaultdict, PropertySetter):
     @cached_property
     def winner_expanded_formants(
         self
-    ) -> NDArray[Shape["20, FormantN"], Float]:
+    ) -> np.ndarray:
         formants = np.hstack(
             [
                 x.expanded_formants[:, :, x.winner_index]
@@ -1252,7 +1239,7 @@ class SpeakerCollection(defaultdict, PropertySetter):
     @cached_property
     def winner_param(
         self
-    ) -> defaultdict[str, NDArray[Shape["Param, Formant, N"], Float]]:
+    ) -> defaultdict[str, np.ndarray]:
         out = defaultdict(blank_list)
         for vowel in self.vowel_winners:
             params = np.array(
@@ -1268,7 +1255,7 @@ class SpeakerCollection(defaultdict, PropertySetter):
     @cached_property
     def winner_param_mean(
         self
-    ) -> defaultdict[str, NDArray[Shape["FormantParam, 1"], Float]]:
+    ) -> defaultdict[str, np.ndarray]:
         out = defaultdict(lambda: np.array([]))
 
         for vowel in self.winner_param:
@@ -1282,7 +1269,7 @@ class SpeakerCollection(defaultdict, PropertySetter):
     @property
     def winner_param_cov(
         self
-    )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:
+    )->defaultdict[str,np.ndarray]:
         out = defaultdict(lambda: np.array([]))
 
         for vowel in  self.winner_param:
@@ -1294,7 +1281,7 @@ class SpeakerCollection(defaultdict, PropertySetter):
     @cached_property
     def winner_param_icov(
         self
-    )->defaultdict[str, NDArray[Shape["FormantParam, FormantParam"], Float]]:
+    )->defaultdict[str, np.ndarray]:
         out = defaultdict(lambda: np.array([]))
 
         for vowel in self.winner_param_cov:
