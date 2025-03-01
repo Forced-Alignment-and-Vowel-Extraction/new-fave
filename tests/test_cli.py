@@ -89,7 +89,6 @@ def test_corpus():
     tmp.cleanup()
 
 def test_bad_demographics():
-    pass
     tmp = tempfile.TemporaryDirectory()
     tmp_path = Path(tmp.name)
 
@@ -116,6 +115,32 @@ def test_bad_demographics():
     csvs = list(tmp_path.glob("*.csv"))
     assert len(csvs) > 0    
     tmp.cleanup()
+
+def test_add_rules():
+    tmp = tempfile.TemporaryDirectory()
+    tmp_path = Path(tmp.name)
+
+
+    corpus_path = Path("tests", "test_data", "corpus")
+    more_rule_path = Path("tests", "test_data", "more_rules.yml")
+
+    runner = CliRunner()
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "corpus",
+            str(corpus_path),
+            "--destination", tmp.name,
+           "--add-rules", more_rule_path
+        ]
+    )
+
+    assert result.exit_code == 0, result.output
+    csvs = list(tmp_path.glob("*.csv"))
+    assert len(csvs) > 0    
+    tmp.cleanup()
+    
 
 def test_subcorpora():
     tmp = tempfile.TemporaryDirectory()

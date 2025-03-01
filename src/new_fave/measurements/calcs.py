@@ -1,6 +1,5 @@
 import numpy as np
-import nptyping as npt
-from nptyping import NDArray, Shape, Float
+import numpy.typing as npt
 from typing import Any
 import scipy.stats as stats
 import warnings
@@ -11,10 +10,10 @@ if TYPE_CHECKING:
     from new_fave.measurements.vowel_measurement import VowelMeasurement
 
 def mahalanobis(
-        params:NDArray[Shape['Dim, Cand'], Float], 
-        param_means:NDArray[Shape['Dim, 1'], Float], 
-        inv_cov:NDArray[Shape['Dim, Dim'], Float]
-    )->NDArray[Shape["Cand"], Float]:
+        params:np.ndarray,
+        param_means:np.ndarray,
+        inv_cov:np.ndarray,
+    )->np.ndarray :
     """
     Calculates the Mahalanobis distance.
 
@@ -45,9 +44,9 @@ def mahalanobis(
     return mahal
 
 def mahal_log_prob(
-        mahals: NDArray[Shape["Cand"], Float], 
-        params: NDArray[Shape["*, *, ..."], Float]
-    ) -> NDArray[Shape["Cand"], Float]:
+        mahals:np.ndarray, 
+        params: np.ndarray
+    ) -> np.ndarray:
     """
     
     Args:
@@ -72,8 +71,8 @@ def mahal_log_prob(
 
 
 def param_to_cov(
-    params:NDArray[Shape["*, *, ..."], Float]
-) -> NDArray[Shape["X, X"], Float]:
+    params:np.ndarray
+) -> np.ndarray:
     """
     Calculates the covariance matrix of the given parameters.
 
@@ -96,8 +95,8 @@ def param_to_cov(
     return param_cov
 
 def cov_to_icov(
-    cov_mat: NDArray[Shape["X, X"], Float]
-) -> NDArray[Shape["X, X"], Float]:
+    cov_mat:np.ndarray
+) -> np.ndarray:
     """
     Calculates the inverse covariance matrix of the given covariance matrix.
 

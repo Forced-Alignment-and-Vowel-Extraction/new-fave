@@ -1,0 +1,9 @@
+- rule: o lexical fix
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AO
+    - attribute: within.label
+      relation: ==
+      set: CHOCOLATE      
+  return: o
