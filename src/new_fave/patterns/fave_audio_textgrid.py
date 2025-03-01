@@ -44,6 +44,7 @@ def fave_audio_textgrid(
     include_overlaps: bool = True,
     no_optimize:bool = False,
     recode_rules: str|None = None,
+    add_rules: str|None = None,
     labelset_parser: str|None = None,
     point_heuristic: str|None = None,
     vowel_place_config: str|None = None,
@@ -111,6 +112,11 @@ def fave_audio_textgrid(
         ft_config = ft_config, 
         vowel_place_config = vowel_place_config
     )
+
+    if add_rules is not None:
+        add_rules = Path(add_rules)
+        new_rules = RuleSet(rule_path=add_rules)
+        ruleset = new_rules+ruleset
 
     file_name = Path(textgrid_path).stem
 

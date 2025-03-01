@@ -5,7 +5,7 @@ from new_fave import (fave_audio_textgrid,
     fave_subcorpora, 
     write_data
 )
-from fasttrackpy.patterns.just_audio import create_audio_checker
+from fasttrackpy.patterns.just_audio import is_audio
 from fasttrackpy.patterns.corpus import get_audio_files, get_corpus, CorpusPair
 from fasttrackpy.utils.safely import safely, filter_nones
 from new_fave.patterns.writers import check_outputs
@@ -36,18 +36,6 @@ import logging
 import sys
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
-try:
-    import magic
-    no_magic = False
-except:
-    warnings.warn("libmagic not found. "\
-                "Some audio file types won't be discovered by fasttrack. "\
-                "(mp3, ogg, ...)")
-    import sndhdr
-    from sndhdr import SndHeaders
-    no_magic = True
-
-is_audio = create_audio_checker(no_magic=no_magic)
 
 def ask(message: str) -> bool:
     response = click.confirm(
@@ -79,6 +67,16 @@ configs = cloup.option_group(
             "to a custom recoding yml file."
         )
     ),
+    cloup.option(
+        "--add-rules",
+        type=click.STRING,
+        default=None,
+        show_default=True,
+        help=(
+            "Additional recoding rules to be added to the "
+            "provided ruleset. New rules will be run first."
+        )
+    ),    
     cloup.option(
         "--labelset-parser",
         type = click.STRING,
@@ -294,6 +292,7 @@ def audio_textgrid(
     exclude_overlaps: bool,
     no_optimize:bool,
     recode_rules: str|None,
+    add_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
@@ -352,6 +351,7 @@ def audio_textgrid(
         include_overlaps=include_overlaps,
         no_optimize=no_optimize,
         recode_rules=recode_rules,
+        add_rules=add_rules,
         labelset_parser=labelset_parser,
         point_heuristic=point_heuristic,
         vowel_place_config=vowel_place,
@@ -391,6 +391,7 @@ def corpus(
     exclude_overlaps: bool,
     no_optimize:bool,    
     recode_rules: str|None,
+    add_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
@@ -457,6 +458,7 @@ def corpus(
             include_overlaps=include_overlaps,
             no_optimize=no_optimize,
             recode_rules=recode_rules,
+            add_rules=add_rules,
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
             vowel_place_config=vowel_place,
@@ -496,6 +498,7 @@ def subcorpora(
     exclude_overlaps: bool,
     no_optimize:bool,    
     recode_rules: str|None,
+    add_rules: str|None,
     labelset_parser: str|None,
     point_heuristic: str|None,
     vowel_place: str|None,
@@ -563,6 +566,7 @@ def subcorpora(
             include_overlaps=include_overlaps,
             no_optimize=no_optimize,
             recode_rules=recode_rules,
+            add_rules=add_rules,
             labelset_parser=labelset_parser,
             point_heuristic=point_heuristic,
             vowel_place_config=vowel_place,
