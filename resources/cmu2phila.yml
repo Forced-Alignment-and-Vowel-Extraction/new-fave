@@ -1,0 +1,667 @@
+- rule: sp-ns-to-blank
+  conditions:
+    - attribute: label
+      relation: in
+      set:
+        - sp
+        - "{NS}"
+  return: ""
+
+- rule: word-rule-e
+  conditions:
+    - attribute: label
+      relation: rematches
+      set: "[AEIOU]"
+    - attribute: inword.label
+      relation: in
+      set:
+        - KEPT
+        - CATCH
+  return: e
+
+- rule: a-foreign-a
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: inword.label
+      relation: contains
+      set: LANZA
+  return: o
+
+# foriegn A-ae
+- rule: a-foreign-ae
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AA1
+    - attribute: inword.label
+      relation: contains
+      set: MARIO
+  return: ae
+
+# marry class
+- rule: marry
+  conditions:
+    - attribute: label
+      relation: contains
+      set: EH
+    - attribute: inword.label
+      relation: rematches
+      set: "ARRY$"
+  return: ae{LR}
+
+# tense lexical exceptions
+- rule: aeh-lex
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: inword.label
+      relation: rematches
+      set: "(MAD|BAD|GLAD)(LY|DER|DEST|NESS)?$"
+  return: aeh
+
+# lax lexical exceptions
+- rule: ae-lex
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: inword.label
+      relation: in
+      set: 
+        - RAN
+        - SWAM
+        - BEGAN
+        - CAN
+        - FAMILY
+        - FAMILIES
+        - FAMILY'S
+        - JANUARY
+        - ANNUAL
+        - ANNE
+        - ANNE'S
+        - ANNIE
+        - ANNIE'S
+        - JOANNE
+        - GAS
+        - GASES
+        - EXAM
+        - EXAMS
+        - EXAM'S
+        - ALAS
+        - ASPIRIN
+        - CATHOLIC
+        - CATHOLICS
+        - CAMERA 
+        - AN'
+        - AM
+        - THAN
+        - MATH
+        - EXAM       
+        - AND      
+  return: aeBR
+
+# SKV words
+- rule: ae-skv
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: fol.label
+      relation: ==
+      set: S
+    - attribute: fol.fol.label
+      relation: in
+      set: 
+        - P
+        - T
+        - K
+    - attribute: fol.fol.fol.label
+      relation: rematches
+      set: "[AEIUO]"
+    - attribute: inword.label
+      relation: reunmatches
+      set: "ING?$"
+  return: aeBR
+
+# aeL
+- rule: aeL
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: fol.label
+      relation: ==
+      set: L
+  return: aeBR
+
+# ae followed by trigger followed by end of word
+- rule: aeh-c-endword
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: fol.label
+      relation: in
+      set:
+        - M
+        - N
+        - S
+        - TH
+        - F
+    - attribute: fol.fol.label
+      relation: ==
+      set: "#"
+  return: aeh
+
+# ae followed by trigger followed by consonant
+- rule: aeh-c-X
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: fol.label
+      relation: in
+      set:
+        - M
+        - N
+        - S
+        - TH
+        - F
+    - attribute: fol.fol.label
+      relation: in
+      set:
+        - B
+        - CH
+        - D
+        - DH
+        - F
+        - G
+        - HH
+        - JH
+        - K
+        - L
+        - M
+        - N
+        - NG
+        - P
+        - R
+        - S
+        - SH
+        - T
+        - TH
+        - V
+        - W
+        - Z
+        - ZH
+  return: aeh
+
+# ae followed by trigger and inflection
+- rule: aeh-ing-or-es
+  conditions: 
+    - attribute: label
+      relation: ==
+      set: AE1
+    - attribute: fol.label
+      relation: in
+      set:
+        - M
+        - N
+        - S
+        - TH
+        - F
+    - attribute: fol.fol.label
+      relation: in
+      set:
+        - IH0
+        - AH0
+    - attribute: fol.fol.fol.label
+      relation: in
+      set:
+        - N
+        - NG
+        - Z
+    - attribute: fol.fol.fol.fol.label
+      relation: ==
+      set: "#"
+    - attribute: inword.label
+      relation: rematches
+      set: "(ING?|ES)$"      
+  return: aeh
+
+# oh-fix
+- rule: oh-fix
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+    - attribute: inword.label
+      relation: in
+      set:
+        - LAW
+        - LAWS
+        - LAW'S
+        - LAWFUL
+        - UNLAWFUL
+        - DOG
+        - DOGS
+        - DOG'S
+        - DOGGED'
+        - ALL
+        - ALL'S
+        - CALL
+        - CALLS
+        - CALL'S
+        - CALLING
+        - CALLED
+        - FALL
+        - FALLS
+        - FALL'S
+        - FALLING
+        - AUDIENCE
+        - AUDIENCES
+        - AUDIENCE'
+        - 'ON'
+        - ONTO
+        - GONNA
+        - GONE
+        - BOSTON
+        - BOSTON'S
+        - AWFUL
+        - AWFULLY
+        - AWFULNESS
+        - AWKWARD
+        - AWKWARDLY
+        - AWKWARDNESS
+        - AWESOME
+        - AUGUST
+        - COUGH
+        - COUGHS
+        - COUGHED
+        - COUGHING
+  return: oh{LR}
+
+# o-fix
+- rule: o-fix
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AO
+    - attribute: inword.label
+      relation: in
+      set:
+        - BEYOND
+        - CHOCOLATE
+        - CHOCOLATES
+        - CHOCOLATE'S
+        - WALLET
+        - WALLETS
+        - WARRANT
+        - WARRANTS
+        - WATCH
+        - WATCHES
+        - WATCHED
+        - WATCHING
+        - WANDER
+        - WANDERS
+        - WANDERED
+        - WANDERING
+        - CONNIE
+        - CATHOLICISM
+        - WANT
+        - WANTED
+        - PONG
+        - GONG
+        - KONG
+        - FLORIDA
+        - ORANGE
+        - HORRIBLE
+        - MAJORITY
+  return: o{LR}
+
+# iw
+- rule: iw-1
+  conditions:
+    - attribute: label
+      relation: ==
+      set: UW1
+    - attribute: prev.label
+      relation: == 
+      set: Y
+  return: iw{LR}
+- rule: iw-2
+  conditions:
+    - attribute: label
+      relation: ==
+      set: UW1
+    - attribute: inword.label
+      relation: contains
+      set: EW
+  return: iw{LR}
+- rule: iw-2
+  conditions:
+    - attribute: label
+      relation: ==
+      set: UW1
+    - attribute: inword.label
+      relation: rematches
+      set: "[TDNLS]U"
+  return: iw{LR}
+
+- rule: schwa
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AH0
+  return: "@{LR}"
+
+- rule: eyf
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: EY
+    - attribute: fol.label
+      relation: ==
+      set: "#"
+  return: eyF
+- rule: iyF
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: IY
+    - attribute: fol.label
+      relation: ==
+      set: "#"
+  return: iyF
+- rule: owF
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: OW
+    - attribute: fol.label
+      relation: ==
+      set: "#"
+  return: owF
+
+# - rule: owl
+#   conditions:
+#     - attribute: label
+#       relation: contains
+#       set: OW
+#     - attribute: fol.label
+#       relation: contains
+#       set: L
+#     - attribute: fol.fol.label
+#       relation: reunmatches
+#       set: "[AEIOUaeiou@]"
+#   return: owL
+
+- rule: ay0
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+    - attribute: fol.label
+      relation: in
+      set: 
+        - CH
+        - F
+        - HH
+        - K
+        - P
+        - S
+        - SH
+        - T
+        - TH
+  return: ay0
+- rule: ah
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+    - attribute: inword.label
+      relation: in
+      set: 
+        - FATHER
+        - FATHER
+        - FATHER'S
+        - MA
+        - MA'S
+        - PA
+        - PA'S
+        - SPA
+        - SPAS
+        - SPA'S
+        - CHICAGO
+        - CHICAGO'S
+        - PASTA
+        - BRA
+        - BRAS
+        - BRA'S
+        - UTAH
+        - TACO
+        - TACOS
+        - TACO'S
+        - GRANDFATHER
+        - GRANDFATHERS
+        - GRANDFATHER'S
+        - CALM
+        - CALMER
+        - CALMEST
+        - CALMING
+        - CALMED
+        - CALMS
+        - PALM
+        - PALMS
+        - BALM
+        - BALMS
+        - ALMOND
+        - ALMONDS
+        - LAGER
+        - SALAMI
+        - NIRVANA
+        - KARATE
+        - AH
+  return: ah{LR}
+
+- rule: Tuw
+  conditions:
+    - attribute: label
+      relation: contains
+      set: UW
+    - attribute: prev.label
+      relation: in
+      set:
+        - AXR
+        - D
+        - DX
+        - EL
+        - EN
+        - L
+        - N
+        - R
+        - S
+        - T 
+        - Z
+  return: Tuw{LR}
+
+# - rule: uwl
+#   conditions:
+#     - attribute: label
+#       relation: contains
+#       set: UW
+#     - attribute: fol.label
+#       relation: contains
+#       set: L
+#     - attribute: fol.fol.label
+#       relation: reunmatches
+#       set: "[AEIOUaeiou@]"
+#   return: uwl
+
+- rule: iyr
+  conditions:
+    - attribute: label
+      relation: in
+      set: 
+        - IH0
+        - IH1
+        - IH2
+        - IY0
+        - IY1
+        - IY2
+    - attribute: fol.label
+      relation: in
+      set: 
+        - AXR
+        - R
+  return: iyr
+- rule: eyr
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: EY
+    - attribute: fol.label
+      relation: in
+      set:
+        - AXR
+        - R
+  return: eyr
+- rule: ahr
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+    - attribute: fol.label
+      relation: in
+      set: 
+        - AXR
+        - R
+  return: ahr
+- rule: owr
+  conditions:
+    - attribute: label
+      relation: in
+      set: 
+        - AO0
+        - AO1
+        - AO2
+        - OW0
+        - OW1
+        - OW2
+    - attribute: fol.label
+      relation: in
+      set:
+        - AXR
+        - R
+  return: owr
+- rule: uwr
+  conditions: 
+    - attribute: label
+      relation: in
+      set: 
+        - UH0
+        - UH1
+        - UH2
+        - UW0
+        - UW1
+        - UW2
+    - attribute: fol.label
+      relation: in
+      set:
+        - AXR
+        - R
+  return: uwr
+- rule: o
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+  return: o{LR}
+- rule: ae
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: AE
+  return: ae{LR}
+- rule: wedge
+  conditions:
+    - attribute: label
+      relation: in
+      set:
+        - AH1
+        - AH2
+  return: uh{LR}
+- rule: oh
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AO
+  return: oh{LR}
+- rule: aw
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AW
+  return: aw{LR}
+- rule: ay
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+  return: ay{LR}
+- rule: e
+  conditions:
+    - attribute: label
+      relation: contains
+      set: "EH"
+  return: e{LR}
+- rule: "*hr"
+  conditions:
+    - attribute: label
+      relation: contains
+      set: ER
+  return: "*hr"
+- rule: ey
+  conditions:
+    - attribute: label
+      relation: contains
+      set: EY
+  return: ey{LR}
+- rule: i
+  conditions:
+    - attribute: label
+      relation: contains
+      set: IH
+  return: i{LR}
+- rule: iy
+  conditions:
+    - attribute: label
+      relation: contains
+      set: IY
+  return: iy{LR}
+- rule: ow
+  conditions:
+    - attribute: label
+      relation: contains
+      set: OW
+  return: ow{LR}
+- rule: oy
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: OY
+  return: oy{LR}
+- rule: u
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: UH
+  return: u{LR}
+- rule: uw
+  conditions:
+    - attribute: label
+      relation: contains
+      set: UW
+  return: uw{LR}

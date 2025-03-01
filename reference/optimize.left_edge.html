@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Recode Rules and Labelset Parser – new-fave</title>
+<title>optimize.left_edge – new-fave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,63 +20,30 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
-<script src="../../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../../">
-<link href="../../usage/configs/point-heuristic.html" rel="prev">
-<link href="../../assets/logo.png" rel="icon" type="image/png">
-<script src="../../site_libs/quarto-html/quarto.js"></script>
-<script src="../../site_libs/quarto-html/popper.min.js"></script>
-<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-de84f8d6bb715db06a919283c2d1e787.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-9a023c9ade86a60361e96e3e3f11bc54.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-16cd20100bf6407b2fa2d1bb744ad4df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark-307f3353a76ef6eb4836f16653982375.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../reference/write_data.html" rel="next">
+<link href="../reference/optimize.optimize.html" rel="prev">
+<link href="../assets/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de84f8d6bb715db06a919283c2d1e787.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-9a023c9ade86a60361e96e3e3f11bc54.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-16cd20100bf6407b2fa2d1bb744ad4df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-307f3353a76ef6eb4836f16653982375.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -107,14 +74,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 
 
-<link rel="stylesheet" href="../../styles/styles.css">
-<meta property="og:title" content="Recode Rules and Labelset Parser – new-fave">
+<link rel="stylesheet" href="../styles/styles.css">
+<meta property="og:title" content="new-fave">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/configs/assets/logo.png">
+<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
 <meta property="og:site_name" content="new-fave">
-<meta name="twitter:title" content="Recode Rules and Labelset Parser – new-fave">
+<meta name="twitter:title" content="new-fave">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/configs/assets/logo.png">
+<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/reference/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -125,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="../../index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">new-fave</span>
     </a>
   </div>
@@ -136,11 +103,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../../index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../reference/"> 
+    <a class="nav-link" href="../reference/"> 
 <span class="menu-text">Package reference</span></a>
   </li>  
 </ul>
@@ -162,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/configs/index.html">Configuration</a></li><li class="breadcrumb-item"><a href="../../usage/configs/recode-rules.html">Recode Rules and Labelset Parser</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/optimize.optimize.html">Optimization</a></li><li class="breadcrumb-item"><a href="../reference/optimize.left_edge.html">optimize.left_edge</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -172,17 +139,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../../index.html" class="sidebar-logo-link">
-      <img src="../../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../assets/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Function reference</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Home</span></a>
+ <span class="menu-text">Processing Patterns</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -190,16 +163,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">new-fave</span></a>
+  <a href="../reference/fave_audio_textgrid.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_audio_textgrid</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_corpus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_corpus</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/fave_subcorpora.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">fave_subcorpora</span></a>
   </div>
 </li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../usage/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Usage</span></a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Vowel Measurements</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -207,92 +192,137 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/getting_started.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Getting Started</span></a>
+  <a href="../reference/measurements.vowel_measurement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">measurements.vowel_measurement</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/python_usage.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Python Usage</span></a>
+  <a href="../reference/VowelMeasurement.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelMeasurement</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/how_it_works.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">How it works</span></a>
+  <a href="../reference/VowelClass.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelClass</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/defaults.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">new-fave Defaults</span></a>
-  </div>
-</li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a href="../../usage/customizing/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Customizing</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth2 ">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/demographics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Adding Speaker Demographics</span></a>
+  <a href="../reference/VowelClassCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">VowelClassCollection</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/output.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Output Options</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/processing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Processing Options</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/customizing/reference.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Reference Values</span></a>
+  <a href="../reference/SpeakerCollection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SpeakerCollection</span></a>
   </div>
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="../../usage/configs/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Configuration</span></a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Calculations</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/measurements.calcs.mahalanobis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">measurements.calcs.mahalanobis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Optimization</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/ft-config.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">FastTrack Config</span></a>
+  <a href="../reference/optimize.optimize.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">optimize.optimize</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/point-heuristic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Measurement Point Customization</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Recode Rules and Labelset Parser</span></a>
+  <a href="../reference/optimize.left_edge.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">optimize.left_edge</span></a>
   </div>
 </li>
       </ul>
   </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Writers</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/write_data.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">write_data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/pickle_speakers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">pickle_speakers</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/unpickle_speakers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">unpickle_speakers</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Built-in resources</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/utils.local_resources.local_resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">utils.local_resources.local_resources</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true">
+ <span class="menu-text">Speaker files</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/speaker.speaker.Speaker.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">speaker.speaker.Speaker</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -305,117 +335,97 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-rule-example" id="toc-a-rule-example" class="nav-link active" data-scroll-target="#a-rule-example">A rule Example</a></li>
-  <li><a href="#a-collection-of-rules" id="toc-a-collection-of-rules" class="nav-link" data-scroll-target="#a-collection-of-rules">A collection of rules</a></li>
-  <li><a href="#more-details" id="toc-more-details" class="nav-link" data-scroll-target="#more-details">More details</a></li>
+  <li><a href="#new_fave.optimize.left_edge" id="toc-new_fave.optimize.left_edge" class="nav-link active" data-scroll-target="#new_fave.optimize.left_edge">optimize.left_edge</a>
+  <ul>
+  <li><a href="#functions" id="toc-functions" class="nav-link" data-scroll-target="#functions">Functions</a>
+  <ul class="collapse">
+  <li><a href="#new_fave.optimize.left_edge.beyond_edge" id="toc-new_fave.optimize.left_edge.beyond_edge" class="nav-link" data-scroll-target="#new_fave.optimize.left_edge.beyond_edge">beyond_edge</a>
+  <ul class="collapse">
+  <li><a href="#parameters" id="toc-parameters" class="nav-link" data-scroll-target="#parameters">Parameters</a></li>
+  <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/configs/index.html">Configuration</a></li><li class="breadcrumb-item"><a href="../../usage/configs/recode-rules.html">Recode Rules and Labelset Parser</a></li></ol></nav>
-<div class="quarto-title">
-<h1 class="title">Recode Rules and Labelset Parser</h1>
-</div>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/optimize.optimize.html">Optimization</a></li><li class="breadcrumb-item"><a href="../reference/optimize.left_edge.html">optimize.left_edge</a></li></ol></nav></header>
 
 
 
-<div class="quarto-title-meta">
 
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/overview.html">See fave-recode</a> for the full details on how to write label recoding rules.</p>
-<p>A recoding rules file is a yaml file with a list of rules, which are applied in order. When writing a rule set, you must implement the Elsewhere Principle, and place more specific rules at the top of the rule file.</p>
-<section id="a-rule-example" class="level2">
-<h2 class="anchored" data-anchor-id="a-rule-example">A rule Example</h2>
-<p>An example of a single-rule file to recode CMU <code>AH0</code> to <code>@</code> (schwa) would look like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> schwa</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> ==</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AH0</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">return</span><span class="kw">:</span><span class="at"> </span><span class="st">"@"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Each rule has</p>
-<ul>
-<li><p>A name</p></li>
-<li><p>A list of conditions that define when it applies</p>
-<ul>
-<li><p>Each condition targets <a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html">an interval’s attribute</a></p></li>
-<li><p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html">A relation</a> to some other value</p></li>
-<li><p>The other value</p></li>
-</ul></li>
-<li><p>A return label</p></li>
-</ul>
+<section id="new_fave.optimize.left_edge" class="level1">
+<h1>optimize.left_edge</h1>
+<p><code>optimize.left_edge</code></p>
+<section id="functions" class="level2">
+<h2 class="anchored" data-anchor-id="functions">Functions</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="#new_fave.optimize.left_edge.beyond_edge">beyond_edge</a></td>
+<td>For a given vowel measurement, return an</td>
+</tr>
+</tbody>
+</table>
+<section id="new_fave.optimize.left_edge.beyond_edge" class="level3">
+<h3 class="anchored" data-anchor-id="new_fave.optimize.left_edge.beyond_edge">beyond_edge</h3>
+<p><code>optimize.left_edge.beyond_edge(vowel_measurement)</code></p>
+<p>For a given vowel measurement, return an array of log probabilities indicating whether or not a candidate is beyond the desired edge of the front of the vowel space.</p>
+<section id="parameters" class="level4">
+<h4 class="anchored" data-anchor-id="parameters">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>vowel_measurement</code></td>
+<td><a href="../reference/VowelMeasurement.html#new_fave.VowelMeasurement">VowelMeasurement</a></td>
+<td>A vowel measurement to optimize</td>
+<td><em>required</em></td>
+</tr>
+<tr class="even">
+<td><code>slope</code></td>
+<td><a href="https://docs.python.org/3/library/functions.html#float">float</a></td>
+<td>The desired slope for the maximum edge of front vowel space. Defaults to -1.5.</td>
+<td><em>required</em></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="a-collection-of-rules" class="level2">
-<h2 class="anchored" data-anchor-id="a-collection-of-rules">A collection of rules</h2>
-<p>Let’s say you wanted to recode CMU <code>AY</code> into three different categories</p>
-<ul>
-<li><p>ayE: /ay/ that appears in words with exceptional raising, like “spider” and “cider”</p></li>
-<li><p>ay0: /ay/ that appears before voiceless consonants</p></li>
-<li><p>ay: /ay/ that appears in all other contexts</p></li>
-</ul>
-<p>The recode rule file would look like:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">## placing most specific rule</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">## at top</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> exceptional</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ayE</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> inword.label</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> in</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> SPIDER</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> CIDER        </span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Next most specific rule</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> ay0</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ay0</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> fol.label</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> in</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">CH</span><span class="kw">,</span><span class="at"> F</span><span class="kw">,</span><span class="at"> HH</span><span class="kw">,</span><span class="at"> K</span><span class="kw">,</span><span class="at"> P</span><span class="kw">,</span><span class="at"> S</span><span class="kw">,</span><span class="at"> SH</span><span class="kw">,</span><span class="at"> T</span><span class="kw">,</span><span class="at"> TH</span><span class="kw">]</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">## Elsewhere rule</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> ay</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ay</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="returns" class="level4">
+<h4 class="anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></td>
+<td>np.ndarray: log probabilities of 0 for candidates below the threshold, and negative infinity for candidates above it.</td>
+</tr>
+</tbody>
+</table>
+
+
 </section>
-<section id="more-details" class="level2">
-<h2 class="anchored" data-anchor-id="more-details">More details</h2>
-<p>For more details on the kinds of attributes that are definable in a rules file</p>
-<ul>
-<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html">Condition Attributes</a></li>
-</ul>
-<p>For more details on the kinds of relations that are definable in a rules file</p>
-<ul>
-<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html">Condition Relations</a></li>
-</ul>
-<p>For more details on how return labels can be defined, see</p>
-<ul>
-<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/label_set_parser.html">Label Set Parsers</a></li>
-</ul>
-
-
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -982,11 +992,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../usage/configs/point-heuristic.html" class="pagination-link" aria-label="Measurement Point Customization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Measurement Point Customization</span>
+      <a href="../reference/optimize.optimize.html" class="pagination-link" aria-label="optimize.optimize">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">optimize.optimize</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../reference/write_data.html" class="pagination-link" aria-label="write_data">
+        <span class="nav-page-text">write_data</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
@@ -994,5 +1007,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

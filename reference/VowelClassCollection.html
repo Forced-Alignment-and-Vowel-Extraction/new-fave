@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.42">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,12 +72,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de84f8d6bb715db06a919283c2d1e787.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-9a023c9ade86a60361e96e3e3f11bc54.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-16cd20100bf6407b2fa2d1bb744ad4df.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-307f3353a76ef6eb4836f16653982375.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -288,6 +288,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">optimize.optimize</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../reference/optimize.left_edge.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">optimize.left_edge</span></a>
+  </div>
+</li>
       </ul>
   </li>
         <li class="sidebar-item sidebar-item-section">
@@ -370,17 +376,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#attributes" id="toc-attributes" class="nav-link" data-scroll-target="#attributes">Attributes</a></li>
   <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods">Methods</a>
   <ul class="collapse">
-  <li><a href="#new_fave.VowelClassCollection.to_param_df" id="toc-new_fave.VowelClassCollection.to_param_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_param_df">to_param_df</a>
+  <li><a href="#new_fave.VowelClassCollection.edge_intercept" id="toc-new_fave.VowelClassCollection.edge_intercept" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.edge_intercept">edge_intercept</a>
   <ul class="collapse">
+  <li><a href="#parameters-1" id="toc-parameters-1" class="nav-link" data-scroll-target="#parameters-1">Parameters</a></li>
   <li><a href="#returns" id="toc-returns" class="nav-link" data-scroll-target="#returns">Returns</a></li>
   </ul></li>
-  <li><a href="#new_fave.VowelClassCollection.to_point_df" id="toc-new_fave.VowelClassCollection.to_point_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_point_df">to_point_df</a>
+  <li><a href="#new_fave.VowelClassCollection.to_param_df" id="toc-new_fave.VowelClassCollection.to_param_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_param_df">to_param_df</a>
   <ul class="collapse">
   <li><a href="#returns-1" id="toc-returns-1" class="nav-link" data-scroll-target="#returns-1">Returns</a></li>
   </ul></li>
-  <li><a href="#new_fave.VowelClassCollection.to_tracks_df" id="toc-new_fave.VowelClassCollection.to_tracks_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</a>
+  <li><a href="#new_fave.VowelClassCollection.to_point_df" id="toc-new_fave.VowelClassCollection.to_point_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_point_df">to_point_df</a>
   <ul class="collapse">
   <li><a href="#returns-2" id="toc-returns-2" class="nav-link" data-scroll-target="#returns-2">Returns</a></li>
+  </ul></li>
+  <li><a href="#new_fave.VowelClassCollection.to_tracks_df" id="toc-new_fave.VowelClassCollection.to_tracks_df" class="nav-link" data-scroll-target="#new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</a>
+  <ul class="collapse">
+  <li><a href="#returns-3" id="toc-returns-3" class="nav-link" data-scroll-target="#returns-3">Returns</a></li>
   </ul></li>
   </ul></li>
   </ul></li>
@@ -388,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../reference/measurements.vowel_measurement.html">Vowel Measurements</a></li><li class="breadcrumb-item"><a href="../reference/VowelClassCollection.html">VowelClassCollection</a></li></ol></nav></header>
 
 
 
@@ -509,25 +520,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td><a href="#new_fave.VowelClassCollection.edge_intercept">edge_intercept</a></td>
+<td>Return the intercept for a line with the given slope</td>
+</tr>
+<tr class="even">
 <td><a href="#new_fave.VowelClassCollection.to_param_df">to_param_df</a></td>
 <td>Return DataFrame of formant DCT parameters.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><a href="#new_fave.VowelClassCollection.to_point_df">to_point_df</a></td>
 <td>Return a DataFrame of point measurements</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><a href="#new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</a></td>
 <td>Return a DataFrame of the formant tracks</td>
 </tr>
 </tbody>
 </table>
+<section id="new_fave.VowelClassCollection.edge_intercept" class="level3">
+<h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.edge_intercept">edge_intercept</h3>
+<p><code>VowelClassCollection.edge_intercept(slope=-1.5)</code></p>
+<p>Return the intercept for a line with the given slope such that it will intersect with x=y above the center of the vowel space</p>
+<section id="parameters-1" class="level4">
+<h4 class="anchored" data-anchor-id="parameters-1">Parameters</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>slope</code></td>
+<td><a href="https://docs.python.org/3/library/functions.html#float">float</a></td>
+<td>The slope of the line. Defaults to -1.5</td>
+<td><code>-1.5</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="returns" class="level4">
+<h4 class="anchored" data-anchor-id="returns">Returns</h4>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://numpy.org/doc/stable/reference/index.html#module-numpy">np</a>.<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray">ndarray</a></td>
+<td>The intercept</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 <section id="new_fave.VowelClassCollection.to_param_df" class="level3">
 <h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.to_param_df">to_param_df</h3>
 <p><code>VowelClassCollection.to_param_df(output='log_param')</code></p>
 <p>Return DataFrame of formant DCT parameters.</p>
-<section id="returns" class="level4">
-<h4 class="anchored" data-anchor-id="returns">Returns</h4>
+<section id="returns-1" class="level4">
+<h4 class="anchored" data-anchor-id="returns-1">Returns</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 55%">
@@ -552,8 +610,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.to_point_df">to_point_df</h3>
 <p><code>VowelClassCollection.to_point_df()</code></p>
 <p>Return a DataFrame of point measurements</p>
-<section id="returns-1" class="level4">
-<h4 class="anchored" data-anchor-id="returns-1">Returns</h4>
+<section id="returns-2" class="level4">
+<h4 class="anchored" data-anchor-id="returns-2">Returns</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 55%">
@@ -578,8 +636,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="new_fave.VowelClassCollection.to_tracks_df">to_tracks_df</h3>
 <p><code>VowelClassCollection.to_tracks_df()</code></p>
 <p>Return a DataFrame of the formant tracks</p>
-<section id="returns-2" class="level4">
-<h4 class="anchored" data-anchor-id="returns-2">Returns</h4>
+<section id="returns-3" class="level4">
+<h4 class="anchored" data-anchor-id="returns-3">Returns</h4>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 55%">
@@ -832,8 +890,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -944,7 +1000,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

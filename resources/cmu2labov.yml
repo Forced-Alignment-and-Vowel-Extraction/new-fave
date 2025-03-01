@@ -1,0 +1,294 @@
+- rule: sp-ns-to-blank
+  conditions:
+    - attribute: label
+      relation: in
+      set:
+        - sp
+        - "{NS}"
+  return: ""
+
+- rule: schwa
+  conditions:
+    - attribute: label
+      relation: ==
+      set: AH0
+  return: "@"
+- rule: eyf
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: EY
+    - attribute: fol.label
+      relation: ==
+      set: "#"
+  return: eyF
+- rule: iyF
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: IY
+    - attribute: fol.label
+      relation: ==
+      set: "#"
+  return: iyF
+- rule: owF
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: OW
+    - attribute: fol.label
+      relation: ==
+      set: "#"
+  return: owF
+- rule: ay0
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+    - attribute: fol.label
+      relation: in
+      set: 
+        - CH
+        - F
+        - HH
+        - K
+        - P
+        - S
+        - SH
+        - T
+        - TH
+  return: ay0
+- rule: ah
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+    - attribute: inword.label
+      relation: in
+      set: 
+        - FATHER
+        - FATHER
+        - FATHER'S
+        - MA
+        - MA'S
+        - PA
+        - PA'S
+        - SPA
+        - SPAS
+        - SPA'S
+        - CHICAGO
+        - CHICAGO'S
+        - PASTA
+        - BRA
+        - BRAS
+        - BRA'S
+        - UTAH
+        - TACO
+        - TACOS
+        - TACO'S
+        - GRANDFATHER
+        - GRANDFATHERS
+        - GRANDFATHER'S
+        - CALM
+        - CALMER
+        - CALMEST
+        - CALMING
+        - CALMED
+        - CALMS
+        - PALM
+        - PALMS
+        - BALM
+        - BALMS
+        - ALMOND
+        - ALMONDS
+        - LAGER
+        - SALAMI
+        - NIRVANA
+        - KARATE
+        - AH
+  return: ah
+- rule: Tuw
+  conditions:
+    - attribute: label
+      relation: contains
+      set: UW
+    - attribute: prev.label
+      relation: in
+      set:
+        - AXR
+        - D
+        - DX
+        - EL
+        - EN
+        - L
+        - N
+        - R
+        - S
+        - T 
+        - Z
+  return: Tuw
+- rule: iyr
+  conditions:
+    - attribute: label
+      relation: in
+      set: 
+        - IH0
+        - IH1
+        - IH2
+        - IY0
+        - IY1
+        - IY2
+    - attribute: fol.label
+      relation: in
+      set: 
+        - AXR
+        - R
+  return: iyr
+- rule: eyr
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: EY
+    - attribute: fol.label
+      relation: in
+      set:
+        - AXR
+        - R
+  return: eyr
+- rule: ahr
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+    - attribute: fol.label
+      relation: in
+      set: 
+        - AXR
+        - R
+  return: ahr
+- rule: owr
+  conditions:
+    - attribute: label
+      relation: in
+      set: 
+        - AO0
+        - AO1
+        - AO2
+        - OW0
+        - OW1
+        - OW2
+    - attribute: fol.label
+      relation: in
+      set:
+        - AXR
+        - R
+  return: owr
+- rule: uwr
+  conditions: 
+    - attribute: label
+      relation: in
+      set: 
+        - UH0
+        - UH1
+        - UH2
+        - UW0
+        - UW1
+        - UW2
+    - attribute: fol.label
+      relation: in
+      set:
+        - AXR
+        - R
+  return: uwr
+- rule: o
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AA
+  return: o
+- rule: ae
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: AE
+  return: ae
+- rule: wedge
+  conditions:
+    - attribute: label
+      relation: in
+      set:
+        - AH1
+        - AH2
+  return: ʌ
+- rule: oh
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AO
+  return: oh
+- rule: aw
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AW
+  return: aw
+- rule: ay
+  conditions:
+    - attribute: label
+      relation: contains
+      set: AY
+  return: ay
+- rule: e
+  conditions:
+    - attribute: label
+      relation: contains
+      set: "EH"
+  return: e
+- rule: "*hr"
+  conditions:
+    - attribute: label
+      relation: contains
+      set: ER
+  return: "*hr"
+- rule: ey
+  conditions:
+    - attribute: label
+      relation: contains
+      set: EY
+  return: ey
+- rule: i
+  conditions:
+    - attribute: label
+      relation: contains
+      set: IH
+  return: i
+- rule: iy
+  conditions:
+    - attribute: label
+      relation: contains
+      set: IY
+  return: iy
+- rule: ow
+  conditions:
+    - attribute: label
+      relation: contains
+      set: OW
+  return: ow
+- rule: oy
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: OY
+  return: oy
+- rule: u
+  conditions: 
+    - attribute: label
+      relation: contains
+      set: UH
+  return: u
+- rule: uw
+  conditions:
+    - attribute: label
+      relation: contains
+      set: UW
+  return: uw
