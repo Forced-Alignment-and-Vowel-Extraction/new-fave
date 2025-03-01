@@ -11,6 +11,8 @@ from fasttrackpy.utils.safely import safely, filter_nones
 from new_fave.patterns.writers import check_outputs
 from new_fave.patterns.common_processing import resolve_resources, resolve_speaker
 from new_fave.measurements.reference import ReferenceValues
+from new_fave.logging import setup_logger
+
 
 import numpy as np
 
@@ -33,6 +35,7 @@ from typing import Any, Literal
 import warnings
 
 import logging
+import datetime
 import sys
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
@@ -631,4 +634,15 @@ def subcorpora(
 
 
 if __name__ == "__main__":
+    start = setup_logger()
+
+    fe_logger = logging.getLogger("fave-extract")
+
     fave_extract()
+
+
+    end = datetime.datetime.now()
+
+    fe_logger.info(
+        ""
+    )
