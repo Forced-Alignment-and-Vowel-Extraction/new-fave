@@ -414,6 +414,13 @@ def corpus(
             "tracks", "points", "param", "log_param", "textgrid"
         ]
     all_audio = get_audio_files(corpus_path = corpus_path)
+
+    if len(all_audio) < 1:
+        warnings.warn(
+            "No audio files to process were found at "
+            f"{corpus_path}"
+        )
+
     all_which = [which for a in all_audio]
     result_which = []
     for a,w in zip(all_audio, all_which):
@@ -522,6 +529,12 @@ def subcorpora(
             "tracks", "points", "param", "log_param", "textgrid"
         ]
     all_audio = [a for c in corpora for a in get_audio_files(corpus_path = c)]
+    
+    if len(all_audio) < 1:
+        warnings.warn(
+            "No audio files to process were found."
+        )
+    
     all_which = [which for a in all_audio]
     result_which = []
     for a,w in zip(all_audio, all_which):
