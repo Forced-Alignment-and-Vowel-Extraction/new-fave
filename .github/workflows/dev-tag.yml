@@ -37,7 +37,7 @@ jobs:
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --with test --no-interaction --no-root
       - name: Get Version
-        run: echo "PKG_VERSION=$(python -c 'import new_fave; print(new_fave.__version__)')" >> $GITHUB_ENV
+        run: echo "PKG_VERSION=$(poetry run python -c 'import new_fave; print(new_fave.__version__)')" >> $GITHUB_ENV
       - name: Test
         run: echo ${{ env.PKG_VERSION }}
 
