@@ -8,7 +8,7 @@ filters:
 ::: {.callout-note collapse="true"}
 ## recode rules
 
-[cmu2labov](/resources/cmu2labov.yml)
+[cmu2labov](../resources/cmu2labov.yml)
 
 ``` {.yaml include="../../src/new_fave/resources/cmu2labov.yml" filename="cmu2labov.yml"}
 ```
@@ -18,7 +18,7 @@ filters:
 ::: {.callout-note collapse="true"}
 ## labelset parser
 
-[cmu2labov](/resources/cmu_parser.yml)
+[cmu2labov](../resources/cmu_parser.yml)
 
 ``` {.yaml include="../../src/new_fave/resources/cmu_parser.yml" filename="cmu_parser.yml"}
 ```
@@ -27,7 +27,7 @@ filters:
 ::: {.callout-note collapse="true"}
 ## measurement point
 
-[cmu2labov](/resources/fave_measurement.yml)
+[cmu2labov](../resources/fave_measurement.yml)
 
 ``` {.yaml include="../../src/new_fave/resources/fave_measurement.yml" filename="fave_measurement.yml"}
 ```
