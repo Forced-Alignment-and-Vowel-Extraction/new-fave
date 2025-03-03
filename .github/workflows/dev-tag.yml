@@ -37,7 +37,7 @@ jobs:
       # #  if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
       #   run: poetry install --no-interaction --only-root
       - name: Get Version
-        run: echo "PKG_VERSION=$(poetry version prerelease | awk '{print $6}'" >> $GITHUB_ENV
+        run: echo "PKG_VERSION=$(poetry version prerelease | awk '{print $6}')" >> $GITHUB_ENV
       - name: Test
         run: echo ${{ env.PKG_VERSION }}
 
