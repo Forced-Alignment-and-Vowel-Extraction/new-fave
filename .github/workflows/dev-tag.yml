@@ -35,7 +35,7 @@ jobs:
           key: venv-tag-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}          
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction
+        run: poetry install --no-interaction --only-root
       - name: Get Version
         run: echo "PKG_VERSION=$(poetry run python -c 'import new_fave; print(new_fave.__version__)')" >> $GITHUB_ENV
       - name: Test
