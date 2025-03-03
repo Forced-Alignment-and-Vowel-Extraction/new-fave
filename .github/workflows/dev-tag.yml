@@ -1,18 +1,15 @@
 name: Dev Tag
 
-on:
-  push:
-    branches: 
-      - dev-tag
-        
-#   pull_request:
-#     types:
-#       - closed
-#     branches:
-#       - 'dev'
+on:        
+  pull_request:
+    types:
+      - closed
+    branches:
+      - 'dev'
 
 jobs:
-  echo-tag:
+  dev-tag:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,30 +24,17 @@ jobs:
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
-      # - name: Load cached venv
-      #   id: cached-poetry-dependencies
-      #   uses: actions/cache@v4
-      #   with:
-      #     path: .venv
-      #     key: venv-tag-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}          
-      # - name: Install dependencies
-      # #  if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-      #   run: poetry install --no-interaction --only-root
-      - name: Get Version
+      - name: Bump Version
         run: echo "PKG_VERSION=$(poetry version prerelease | awk '{print $6}')" >> $GITHUB_ENV
       - name: Test
         run: echo ${{ env.PKG_VERSION }}
-
-
-# on:
-#   pull_request:
-#     types:
-#       - closed
-
-# jobs:
-#   if_merged:
-#     if: github.event.pull_request.merged == true
-#     runs-on: ubuntu-latest
-#     steps:
-#     - run: |
-#         echo The PR was merged          
+      - name: Run latest-tag
+        uses: EndBug/latest-tag@latest
+        with:
+          ref: ${{ env.PKG_VERSION }}
+      - name: Push Dev Version
+        run: |
+          git config --global user.name "Dev Tagger"
+          git config --global user.email "username@users.noreply.github.com"
+          git commit -a -m "${{ env.PKG_VERSION }}"
+          git push
