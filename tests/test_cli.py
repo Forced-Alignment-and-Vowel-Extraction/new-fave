@@ -1,4 +1,5 @@
 from new_fave.extract import fave_extract
+import polars as pl
 from pathlib import Path
 from click.testing import CliRunner
 import pytest
@@ -31,6 +32,52 @@ def test_audio_textgrid():
     assert result.exit_code == 0, result.output
     csvs = list(tmp_path.glob("*.csv"))
     assert len(csvs) > 0
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "audio-textgrid",
+            str(audio_path),
+            str(textgrid_path),
+            "--destination", tmp.name,
+            "--ft-config", str(ft_config)
+        ],
+        input='n\nn\n'
+    )
+
+    assert result.exit_code == 0, result.output
+    tmp.cleanup()
+
+
+def test_audio_textgrid_stressless():
+    tmp = tempfile.TemporaryDirectory()
+    tmp_path = Path(tmp.name)
+
+
+    audio_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.wav")
+    textgrid_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker_stressless.TextGrid")
+    ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
+
+    runner = CliRunner()
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "audio-textgrid",
+            str(audio_path),
+            str(textgrid_path),
+            "--destination", tmp.name,
+            "--ft-config", str(ft_config),
+            "--recode-rules", "cmu2labov"
+        ]
+    )
+
+    assert result.exit_code == 0, result.output
+    csvs = list(tmp_path.glob("*.csv"))
+    assert len(csvs) > 0
+
+    data = pl.read_csv(csvs[0])
+    assert data.shape[0] > 0
 
     result = runner.invoke(
         fave_extract,
