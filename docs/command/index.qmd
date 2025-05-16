@@ -9,6 +9,8 @@ format:
       body-width: 1000px
 ---
 
+This page is meant to assist you in constructing a new-fave command. It does not run new-fave itself.
+
 ::::: columns
 
 ::::{.column width = "50%"}
