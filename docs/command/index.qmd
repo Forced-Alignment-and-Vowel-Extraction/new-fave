@@ -52,18 +52,18 @@ md`### Subcommand`
 viewof subcommand = Inputs.radio(
   ["audio-textgrid", "corpus", "subcorpora"], 
   {
-    label: md`[subcommand](/usage/getting_started.html#usage)`,
+    label: md`[subcommand](../usage/getting_started.html#usage)`,
     value: "audio-textgrid"
   }
 )
 
 audio_label = {
   if (subcommand == "audio-textgrid"){
-    return md`[audio file](/usage/getting_started.html#audio-textgrid)`
+    return md`[audio file](../usage/getting_started.html#audio-textgrid)`
   } else if (subcommand == "corpus"){
-    return md`[corpus path](/usage/getting_started.html#corpus)`
+    return md`[corpus path](../usage/getting_started.html#corpus)`
   } else if (subcommand == "subcorpora"){
-    return md`[subcorpus glob](/usage/getting_started.html#subcorpora)`
+    return md`[subcorpus glob](../usage/getting_started.html#subcorpora)`
   }
 }
 
@@ -141,7 +141,7 @@ speaker_input = {
   } else if(speaker == "demographic file"){
     return Inputs.text(
       {
-        label: md`[demographic file](/usage/customizing/demographics.html)`,
+        label: md`[demographic file](../usage/customizing/demographics.html)`,
         required: true
       }
     )
@@ -199,7 +199,7 @@ aligner_flag = {
 ```{ojs}
 //| echo: false
 
-md`### [Recode rules](/usage/configs/recode-rules.html)`
+md`### [Recode rules](../usage/configs/recode-rules.html)`
 viewof recode = Inputs.radio(
   ["cmu2labov", "cmu2phila", "norecode", "custom"], 
   {
@@ -283,7 +283,7 @@ add_code = {
 ```
 
 ```{ojs}
-md`### [Measurement point heuristic](/usage/configs/point-heuristic.html)`
+md`### [Measurement point heuristic](../usage/configs/point-heuristic.html)`
 
 viewof measurement_point = Inputs.text(
   {
@@ -303,7 +303,7 @@ measurement_flag = {
 ```
 
 ```{ojs}
-md`### [FastTrack Config](/usage/configs/ft-config.html)`
+md`### [FastTrack Config](../usage/configs/ft-config.html)`
 
 viewof ft_config = Inputs.text(
   {
@@ -323,7 +323,7 @@ ft_flag = {
 ```
 
 ```{ojs}
-md`### [Misc Processing](/usage/customizing/processing.html)`
+md`### [Misc Processing](../usage/customizing/processing.html)`
 
 viewof exclude_overlaps = Inputs.toggle(
   {
@@ -439,7 +439,7 @@ parser_code = {
 ## Output Options
 
 ```{ojs}
-md`### [Output Options](/usage/customizing/output.html)`
+md`### [Output Options](../usage/customizing/output.html)`
 
 viewof destination = Inputs.text(
   {
@@ -501,7 +501,7 @@ which_flags = {
 ## Reference Value Options
 
 ```{ojs}
-md`### [Reference Values](/usage/customizing/reference.html)`
+md`### [Reference Values](../usage/customizing/reference.html)`
 
 viewof reference_type = Inputs.radio(
   ["logparam", "param", "points", "none"],
