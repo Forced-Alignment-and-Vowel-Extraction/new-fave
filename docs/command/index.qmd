@@ -1,0 +1,551 @@
+---
+title: "new-fave Command Builder"
+echo: false
+format:
+  html:
+    page-layout: full
+    grid:
+      sidebar-width: 10px
+      body-width: 1000px
+---
+
+::::: columns
+
+::::{.column width = "50%"}
+
+```{ojs}
+//| echo: false
+
+{
+  let btn = Inputs.button(
+    "Copy to Clipboard",
+    {
+      value: null,
+      reduce: () =>
+        navigator.clipboard.writeText(fullText)
+    }
+  )
+  return html`${btn}`
+}
+
+fullText = `fave-extract ${subcommand} ${data_path}${speaker_flag}${aligner_flag}${recodeCode}${add_code}${parser_code}${measurement_flag}${ft_flag}${exclude_flag}${no_optim_flag}${f1_flag}${f2_flag}${destination_flag}${separate_flag}${which_flags}${reference_flag}`
+
+md`
+\`\`\`bash
+${fullText}
+\`\`\`
+`
+```
+::::
+
+::::{.column width="5%"}
+
+::::
+
+:::: {.column style="width:40%;max-height:60vh;overflow:scroll;"}
+
+```{ojs}
+//| echo: false
+
+md`### Subcommand`
+
+viewof subcommand = Inputs.radio(
+  ["audio-textgrid", "corpus", "subcorpora"], 
+  {
+    label: md`[subcommand](/usage/getting_started.html#usage)`,
+    value: "audio-textgrid"
+  }
+)
+
+audio_label = {
+  if (subcommand == "audio-textgrid"){
+    return md`[audio file](/usage/getting_started.html#audio-textgrid)`
+  } else if (subcommand == "corpus"){
+    return md`[corpus path](/usage/getting_started.html#corpus)`
+  } else if (subcommand == "subcorpora"){
+    return md`[subcorpus glob](/usage/getting_started.html#subcorpora)`
+  }
+}
+
+audio_default = {
+  if (subcommand == "audio-textgrid"){
+    return "speaker.wav"
+  } else if (subcommand == "corpus"){
+    return "corpus/"
+  } else if (subcommand == "subcorpora"){
+    return "corpus/*"
+  }
+}
+
+textgrid_path = {
+  if(subcommand == "audio-textgrid"){
+    return Inputs.text(
+      {
+        label: "textgrid file",
+        value: "speaker.TextGrid"
+      }
+    )
+  }
+}
+
+textgrid_use = {
+  if (subcommand == "audio-textgrid"){
+    return Generators.input(textgrid_path)
+  }
+}
+
+viewof audio_path = Inputs.text(
+  {
+    label: audio_label,
+    value: audio_default
+  }
+)
+
+textgrid_path != undefined ? 
+  html`${textgrid_path}` :
+  md``
+
+data_path = {
+  if (subcommand == "audio-textgrid"){
+    return `${audio_path} ${textgrid_use}`
+  } else {
+    return `${audio_path}`
+  }
+}
+```
+
+::: {.callout-note collapse="true"}
+## Processing Info
+
+```{ojs}
+md`### Speaker(s) to analyze`
+
+viewof speaker = Inputs.radio(
+  ["single speaker", "all speakers", "demographic file"],
+  {
+    label: "speaker",
+    value: "single speaker"
+  }
+)
+
+speaker_input = {
+  if (speaker == "single speaker"){
+    return Inputs.range(
+      [1, 10], 
+      {
+        label: "speaker number",
+        step: 1,
+        value: 1
+      }
+    )
+  } else if(speaker == "demographic file"){
+    return Inputs.text(
+      {
+        label: md`[demographic file](/usage/customizing/demographics.html)`,
+        required: true
+      }
+    )
+  }
+}
+
+speaker_input != undefined ?
+  html`${speaker_input}` :
+  md``
+  
+speaker_use = {
+  if(speaker == "all speakers"){
+    return "all"
+  }else{
+    return Generators.input(speaker_input)
+  }
+}
+
+speaker_flag = {
+  if (speaker == "single speaker"){
+    if (speaker_use > 1){
+      return ` \\ 
+  --speakers ${speaker_use}`
+    }else{
+      return ""
+    }
+  } else {
+    return ` \\
+  --speakers ${speaker_use}`
+  }
+}
+```
+
+```{ojs}
+md`### Aligner`
+
+viewof aligner = Inputs.radio(
+  ["mfa", "fave-align"],
+  {
+    label: "aligner used",
+    value: "mfa"
+  }
+)
+
+aligner_flag = {
+  if (aligner == "fave-align"){
+    return ` \\
+  --fave-aligned`
+  }else{
+    return ""
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+
+md`### [Recode rules](/usage/configs/recode-rules.html)`
+viewof recode = Inputs.radio(
+  ["cmu2labov", "cmu2phila", "norecode", "custom"], 
+  {
+    label: "recode rules",
+    value: "cmu2labov"
+  }
+)
+
+recodepath = {
+  if(recode == "custom"){
+    return  Inputs.text(
+      {
+        label: "recode rules file:", 
+        required: true
+      }
+    )
+  }
+}
+
+recodepath != undefined ? 
+  html`${recodepath}` :
+  md``
+  
+  
+viewof add_rules = Inputs.toggle(
+  {
+    label: "additional rules", 
+    value: false
+  }
+)
+
+add_path = {
+  if(add_rules){
+    return Inputs.text(
+      {
+        label: "additional rules file",
+        required: true
+      }
+    )
+  }
+}
+
+add_path != undefined? 
+  html`${add_path}` :
+  md``
+  
+recodeuse = {
+  if (recode != "cmu2labov"){
+    if(recode == "custom"){
+      return Generators.input(recodepath)
+    } else {
+      return recode
+    }
+  } 
+}
+
+add_use = {
+  if(add_rules){
+    return Generators.input(add_path)
+  }
+}
+
+recodeCode = {
+  if (recode != "cmu2labov"){
+    return ` \\
+  --recode-rules ${recodeuse}`
+  } else {
+    return ""
+  }
+}
+
+add_code = {
+  if(add_rules){
+    return ` \\ 
+  --add_rules ${add_use}`
+  }else{
+    return ""
+  }
+}
+
+```
+
+```{ojs}
+md`### [Measurement point heuristic](/usage/configs/point-heuristic.html)`
+
+viewof measurement_point = Inputs.text(
+  {
+    label: "measurement point heuristic",
+    value: "fave"
+  }
+)
+
+measurement_flag = {
+  if(measurement_point != "fave"){
+    return ` \\
+  --point-heuristic ${measurement_point}`
+  }else{
+    return ""
+  }
+}
+```
+
+```{ojs}
+md`### [FastTrack Config](/usage/configs/ft-config.html)`
+
+viewof ft_config = Inputs.text(
+  {
+    label: "FastTrack configuration",
+    value: "default"
+  }
+)
+
+ft_flag = {
+  if(ft_config != "default"){
+    return ` \\
+  --ft-config ${ft_config}`
+  }else{
+    return ""
+  }
+}
+```
+
+```{ojs}
+md`### [Misc Processing](/usage/customizing/processing.html)`
+
+viewof exclude_overlaps = Inputs.toggle(
+  {
+    label: "exclude overlaps",
+    value: false
+  }
+)
+
+viewof no_optimize = Inputs.toggle(
+  {
+    label: "no optimization",
+    value: false
+  }
+)
+
+viewof f1_cutoff = Inputs.range(
+  [500, 2500],
+  {
+    label: "F1 cutoff",
+    step: 1
+  }
+)
+
+viewof f2_cutoff = Inputs.range(
+  [2500, 4500],
+  {
+    label: "F2 cutoff",
+    step: 1
+  }
+)
+
+exclude_flag = {
+  if(exclude_overlaps){
+    return ` \\
+  --exclude-overlaps`
+  }else{
+    return ""
+  }
+}
+
+no_optim_flag = {
+  if(no_optimize){
+    return ` \\
+  --no-optimize`
+  }else{
+    return ""
+  }
+}
+
+f1_flag = {
+  if(f1_cutoff != 1500){
+    return ` \\
+  --f1-cutoff ${f1_cutoff}`
+  }else{
+    return ""
+  }
+}
+
+f2_flag = {
+  if(f2_cutoff != 3500){
+    return ` \\
+  --f2-cutoff ${f2_cutoff}`
+  }else{
+    return ""
+  }
+}
+```
+
+
+### Advanced Processing options
+
+```{ojs}
+viewof labelset_parser = Inputs.toggle(
+  {
+    label: "custom labelset parser", 
+    value: false
+  }
+)
+
+parser_path = {
+  if(labelset_parser){
+    return Inputs.text(
+      {
+        label: md`labelset parser file`,
+        required: true
+      }
+    )
+  }
+}
+
+parser_path != undefined? 
+  html`${parser_path}` :
+  md``
+
+parser_use = {
+  if(labelset_parser){
+    return Generators.input(parser_path)
+  }
+}
+
+parser_code = {
+  if(labelset_parser){
+    return ` \\ 
+  --labelset_parser ${parser_use}`
+  }else{
+    return ""
+  }
+}
+```
+:::
+
+::: {.callout-note collapse="true"}
+## Output Options
+
+```{ojs}
+md`### [Output Options](/usage/customizing/output.html)`
+
+viewof destination = Inputs.text(
+  {
+    label: "results directory",
+    value: "fave_results"
+  }
+)
+
+viewof separate = Inputs.toggle(
+  {
+    label: "one speaker per file",
+    value: false
+  }
+)
+
+viewof formats = Inputs.select(
+  ["tracks", "points", "param", "log_param", "textgrid"],
+  {
+    label: "output formats",
+    value: ["tracks", "points", "param", "log_param", "textgrid"],
+    multiple: true
+  }
+)
+
+destination_flag = {
+  if(destination != "fave_results"){
+    return ` \\
+  --destination ${destination}`
+  }else{
+    return ""
+  }
+}
+
+separate_flag = {
+  if(separate){
+    return ` \\
+  --separate`
+  }else{
+    return ""
+  }
+}
+
+which_flags = {
+  if(formats.length < 5){
+    return formats.reduce(
+      (accumulator, current) => `${accumulator} \\
+  --which ${current}`,
+    ""
+    )
+  }else{
+    return""
+  }
+}
+```
+
+:::
+
+::: {.callout-note collapse="true"}
+## Reference Value Options
+
+```{ojs}
+md`### [Reference Values](/usage/customizing/reference.html)`
+
+viewof reference_type = Inputs.radio(
+  ["logparam", "param", "points", "none"],
+  {
+    label: "reference corpus type",
+    value: "none"
+  }
+)
+
+
+reference_path = {
+  if(reference_type != "none"){
+    return Inputs.text(
+      {
+        value: "corpus",
+        label: "reference corpus path",
+        required: true
+      }
+    )
+  }
+}
+
+reference_path != undefined ?
+  html`${reference_path}` :
+  md``
+  
+reference_use = {
+  if(reference_type != "none"){
+    return Generators.input(reference_path)
+  }
+}
+
+reference_flag = {
+  if(reference_type != "none"){
+    return ` \\
+  --${reference_type}-reference ${reference_use}`
+  }else{
+    return ""
+  }
+}
+
+```
+:::
+
+::::
+
+:::::

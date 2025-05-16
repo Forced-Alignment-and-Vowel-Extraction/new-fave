@@ -17,6 +17,8 @@ website:
     left: 
       - href: index.qmd
         text: Home
+      - href: command/
+        text: Command Builder
       - href: reference/
         text: Package reference 
     right:
