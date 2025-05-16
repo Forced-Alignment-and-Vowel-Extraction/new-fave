@@ -4,3 +4,6 @@ _inv/
 reference/
 objects.txt
 /resources
+.Rprofile
+renv*
+site_libs
