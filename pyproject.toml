@@ -26,7 +26,7 @@ scipy = "^1.13.1"
 cloudpickle = "^3.0.0"
 librosa = "^0.10.2.post1"
 toml = "^0.10.2"
-aligned-textgrid = "^0.7.8"
+aligned-textgrid = "^0.8"
 polars = "^1.23.0"
 fastexcel = "^0.13.0"
 
