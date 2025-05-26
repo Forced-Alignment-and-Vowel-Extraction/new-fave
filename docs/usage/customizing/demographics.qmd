@@ -39,7 +39,7 @@ from great_tables import GT, md, html, style, loc, google_font, system_fonts
 
 demo_data = pl.DataFrame(
     {
-        "file_name": ["speaker1", "speaker2", "speaker2"],
+        "file_name": ["recordingA", "recordingB", "recordingB"],
         "speaker_num": [1, 1, 2],
         "age": [26, 50, 23]
     }
@@ -68,17 +68,17 @@ Another option for formatting speaker demographic information is in a yaml file.
 tree --noreport ../my_corpus
 ```
 
-An speaker demographics yaml file would look like
+A speaker demographics yaml file would look like
 
 ``` yaml
 # yaml
-- file_name: speaker1
+- file_name: recordingA
   speaker_num: 1
   age: 26
-- file_name: speaker3
+- file_name: recordingB
   speaker_num: 1
   age: 50
-- file_name: speaker1
+- file_name: recordingB
   speaker_num: 1
   age: 23  
 ```
