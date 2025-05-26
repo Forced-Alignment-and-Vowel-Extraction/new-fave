@@ -2,14 +2,14 @@
 
 [[package]]
 name = "aligned-textgrid"
-version = "0.7.8"
+version = "0.8.0"
 description = "Classes for defining sequential information from TextGrids"
 category = "main"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "aligned_textgrid-0.7.8-py3-none-any.whl", hash = "sha256:f2c9c2aa8189278b1abb804720f031c1aa0b34caa76bf55c15c0dd3e538a95ab"},
-    {file = "aligned_textgrid-0.7.8.tar.gz", hash = "sha256:e94a2b9bd5a56e29f26c0191bdef14689422e884ca6460f19bd9b40a538c9aec"},
+    {file = "aligned_textgrid-0.8.0-py3-none-any.whl", hash = "sha256:a6891e77e5e6d9a33ecd5aa90f57ab35fb0d581ac1ef4d27bb03e4ba72d50ac8"},
+    {file = "aligned_textgrid-0.8.0.tar.gz", hash = "sha256:b6da5829cc376a3b8859a5a786cd07bb231d04bb4a67a32022fa59c627490350"},
 ]
 
 [package.dependencies]
@@ -962,18 +962,18 @@ devel = ["colorama", "json-spec", "jsonschema", "pylint", "pytest", "pytest-benc
 
 [[package]]
 name = "fasttrackpy"
-version = "0.5.3"
+version = "0.5.4"
 description = "A python implementation of FastTrack"
 category = "main"
 optional = false
 python-versions = "<3.14,>=3.10"
 files = [
-    {file = "fasttrackpy-0.5.3-py3-none-any.whl", hash = "sha256:29758be933434a5845a158c189b52a3faaaf999d4f6fd136e30434f11dc1e5f9"},
-    {file = "fasttrackpy-0.5.3.tar.gz", hash = "sha256:5704b0b860e67af6c160bb95ff3ec123fd6fddc18e49f281531eb4e32c0d4a98"},
+    {file = "fasttrackpy-0.5.4-py3-none-any.whl", hash = "sha256:d6337f3ed5dd5857d76c08dd7dce9972616404cb11b81a8881aa9bf00ec0ef5d"},
+    {file = "fasttrackpy-0.5.4.tar.gz", hash = "sha256:c4151d24214b96de0ab202ebe3a1ec53f7724aad5519b4a1807336c1971ca85a"},
 ]
 
 [package.dependencies]
-aligned-textgrid = ">=0.7.8,<0.8.0"
+aligned-textgrid = ">=0.8,<0.9"
 click = ">=8.1.7,<9.0.0"
 cloudpickle = ">=3.0.0,<4.0.0"
 cloup = ">=3.0.3,<4.0.0"
@@ -1006,18 +1006,18 @@ numpy = "<=2.2"
 
 [[package]]
 name = "fave-recode"
-version = "0.3.2"
+version = "0.3.3"
 description = "A package for recoding Praat TextGrids"
 category = "main"
 optional = false
 python-versions = "<4.0,>=3.10"
 files = [
-    {file = "fave_recode-0.3.2-py3-none-any.whl", hash = "sha256:b78e7ea05b80e8d2b843dfd60f9ec7fc9d0369dd910db8fcdad5a9f102da4421"},
-    {file = "fave_recode-0.3.2.tar.gz", hash = "sha256:e57116452d52e7ee2212ec31fc6342ba10a6ebee1a5943d35cbac7b3eb896474"},
+    {file = "fave_recode-0.3.3-py3-none-any.whl", hash = "sha256:29937f7a8ebd5f313ea8012494129a9e04cbc87a11c714bf37db00cc4a772d93"},
+    {file = "fave_recode-0.3.3.tar.gz", hash = "sha256:5b20415bba06fe663c5d615396cdc3434e693ad2ba6a17d97a4efbba1209b950"},
 ]
 
 [package.dependencies]
-aligned-textgrid = ">=0.7.8,<0.8.0"
+aligned-textgrid = ">=0.8,<0.9"
 cerberus = ">=1.3.5,<2.0.0"
 click = ">=8.1.7,<9.0.0"
 cloup = ">=3.0.2,<4.0.0"
@@ -4741,4 +4741,4 @@ type = ["pytest-mypy"]
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<3.13"
-content-hash = "0e606bccb04f8bcf156eb6cbe4978d2a959b8f2748aba6ea3769029dc9c7c79d"
+content-hash = "c47b566d918dd218ec47bd66a6d983cc054321bc3544faa35c57f819b2008174"
