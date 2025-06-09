@@ -72,3 +72,7 @@ def test_get_textgrid():
     all_tg = get_all_textgrid(candidates)
 
     assert len(atg_paths) == len(all_tg)
+
+
+def test_stressless():
+    pass
