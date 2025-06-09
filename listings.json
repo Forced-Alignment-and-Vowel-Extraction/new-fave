@@ -1,19 +1,11 @@
 [
   {
-    "listing": "/usage/configs/index.html",
-    "items": [
-      "/usage/configs/ft-config.html",
-      "/usage/configs/point-heuristic.html",
-      "/usage/configs/recode-rules.html"
-    ]
-  },
-  {
     "listing": "/usage/index.html",
     "items": [
       "/usage/getting_started.html",
       "/usage/python_usage.html",
       "/usage/how_it_works.html",
-      "/usage/defaults.html",
+      "/usage/configs/defaults.html",
       "/usage/customizing/demographics.html",
       "/usage/configs/index.html",
       "/usage/customizing/index.html",
@@ -23,7 +15,17 @@
       "/usage/customizing/processing.html",
       "/usage/configs/recode-rules.html",
       "/usage/customizing/reference.html",
+      "/usage/outputs/index.html",
       "/usage/subcommands/audio-textgrid.html"
+    ]
+  },
+  {
+    "listing": "/usage/configs/index.html",
+    "items": [
+      "/usage/configs/defaults.html",
+      "/usage/configs/ft-config.html",
+      "/usage/configs/point-heuristic.html",
+      "/usage/configs/recode-rules.html"
     ]
   },
   {

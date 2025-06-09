@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Recode Rules and Labelset Parser – new-fave</title>
+<title>fave-extract Outputs – new-fave</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,41 +20,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -65,7 +30,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../usage/configs/point-heuristic.html" rel="prev">
+<link href="../../usage/customizing/index.html" rel="next">
+<link href="../../usage/how_it_works.html" rel="prev">
 <link href="../../assets/logo.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -109,16 +75,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="../../site_libs/core-js-2.5.3/shim.min.js"></script>
+<script src="../../site_libs/react-18.2.0/react.min.js"></script>
+<script src="../../site_libs/react-18.2.0/react-dom.min.js"></script>
+<script src="../../site_libs/reactwidget-2.0.0/react-tools.js"></script>
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="../../site_libs/reactable-0.4.4/reactable.css" rel="stylesheet">
+<script src="../../site_libs/reactable-binding-0.4.4/reactable.js"></script>
 
 
 <link rel="stylesheet" href="../../styles/styles.css">
-<meta property="og:title" content="Recode Rules and Labelset Parser – new-fave">
+<meta property="og:title" content="fave-extract Outputs – new-fave">
 <meta property="og:description" content="">
-<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/configs/assets/logo.png">
+<meta property="og:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/outputs/assets/logo.png">
 <meta property="og:site_name" content="new-fave">
-<meta name="twitter:title" content="Recode Rules and Labelset Parser – new-fave">
+<meta name="twitter:title" content="fave-extract Outputs – new-fave">
 <meta name="twitter:description" content="">
-<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/configs/assets/logo.png">
+<meta name="twitter:image" content="https://Forced-Alignment-and-Vowel-Extraction.github.io/new-fave/usage/outputs/assets/logo.png">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -332,7 +305,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/configs/index.html">Configuration</a></li><li class="breadcrumb-item"><a href="../../usage/configs/recode-rules.html">Recode Rules and Labelset Parser</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/outputs/index.html"><code>fave-extract</code> Outputs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -395,7 +368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/outputs/index.html" class="sidebar-item-text sidebar-link">
+  <a href="../../usage/outputs/index.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><code>fave-extract</code> Outputs</span></a>
   </div>
 </li>
@@ -438,11 +411,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="sidebar-item-container"> 
             <a href="../../usage/configs/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Configuration</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 show">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../usage/configs/defaults.html" class="sidebar-item-text sidebar-link">
@@ -463,7 +436,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../usage/configs/recode-rules.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Recode Rules and Labelset Parser</span></a>
   </div>
 </li>
@@ -481,9 +454,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-rule-example" id="toc-a-rule-example" class="nav-link active" data-scroll-target="#a-rule-example">A rule Example</a></li>
-  <li><a href="#a-collection-of-rules" id="toc-a-collection-of-rules" class="nav-link" data-scroll-target="#a-collection-of-rules">A collection of rules</a></li>
-  <li><a href="#more-details" id="toc-more-details" class="nav-link" data-scroll-target="#more-details">More details</a></li>
+  <li><a href="#file-types" id="toc-file-types" class="nav-link active" data-scroll-target="#file-types">File Types</a>
+  <ul>
+  <li><a href="#points.csv" id="toc-points.csv" class="nav-link" data-scroll-target="#points.csv"><code>*_points.csv</code></a></li>
+  <li><a href="#tracks.csv" id="toc-tracks.csv" class="nav-link" data-scroll-target="#tracks.csv"><code>*_tracks.csv</code></a></li>
+  <li><a href="#param.csv-and-_logparam.csv" id="toc-param.csv-and-_logparam.csv" class="nav-link" data-scroll-target="#param.csv-and-_logparam.csv"><code>*_param.csv</code> and <code>*_logparam.csv</code></a></li>
+  <li><a href="#recoded.textgrid" id="toc-recoded.textgrid" class="nav-link" data-scroll-target="#recoded.textgrid"><code>*_recoded.TextGrid</code></a></li>
+  </ul></li>
+  <li><a href="#data-columns" id="toc-data-columns" class="nav-link" data-scroll-target="#data-columns">Data Columns</a>
+  <ul>
+  <li><a href="#alphabetic-list" id="toc-alphabetic-list" class="nav-link" data-scroll-target="#alphabetic-list">Alphabetic List</a>
+  <ul class="collapse">
+  <li><a href="#abs_fol_seg" id="toc-abs_fol_seg" class="nav-link" data-scroll-target="#abs_fol_seg">abs_fol_seg</a></li>
+  <li><a href="#abs_pre_seg" id="toc-abs_pre_seg" class="nav-link" data-scroll-target="#abs_pre_seg">abs_pre_seg</a></li>
+  <li><a href="#b1-b2-b3" id="toc-b1-b2-b3" class="nav-link" data-scroll-target="#b1-b2-b3">B1, B2, B3</a></li>
+  <li><a href="#context" id="toc-context" class="nav-link" data-scroll-target="#context">context</a></li>
+  <li><a href="#dur" id="toc-dur" class="nav-link" data-scroll-target="#dur">dur</a></li>
+  <li><a href="#f1-f3-f3" id="toc-f1-f3-f3" class="nav-link" data-scroll-target="#f1-f3-f3">F1, F3, F3</a></li>
+  <li><a href="#f1_s-f2_s-f3_s" id="toc-f1_s-f2_s-f3_s" class="nav-link" data-scroll-target="#f1_s-f2_s-f3_s">F1_s, F2_s, F3_s</a></li>
+  <li><a href="#file_name" id="toc-file_name" class="nav-link" data-scroll-target="#file_name">file_name</a></li>
+  <li><a href="#fol_seg" id="toc-fol_seg" class="nav-link" data-scroll-target="#fol_seg">fol_seg</a></li>
+  <li><a href="#fol_word" id="toc-fol_word" class="nav-link" data-scroll-target="#fol_word">fol_word</a></li>
+  <li><a href="#group" id="toc-group" class="nav-link" data-scroll-target="#group">group</a></li>
+  <li><a href="#id" id="toc-id" class="nav-link" data-scroll-target="#id">id</a></li>
+  <li><a href="#label" id="toc-label" class="nav-link" data-scroll-target="#label">label</a></li>
+  <li><a href="#max_formant" id="toc-max_formant" class="nav-link" data-scroll-target="#max_formant">max_formant</a></li>
+  <li><a href="#optimized" id="toc-optimized" class="nav-link" data-scroll-target="#optimized">optimized</a></li>
+  <li><a href="#param" id="toc-param" class="nav-link" data-scroll-target="#param">param</a></li>
+  <li><a href="#point_heuristic" id="toc-point_heuristic" class="nav-link" data-scroll-target="#point_heuristic">point_heuristic</a></li>
+  <li><a href="#pre_seg" id="toc-pre_seg" class="nav-link" data-scroll-target="#pre_seg">pre_seg</a></li>
+  <li><a href="#pre_word" id="toc-pre_word" class="nav-link" data-scroll-target="#pre_word">pre_word</a></li>
+  <li><a href="#prop_time" id="toc-prop_time" class="nav-link" data-scroll-target="#prop_time">prop_time</a></li>
+  <li><a href="#rel_time" id="toc-rel_time" class="nav-link" data-scroll-target="#rel_time">rel_time</a></li>
+  <li><a href="#smooth_error" id="toc-smooth_error" class="nav-link" data-scroll-target="#smooth_error">smooth_error</a></li>
+  <li><a href="#speaker_num" id="toc-speaker_num" class="nav-link" data-scroll-target="#speaker_num">speaker_num</a></li>
+  <li><a href="#stress" id="toc-stress" class="nav-link" data-scroll-target="#stress">stress</a></li>
+  <li><a href="#time" id="toc-time" class="nav-link" data-scroll-target="#time">time</a></li>
+  <li><a href="#word" id="toc-word" class="nav-link" data-scroll-target="#word">word</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -491,9 +500,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <main class="content" id="quarto-document-content">
 
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/configs/index.html">Configuration</a></li><li class="breadcrumb-item"><a href="../../usage/configs/recode-rules.html">Recode Rules and Labelset Parser</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../usage/index.html">Usage</a></li><li class="breadcrumb-item"><a href="../../usage/outputs/index.html"><code>fave-extract</code> Outputs</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Recode Rules and Labelset Parser</h1>
+<h1 class="title"><code>fave-extract</code> Outputs</h1>
 </div>
 
 
@@ -510,89 +519,601 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/overview.html">See fave-recode</a> for the full details on how to write label recoding rules.</p>
-<p>A recoding rules file is a yaml file with a list of rules, which are applied in order. When writing a rule set, you must implement the Elsewhere Principle, and place more specific rules at the top of the rule file.</p>
-<section id="a-rule-example" class="level2">
-<h2 class="anchored" data-anchor-id="a-rule-example">A rule Example</h2>
-<p>An example of a single-rule file to recode CMU <code>AH0</code> to <code>@</code> (schwa) would look like this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> schwa</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> ==</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AH0</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">return</span><span class="kw">:</span><span class="at"> </span><span class="st">"@"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Each rule has</p>
+<p>The subcommands of <code>fave-extract</code> generate multiple output files by default (<a href="../../usage/customizing/output.html">this can be customized</a>). Each one will be named after the original file with a suffix. Below, each type of output file is described, followed by descriptions of the data columns in the csv files (in alphabetical order).</p>
+<section id="file-types" class="level2">
+<h2 class="anchored" data-anchor-id="file-types">File Types</h2>
+<section id="points.csv" class="level4">
+<h4 class="anchored" data-anchor-id="points.csv"><code>*_points.csv</code></h4>
+<p>Points files contain 1 row per vowel analyzed, with a single point measurement taken according to the <a href="../../usage/configs/point-heuristic.html">measurement point heuristic</a> used.</p>
+</section>
+<section id="tracks.csv" class="level4">
+<h4 class="anchored" data-anchor-id="tracks.csv"><code>*_tracks.csv</code></h4>
+<p>Tracks files contain 1 row per measurement point per vowel analyzed. By default, there will be one measurement point every 2ms, so a 100ms vowel will have 50 rows in the data. `*_tracks.csv* files can get very large!</p>
+<p>For analyzing the tracks data, the combination of the <a href="#file_name"><code>file_name</code></a> column and the <a href="#id"><code>id</code></a> will uniquely identify each individual token.</p>
+</section>
+<section id="param.csv-and-_logparam.csv" class="level4">
+<h4 class="anchored" data-anchor-id="param.csv-and-_logparam.csv"><code>*_param.csv</code> and <code>*_logparam.csv</code></h4>
+<p>These files contain the Discrete Cosine Transform coefficients for each analyzed vowel. <code>*_param.csv</code> contains the coefficients when the DCT is applied to the formants in Hz, and <code>*_logparam.csv</code> contains the coefficients when the DCT is applied to the log-transformed formants.</p>
+<p>The DCT coefficients can be <a href="https://jofrhwld.github.io/dct_normalization/">directly normalized</a> (<a href="https://jofrhwld.github.io/tidynorm/">R package</a>). This can be useful for</p>
 <ul>
-<li><p>A name</p></li>
-<li><p>A list of conditions that define when it applies</p>
-<ul>
-<li><p>Each condition targets <a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html">an interval’s attribute</a></p></li>
-<li><p><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html">A relation</a> to some other value</p></li>
-<li><p>The other value</p></li>
-</ul></li>
-<li><p>A return label</p></li>
+<li><a href="https://jofrhwld.github.io/dct_normalization/#data-compression">Decreasing the memory size of your data</a>.</li>
+<li><a href="https://jofrhwld.github.io/dct_normalization/#averaging-formant-tracks">Averaging over formant tracks</a>.</li>
+<li><a href="https://jofrhwld.github.io/dct_normalization/#modelling-with-dct-coefficients">Doing statistics</a>.</li>
 </ul>
 </section>
-<section id="a-collection-of-rules" class="level2">
-<h2 class="anchored" data-anchor-id="a-collection-of-rules">A collection of rules</h2>
-<p>Let’s say you wanted to recode CMU <code>AY</code> into three different categories</p>
-<ul>
-<li><p>ayE: /ay/ that appears in words with exceptional raising, like “spider” and “cider”</p></li>
-<li><p>ay0: /ay/ that appears before voiceless consonants</p></li>
-<li><p>ay: /ay/ that appears in all other contexts</p></li>
-</ul>
-<p>The recode rule file would look like:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># yaml</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">## placing most specific rule</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">## at top</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> exceptional</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ayE</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> inword.label</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> in</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> SPIDER</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="at">        </span><span class="kw">-</span><span class="at"> CIDER        </span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co">## Next most specific rule</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> ay0</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ay0</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> fol.label</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> in</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> </span><span class="kw">[</span><span class="at">CH</span><span class="kw">,</span><span class="at"> F</span><span class="kw">,</span><span class="at"> HH</span><span class="kw">,</span><span class="at"> K</span><span class="kw">,</span><span class="at"> P</span><span class="kw">,</span><span class="at"> S</span><span class="kw">,</span><span class="at"> SH</span><span class="kw">,</span><span class="at"> T</span><span class="kw">,</span><span class="at"> TH</span><span class="kw">]</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">## Elsewhere rule</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="kw">-</span><span class="at"> </span><span class="fu">rule</span><span class="kw">:</span><span class="at"> ay</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">returns</span><span class="kw">:</span><span class="at"> ay</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">conditions</span><span class="kw">:</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="kw">-</span><span class="at"> </span><span class="fu">attribute</span><span class="kw">:</span><span class="at"> label</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">relation</span><span class="kw">:</span><span class="at"> contains</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="at">      </span><span class="fu">set</span><span class="kw">:</span><span class="at"> AY</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="recoded.textgrid" class="level4">
+<h4 class="anchored" data-anchor-id="recoded.textgrid"><code>*_recoded.TextGrid</code></h4>
+<p>The <code>*_recoded.TextGrid</code> will be a copy of the original textgrid passed to new-fave to which the <a href="../../usage/configs/recode-rules.html">recode rules</a> have been applied.</p>
 </section>
-<section id="more-details" class="level2">
-<h2 class="anchored" data-anchor-id="more-details">More details</h2>
-<p>For more details on the kinds of attributes that are definable in a rules file</p>
-<ul>
-<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-attributes.html">Condition Attributes</a></li>
-</ul>
-<p>For more details on the kinds of relations that are definable in a rules file</p>
-<ul>
-<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/condition-relations.html">Condition Relations</a></li>
-</ul>
-<p>For more details on how return labels can be defined, see</p>
-<ul>
-<li><a href="https://forced-alignment-and-vowel-extraction.github.io/fave-recode/getting-started/label_set_parser.html">Label Set Parsers</a></li>
-</ul>
+</section>
+<section id="data-columns" class="level2">
+<h2 class="anchored" data-anchor-id="data-columns">Data Columns</h2>
+<p>The data columns are described in this searchable table, and in text below.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="jwsgvlyohc" class=".gt_table" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jwsgvlyohc table {
+  font-family: 'Public Sans', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#jwsgvlyohc thead, #jwsgvlyohc tbody, #jwsgvlyohc tfoot, #jwsgvlyohc tr, #jwsgvlyohc td, #jwsgvlyohc th {
+  border-style: none;
+}
+
+#jwsgvlyohc p {
+  margin: 0;
+  padding: 0;
+}
+
+#jwsgvlyohc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#jwsgvlyohc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jwsgvlyohc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jwsgvlyohc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jwsgvlyohc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jwsgvlyohc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jwsgvlyohc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jwsgvlyohc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jwsgvlyohc .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#jwsgvlyohc .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#jwsgvlyohc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jwsgvlyohc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jwsgvlyohc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jwsgvlyohc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jwsgvlyohc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwsgvlyohc .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#jwsgvlyohc .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#jwsgvlyohc .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#jwsgvlyohc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwsgvlyohc .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#jwsgvlyohc .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwsgvlyohc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jwsgvlyohc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwsgvlyohc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jwsgvlyohc .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jwsgvlyohc .gt_left {
+  text-align: left;
+}
+
+#jwsgvlyohc .gt_center {
+  text-align: center;
+}
+
+#jwsgvlyohc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jwsgvlyohc .gt_font_normal {
+  font-weight: normal;
+}
+
+#jwsgvlyohc .gt_font_bold {
+  font-weight: bold;
+}
+
+#jwsgvlyohc .gt_font_italic {
+  font-style: italic;
+}
+
+#jwsgvlyohc .gt_super {
+  font-size: 65%;
+}
+
+#jwsgvlyohc .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#jwsgvlyohc .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#jwsgvlyohc .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#jwsgvlyohc .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#jwsgvlyohc .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#jwsgvlyohc .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#jwsgvlyohc .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#jwsgvlyohc .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#jwsgvlyohc div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+<div id="jwsgvlyohc" class="reactable html-widget" style="width:auto;height:auto;"></div>
+<script type="application/json" data-for="jwsgvlyohc">{"x":{"tag":{"name":"Reactable","attribs":{"data":{"Column":["abs_fol_seg","abs_pre_seg","B1, B2, B3","context","dur","F1, F3, F3","F1_s, F2_s, F3_s","file_name","fol_seg","fol_word","group","id","label","max_formant","optimized","param","point_heuristic","pre_seg","pre_word","prop_time","rel_time","smooth_error","speaker_num","stress","time","word"],"description":["Stands for 'absolute following segment'. The segment following the measured vowel, regardless of word boundary.","Stands for 'absolute preceding segment'. The segment preceding the measured vowel, regardless of word boundary.","The bandwidths of F1, F2, and F3.","The broad location of the measured vowel within the word.","The duration of the measured vowel.","In points and tracks files, the estimated formant values. In param and logparam files, DCT coefficients for each formant.","These only appear in tracks files. The DCT smoothed formant tracks","The file stem of the analyzed file","The segment following the measured vowel. If the vowel is at the end of the word, this is '#'","The word following the word that the measured vowel appears in.","The name of the word+phone tier group in the original textgrid. If tiers were just named 'word' and 'phone', this will be 'group_0'. Otherwise, this will probably be the speaker's name.","A unique id for the measured vowel that is shared across all file outputs. The numbers correspond to [the index of the tier group]-[the index of the word tier]-[the index of the word within the tier]-[the index of the vowel within the word].","The label of the measured vowel.","The maximum formant setting used for this vowel","The number of optimization iterations that ran.","This only appears in param and logparam files. It identifies which DCT coefficient this row corresponds to.","This only appears in points files. Identifies the measurement point heuristic used.","The segment preceding the measured vowel. If the vowel is at the beginning edge of the word, this is '#'.","The word preceding the word that the measured vowel appears in.","Time measured proportionally to the duration of the vowel. The very beginning of the vowel is time 0, and the very end is time 1.","Time relative to the start of the vowel, in seconds. The very beginning of the vowel is time 0.","Ameasure of of the mismatch between the formant track smooths and the raw formant track estimates. A larger value corresponds to a larger mismatch.","The speaker index in the textgrid (beginning at 1)","If present, the stress of the measured vowel","The time within the full recording, in seconds. The beginning of the recording is 0","The word that the measured vowel appeared in."],"possible values":["Any phone that appeared in the textgrid.","Any phone that appeared in the textgrid.",">0","initial, final, internal, coextensive",">0","points, tracks: >0; param, logparam: any number",">0","text","Any phone that appeared in the textgrid, and #","Any word that appeared in the textgrid.","text","int-int-int-int","Any phone that appeared in the textgrid","any number",">=0","0, 1, 2, 3, 4","text","Any phone that appeared in the textgrid, and '#'.","Any word that appeared in the textgrid.","0<= prop_time <= 1",">0",">=0",">=1","0, 2, 1",">=0","Any word from the original textgrid."]},"columns":[{"id":"Column","name":"Column","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"width":140,"align":"left"},{"id":"description","name":"description","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"width":250,"align":"left"},{"id":"possible values","name":"possible values","type":"character","na":"NA","minWidth":125,"style":"function(rowInfo, colInfo) {\nconst rowIndex = rowInfo.index + 1\n}","html":true,"align":"left"}],"filterable":true,"searchable":true,"defaultPageSize":10,"showPageSizeOptions":false,"pageSizeOptions":[10,25,50,100],"paginationType":"numbers","showPagination":true,"showPageInfo":true,"minRows":1,"height":"auto","theme":{"color":"#333333","backgroundColor":"#FFFFFF","stripedColor":"rgba(128,128,128,0.05)","style":{"font-family":"'Public Sans', system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif","fontSize":"16px"},"tableStyle":{"borderTopStyle":"solid","borderTopWidth":"2px","borderTopColor":"#D3D3D3"},"headerStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"groupHeaderStyle":{"fontWeight":"normal","backgroundColor":"transparent","borderBottomStyle":"solid","borderBottomWidth":"2px","borderBottomColor":"#D3D3D3"},"cellStyle":{"fontWeight":"normal"}},"elementId":"jwsgvlyohc","dataKey":"7f2e4d46bbc58624bc0c7b3e621dda98"},"children":[]},"class":"reactR_markup"},"evals":["tag.attribs.columns.0.style","tag.attribs.columns.1.style","tag.attribs.columns.2.style"],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<section id="alphabetic-list" class="level3">
+<h3 class="anchored" data-anchor-id="alphabetic-list">Alphabetic List</h3>
+<section id="abs_fol_seg" class="level4">
+<h4 class="anchored" data-anchor-id="abs_fol_seg">abs_fol_seg</h4>
+<p>Stands for ‘absolute following segment’. The segment following the measured vowel, regardless of word boundary.</p>
+</section>
+<section id="abs_pre_seg" class="level4">
+<h4 class="anchored" data-anchor-id="abs_pre_seg">abs_pre_seg</h4>
+<p>Stands for ‘absolute preceding segment’. The segment preceding the measured vowel, regardless of word boundary.</p>
+</section>
+<section id="b1-b2-b3" class="level4">
+<h4 class="anchored" data-anchor-id="b1-b2-b3">B1, B2, B3</h4>
+<p>The bandwidths of F1, F2, and F3.</p>
+</section>
+<section id="context" class="level4">
+<h4 class="anchored" data-anchor-id="context">context</h4>
+<p>The broad location of the measured vowel within the word.</p>
+</section>
+<section id="dur" class="level4">
+<h4 class="anchored" data-anchor-id="dur">dur</h4>
+<p>The duration of the measured vowel.</p>
+</section>
+<section id="f1-f3-f3" class="level4">
+<h4 class="anchored" data-anchor-id="f1-f3-f3">F1, F3, F3</h4>
+<p>In points and tracks files, the estimated formant values. In param and logparam files, DCT coefficients for each formant.</p>
+</section>
+<section id="f1_s-f2_s-f3_s" class="level4">
+<h4 class="anchored" data-anchor-id="f1_s-f2_s-f3_s">F1_s, F2_s, F3_s</h4>
+<p>These only appear in tracks files. The DCT smoothed formant tracks</p>
+</section>
+<section id="file_name" class="level4">
+<h4 class="anchored" data-anchor-id="file_name">file_name</h4>
+<p>The file stem of the analyzed file</p>
+</section>
+<section id="fol_seg" class="level4">
+<h4 class="anchored" data-anchor-id="fol_seg">fol_seg</h4>
+<p>The segment following the measured vowel. If the vowel is at the end of the word, this is ‘#’</p>
+</section>
+<section id="fol_word" class="level4">
+<h4 class="anchored" data-anchor-id="fol_word">fol_word</h4>
+<p>The word following the word that the measured vowel appears in.</p>
+</section>
+<section id="group" class="level4">
+<h4 class="anchored" data-anchor-id="group">group</h4>
+<p>The name of the word+phone tier group in the original textgrid. If tiers were just named ‘word’ and ‘phone’, this will be ‘group_0’. Otherwise, this will probably be the speaker’s name.</p>
+</section>
+<section id="id" class="level4">
+<h4 class="anchored" data-anchor-id="id">id</h4>
+<p>A unique id for the measured vowel that is shared across all file outputs. The numbers correspond to [the index of the tier group]-[the index of the word tier]-[the index of the word within the tier]-[the index of the vowel within the word].</p>
+</section>
+<section id="label" class="level4">
+<h4 class="anchored" data-anchor-id="label">label</h4>
+<p>The label of the measured vowel.</p>
+</section>
+<section id="max_formant" class="level4">
+<h4 class="anchored" data-anchor-id="max_formant">max_formant</h4>
+<p>The maximum formant setting used for this vowel</p>
+</section>
+<section id="optimized" class="level4">
+<h4 class="anchored" data-anchor-id="optimized">optimized</h4>
+<p>The number of optimization iterations that ran.</p>
+</section>
+<section id="param" class="level4">
+<h4 class="anchored" data-anchor-id="param">param</h4>
+<p>This only appears in param and logparam files. It identifies which DCT coefficient this row corresponds to.</p>
+</section>
+<section id="point_heuristic" class="level4">
+<h4 class="anchored" data-anchor-id="point_heuristic">point_heuristic</h4>
+<p>This only appears in points files. Identifies the measurement point heuristic used.</p>
+</section>
+<section id="pre_seg" class="level4">
+<h4 class="anchored" data-anchor-id="pre_seg">pre_seg</h4>
+<p>The segment preceding the measured vowel. If the vowel is at the beginning edge of the word, this is ‘#’.</p>
+</section>
+<section id="pre_word" class="level4">
+<h4 class="anchored" data-anchor-id="pre_word">pre_word</h4>
+<p>The word preceding the word that the measured vowel appears in.</p>
+</section>
+<section id="prop_time" class="level4">
+<h4 class="anchored" data-anchor-id="prop_time">prop_time</h4>
+<p>Time measured proportionally to the duration of the vowel. The very beginning of the vowel is time 0, and the very end is time 1.</p>
+</section>
+<section id="rel_time" class="level4">
+<h4 class="anchored" data-anchor-id="rel_time">rel_time</h4>
+<p>Time relative to the start of the vowel, in seconds. The very beginning of the vowel is time 0.</p>
+</section>
+<section id="smooth_error" class="level4">
+<h4 class="anchored" data-anchor-id="smooth_error">smooth_error</h4>
+<p>Ameasure of of the mismatch between the formant track smooths and the raw formant track estimates. A larger value corresponds to a larger mismatch.</p>
+</section>
+<section id="speaker_num" class="level4">
+<h4 class="anchored" data-anchor-id="speaker_num">speaker_num</h4>
+<p>The speaker index in the textgrid (beginning at 1)</p>
+</section>
+<section id="stress" class="level4">
+<h4 class="anchored" data-anchor-id="stress">stress</h4>
+<p>If present, the stress of the measured vowel</p>
+</section>
+<section id="time" class="level4">
+<h4 class="anchored" data-anchor-id="time">time</h4>
+<p>The time within the full recording, in seconds. The beginning of the recording is 0</p>
+</section>
+<section id="word" class="level4">
+<h4 class="anchored" data-anchor-id="word">word</h4>
+<p>The word that the measured vowel appeared in.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1010,11 +1531,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../usage/configs/point-heuristic.html" class="pagination-link" aria-label="Measurement Point Customization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Measurement Point Customization</span>
+      <a href="../../usage/how_it_works.html" class="pagination-link" aria-label="How it works">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">How it works</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../usage/customizing/index.html" class="pagination-link" aria-label="Customizing">
+        <span class="nav-page-text">Customizing</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
