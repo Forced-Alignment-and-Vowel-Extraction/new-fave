@@ -28,6 +28,12 @@ pip install new-fave
 
 # Usage
 
+::: callout-tip
+## Command Builder
+
+[The Command Builder](../command/) tool can help you put together a new-fave command.
+:::
+
 After installing new-fave, the `fave-extract` executable will be made available. You can access a minimal help message by just running `fave-extract` with no arguments.
 
 ```{bash}

@@ -5,6 +5,7 @@ project:
   output-dir: _site
   preview:
     port: 7777  
+freeze: auto
 
 website:
   title: "new-fave"
@@ -38,6 +39,7 @@ website:
             href: usage/index.qmd
             contents:
               - auto: usage/*
+              - usage/outputs/index.qmd
               - section: Customizing
                 href: usage/customizing/index.qmd
                 contents: 
@@ -45,7 +47,7 @@ website:
               - section: Configuration
                 href: usage/configs/index.qmd
                 contents: 
-                  - auto: usage/configs/*                  
+                  - auto: usage/configs/*
           # - section: Dev Notes
           #   contents:
           #     - auto: dev
