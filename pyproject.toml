@@ -11,7 +11,7 @@ repository = "https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave"
 
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
+python = ">=3.10,<3.14"
 fasttrackpy = "^0.5.3"
 numpy = "<=2.2"
 tqdm = "^4.66.2"
