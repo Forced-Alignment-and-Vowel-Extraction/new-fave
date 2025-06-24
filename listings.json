@@ -1,5 +1,14 @@
 [
   {
+    "listing": "/usage/configs/index.html",
+    "items": [
+      "/usage/configs/defaults.html",
+      "/usage/configs/ft-config.html",
+      "/usage/configs/point-heuristic.html",
+      "/usage/configs/recode-rules.html"
+    ]
+  },
+  {
     "listing": "/usage/index.html",
     "items": [
       "/usage/getting_started.html",
@@ -17,15 +26,6 @@
       "/usage/customizing/reference.html",
       "/usage/outputs/index.html",
       "/usage/subcommands/audio-textgrid.html"
-    ]
-  },
-  {
-    "listing": "/usage/configs/index.html",
-    "items": [
-      "/usage/configs/defaults.html",
-      "/usage/configs/ft-config.html",
-      "/usage/configs/point-heuristic.html",
-      "/usage/configs/recode-rules.html"
     ]
   },
   {
