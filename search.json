@@ -151,7 +151,7 @@
     "href": "usage/python_usage.html",
     "title": "Python Usage",
     "section": "",
-    "text": "To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions 3.10, 3.11, or 3.12. If you are not sure whether python is installed, or what version is installed, here is a good tutorial for figuring that out.\nOnce you have python successfully installed, you can install new-fave at the command-line like so.\n# command-line\npip install new-fave",
+    "text": "To use new-fave, you will need to have python installed on your computer. Currently, new-fave supports python versions 3.10, 3.11, 3.12, or 3.13. If you are not sure whether python is installed, or what version is installed, here is a good tutorial for figuring that out.\nOnce you have python successfully installed, you can install new-fave at the command-line like so.\n# command-line\npip install new-fave",
     "crumbs": [
       "Home",
       "Usage",
