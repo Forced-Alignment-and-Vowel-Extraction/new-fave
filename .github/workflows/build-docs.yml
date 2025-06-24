@@ -23,7 +23,7 @@ jobs:
                 r-version: "4.4"
             - name: rinstall
               run: |
-                R -e 'install.packages(c("png", "rmarkdown", "knitr", "reticulate"))'
+                R -e 'install.packages(c("png", "rmarkdown", "knitr", "reticulate", "gt", "tibble"))'
             - name: Install Poetry
               uses: snok/install-poetry@v1
               with:
