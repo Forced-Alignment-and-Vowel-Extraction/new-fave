@@ -1,0 +1,102 @@
+---
+title: "`fave-extract` Outputs"
+---
+
+The subcommands of `fave-extract` generate multiple output files by default ([this can be customized](../customizing/output.qmd)). Each one will be named after the original file with a suffix. Below, each type of output file is described, followed by descriptions of the data columns in the csv files (in alphabetical order).
+
+## File Types
+
+#### `*_points.csv`
+
+Points files contain 1 row per vowel analyzed, with a single point measurement taken according to the [measurement point heuristic](../configs/point-heuristic.qmd) used.
+
+
+#### `*_tracks.csv`
+
+Tracks files contain 1 row per measurement point per vowel analyzed. By default, there will be one measurement point every 2ms, so a 100ms vowel will have 50 rows in the data. `*_tracks.csv* files can get very large!
+
+For analyzing the tracks data, the combination of the [`file_name`](#file_name) column and the [`id`](#id) will uniquely identify each individual token.
+
+#### `*_param.csv` and `*_logparam.csv`
+
+These files contain the Discrete Cosine Transform coefficients for each analyzed vowel. `*_param.csv` contains the coefficients when the DCT is applied to the formants in Hz, and `*_logparam.csv` contains the coefficients when the DCT is applied to the log-transformed formants.
+
+The DCT coefficients can be [directly normalized](https://jofrhwld.github.io/dct_normalization/) ([R package](https://jofrhwld.github.io/tidynorm/)). This can be useful for
+
+- [Decreasing the memory size of your data](https://jofrhwld.github.io/dct_normalization/#data-compression).
+- [Averaging over formant tracks](https://jofrhwld.github.io/dct_normalization/#averaging-formant-tracks).
+- [Doing statistics](https://jofrhwld.github.io/dct_normalization/#modelling-with-dct-coefficients).
+
+#### `*_recoded.TextGrid`
+
+The `*_recoded.TextGrid` will be a copy of the original textgrid passed to new-fave to which the [recode rules](../configs/recode-rules.qmd) have been applied.
+
+## Data Columns
+
+The data columns are described in this searchable table, and in text below.
+```{r}
+#| echo: false
+library(tibble)
+library(gt)
+```
+
+```{r}
+#| echo: false
+tribble(
+  ~Column, ~description, ~`possible values`,
+  "abs_fol_seg", "Stands for 'absolute following segment'. The segment following the measured vowel, regardless of word boundary.", "Any phone that appeared in the textgrid.",
+  "abs_pre_seg", "Stands for 'absolute preceding segment'. The segment preceding the measured vowel, regardless of word boundary.", "Any phone that appeared in the textgrid.",
+  "B1, B2, B3", "The bandwidths of F1, F2, and F3.", ">0",
+  "context", "The broad location of the measured vowel within the word.", "initial, final, internal, coextensive",
+  "dur", "The duration of the measured vowel.", ">0",
+  "F1, F3, F3", "In points and tracks files, the estimated formant values. In param and logparam files, DCT coefficients for each formant.", "points, tracks: >0; param, logparam: any number",
+  "F1_s, F2_s, F3_s", "These only appear in tracks files. The DCT smoothed formant tracks", ">0",
+  "file_name", "The file stem of the analyzed file", "text",
+  "fol_seg", "The segment following the measured vowel. If the vowel is at the end of the word, this is '#'", "Any phone that appeared in the textgrid, and #",
+  "fol_word", "The word following the word that the measured vowel appears in.", "Any word that appeared in the textgrid.",
+  "group", "The name of the word+phone tier group in the original textgrid. If tiers were just named 'word' and 'phone', this will be 'group_0'. Otherwise, this will probably be the speaker's name.", "text",
+  "id", "A unique id for the measured vowel that is shared across all file outputs. The numbers correspond to [the index of the tier group]-[the index of the word tier]-[the index of the word within the tier]-[the index of the vowel within the word].", "int-int-int-int",
+  "label", "The label of the measured vowel.", "Any phone that appeared in the textgrid",
+  "max_formant", "The maximum formant setting used for this vowel", "any number",
+  "optimized", "The number of optimization iterations that ran.", ">=0",
+  "param", "This only appears in param and logparam files. It identifies which DCT coefficient this row corresponds to.", "0, 1, 2, 3, 4",
+  "point_heuristic", "This only appears in points files. Identifies the measurement point heuristic used.", "text",
+  "pre_seg", "The segment preceding the measured vowel. If the vowel is at the beginning edge of the word, this is '#'.", "Any phone that appeared in the textgrid, and '#'.",
+  "pre_word", "The word preceding the word that the measured vowel appears in.", "Any word that appeared in the textgrid.",
+  "prop_time", "Time measured proportionally to the duration of the vowel. The very beginning of the vowel is time 0, and the very end is time 1.", "0<= prop_time <= 1",
+  "rel_time", "Time relative to the start of the vowel, in seconds. The very beginning of the vowel is time 0.",">0",
+  "smooth_error", "Ameasure of of the mismatch between the formant track smooths and the raw formant track estimates. A larger value corresponds to a larger mismatch.", ">=0",
+  "speaker_num", "The speaker index in the textgrid (beginning at 1)", ">=1",
+  "stress", "If present, the stress of the measured vowel", "0, 2, 1",
+  "time", "The time within the full recording, in seconds. The beginning of the recording is 0", ">=0",
+  "word", "The word that the measured vowel appeared in.", "Any word from the original textgrid."
+
+
+) -> params
+
+params |>
+  gt() |>
+  cols_width(
+    Column ~ px(140),
+    description ~ px(250)
+  ) |>
+  opt_table_font("Public Sans") |>
+  opt_interactive(
+    use_search = TRUE,
+    use_filters = TRUE
+  )
+```
+
+### Alphabetic List
+
+```{r}
+#| results: asis
+#| echo: false
+for(i in seq_along(params$Column)){
+  cat("#### ")
+  cat(params$Column[i])
+  cat("\n")
+  cat(params$description[i])
+  cat("\n\n")
+}
+```
