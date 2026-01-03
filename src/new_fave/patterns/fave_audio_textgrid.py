@@ -1,3 +1,4 @@
+print("Loading local fave_audio_textgrid.py")
 from fasttrackpy import process_audio_textgrid
 from new_fave.utils.safely import safely
 from aligned_textgrid import AlignedTextGrid
@@ -136,8 +137,6 @@ def fave_audio_textgrid(
     pitch_object = sound.to_pitch()            # Create a Pitch object
     intensity_object = sound.to_intensity()    # Create an Intensity object
 
-atg = get_textgrid(candidates[0].interval)
-
     atg = get_textgrid(candidates[0].interval)
 
     tg_names = [tg.name for tg in atg]
@@ -219,8 +218,8 @@ atg = get_textgrid(candidates[0].interval)
         mean_f0 = np.nan
         try:
             # You might want to adjust the pitch floor/ceiling here if needed
-            mean_f0 = pitch_object.get_average_f0(start_time, end_time, 'Hertz')
-        except parselmouth.Error as e:
+            mean_f0 = pitch_object.get_mean(start_time, end_time, 'Hertz')
+        except Exception as e:
             logging.warning(f"Could not extract F0 for {t.file_name} label '{t.label}' at {start_time:.3f}-{end_time:.3f}: {e}")
             mean_f0 = np.nan # Assign NaN if F0 extraction fails
 
@@ -228,7 +227,7 @@ atg = get_textgrid(candidates[0].interval)
         mean_intensity = np.nan
         try:
             mean_intensity = intensity_object.get_average(start_time, end_time)
-        except parselmouth.Error as e:
+        except Exception as e:
             logging.warning(f"Could not extract Intensity for {t.file_name} label '{t.label}' at {start_time:.3f}-{end_time:.3f}: {e}")
             mean_intensity = np.nan # Assign NaN if Intensity extraction fails
 

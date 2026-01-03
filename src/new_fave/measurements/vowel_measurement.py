@@ -1,3 +1,4 @@
+print("Loading local vowel_measurement.py")
 """
 This module contains classes to represent vowel measurements and their
 aggregations at different levels.
@@ -232,6 +233,9 @@ class VowelMeasurement(Sequence, PropertySetter):
     vowel_place_dict: dict[Literal["front", "back"], re.Pattern] = field(default_factory=lambda : dict())
     reference_values: ReferenceValues = field(default = ReferenceValues())
     only_fasttrack: bool = field(default=False)
+    f0: float | None = field(default=None)         # <--- ADDED
+    intensity: float | None = field(default=None) # <--- ADDED
+    
     def __post_init__(
             self
         ):
@@ -248,10 +252,6 @@ class VowelMeasurement(Sequence, PropertySetter):
         self._optimized = 0
         self._init_winner()
         self._make_attrs()
-        self.f0 = f0          # <--- ADDED ATTRIBUTE
-        self.intensity = intensity # <--- ADDED ATTRIBUTE
-        
-
 
     def __getitem__(self,i):
         return self.candidates[i]
