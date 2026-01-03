@@ -26,6 +26,7 @@ from new_fave.patterns.common_processing import resolve_resources, resolve_speak
 from new_fave.speaker.speaker import Speaker
 import polars as pl
 import numpy as np
+import parselmouth # <-- ADDED
 import re
 from typing import Literal
 
@@ -130,6 +131,12 @@ def fave_audio_textgrid(
         textgrid_path = textgrid_path,
         **fasttrack_kwargs
     )
+    
+    sound = parselmouth.Sound(str(audio_path)) # <-- ADDED
+    pitch_object = sound.to_pitch()            # Create a Pitch object
+    intensity_object = sound.to_intensity()    # Create an Intensity object
+
+atg = get_textgrid(candidates[0].interval)
 
     atg = get_textgrid(candidates[0].interval)
 
@@ -202,16 +209,42 @@ def fave_audio_textgrid(
             if not cand.interval.overlapped
         ]      
 
-    vms = [
-        VowelMeasurement(
-            t, 
-            heuristic=heuristic, 
-            vowel_place_dict = vowel_place_dict, 
-            reference_values=reference_values
-            ) 
-        for t in target_candidates
-        ]
+    vms = []
+    for t in target_candidates:
+        # Get start and end times for the current vowel interval
+        start_time = t.interval.start
+        end_time = t.interval.end
+
+        # Calculate mean F0 for the interval
+        mean_f0 = np.nan
+        try:
+            # You might want to adjust the pitch floor/ceiling here if needed
+            mean_f0 = pitch_object.get_average_f0(start_time, end_time, 'Hertz')
+        except parselmouth.Error as e:
+            logging.warning(f"Could not extract F0 for {t.file_name} label '{t.label}' at {start_time:.3f}-{end_time:.3f}: {e}")
+            mean_f0 = np.nan # Assign NaN if F0 extraction fails
+
+        # Calculate mean Intensity for the interval
+        mean_intensity = np.nan
+        try:
+            mean_intensity = intensity_object.get_average(start_time, end_time)
+        except parselmouth.Error as e:
+            logging.warning(f"Could not extract Intensity for {t.file_name} label '{t.label}' at {start_time:.3f}-{end_time:.3f}: {e}")
+            mean_intensity = np.nan # Assign NaN if Intensity extraction fails
+
+        # Create VowelMeasurement object, passing F0 and Intensity
+        vm = VowelMeasurement(
+            t,
+            heuristic = heuristic,
+            vowel_place_dict = vowel_place_dict,
+            reference_values = reference_values,
+            f0 = mean_f0,          # <--- PASS F0 HERE
+            intensity = mean_intensity # <--- PASS INTENSITY HERE
+        )
+        vms.append(vm)
+
     vowel_systems = SpeakerCollection(vms)
+
     if speaker_demo:
         vowel_systems.speaker = speaker_demo
     

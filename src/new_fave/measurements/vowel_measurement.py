@@ -23,6 +23,7 @@ VowelClass --o VowelMeasurement
 ```
 
 """
+import pandas as pd
 import fasttrackpy
 from fasttrackpy import CandidateTracks, OneTrack
 from aligned_textgrid import AlignedTextGrid, SequenceInterval
@@ -247,6 +248,8 @@ class VowelMeasurement(Sequence, PropertySetter):
         self._optimized = 0
         self._init_winner()
         self._make_attrs()
+        self.f0 = f0          # <--- ADDED ATTRIBUTE
+        self.intensity = intensity # <--- ADDED ATTRIBUTE
         
 
 
@@ -697,6 +700,11 @@ class VowelMeasurement(Sequence, PropertySetter):
                 .str.to_integer() + 1
             )
         )
+        
+        df = df.with_columns(
+            pl.lit(self.f0).alias("f0"),              # Add F0 column
+            pl.lit(self.intensity).alias("intensity") # Add Intensity column
+        )
 
         if df["time"].min() < self.interval.start:
             half = df["time"].min()/2
@@ -715,6 +723,10 @@ class VowelMeasurement(Sequence, PropertySetter):
         )
         
         cols = df.columns
+        if "f0" not in cols: # Guard against accidental re-insertion
+            time_idx = cols.index("speaker_num") # Find index of speaker_num
+            cols.insert(time_idx + 1, "f0")
+            cols.insert(time_idx + 2, "intensity")
         cols.remove("rel_time")
         cols.remove("prop_time")
         time_idx = cols.index("time")
@@ -765,12 +777,34 @@ class VowelMeasurement(Sequence, PropertySetter):
             ),
             point_heuristic = pl.lit(self.heuristic.heuristic)
         )
+        
+        df = df.with_columns(
+            pl.lit(self.f0).alias("f0"),              # Add F0 column
+            pl.lit(self.intensity).alias("intensity") # Add Intensity column
+        )
 
         if df["time"].min() < self.interval.start:
             half = df["time"].min()/2
             df = df.with_columns(
                 pl.col("time") + self.interval.start - half
             )
+            
+        cols = df.columns
+        if "f0" in cols and "intensity" in cols: # Ensure they exist before trying to move
+            # Remove them from their current (likely end) position
+            cols.remove("f0")
+            cols.remove("intensity")
+
+            # Find the index of 'point_heuristic'
+            try:
+                heuristic_idx = cols.index("point_heuristic")
+                cols.insert(heuristic_idx + 1, "f0")
+                cols.insert(heuristic_idx + 2, "intensity")
+            except ValueError:
+                # If 'point_heuristic' isn't found for some reason, just append them
+                cols.append("f0")
+                cols.append("intensity")
+        df = df.select(cols) # Apply the new column order
 
         df = df.join(self.vm_context, on = "id")
 
