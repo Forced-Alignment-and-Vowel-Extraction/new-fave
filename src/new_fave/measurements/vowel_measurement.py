@@ -696,7 +696,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         df = df.with_columns(
             speaker_num = (
                 pl.col("id")
-                .str.extract("^(\d+)-")
+                .str.extract(r"^(\d+)-")
                 .str.to_integer() + 1
             )
         )
@@ -752,7 +752,7 @@ class VowelMeasurement(Sequence, PropertySetter):
             max_formant = self.winner.maximum_formant,
             speaker_num = (
                 pl.col("id")
-                .str.extract("^(\d+)-")
+                .str.extract(r"^(\d+)-")
                 .str.to_integer() + 1
             )
         )
@@ -772,7 +772,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         df = df.with_columns(
             speaker_num = (
                 pl.col("id")
-                .str.extract("^(\d+)-")
+                .str.extract(r"^(\d+)-")
                 .str.to_integer() + 1
             ),
             point_heuristic = pl.lit(self.heuristic.heuristic)

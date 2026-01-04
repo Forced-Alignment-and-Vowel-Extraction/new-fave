@@ -214,14 +214,31 @@ def fave_audio_textgrid(
         start_time = t.interval.start
         end_time = t.interval.end
 
-        # Calculate mean F0 for the interval
-        mean_f0 = np.nan
+        # For F0
+        mean_f0 = np.nan # Initialize to NaN
         try:
-            # You might want to adjust the pitch floor/ceiling here if needed
-            mean_f0 = pitch_object.get_mean(start_time, end_time, 'Hertz')
+            # Get all time points where F0 is sampled
+            all_pitch_times = pitch_object.ts() # Use the .ts() method
+
+            # Filter these time points to be within the vowel interval
+            times_in_interval = all_pitch_times[(all_pitch_times >= start_time) & (all_pitch_times <= end_time)]
+
+            f0_values = []
+            for time_point in times_in_interval:
+                # Use get_value_at_time, which exists and takes a float
+                # CHANGE 'Hertz' to parselmouth.PitchUnit.HERTZ
+                f0_at_point = pitch_object.get_value_at_time(time_point, parselmouth.PitchUnit.HERTZ) # <--- CHANGE HERE
+                if f0_at_point > 0: # Only include voiced F0 values
+                    f0_values.append(f0_at_point)
+
+            if len(f0_values) > 0:
+                mean_f0 = np.mean(f0_values)
+            else:
+                logging.debug(f"No voiced F0 found for {t.file_name} label '{t.label}' at {start_time:.3f}-{end_time:.3f}")
+
         except Exception as e:
             logging.warning(f"Could not extract F0 for {t.file_name} label '{t.label}' at {start_time:.3f}-{end_time:.3f}: {e}")
-            mean_f0 = np.nan # Assign NaN if F0 extraction fails
+            mean_f0 = np.nan
 
         # Calculate mean Intensity for the interval
         mean_intensity = np.nan
