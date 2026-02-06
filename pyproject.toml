@@ -1,60 +1,55 @@
-[tool.poetry]
+[project]
 name = "new-fave"
 version = "1.2.2a0"
 description = "New Vowel Extraction Suite"
-authors = ["JoFrhwld <jofrhwld@gmail.com>"]
-license = "GPLv3"
+authors = [
+    {name = "Josef Fruehwald", email = "jofrhwld@gmail.com"}
+]
+license = "GPL-3.0-or-later"
 readme = "README.md"
 packages = [{include = "new_fave", from="src"}]
 homepage = "https://forced-alignment-and-vowel-extraction.github.io/new-fave/"
 repository = "https://github.com/Forced-Alignment-and-Vowel-Extraction/new-fave"
+requires-python = ">=3.10"
+dependencies = [
+    "aligned-textgrid>=0.8.1",
+    "click>=8.3.1",
+    "cloudpickle>=3.1.2",
+    "cloup>=3.0.8",
+    "fasttrackpy>=0.5.5",
+    "fave-measurement-point>=0.1.5",
+    "fave-recode>=0.3.3",
+    "librosa>=0.11.0",
+    "numpy<=2.2",
+    "polars>=1.38.0",
+    "python-magic>=0.4.27 ; sys_platform != 'win32'",
+    "python-magic-bin>=0.4.14 ; sys_platform == 'win32'",
+    "scipy>=1.15.3",
+    "toml>=0.10.2",
+    "tqdm>=4.67.3",
+]
 
-
-[tool.poetry.dependencies]
-python = ">=3.10,<3.14"
-fasttrackpy = "^0.5.3"
-numpy = "<=2.2"
-tqdm = "^4.66.2"
-fave-recode = "^0.3.0"
-click = "^8.1.7"
-cloup = "^3.0.5"
-fave-measurement-point = "^0.1.5"
-xlsx2csv = "^0.8.2"
-python-magic = {version = "^0.4.27", markers = "sys_platform != 'win32'"}
-python-magic-bin = {version = "^0.4.14", markers = "sys_platform == 'win32'"}
-scipy = "^1.13.1"
-cloudpickle = "^3.0.0"
-librosa = "^0.10.2.post1"
-toml = "^0.10.2"
-aligned-textgrid = "^0.8"
-polars = "^1.23.0"
-fastexcel = "^0.13.0"
-
-
-[tool.poetry.group.docs.dependencies]
-quartodoc = "^0.7.2"
-ipython = "^8.21.0"
-nbformat = "^5.9.2"
-jupyter = "^1.0.0"
-great-tables = "^0.13.0"
-
-
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.2"
-matplotlib = "^3.8.3"
-dill = "^0.3.8"
-hvplot = "^0.9.2"
-pyarrow = "^19.0.1"
-
-
-[tool.poetry.group.test.dependencies]
-pytest = "<8.0.0"
-pytest-cov = "<5.0.0"
+[dependency-groups]
+dev = [
+    "hvplot>=0.12.2",
+    "ipykernel>=7.1.0",
+    "matplotlib>=3.10.8",
+]
+docs = [
+    "great-tables>=0.20.0",
+    "ipython>=8.38.0",
+    "jupyter>=1.1.1",
+    "nbformat>=5.10.4",
+    "quartodoc>=0.11.1",
+]
+test = [
+    "pytest>=7.4.4",
+    "pytest-cov>=4.1.0",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
-
+requires = ["uv_build>=0.10.0,<0.11.0"]
+build-backend = "uv_build"
 
 [tool.pytest.ini_options]
 addopts = [
@@ -68,9 +63,9 @@ filterwarnings =[
     "ignore::UserWarning",
     "ignore::DeprecationWarning"
 ]
+
 pythonpath = "src"
 testpaths = "tests"
 
-
-[tool.poetry.scripts]
+[project.scripts]
 fave-extract = 'new_fave.extract:fave_extract'
