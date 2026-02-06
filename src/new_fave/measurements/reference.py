@@ -14,7 +14,7 @@ logger.setLevel(level=logging.INFO)
 class ReferenceValues:
     """
     A class to represent a reference set of vowel measurements
-    
+
     Args:
         logparam_corpus (str | Path, optional):
             Path to logparam files. Defaults to None.
@@ -34,7 +34,7 @@ class ReferenceValues:
             param_corpus: str|Path = None,
             points_corpus: str|Path = None
         ):
-    
+
         provided_corpora = [c for c in [logparam_corpus, param_corpus, points_corpus] if c is not None]
         if len(provided_corpora) > 1:
             logger.warning(
@@ -46,22 +46,6 @@ class ReferenceValues:
                 )
             )
 
-        if points_corpus:
-            points_corpus = Path(points_corpus).glob("*_points.csv")
-            logparam_corpus = None
-            param_corpus = None
-
-            self.reference_type = "points"
-            self._process_points(points_corpus)
-
-        if param_corpus:
-            param_corpus = Path(param_corpus).glob("*_param.csv")
-            logparam_corpus = None
-            points_corpus = None
-            
-            self.reference_type = "param"
-            self._process_param(param_corpus)            
-
         if logparam_corpus:
             logparam_corpus = Path(logparam_corpus).glob("*_logparam.csv")
             param_corpus = None
@@ -69,6 +53,22 @@ class ReferenceValues:
 
             self.reference_type = "logparam"
             self._process_param(logparam_corpus)
+
+        elif param_corpus:
+            param_corpus = Path(param_corpus).glob("*_param.csv")
+            logparam_corpus = None
+            points_corpus = None
+
+            self.reference_type = "param"
+            self._process_param(param_corpus)
+
+        elif points_corpus:
+            points_corpus = Path(points_corpus).glob("*_points.csv")
+            logparam_corpus = None
+            param_corpus = None
+
+            self.reference_type = "points"
+            self._process_points(points_corpus)
 
     def _process_param(self, param_corpus):
         df = pl.concat(
@@ -128,7 +128,7 @@ class ReferenceValues:
         mean_dict = {
             k : np.expand_dims(v.mean(axis = 1),1) for k,v in lab_dict.items()
         }
-        
+
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             icov_dict = {}
