@@ -16,6 +16,7 @@ dependencies = [
     "click>=8.3.1",
     "cloudpickle>=3.1.2",
     "cloup>=3.0.8",
+    "fastexcel>=0.19.0",
     "fasttrackpy>=0.5.5",
     "fave-measurement-point>=0.1.5",
     "fave-recode>=0.3.3",
