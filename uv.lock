@@ -2255,7 +2255,7 @@ wheels = [
 
 [[package]]
 name = "new-fave"
-version = "1.2.2a0"
+version = "1.2.2a1"
 source = { editable = "." }
 dependencies = [
     { name = "aligned-textgrid" },
