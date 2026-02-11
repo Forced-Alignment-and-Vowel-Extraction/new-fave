@@ -18,14 +18,12 @@ jobs:
         with:
           python-version: 3.12
           cache: "pip"
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7    
         with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
+          enable-cache: true   
       - name: Bump Version
-        run: echo "PKG_VERSION=$(poetry version prerelease | awk '{print $6}')" >> $GITHUB_ENV
+        run: echo "PKG_VERSION=$(uv version --bump alpha | awk '{print $2}')" >> $GITHUB_ENV
       - name: Test
         run: echo ${{ env.PKG_VERSION }}
       - name: Run latest-tag
