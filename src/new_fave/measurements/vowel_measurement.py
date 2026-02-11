@@ -690,13 +690,23 @@ class VowelMeasurement(Sequence, PropertySetter):
                 A dataframe with formant track data.
         """
         df = self.winner.to_df()
+        f0_param = self.track.f0_smooth.params
+        intens_param = self.track.intensity_smooth.params
+        n = df.shape[0]
         df = df.with_columns(
             speaker_num = (
                 pl.col("id")
                 .str.extract(r"^(\d+)-")
                 .str.to_integer() + 1
-            )
+            ),
+            f0 = pl.Series(
+                idct(f0_param, n = n, orthogonalize=True, norm = "forward")
+            ),
+            intensity = pl.Series(
+                idct(intens_param, n = n, orthogonalize=True, norm = "forward")
+            )            
         )
+
 
         if df["time"].min() < self.interval.start:
             half = df["time"].min()/2
@@ -736,8 +746,18 @@ class VowelMeasurement(Sequence, PropertySetter):
                 A DataFrame of formant DCT parameters
         """
         df = self.winner.to_df(output=output)
+        f0 = np.empty(df.shape[0])
+        intens = np.empty(df.shape[0])
+        if output == "param":
+            f0 = self.track.f0_smooth.params
+            intens = self.track.intensity_smooth.params
+        elif output == "log_param":
+            f0 = self.track.f0_log_smooth.params
+            intens = self.track.intensity_log_smooth.params
         df = df.with_columns(
             max_formant = self.winner.maximum_formant,
+            f0 = pl.Series(f0),
+            intensity = pl.Series(intens),
             speaker_num = (
                 pl.col("id")
                 .str.extract(r"^(\d+)-")
@@ -764,6 +784,11 @@ class VowelMeasurement(Sequence, PropertySetter):
                 .str.to_integer() + 1
             ),
             point_heuristic = pl.lit(self.heuristic.heuristic)
+        )
+
+        df = df.with_columns(
+            f0 = pl.Series([self.track.f0_smooth.params[0] * np.sqrt(2)]),
+            intensity = pl.Series([self.track.intensity_smooth.params[0] * np.sqrt(2)])            
         )
 
         if df["time"].min() < self.interval.start:
