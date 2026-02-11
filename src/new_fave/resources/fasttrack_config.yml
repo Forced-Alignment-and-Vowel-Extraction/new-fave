@@ -2,7 +2,7 @@ entry_classes:
   - Word
   - Phone
 target_tier: "Phone"
-target_labels: "[AEIOU]"
+target_labels: "[AEIOUiyɨʉɯuɪʏʊeøɘɵɤoəɛœɜɞʌɔæɐaɶɑɒɚɝ]"
 min_duration: 0.05
 min_max_formant: 3000
 max_max_formant: 10000

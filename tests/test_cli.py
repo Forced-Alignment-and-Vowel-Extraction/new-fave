@@ -47,6 +47,33 @@ def test_audio_textgrid():
     assert result.exit_code == 0, result.output
     tmp.cleanup()
 
+
+def test_audio_textgrid_ipa():
+    tmp = tempfile.TemporaryDirectory()
+    tmp_path = Path(tmp.name)
+
+
+    audio_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.wav")
+    textgrid_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker_ipa.TextGrid")
+
+    runner = CliRunner()
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "audio-textgrid",
+            str(audio_path),
+            str(textgrid_path),
+            "--destination", tmp.name
+        ]
+    )
+
+    assert result.exit_code == 0, result.output
+    csvs = list(tmp_path.glob("*.csv"))
+    assert len(csvs) > 0
+
+    tmp.cleanup()    
+
 def test_corpus():
     tmp = tempfile.TemporaryDirectory()
     tmp_path = Path(tmp.name)
