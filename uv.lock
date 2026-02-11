@@ -28,6 +28,22 @@ wheels = [
 ]
 
 [[package]]
+name = "altair"
+version = "6.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jinja2" },
+    { name = "jsonschema" },
+    { name = "narwhals" },
+    { name = "packaging" },
+    { name = "typing-extensions", marker = "python_full_version < '3.15'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/f7/c0/184a89bd5feba14ff3c41cfaf1dd8a82c05f5ceedbc92145e17042eb08a4/altair-6.0.0.tar.gz", hash = "sha256:614bf5ecbe2337347b590afb111929aa9c16c9527c4887d96c9bc7f6640756b4", size = 763834, upload-time = "2025-11-12T08:59:11.519Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/db/33/ef2f2409450ef6daa61459d5de5c08128e7d3edb773fefd0a324d1310238/altair-6.0.0-py3-none-any.whl", hash = "sha256:09ae95b53d5fe5b16987dccc785a7af8588f2dca50de1e7a156efa8a461515f8", size = 795410, upload-time = "2025-11-12T08:59:09.804Z" },
+]
+
+[[package]]
 name = "annotated-types"
 version = "0.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -974,7 +990,7 @@ wheels = [
 
 [[package]]
 name = "fasttrackpy"
-version = "0.6.0"
+version = "0.6.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aligned-textgrid" },
@@ -992,9 +1008,9 @@ dependencies = [
     { name = "scipy", version = "1.17.0", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
     { name = "tqdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/91/98/8110d9fd5a5a56dca8c499a5f09bb4f8b9279dd5d76439878698d314e12d/fasttrackpy-0.6.0.tar.gz", hash = "sha256:99d7228986a572c2d15403d517997e02ed2675fa80820882ed0a62cbc4189422", size = 19427, upload-time = "2026-02-10T13:25:15.735Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/96/56/ee786e144061c8f041b7a87aa80fbfbe503e7149a3f1c71f3e859c8f9a19/fasttrackpy-0.6.1.tar.gz", hash = "sha256:5c975cf8c90e374aa703102d03d8869d9b64024a7018eae7c8615a06407eda28", size = 19435, upload-time = "2026-02-10T20:10:50.294Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8c/68/56d1d69447970a0e9c3bb778454b37e38a6830d28e5bb1650dfc4630dd6e/fasttrackpy-0.6.0-py3-none-any.whl", hash = "sha256:68efa20b596b13e4b34a5e6cd4e9c1bb41ef89a4a63ceac1be161c32efb01e4a", size = 28135, upload-time = "2026-02-10T13:25:16.594Z" },
+    { url = "https://files.pythonhosted.org/packages/17/98/a58e908d4ab30a9124a79e35710d5d864f67ad3068687d7f6181f7724d05/fasttrackpy-0.6.1-py3-none-any.whl", hash = "sha256:bb2e321bacc4167dfcc2234d0aac83ac8dceac15da1a3d06db959cd731af5387", size = 28135, upload-time = "2026-02-10T20:10:51.674Z" },
 ]
 
 [[package]]
@@ -2263,6 +2279,7 @@ dependencies = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "altair" },
     { name = "hvplot" },
     { name = "ipykernel" },
     { name = "matplotlib" },
@@ -2287,7 +2304,7 @@ requires-dist = [
     { name = "cloudpickle", specifier = ">=3.1.2" },
     { name = "cloup", specifier = ">=3.0.8" },
     { name = "fastexcel", specifier = ">=0.19.0" },
-    { name = "fasttrackpy", specifier = ">=0.6.0" },
+    { name = "fasttrackpy", specifier = ">=0.6.1" },
     { name = "fave-measurement-point", specifier = ">=0.1.5" },
     { name = "fave-recode", specifier = ">=0.3.3" },
     { name = "librosa", specifier = ">=0.11.0" },
@@ -2302,6 +2319,7 @@ requires-dist = [
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "altair", specifier = ">=6.0.0" },
     { name = "hvplot", specifier = ">=0.12.2" },
     { name = "ipykernel", specifier = ">=7.1.0" },
     { name = "matplotlib", specifier = ">=3.10.8" },
