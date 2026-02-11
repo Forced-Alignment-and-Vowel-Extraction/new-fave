@@ -54,7 +54,7 @@ def test_audio_textgrid_ipa():
 
 
     audio_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.wav")
-    textgrid_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker_ipa.TextGrid")
+    textgrid_path = Path("tests", "test_data", "josef-fruehwald_speaker_ipa.TextGrid")
 
     runner = CliRunner()
 

@@ -4,15 +4,12 @@ from fasttrackpy import Smoother
 from new_fave.utils.local_resources import fave_fasttrack
 
 def read_fasttrack(config:str|Path)->dict:
-    with Path(fave_fasttrack).open('r') as c:
+    with Path(fave_fasttrack).open('r', encoding="utf-8") as c:
         ft_dict = yaml.safe_load(c)
 
     config_dict = dict()
-    if config:
-        if type(config) is str:
-            config = Path(config)
-        
-        with config.open('r') as c:
+    if config:        
+        with Path(config).open('r', encoding="utf-8") as c:
             config_dict = yaml.safe_load(c)
 
     for key in config_dict:
