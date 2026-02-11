@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,18 +68,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../assets/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-0348920b7671f696dc9078d39bff215e.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-234273d1456647dabc34a594ac50e507.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-f1aadacce99040138bbb613f9330654f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-913f89b9af026a2a438eaf4fc36f8269.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-869e565e2b16e3fa41c05ed6b902e57e.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-913f89b9af026a2a438eaf4fc36f8269.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-1aaff08c14529412ca50f9f8371d8063.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-b8d49703d1b53998c2e12cbd6c91be34.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1aaff08c14529412ca50f9f8371d8063.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -363,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="21" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 20;"><span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>{</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="21" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 20;"><span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>{</span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> btn <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(</span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Copy to Clipboard"</span><span class="op">,</span></span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    {</span>
@@ -373,7 +374,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>btn<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="expression">
@@ -381,13 +382,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="33" data-source-offset="-183"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>fullText <span class="op">=</span> <span class="vs">`fave-extract </span><span class="sc">${</span>subcommand<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>data_path<span class="sc">}${</span>speaker_flag<span class="sc">}${</span>aligner_flag<span class="sc">}${</span>recodeCode<span class="sc">}${</span>add_code<span class="sc">}${</span>parser_code<span class="sc">}${</span>measurement_flag<span class="sc">}${</span>ft_flag<span class="sc">}${</span>exclude_flag<span class="sc">}${</span>no_optim_flag<span class="sc">}${</span>f1_flag<span class="sc">}${</span>f2_flag<span class="sc">}${</span>destination_flag<span class="sc">}${</span>separate_flag<span class="sc">}${</span>which_flags<span class="sc">}${</span>reference_flag<span class="sc">}</span><span class="vs">`</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="33" data-source-offset="-183"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 32;"><span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>fullText <span class="op">=</span> <span class="vs">`fave-extract </span><span class="sc">${</span>subcommand<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>data_path<span class="sc">}${</span>speaker_flag<span class="sc">}${</span>aligner_flag<span class="sc">}${</span>recodeCode<span class="sc">}${</span>add_code<span class="sc">}${</span>parser_code<span class="sc">}${</span>measurement_flag<span class="sc">}${</span>ft_flag<span class="sc">}${</span>exclude_flag<span class="sc">}${</span>no_optim_flag<span class="sc">}${</span>f1_flag<span class="sc">}${</span>f2_flag<span class="sc">}${</span>destination_flag<span class="sc">}${</span>separate_flag<span class="sc">}${</span>which_flags<span class="sc">}${</span>reference_flag<span class="sc">}</span><span class="vs">`</span></span>
 <span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`</span></span>
 <span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span><span class="vs">bash</span></span>
 <span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="sc">${</span>fullText<span class="sc">}</span></span>
 <span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="sc">\`\`\`</span></span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-2" data-nodetype="declaration">
@@ -407,7 +408,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </div><div class="column" style="width:40%;max-height:60vh;overflow:scroll;">
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="52" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### Subcommand`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb3" data-startfrom="52" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 51;"><span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### Subcommand`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="expression">
@@ -415,7 +416,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="54" data-source-offset="-21"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 53;"><span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>viewof subcommand <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb4" data-startfrom="54" data-source-offset="-21"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 53;"><span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>viewof subcommand <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"audio-textgrid"</span><span class="op">,</span> <span class="st">"corpus"</span><span class="op">,</span> <span class="st">"subcorpora"</span>]<span class="op">,</span> </span>
 <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="fu">md</span><span class="vs">`[subcommand](../usage/getting_started.html#usage)`</span><span class="op">,</span></span>
@@ -469,7 +470,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-105"><a href="#cb4-105" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-106"><a href="#cb4-106" aria-hidden="true" tabindex="-1"></a>textgrid_path <span class="op">!=</span> <span class="kw">undefined</span> <span class="op">?</span> </span>
 <span id="cb4-107"><a href="#cb4-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>textgrid_path<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span></span>
-<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-108"><a href="#cb4-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-2" data-nodetype="declaration">
@@ -519,13 +520,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="110" data-source-offset="-1215"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 109;"><span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="110" data-source-offset="-1215"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 109;"><span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>data_path <span class="op">=</span> {</span>
 <span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (subcommand <span class="op">==</span> <span class="st">"audio-textgrid"</span>){</span>
 <span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span>audio_path<span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>textgrid_use<span class="sc">}</span><span class="vs">`</span></span>
 <span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
 <span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">`</span><span class="sc">${</span>audio_path<span class="sc">}</span><span class="vs">`</span></span>
 <span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-9" data-nodetype="declaration">
@@ -535,19 +536,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Processing Info
+<span class="screen-reader-only">Note</span>Processing Info
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="123" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 122;"><span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### Speaker(s) to analyze`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="123" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 122;"><span id="cb6-123"><a href="#cb6-123" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### Speaker(s) to analyze`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-1" data-nodetype="expression">
@@ -555,7 +556,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="125" data-source-offset="-31"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 124;"><span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>viewof speaker <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="125" data-source-offset="-31"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 124;"><span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>viewof speaker <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
 <span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"single speaker"</span><span class="op">,</span> <span class="st">"all speakers"</span><span class="op">,</span> <span class="st">"demographic file"</span>]<span class="op">,</span></span>
 <span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"speaker"</span><span class="op">,</span></span>
@@ -585,7 +586,7 @@ Processing Info
 <span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>speaker_input <span class="op">!=</span> <span class="kw">undefined</span> <span class="op">?</span></span>
 <span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>speaker_input<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span></span>
-<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-2" data-nodetype="declaration">
@@ -607,7 +608,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="157" data-source-offset="-630"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 156;"><span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a>speaker_use <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb8" data-startfrom="157" data-source-offset="-630"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 156;"><span id="cb8-157"><a href="#cb8-157" aria-hidden="true" tabindex="-1"></a>speaker_use <span class="op">=</span> {</span>
 <span id="cb8-158"><a href="#cb8-158" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(speaker <span class="op">==</span> <span class="st">"all speakers"</span>){</span>
 <span id="cb8-159"><a href="#cb8-159" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"all"</span></span>
 <span id="cb8-160"><a href="#cb8-160" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
@@ -627,7 +628,7 @@ Processing Info
 <span id="cb8-174"><a href="#cb8-174" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="vs">` </span><span class="sc">\\</span></span>
 <span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a><span class="vs">  --speakers </span><span class="sc">${</span>speaker_use<span class="sc">}</span><span class="vs">`</span></span>
 <span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-3-5" data-nodetype="declaration">
@@ -644,7 +645,7 @@ Processing Info
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="181" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 180;"><span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### Aligner`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb9" data-startfrom="181" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 180;"><span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### Aligner`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-1" data-nodetype="expression">
@@ -652,7 +653,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="183" data-source-offset="-17"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 182;"><span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>viewof aligner <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb10" data-startfrom="183" data-source-offset="-17"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 182;"><span id="cb10-183"><a href="#cb10-183" aria-hidden="true" tabindex="-1"></a>viewof aligner <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
 <span id="cb10-184"><a href="#cb10-184" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"mfa"</span><span class="op">,</span> <span class="st">"fave-align"</span>]<span class="op">,</span></span>
 <span id="cb10-185"><a href="#cb10-185" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb10-186"><a href="#cb10-186" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"aligner used"</span><span class="op">,</span></span>
@@ -667,7 +668,7 @@ Processing Info
 <span id="cb10-195"><a href="#cb10-195" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb10-196"><a href="#cb10-196" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb10-197"><a href="#cb10-197" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-198"><a href="#cb10-198" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-4-2" data-nodetype="declaration">
@@ -684,7 +685,7 @@ Processing Info
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="204" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 203;"><span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Recode rules](../usage/configs/recode-rules.html)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb11" data-startfrom="204" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 203;"><span id="cb11-204"><a href="#cb11-204" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Recode rules](../usage/configs/recode-rules.html)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-5-1" data-nodetype="expression">
@@ -692,7 +693,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="205" data-source-offset="-60"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 204;"><span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>viewof recode <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb12" data-startfrom="205" data-source-offset="-60"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 204;"><span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>viewof recode <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
 <span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"cmu2labov"</span><span class="op">,</span> <span class="st">"cmu2phila"</span><span class="op">,</span> <span class="st">"norecode"</span><span class="op">,</span> <span class="st">"custom"</span>]<span class="op">,</span> </span>
 <span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"recode rules"</span><span class="op">,</span></span>
@@ -713,7 +714,7 @@ Processing Info
 <span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>recodepath <span class="op">!=</span> <span class="kw">undefined</span> <span class="op">?</span> </span>
 <span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>recodepath<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span></span>
-<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-5-2" data-nodetype="declaration">
@@ -735,7 +736,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb13" data-startfrom="229" data-source-offset="-424"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 228;"><span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>viewof add_rules <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb13" data-startfrom="229" data-source-offset="-424"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 228;"><span id="cb13-229"><a href="#cb13-229" aria-hidden="true" tabindex="-1"></a>viewof add_rules <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>(</span>
 <span id="cb13-230"><a href="#cb13-230" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb13-231"><a href="#cb13-231" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"additional rules"</span><span class="op">,</span> </span>
 <span id="cb13-232"><a href="#cb13-232" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span></span>
@@ -755,7 +756,7 @@ Processing Info
 <span id="cb13-246"><a href="#cb13-246" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-247"><a href="#cb13-247" aria-hidden="true" tabindex="-1"></a>add_path <span class="op">!=</span> <span class="kw">undefined</span><span class="op">?</span> </span>
 <span id="cb13-248"><a href="#cb13-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>add_path<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span></span>
-<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-249"><a href="#cb13-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-5-5" data-nodetype="declaration">
@@ -777,7 +778,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb14" data-startfrom="251" data-source-offset="-720"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 250;"><span id="cb14-251"><a href="#cb14-251" aria-hidden="true" tabindex="-1"></a>recodeuse <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb14" data-startfrom="251" data-source-offset="-720"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 250;"><span id="cb14-251"><a href="#cb14-251" aria-hidden="true" tabindex="-1"></a>recodeuse <span class="op">=</span> {</span>
 <span id="cb14-252"><a href="#cb14-252" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (recode <span class="op">!=</span> <span class="st">"cmu2labov"</span>){</span>
 <span id="cb14-253"><a href="#cb14-253" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(recode <span class="op">==</span> <span class="st">"custom"</span>){</span>
 <span id="cb14-254"><a href="#cb14-254" aria-hidden="true" tabindex="-1"></a>      <span class="cf">return</span> Generators<span class="op">.</span><span class="fu">input</span>(recodepath)</span>
@@ -809,7 +810,7 @@ Processing Info
 <span id="cb14-280"><a href="#cb14-280" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb14-281"><a href="#cb14-281" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb14-282"><a href="#cb14-282" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb14-283"><a href="#cb14-283" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-283"><a href="#cb14-283" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-5-8" data-nodetype="declaration">
@@ -840,7 +841,7 @@ Processing Info
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb15" data-startfrom="288" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 287;"><span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Measurement point heuristic](../usage/configs/point-heuristic.html)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb15" data-startfrom="288" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 287;"><span id="cb15-288"><a href="#cb15-288" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Measurement point heuristic](../usage/configs/point-heuristic.html)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-6-1" data-nodetype="expression">
@@ -848,7 +849,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb16" data-startfrom="290" data-source-offset="-78"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 289;"><span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a>viewof measurement_point <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb16" data-startfrom="290" data-source-offset="-78"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 289;"><span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a>viewof measurement_point <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>(</span>
 <span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"measurement point heuristic"</span><span class="op">,</span></span>
 <span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="st">"fave"</span></span>
@@ -862,7 +863,7 @@ Processing Info
 <span id="cb16-301"><a href="#cb16-301" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb16-302"><a href="#cb16-302" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb16-303"><a href="#cb16-303" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb16-304"><a href="#cb16-304" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-304"><a href="#cb16-304" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-6-2" data-nodetype="declaration">
@@ -879,7 +880,7 @@ Processing Info
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb17" data-startfrom="308" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 307;"><span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [FastTrack Config](../usage/configs/ft-config.html)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb17" data-startfrom="308" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 307;"><span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [FastTrack Config](../usage/configs/ft-config.html)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-7-1" data-nodetype="expression">
@@ -887,7 +888,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb18" data-startfrom="310" data-source-offset="-61"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 309;"><span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a>viewof ft_config <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb18" data-startfrom="310" data-source-offset="-61"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 309;"><span id="cb18-310"><a href="#cb18-310" aria-hidden="true" tabindex="-1"></a>viewof ft_config <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>(</span>
 <span id="cb18-311"><a href="#cb18-311" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb18-312"><a href="#cb18-312" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"FastTrack configuration"</span><span class="op">,</span></span>
 <span id="cb18-313"><a href="#cb18-313" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="st">"default"</span></span>
@@ -901,7 +902,7 @@ Processing Info
 <span id="cb18-321"><a href="#cb18-321" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb18-322"><a href="#cb18-322" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb18-323"><a href="#cb18-323" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb18-324"><a href="#cb18-324" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb18-324"><a href="#cb18-324" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-7-2" data-nodetype="declaration">
@@ -918,7 +919,7 @@ Processing Info
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb19" data-startfrom="328" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 327;"><span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Misc Processing](../usage/customizing/processing.html)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb19" data-startfrom="328" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 327;"><span id="cb19-328"><a href="#cb19-328" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Misc Processing](../usage/customizing/processing.html)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-8-1" data-nodetype="expression">
@@ -926,7 +927,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb20" data-startfrom="330" data-source-offset="-65"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 329;"><span id="cb20-330"><a href="#cb20-330" aria-hidden="true" tabindex="-1"></a>viewof exclude_overlaps <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb20" data-startfrom="330" data-source-offset="-65"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 329;"><span id="cb20-330"><a href="#cb20-330" aria-hidden="true" tabindex="-1"></a>viewof exclude_overlaps <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>(</span>
 <span id="cb20-331"><a href="#cb20-331" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb20-332"><a href="#cb20-332" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"exclude overlaps"</span><span class="op">,</span></span>
 <span id="cb20-333"><a href="#cb20-333" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span></span>
@@ -990,7 +991,7 @@ Processing Info
 <span id="cb20-391"><a href="#cb20-391" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb20-392"><a href="#cb20-392" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb20-393"><a href="#cb20-393" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb20-394"><a href="#cb20-394" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-394"><a href="#cb20-394" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-8-2" data-nodetype="declaration">
@@ -1051,7 +1052,7 @@ Processing Info
 <section id="advanced-processing-options" class="level3">
 <h3 class="anchored" data-anchor-id="advanced-processing-options">Advanced Processing options</h3>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb21" data-startfrom="401" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 400;"><span id="cb21-401"><a href="#cb21-401" aria-hidden="true" tabindex="-1"></a>viewof labelset_parser <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb21" data-startfrom="401" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 400;"><span id="cb21-401"><a href="#cb21-401" aria-hidden="true" tabindex="-1"></a>viewof labelset_parser <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">toggle</span>(</span>
 <span id="cb21-402"><a href="#cb21-402" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb21-403"><a href="#cb21-403" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"custom labelset parser"</span><span class="op">,</span> </span>
 <span id="cb21-404"><a href="#cb21-404" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="kw">false</span></span>
@@ -1071,7 +1072,7 @@ Processing Info
 <span id="cb21-418"><a href="#cb21-418" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-419"><a href="#cb21-419" aria-hidden="true" tabindex="-1"></a>parser_path <span class="op">!=</span> <span class="kw">undefined</span><span class="op">?</span> </span>
 <span id="cb21-420"><a href="#cb21-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>parser_path<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span></span>
-<span id="cb21-421"><a href="#cb21-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-421"><a href="#cb21-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-9-1" data-nodetype="declaration">
@@ -1093,7 +1094,7 @@ Processing Info
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb22" data-startfrom="423" data-source-offset="-322"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 422;"><span id="cb22-423"><a href="#cb22-423" aria-hidden="true" tabindex="-1"></a>parser_use <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb22" data-startfrom="423" data-source-offset="-322"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 422;"><span id="cb22-423"><a href="#cb22-423" aria-hidden="true" tabindex="-1"></a>parser_use <span class="op">=</span> {</span>
 <span id="cb22-424"><a href="#cb22-424" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(labelset_parser){</span>
 <span id="cb22-425"><a href="#cb22-425" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Generators<span class="op">.</span><span class="fu">input</span>(parser_path)</span>
 <span id="cb22-426"><a href="#cb22-426" aria-hidden="true" tabindex="-1"></a>  }</span>
@@ -1106,7 +1107,7 @@ Processing Info
 <span id="cb22-433"><a href="#cb22-433" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb22-434"><a href="#cb22-434" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb22-435"><a href="#cb22-435" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb22-436"><a href="#cb22-436" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-436"><a href="#cb22-436" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-9-4" data-nodetype="declaration">
@@ -1127,19 +1128,19 @@ Processing Info
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Output Options
+<span class="screen-reader-only">Note</span>Output Options
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb23" data-startfrom="444" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 443;"><span id="cb23-444"><a href="#cb23-444" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Output Options](../usage/customizing/output.html)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb23" data-startfrom="444" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 443;"><span id="cb23-444"><a href="#cb23-444" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Output Options](../usage/customizing/output.html)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-10-1" data-nodetype="expression">
@@ -1147,7 +1148,7 @@ Output Options
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb24" data-startfrom="446" data-source-offset="-60"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 445;"><span id="cb24-446"><a href="#cb24-446" aria-hidden="true" tabindex="-1"></a>viewof destination <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb24" data-startfrom="446" data-source-offset="-60"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 445;"><span id="cb24-446"><a href="#cb24-446" aria-hidden="true" tabindex="-1"></a>viewof destination <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">text</span>(</span>
 <span id="cb24-447"><a href="#cb24-447" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb24-448"><a href="#cb24-448" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"results directory"</span><span class="op">,</span></span>
 <span id="cb24-449"><a href="#cb24-449" aria-hidden="true" tabindex="-1"></a>    <span class="dt">value</span><span class="op">:</span> <span class="st">"fave_results"</span></span>
@@ -1198,7 +1199,7 @@ Output Options
 <span id="cb24-494"><a href="#cb24-494" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb24-495"><a href="#cb24-495" aria-hidden="true" tabindex="-1"></a>    return<span class="st">""</span></span>
 <span id="cb24-496"><a href="#cb24-496" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb24-497"><a href="#cb24-497" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-497"><a href="#cb24-497" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-10-2" data-nodetype="declaration">
@@ -1246,19 +1247,19 @@ Output Options
 </div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Reference Value Options
+<span class="screen-reader-only">Note</span>Reference Value Options
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-3" class="callout-3-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb25" data-startfrom="506" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 505;"><span id="cb25-506"><a href="#cb25-506" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Reference Values](../usage/customizing/reference.html)`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb25" data-startfrom="506" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 505;"><span id="cb25-506"><a href="#cb25-506" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`### [Reference Values](../usage/customizing/reference.html)`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-11-1" data-nodetype="expression">
@@ -1266,7 +1267,7 @@ Reference Value Options
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb26" data-startfrom="508" data-source-offset="-65"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 507;"><span id="cb26-508"><a href="#cb26-508" aria-hidden="true" tabindex="-1"></a>viewof reference_type <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb26" data-startfrom="508" data-source-offset="-65"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 507;"><span id="cb26-508"><a href="#cb26-508" aria-hidden="true" tabindex="-1"></a>viewof reference_type <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>(</span>
 <span id="cb26-509"><a href="#cb26-509" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"logparam"</span><span class="op">,</span> <span class="st">"param"</span><span class="op">,</span> <span class="st">"points"</span><span class="op">,</span> <span class="st">"none"</span>]<span class="op">,</span></span>
 <span id="cb26-510"><a href="#cb26-510" aria-hidden="true" tabindex="-1"></a>  {</span>
 <span id="cb26-511"><a href="#cb26-511" aria-hidden="true" tabindex="-1"></a>    <span class="dt">label</span><span class="op">:</span> <span class="st">"reference corpus type"</span><span class="op">,</span></span>
@@ -1289,7 +1290,7 @@ Reference Value Options
 <span id="cb26-528"><a href="#cb26-528" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-529"><a href="#cb26-529" aria-hidden="true" tabindex="-1"></a>reference_path <span class="op">!=</span> <span class="kw">undefined</span> <span class="op">?</span></span>
 <span id="cb26-530"><a href="#cb26-530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">html</span><span class="vs">`</span><span class="sc">${</span>reference_path<span class="sc">}</span><span class="vs">`</span> <span class="op">:</span></span>
-<span id="cb26-531"><a href="#cb26-531" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb26-531"><a href="#cb26-531" aria-hidden="true" tabindex="-1"></a>  <span class="fu">md</span><span class="vs">``</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-11-2" data-nodetype="declaration">
@@ -1311,7 +1312,7 @@ Reference Value Options
 </div>
 </div>
 </div>
-<div class="sourceCode cell-code hidden" id="cb27" data-startfrom="533" data-source-offset="-472"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 532;"><span id="cb27-533"><a href="#cb27-533" aria-hidden="true" tabindex="-1"></a>reference_use <span class="op">=</span> {</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb27" data-startfrom="533" data-source-offset="-472"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 532;"><span id="cb27-533"><a href="#cb27-533" aria-hidden="true" tabindex="-1"></a>reference_use <span class="op">=</span> {</span>
 <span id="cb27-534"><a href="#cb27-534" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(reference_type <span class="op">!=</span> <span class="st">"none"</span>){</span>
 <span id="cb27-535"><a href="#cb27-535" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Generators<span class="op">.</span><span class="fu">input</span>(reference_path)</span>
 <span id="cb27-536"><a href="#cb27-536" aria-hidden="true" tabindex="-1"></a>  }</span>
@@ -1324,7 +1325,7 @@ Reference Value Options
 <span id="cb27-543"><a href="#cb27-543" aria-hidden="true" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
 <span id="cb27-544"><a href="#cb27-544" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">""</span></span>
 <span id="cb27-545"><a href="#cb27-545" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb27-546"><a href="#cb27-546" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-546"><a href="#cb27-546" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-11-5" data-nodetype="declaration">
@@ -1424,13 +1425,14 @@ window._ojs.runtime.interpretFromScriptTags();
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
