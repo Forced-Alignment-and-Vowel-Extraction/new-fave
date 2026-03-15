@@ -276,7 +276,7 @@ recodeCode = {
 add_code = {
   if(add_rules){
     return ` \\ 
-  --add_rules ${add_use}`
+  --add-rules ${add_use}`
   }else{
     return ""
   }
