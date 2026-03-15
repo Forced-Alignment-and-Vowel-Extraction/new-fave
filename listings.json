@@ -1,5 +1,14 @@
 [
   {
+    "listing": "/usage/customizing/index.html",
+    "items": [
+      "/usage/customizing/demographics.html",
+      "/usage/customizing/output.html",
+      "/usage/customizing/processing.html",
+      "/usage/customizing/reference.html"
+    ]
+  },
+  {
     "listing": "/usage/index.html",
     "items": [
       "/usage/getting_started.html",
@@ -17,15 +26,6 @@
       "/usage/customizing/reference.html",
       "/usage/outputs/index.html",
       "/usage/subcommands/audio-textgrid.html"
-    ]
-  },
-  {
-    "listing": "/usage/customizing/index.html",
-    "items": [
-      "/usage/customizing/demographics.html",
-      "/usage/customizing/output.html",
-      "/usage/customizing/processing.html",
-      "/usage/customizing/reference.html"
     ]
   },
   {
