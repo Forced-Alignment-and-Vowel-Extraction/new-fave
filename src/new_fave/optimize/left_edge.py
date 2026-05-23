@@ -27,18 +27,13 @@ def beyond_edge(
     slopes = np.linspace(-1.5, -0.75, num = 10)
     penalty = -0.3
 
-    edge_logprob = np.zeros(len(vowel_measurement))
     vowel_system = vowel_measurement.vowel_class.vowel_system
-    
     intercepts = vowel_system.edge_intercept(slopes)
     xes = vowel_measurement.cand_centroid[0,1,:]
     ys = vowel_measurement.cand_centroid[0,0,:]
-    
-    for i, s in zip(intercepts, slopes):
-        y_max = i + (s * xes)
-        edge_logprob[ys > y_max] += penalty
 
-    y_max = intercepts[-1] + (slopes[-1] * xes)
-
-    edge_logprob[ys > y_max] = -np.inf
+    y_max = intercepts[:, None] + slopes[:, None] * xes[None, :]
+    over = ys[None, :] > y_max
+    edge_logprob = penalty * over.sum(axis=0)
+    edge_logprob[over[-1]] = -np.inf
     return edge_logprob
