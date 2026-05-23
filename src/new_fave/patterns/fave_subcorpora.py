@@ -151,7 +151,7 @@ def fave_subcorpora(
             cand for cand in candidates
             if (
                 cand.file_name, 
-                int(re.search("^(\d+)-", cand.id).group(1))
+                int(re.search(r"^(\d+)-", cand.id).group(1))
             ) in target_speakers
         ]
 
