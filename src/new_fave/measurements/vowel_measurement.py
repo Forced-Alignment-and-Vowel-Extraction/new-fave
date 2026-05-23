@@ -634,6 +634,15 @@ class VowelMeasurement(Sequence, PropertySetter):
         return pl.DataFrame(point_dict)
     
     @cached_property
+    def _context_literals(self) -> dict[str, pl.Expr]:
+        ctx = self.vm_context
+        row = ctx.row(0, named=True)
+        return {
+            name: pl.lit(row[name], dtype=ctx.schema[name])
+            for name in ctx.columns if name != "id"
+        }
+
+    @cached_property
     def vm_context(
         self
     ) -> pl.DataFrame:   
@@ -694,11 +703,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         intens_param = self.track.intensity_smooth.params
         n = df.shape[0]
         df = df.with_columns(
-            speaker_num = (
-                pl.col("id")
-                .str.extract(r"^(\d+)-")
-                .str.to_integer() + 1
-            ),
+            speaker_num = pl.lit(int(self.id.split("-", 1)[0]) + 1, dtype=pl.Int64),
             f0 = pl.Series(
                 idct(f0_param, n = n, orthogonalize=True, norm = "forward")
             ),
@@ -731,7 +736,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         cols.insert(time_idx+1, "prop_time")
         cols.insert(time_idx+1, "rel_time")
         df = df.select(cols)
-        df = df.join(self.vm_context, on = "id")
+        df = df.with_columns(**self._context_literals)
 
         return df
 
@@ -758,14 +763,10 @@ class VowelMeasurement(Sequence, PropertySetter):
             max_formant = self.winner.maximum_formant,
             f0 = pl.Series(f0),
             intensity = pl.Series(intens),
-            speaker_num = (
-                pl.col("id")
-                .str.extract(r"^(\d+)-")
-                .str.to_integer() + 1
-            )
+            speaker_num = pl.lit(int(self.id.split("-", 1)[0]) + 1, dtype=pl.Int64)
         )
         
-        df = df.join(self.vm_context, on = "id")
+        df = df.with_columns(**self._context_literals)
         
         return df
 
@@ -778,11 +779,7 @@ class VowelMeasurement(Sequence, PropertySetter):
         """
         df = self.point_measure
         df = df.with_columns(
-            speaker_num = (
-                pl.col("id")
-                .str.extract(r"^(\d+)-")
-                .str.to_integer() + 1
-            ),
+            speaker_num = pl.lit(int(self.id.split("-", 1)[0]) + 1, dtype=pl.Int64),
             point_heuristic = pl.lit(self.heuristic.heuristic)
         )
 
@@ -797,7 +794,7 @@ class VowelMeasurement(Sequence, PropertySetter):
                 pl.col("time") + self.interval.start - half
             )
 
-        df = df.join(self.vm_context, on = "id")
+        df = df.with_columns(**self._context_literals)
 
         return(df)
 
