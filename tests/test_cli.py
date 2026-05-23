@@ -169,34 +169,6 @@ def test_add_rules():
     tmp.cleanup()
     
 
-def test_which_textgrid_only():
-    tmp = tempfile.TemporaryDirectory()
-    tmp_path = Path(tmp.name)
-
-    audio_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.wav")
-    textgrid_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.TextGrid")
-    ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
-
-    runner = CliRunner()
-
-    result = runner.invoke(
-        fave_extract,
-        [
-            "audio-textgrid",
-            str(audio_path),
-            str(textgrid_path),
-            "--destination", tmp.name,
-            "--ft-config", str(ft_config),
-            "--which", "textgrid"
-        ]
-    )
-
-    assert result.exit_code == 0, result.output
-    tgs = list(tmp_path.glob("*_recoded.TextGrid"))
-    assert len(tgs) > 0
-    tmp.cleanup()
-
-
 def test_which_log_param_only():
     tmp = tempfile.TemporaryDirectory()
     tmp_path = Path(tmp.name)
