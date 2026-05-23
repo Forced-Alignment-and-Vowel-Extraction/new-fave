@@ -125,21 +125,21 @@ def cov_to_icov(
     
     return params_icov
 
+@functools.lru_cache(maxsize=None)
+def _cached_property_names(cls: type) -> tuple:
+    return tuple(
+        k for c in cls.__mro__ for k, v in vars(c).items()
+        if isinstance(v, functools.cached_property)
+    )
+
+
 def clear_cached_properties(obj:object) -> None:
     """Clear the cache of any property in an object
 
     Args:
         obj (object): Any object.
     """
-    clses = obj.__class__.mro()
-    to_clear = []
-
-    to_clear += [
-        k 
-        for cls in clses
-        for k, v in vars(cls).items()
-        if isinstance(v, functools.cached_property)
-    ]
-    for var in to_clear:
-        if var in obj.__dict__:
-            del obj.__dict__[var]
+    obj_dict = obj.__dict__
+    for var in _cached_property_names(type(obj)):
+        if var in obj_dict:
+            del obj_dict[var]
