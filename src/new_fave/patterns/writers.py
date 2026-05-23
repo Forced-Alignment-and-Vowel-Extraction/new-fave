@@ -203,7 +203,7 @@ def check_outputs(
             "log_param", 
             "textgrid"
         ]
-    affixes = copy(which)
+    affixes = list(which)
     for i,a in enumerate(affixes):
         if a == "log_param":
             affixes[i] = "logparam"
