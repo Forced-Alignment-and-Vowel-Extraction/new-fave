@@ -272,9 +272,10 @@ class VowelMeasurement(Sequence, PropertySetter):
         # if self.spectral_rolloff < 7:
         #     joint += self.place_penalty/100
 
-        idx = np.nanargmax(joint)
+        idx = int(np.nanargmax(joint))
 
         self._winner = self.track.candidates[idx]
+        self._winner_idx = idx
     
     @property
     def label(self) -> str:
@@ -324,6 +325,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     @winner.setter
     def winner(self, idx):
         self._winner = self.candidates[idx]
+        self._winner_idx = int(idx)
         self._reset_winners()
         self.vowel_class.vowel_system._reset_winners()
         self.vowel_class._reset_winners()
@@ -339,7 +341,7 @@ class VowelMeasurement(Sequence, PropertySetter):
     
     @property
     def winner_index(self)->int:
-        return self.candidates.index(self.winner)
+        return self._winner_idx
     
     @property
     def expanded_formants(
