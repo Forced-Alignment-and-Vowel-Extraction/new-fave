@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 from typing import Any
-import scipy.stats as stats
+from scipy.special import chdtr, chdtrc, chdtri
 import warnings
 import functools
 
@@ -61,10 +61,13 @@ def mahal_log_prob(
             The log probability
     """
     df = np.prod(params.shape[0:-1])
-    log_prob = stats.chi2.logsf(
-            mahals,
-            df = df
-        )
+    median = chdtri(df, 0.5)
+    x = np.clip(mahals, 0.0, None)
+    high = x > median
+    log_prob = np.empty_like(x, dtype=float)
+    with np.errstate(divide="ignore"):
+        log_prob[high] = np.log(chdtrc(df, x[high]))
+        log_prob[~high] = np.log1p(-chdtr(df, x[~high]))
     if np.isfinite(log_prob).mean() < 0.5:
         log_prob = np.zeros(shape = log_prob.shape)    
     return log_prob
