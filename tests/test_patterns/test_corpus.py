@@ -29,3 +29,19 @@ def test_fave_corpus():
 
     assert isinstance(SPEAKERS_spfile.speaker, Speaker)
 
+
+def test_fave_corpus_demo_keys_and_unique():
+    expected = {
+        ("KY25A_1", "KY25A"),
+        ("KY25A_1", "IVR"),
+        ("josef-fruehwald_speaker", "group_0"),
+    }
+    assert set(SPEAKERS_spfile.keys()) == expected
+
+    for key, vcc in SPEAKERS_spfile.items():
+        ids = [vm.id for vc in vcc.values() for vm in vc]
+        assert len(ids) == len(set(ids)), (
+            f"duplicate candidate ids under {key}: "
+            f"{len(ids) - len(set(ids))} duplicates"
+        )
+

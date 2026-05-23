@@ -1,7 +1,7 @@
 import numpy as np
 import numpy.typing as npt
 from typing import Any
-import scipy.stats as stats
+from scipy.special import chdtr, chdtrc, chdtri
 import warnings
 import functools
 
@@ -61,10 +61,13 @@ def mahal_log_prob(
             The log probability
     """
     df = np.prod(params.shape[0:-1])
-    log_prob = stats.chi2.logsf(
-            mahals,
-            df = df
-        )
+    median = chdtri(df, 0.5)
+    x = np.clip(mahals, 0.0, None)
+    high = x > median
+    log_prob = np.empty_like(x, dtype=float)
+    with np.errstate(divide="ignore"):
+        log_prob[high] = np.log(chdtrc(df, x[high]))
+        log_prob[~high] = np.log1p(-chdtr(df, x[~high]))
     if np.isfinite(log_prob).mean() < 0.5:
         log_prob = np.zeros(shape = log_prob.shape)    
     return log_prob
@@ -122,21 +125,21 @@ def cov_to_icov(
     
     return params_icov
 
+@functools.lru_cache(maxsize=None)
+def _cached_property_names(cls: type) -> tuple:
+    return tuple(
+        k for c in cls.__mro__ for k, v in vars(c).items()
+        if isinstance(v, functools.cached_property)
+    )
+
+
 def clear_cached_properties(obj:object) -> None:
     """Clear the cache of any property in an object
 
     Args:
         obj (object): Any object.
     """
-    clses = obj.__class__.mro()
-    to_clear = []
-
-    to_clear += [
-        k 
-        for cls in clses
-        for k, v in vars(cls).items()
-        if isinstance(v, functools.cached_property)
-    ]
-    for var in to_clear:
-        if var in obj.__dict__:
-            del obj.__dict__[var]
+    obj_dict = obj.__dict__
+    for var in _cached_property_names(type(obj)):
+        if var in obj_dict:
+            del obj_dict[var]

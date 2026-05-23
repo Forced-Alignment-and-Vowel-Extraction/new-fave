@@ -25,7 +25,7 @@ from new_fave import fave_audio_textgrid, write_data
 
 speakers = fave_audio_textgrid(
     audio_path = "speaker1.wav",
-    textgrid_path = "speaker2.TextGrid",
+    textgrid_path = "speaker1.TextGrid",
     ## all optional args below
     speakers = "all",
     recode_rules = "cmu2labov",

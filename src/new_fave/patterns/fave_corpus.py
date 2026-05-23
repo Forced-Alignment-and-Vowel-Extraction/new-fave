@@ -133,10 +133,9 @@ def fave_corpus(
 
         target_candidates = [
             cand for cand in candidates
-            for fn, num in zip(file_names, speaker_nums)
             if (
-                cand.file_name, 
-                int(re.search("^(\d+)-", cand.id).group(1))+1
+                cand.file_name,
+                int(re.search(r"^(\d+)-", cand.id).group(1))
             ) in target_speakers
         ]
 

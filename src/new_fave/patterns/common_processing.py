@@ -84,6 +84,7 @@ def resolve_speaker(
     if isinstance(speakers, (str, Path)):
         speaker_path = Path(speakers)
 
+    speaker_demo = None
     if speaker_path:
         speaker_demo = Speaker(speaker_path, file_name)
         speakers = speaker_demo.df["speaker_num"].to_list()

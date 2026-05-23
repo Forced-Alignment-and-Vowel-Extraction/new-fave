@@ -169,6 +169,83 @@ def test_add_rules():
     tmp.cleanup()
     
 
+def test_which_log_param_only():
+    tmp = tempfile.TemporaryDirectory()
+    tmp_path = Path(tmp.name)
+
+    audio_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.wav")
+    textgrid_path = Path("tests", "test_data", "corpus", "josef-fruehwald_speaker.TextGrid")
+    ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
+
+    runner = CliRunner()
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "audio-textgrid",
+            str(audio_path),
+            str(textgrid_path),
+            "--destination", tmp.name,
+            "--ft-config", str(ft_config),
+            "--which", "log_param"
+        ]
+    )
+
+    assert result.exit_code == 0, result.output
+    csvs = list(tmp_path.glob("*_logparam.csv"))
+    assert len(csvs) > 0
+    tmp.cleanup()
+
+
+def test_corpus_mixed_overwrite_alignment():
+    tmp = tempfile.TemporaryDirectory()
+    tmp_path = Path(tmp.name)
+
+    corpus_path = Path("tests", "test_data", "corpus")
+    ft_config = Path("tests", "test_patterns", "test_ft_config.yml")
+
+    runner = CliRunner()
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "corpus",
+            str(corpus_path),
+            "--destination", tmp.name,
+            "--ft-config", str(ft_config),
+            "--speakers", "all"
+        ]
+    )
+    assert result.exit_code == 0, result.output
+
+    pre_stems = {p.stem for p in tmp_path.glob("KY25A_1*_tracks.csv")}
+    assert len(pre_stems) > 0
+
+    for p in tmp_path.glob("josef-fruehwald_speaker*"):
+        p.unlink()
+
+    result = runner.invoke(
+        fave_extract,
+        [
+            "corpus",
+            str(corpus_path),
+            "--destination", tmp.name,
+            "--ft-config", str(ft_config),
+            "--speakers", "all"
+        ],
+        input='n\n'
+    )
+    assert result.exit_code == 0, result.output
+
+    csvs = list(tmp_path.glob("josef-fruehwald_speaker*_tracks.csv"))
+    assert len(csvs) > 0, (
+        "Output for josef-fruehwald_speaker was not written even though "
+        "the user only declined overwrite for KY25A_1"
+    )
+
+    tmp.cleanup()
+
+
 def test_subcorpora():
     tmp = tempfile.TemporaryDirectory()
     tmp_path = Path(tmp.name)

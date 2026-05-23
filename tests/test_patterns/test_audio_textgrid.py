@@ -45,3 +45,14 @@ def test_audio_textgrid():
 
     assert isinstance(SPEAKERS_spfile.speaker, Speaker)
 
+
+def test_audio_textgrid_speaker_out_of_range():
+    out_of_range = fave_audio_textgrid(
+        audio_path=WAV,
+        textgrid_path=TG,
+        speakers=99,
+        ft_config=Path("tests", "test_patterns", "test_ft_config.yml"),
+    )
+    assert isinstance(out_of_range, SpeakerCollection)
+    assert len(out_of_range) == 0
+
