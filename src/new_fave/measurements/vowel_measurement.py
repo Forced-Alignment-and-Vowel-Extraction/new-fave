@@ -348,10 +348,8 @@ class VowelMeasurement(Sequence, PropertySetter):
         if self._expanded_formants is not None:
             return self._expanded_formants
 
-        self._expanded_formants = np.apply_along_axis(
-            lambda x: idct(x.T, n = 20, orthogonalize=True, norm = "forward"),
-            0,
-            self.cand_param
+        self._expanded_formants = idct(
+            self.cand_param, n=20, orthogonalize=True, norm="forward", axis=0
         )
         return self._expanded_formants    
 
