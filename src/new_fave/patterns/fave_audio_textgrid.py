@@ -153,25 +153,24 @@ def fave_audio_textgrid(
     ]
 
     if len(extra_speakers) > 0:
-        extra_df = (
-            speaker_demo.df
-            .filter(
-                pl.col("speaker_num").is_in(extra_speakers)
+        detail = ""
+        if speaker_demo is not None:
+            extra_df = (
+                speaker_demo.df
+                .filter(
+                    pl.col("speaker_num").is_in(extra_speakers)
+                )
             )
-        )
+            detail = f"\n{extra_df}"
         speakers = [
             sp
             for sp in speakers
             if sp < len(atg)
         ]
         warnings.warn(
-            ( 
-                "Some values of speaker_num were greater than "
-                "the number of TextGrid tiers.\n"
-                f"{extra_df}"
-
-            )
-        )        
+            "Some values of speaker_num were greater than "
+            f"the number of TextGrid tiers.{detail}"
+        )
             
     target_tgs = [tg_names[i] for i in speakers]
     target_candidates = [
