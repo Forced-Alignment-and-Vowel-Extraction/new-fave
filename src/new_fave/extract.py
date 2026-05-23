@@ -106,7 +106,7 @@ configs = cloup.option_group(
         show_default=True,
         help = (
             "A vowel place definition file. "
-            "Values can be the name of a built in config ('defailt) "
+            "Values can be the name of a built in config ('default') "
             "or a path to a custom config file."
         )
     ), 
@@ -433,8 +433,7 @@ def corpus(
         result_which.append(new_which)
     
     audio_to_process = [a for a,w in zip(all_audio, result_which) if len(w) > 0]
-
-    result_which,audio_to_process =  filter_nones(result_which, [result_which, audio_to_process])
+    result_which = [w for w in result_which if len(w) > 0]
 
     corpus = get_corpus(audio_to_process)
 
@@ -541,10 +540,9 @@ def subcorpora(
         result_which.append(new_which)
     
     audio_to_process = [a for a,w in zip(all_audio, result_which) if len(w) > 0]
+    result_which = [w for w in result_which if len(w) > 0]
 
-    result_which,audio_to_process =  filter_nones(result_which, [result_which, audio_to_process])
-
-    corpus = get_corpus(audio_to_process)    
+    corpus = get_corpus(audio_to_process)
 
     include_overlaps = not exclude_overlaps
     if type(speakers) is int:
